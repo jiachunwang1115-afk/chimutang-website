@@ -1,4 +1,4 @@
-/* ===== RESET & BASE ===== */
+﻿/* ===== RESET & BASE ===== */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{font-size:16px;scroll-behavior:smooth}
 body{font-family:"PingFang SC","Microsoft YaHei","Noto Sans SC",sans-serif;background:#faf7f2;color:#3e2723;line-height:1.6;min-height:100vh}
@@ -285,7 +285,7 @@ a{text-decoration:none;color:inherit}
 .check-icon{color:var(--wood);font-weight:700;flex-shrink:0;font-size:.85rem}
 .service-list{list-style:none;padding:0}
 .service-list li{font-size:.78rem;color:var(--text-light);line-height:1.7;padding:4px 0;padding-left:16px;position:relative}
-.service-list li::before{content:'•';position:absolute;left:0;color:var(--wood);font-weight:700}
+.service-list li::before{content:'鈥?;position:absolute;left:0;color:var(--wood);font-weight:700}
 .tag{display:inline-block;padding:1px 8px;border-radius:12px;font-size:.68rem;margin:0 2px}
 .service-contact-bar{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;padding:20px;background:var(--wood-dark);border-radius:var(--radius);color:#fff}
 .service-contact-item{display:flex;align-items:center;gap:6px;font-size:.85rem;font-weight:600}
@@ -463,7 +463,7 @@ body{background:var(--paper);color:var(--ink);letter-spacing:0}
   min-height:calc(100vh - 64px);
   background:
     linear-gradient(90deg,rgba(247,245,240,.98) 0%,rgba(247,245,240,.92) 39%,rgba(247,245,240,.42) 67%,rgba(31,28,25,.38) 100%),
-    url("journal/home-hero-forest-door.png") center/cover;
+    url("journal/home-hero-forest-door.webp") center/cover;
   color:var(--ink);
 }
 .hero::before{display:none}
@@ -551,7 +551,7 @@ body{background:var(--paper);color:var(--ink);letter-spacing:0}
   color:transparent;
   background:
     linear-gradient(90deg,rgba(255,255,255,.28),rgba(255,255,255,0) 18%,rgba(255,255,255,.2) 36%,rgba(255,255,255,0) 58%),
-    url("journal/surface-wood-mosaic.png") center 56%/cover,
+    url("journal/surface-wood-mosaic.webp") center 56%/cover,
     linear-gradient(90deg,#5d3b22,#b28247);
   -webkit-background-clip:text;
   background-clip:text;
@@ -613,7 +613,7 @@ body{background:var(--paper);color:var(--ink);letter-spacing:0}
 .prod-count-bar{color:var(--ink);font-size:12px;font-weight:500;border-bottom:1px solid var(--line);padding:10px 0;margin-bottom:18px}
 .prod-grid-full{grid-template-columns:repeat(5,1fr);gap:1px;background:var(--line);padding-bottom:0;border:1px solid var(--line)}
 .pcard{border:0;border-radius:0;background:#fff;padding-top:118%;box-shadow:none;transition:transform .35s cubic-bezier(.16,1,.3,1),filter .35s}
-.pcard::after{content:'查看材质';position:absolute;left:10px;right:10px;bottom:34px;z-index:3;opacity:0;transform:translateY(8px);transition:.28s;color:#fff;font-size:11px;text-align:center;border:1px solid rgba(255,255,255,.6);padding:5px 8px;background:rgba(0,0,0,.22);backdrop-filter:blur(8px)}
+.pcard::after{content:'鏌ョ湅鏉愯川';position:absolute;left:10px;right:10px;bottom:34px;z-index:3;opacity:0;transform:translateY(8px);transition:.28s;color:#fff;font-size:11px;text-align:center;border:1px solid rgba(255,255,255,.6);padding:5px 8px;background:rgba(0,0,0,.22);backdrop-filter:blur(8px)}
 .pcard:hover{transform:translateY(-6px);box-shadow:0 18px 42px rgba(31,28,25,.16);z-index:3}
 .pcard:hover::after{opacity:1;transform:translateY(0)}
 .pcard.active{box-shadow:inset 0 0 0 2px var(--brand)}
@@ -770,3 +770,4 @@ body{background:var(--paper);color:var(--ink);letter-spacing:0}
   .craft-editorial div{padding:24px}
   .craft-archive-hero h2{font-size:32px}
 }
+
