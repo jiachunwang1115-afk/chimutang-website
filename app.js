@@ -454,10 +454,10 @@ var craftData=[
 function initCraftPage(){
   var html='';
   var craftImages=[
-    'journal/craft-parquet-system.webp','journal/craft-stone-board.webp','journal/craft-color-steps.webp','journal/craft-table-object.webp',
-    'journal/craft-eye-grain.webp','journal/craft-barefoot-dark.webp','journal/craft-section-line.webp','journal/craft-material-blocks.webp',
-    'journal/craft-section-shelf.webp','journal/craft-face-grain.webp','journal/craft-floor-face.webp','journal/craft-night-plank.webp',
-    'journal/craft-oriental-card.webp','journal/craft-ring-section.webp','journal/craft-human-wood.webp','journal/craft-wood-portrait-art.webp'
+    'journal/craft-parquet-system.png','journal/craft-stone-board.png','journal/craft-color-steps.png','journal/craft-table-object.png',
+    'journal/craft-eye-grain.png','journal/craft-barefoot-dark.png','journal/craft-section-line.png','journal/craft-material-blocks.png',
+    'journal/craft-section-shelf.png','journal/craft-face-grain.png','journal/craft-floor-face.png','journal/craft-night-plank.png',
+    'journal/craft-oriental-card.png','journal/craft-ring-section.png','journal/craft-human-wood.png','journal/craft-wood-portrait-art.png'
   ];
   var craftTags=['LOCK','COATING','COLOR','SURFACE','MATERIAL','STABILITY','JOINERY','ECO'];
   craftData.forEach(function(item,i){
