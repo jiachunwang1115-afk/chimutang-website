@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>痴木堂 · 高端木地板品牌</title>
-<link rel="stylesheet" href="style.css?v=mobile-nav-1">
+<link rel="stylesheet" href="style.css?v=brand-film-1">
 </head>
 <body>
 
@@ -31,6 +31,19 @@
   </div>
 </nav>
 <div class="nav-backdrop" id="navBackdrop" aria-hidden="true"></div>
+
+<div class="film-modal" id="filmModal" aria-hidden="true">
+  <div class="film-modal-backdrop" id="filmModalBackdrop"></div>
+  <div class="film-modal-panel" role="dialog" aria-modal="true" aria-label="痴木堂品牌宣传视频">
+    <button class="film-modal-close" id="filmModalClose" type="button" aria-label="关闭视频">×</button>
+    <video id="brandFilmVideo" class="brand-film-video" controls playsinline preload="metadata" poster="media/brand-film-poster.jpg"></video>
+    <div class="film-fallback" id="filmFallback">
+      <span>VIDEO SOURCE</span>
+      <strong>品牌宣传视频文件准备中</strong>
+      <p>请将压缩后的网页视频命名为 chimutang-brand-film.mp4，并放入 media 文件夹，或把视频托管链接交给我替换。</p>
+    </div>
+  </div>
+</div>
 
 <!-- ===== PAGES ===== -->
 
@@ -80,6 +93,21 @@
       <span>MANIFESTO</span>
       <h2>我们相信，木材不是装饰材料，而是空间里最安静、也最持久的情绪。</h2>
       <p>痴木堂以产品为基础，以工艺为边界，以东方审美为表达。我们希望每一次选材，都不只是购买一块地板，而是在选择一种更温润、更克制、更长久的生活方式。</p>
+    </div>
+
+    <div class="brand-film-section">
+      <button class="brand-film-card" id="brandFilmOpen" type="button" data-video-src="media/chimutang-brand-film.mp4" aria-label="播放痴木堂品牌宣传视频">
+        <img src="media/brand-film-poster.jpg" alt="痴木堂品牌影像封面">
+        <span class="brand-film-shade"></span>
+        <span class="brand-film-play" aria-hidden="true"></span>
+        <span class="brand-film-meta">BRAND FILM · WOOD ALL</span>
+        <strong>看见木材进入家的过程</strong>
+      </button>
+      <div class="brand-film-copy">
+        <span>BRAND MOTION</span>
+        <h2>把痴木堂的质感，从文字和图片延伸到影像。</h2>
+        <p>宣传视频适合作为官网的情绪入口：让客户在几秒钟内感受到木材、工艺、空间与品牌气质。视频不会自动播放，手机端也不会抢流量，点击后才进入沉浸式播放。</p>
+      </div>
     </div>
 
     <div class="section">
@@ -971,6 +999,6 @@
   <div class="footer-bottom">© 2025 痴木堂 CHIMUTANG. All rights reserved.</div>
 </footer>
 
-<script src="app.js"></script>
+<script src="app.js?v=brand-film-1"></script>
 </body>
 </html>

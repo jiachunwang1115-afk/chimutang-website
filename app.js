@@ -71,8 +71,56 @@ document.addEventListener('click',function(e){
 });
 
 document.addEventListener('keydown',function(e){
-  if(e.key==='Escape') closeMobileNav();
+  if(e.key==='Escape'){
+    closeMobileNav();
+    closeBrandFilm();
+  }
 });
+
+// Brand film
+function openBrandFilm(){
+  var modal=document.getElementById('filmModal');
+  var opener=document.getElementById('brandFilmOpen');
+  var video=document.getElementById('brandFilmVideo');
+  var fallback=document.getElementById('filmFallback');
+  if(!modal||!opener||!video) return;
+  if(fallback) fallback.classList.remove('visible');
+  video.src=opener.getAttribute('data-video-src')||'';
+  video.load();
+  modal.classList.add('open');
+  modal.setAttribute('aria-hidden','false');
+  document.body.classList.add('film-open');
+  var playAttempt=video.play();
+  if(playAttempt&&playAttempt.catch) playAttempt.catch(function(){});
+}
+
+function closeBrandFilm(){
+  var modal=document.getElementById('filmModal');
+  var video=document.getElementById('brandFilmVideo');
+  if(!modal) return;
+  modal.classList.remove('open');
+  modal.setAttribute('aria-hidden','true');
+  document.body.classList.remove('film-open');
+  if(video){
+    video.pause();
+    video.removeAttribute('src');
+    video.load();
+  }
+}
+
+var brandFilmOpen=document.getElementById('brandFilmOpen');
+var filmModalClose=document.getElementById('filmModalClose');
+var filmModalBackdrop=document.getElementById('filmModalBackdrop');
+var brandFilmVideo=document.getElementById('brandFilmVideo');
+if(brandFilmOpen) brandFilmOpen.addEventListener('click',openBrandFilm);
+if(filmModalClose) filmModalClose.addEventListener('click',closeBrandFilm);
+if(filmModalBackdrop) filmModalBackdrop.addEventListener('click',closeBrandFilm);
+if(brandFilmVideo){
+  brandFilmVideo.addEventListener('error',function(){
+    var fallback=document.getElementById('filmFallback');
+    if(fallback) fallback.classList.add('visible');
+  });
+}
 
 // Nav clicks
 document.querySelectorAll('.nav-links a').forEach(function(a){
