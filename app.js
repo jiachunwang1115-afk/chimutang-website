@@ -160,6 +160,65 @@ fetch('./products_clean.json').then(function(r){return r.json()}).then(function(
 }); currentProd=null, COS_BASE='https://woodall-1307516706.cos.ap-guangzhou.myqcloud.com/';
 var activeFilters={series:"全部",wood:"全部",board:"全部",surface:"全部",structure:"全部"};
 var productsInitialized=false;
+var activeSeriesKey=null;
+var pendingSeriesKey=null;
+
+function countProductsBySeries(series){
+  return PRODUCTS.filter(function(p){return p.series===series||p.series.indexOf(series)===0}).length;
+}
+
+function getIntroSeriesKey(series){
+  if(!series)return series;
+  if(typeof seriesData!=="undefined"&&seriesData[series])return series;
+  var shortName=series.replace(/[（(].*?[）)]/g,"");
+  if(typeof seriesData!=="undefined"&&seriesData[shortName])return shortName;
+  if(typeof seriesData!=="undefined"){
+    var keys=Object.keys(seriesData);
+    for(var i=0;i<keys.length;i++){
+      if(series.indexOf(keys[i])===0)return keys[i];
+    }
+  }
+  return shortName||series;
+}
+
+function getProductSeriesValue(series){
+  if(!series||series==="全部")return "全部";
+  var exact=PRODUCTS.find(function(p){return p.series===series});
+  if(exact)return series;
+  var matched=PRODUCTS.find(function(p){return p.series&&p.series.indexOf(series)===0});
+  return matched?matched.series:series;
+}
+
+function resetProductFiltersForSeries(series){
+  activeFilters.series=getProductSeriesValue(series);
+  activeFilters.wood="全部";
+  activeFilters.board="全部";
+  activeFilters.surface="全部";
+  activeFilters.structure="全部";
+}
+
+function goProductsBySeries(series){
+  closeDrawer();
+  resetProductFiltersForSeries(series);
+  navigate("#products");
+  setTimeout(function(){
+    buildAllFilters();
+    buildProds();
+    var header=document.querySelector(".prod-page-header");
+    if(header)header.scrollIntoView({behavior:"smooth",block:"start"});
+  },0);
+}
+
+function goSeriesIntro(series){
+  closeDrawer();
+  pendingSeriesKey=getIntroSeriesKey(series);
+  navigate("#series");
+  setTimeout(function(){
+    if(seriesData[series])switchSeries(series);
+    var content=document.getElementById("seriesContent");
+    if(content)content.scrollIntoView({behavior:"smooth",block:"start"});
+  },0);
+}
 
 function initProductsPage(){
   if(productsInitialized){
@@ -207,7 +266,8 @@ function buildFilterRow(group){
   vals.forEach(function(v){
     var c=document.createElement("span");
     var isAlt=(group==="surface"||group==="structure");
-    c.className="chip"+(isAlt?" alt":"")+(v===activeFilters[group]?" active":"");
+    var isActive=v===activeFilters[group]||(group==="series"&&activeFilters[group]!=="全部"&&v.indexOf(activeFilters[group])===0);
+    c.className="chip"+(isAlt?" alt":"")+(isActive?" active":"");
     c.textContent=v;
     c.onclick=function(){setFilter(group,v)};
     el.appendChild(c);
@@ -222,7 +282,7 @@ function setFilter(group,val){
 
 function getFiltered(){
   return PRODUCTS.filter(function(p){
-    return (activeFilters.series==="全部"||p.series===activeFilters.series)
+    return (activeFilters.series==="全部"||p.series===activeFilters.series||p.series.indexOf(activeFilters.series)===0)
       &&(activeFilters.wood==="全部"||p.wood===activeFilters.wood)
       &&(activeFilters.board==="全部"||p.board===activeFilters.board)
       &&(activeFilters.surface==="全部"||matchSurface(p.surface,activeFilters.surface))
@@ -362,6 +422,7 @@ function showProductInDrawer(p){
     +'</div>'
     +'<div class="drawer-actions">'
     +'<a href="#contact" onclick="closeDrawer()">咨询这款 '+p.code+'</a>'
+    +'<a class="secondary" href="#series" onclick="goSeriesIntro(\''+p.series+'\');return false;">查看'+getIntroSeriesKey(p.series)+'介绍</a>'
     +'<a class="secondary" href="#service" onclick="closeDrawer()">预约量尺与安装</a>'
     +'</div>';
 }
@@ -435,33 +496,49 @@ function initSeriesPage(){
   var tabs=document.getElementById('seriesTabs');
   tabs.innerHTML='';
   var keys=Object.keys(seriesData);
+  var initial=(pendingSeriesKey&&seriesData[pendingSeriesKey])?pendingSeriesKey:(activeSeriesKey&&seriesData[activeSeriesKey]?activeSeriesKey:keys[0]);
   keys.forEach(function(k,i){
     var btn=document.createElement('button');
-    btn.className='series-tab'+(i===0?' active':'');
-    btn.textContent=k+' ('+(i+1)+')';
+    var index=i+1<10?'0'+(i+1):String(i+1);
+    var count=countProductsBySeries(k);
+    btn.className='series-tab'+(k===initial?' active':'');
+    btn.setAttribute('data-index',index);
+    btn.innerHTML='<span>'+k+'</span><small>'+(count?count+'款产品':'系列档案')+'</small>';
     btn.onclick=function(){switchSeries(k)};
     tabs.appendChild(btn);
   });
-  renderSeriesContent(keys[0]);
+  renderSeriesContent(initial);
+  pendingSeriesKey=null;
 }
 
 function switchSeries(key){
+  activeSeriesKey=key;
   document.querySelectorAll('.series-tab').forEach(function(t){
-    t.classList.toggle('active',t.textContent.indexOf(key)===0);
+    t.classList.toggle('active',t.querySelector('span')&&t.querySelector('span').textContent===key);
   });
   renderSeriesContent(key);
 }
 
 function renderSeriesContent(key){
   var d=seriesData[key];
+  var count=countProductsBySeries(key);
   var html='<div class="series-content active">';
-  html+='<div class="series-hero"><h2>'+key+'</h2><p><strong>'+d.tagline+'</strong></p><p style="margin-top:8px">'+d.hero+'</p></div>';
+  html+='<div class="series-hero">'
+    +'<div class="series-hero-kicker">WOOD ALL SERIES</div>'
+    +'<div class="series-hero-grid">'
+    +'<div class="series-hero-copy"><h2>'+key+'</h2><p class="series-tagline"><strong>'+d.tagline+'</strong></p><p class="series-desc">'+d.hero+'</p></div>'
+    +'<div class="series-hero-side"><span>'+(count||'--')+'</span><em>在售产品</em><button class="series-link-products" type="button" data-series="'+key+'">查看本系列产品</button><button class="series-link-contact" type="button">预约系列咨询</button></div>'
+    +'</div></div>';
   html+='<div class="series-grid-detail">';
   d.features.forEach(function(f){
     html+='<div class="detail-card"><h4>'+f.title+'</h4><p>'+f.text+'</p></div>';
   });
   html+='</div></div>';
   document.getElementById('seriesContent').innerHTML=html;
+  var productBtn=document.querySelector('.series-link-products');
+  if(productBtn)productBtn.onclick=function(){goProductsBySeries(this.getAttribute('data-series'))};
+  var contactBtn=document.querySelector('.series-link-contact');
+  if(contactBtn)contactBtn.onclick=function(){navigate('#contact')};
 }
 
 // ===== CRAFT DATA =====
