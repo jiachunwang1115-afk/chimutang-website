@@ -12,8 +12,7 @@ function updateNav(hash){
   document.querySelectorAll('.nav-links a').forEach(function(a){
     a.classList.toggle('active',a.getAttribute('href')===hash);
   });
-  document.getElementById('navLinks').classList.remove('open');
-  document.getElementById('hamburger').classList.remove('open');
+  closeMobileNav();
 }
 
 function showPage(hash){
@@ -23,10 +22,56 @@ function showPage(hash){
   if(page){page.classList.add('active');window.scrollTo(0,0)}
 }
 
-// Hamburger
-document.getElementById('hamburger').addEventListener('click',function(){
-  this.classList.toggle('open');
-  document.getElementById('navLinks').classList.toggle('open');
+// Mobile navigation
+function closeMobileNav(){
+  var navLinks=document.getElementById('navLinks');
+  var hamburger=document.getElementById('hamburger');
+  var backdrop=document.getElementById('navBackdrop');
+  if(navLinks) navLinks.classList.remove('open');
+  if(hamburger){
+    hamburger.classList.remove('open');
+    hamburger.setAttribute('aria-expanded','false');
+  }
+  if(backdrop) backdrop.classList.remove('open');
+  document.body.classList.remove('nav-open');
+}
+
+function openMobileNav(){
+  var navLinks=document.getElementById('navLinks');
+  var hamburger=document.getElementById('hamburger');
+  var backdrop=document.getElementById('navBackdrop');
+  if(navLinks) navLinks.classList.add('open');
+  if(hamburger){
+    hamburger.classList.add('open');
+    hamburger.setAttribute('aria-expanded','true');
+  }
+  if(backdrop) backdrop.classList.add('open');
+  document.body.classList.add('nav-open');
+}
+
+var mobileMenuButton=document.getElementById('hamburger');
+var mobileMenuBackdrop=document.getElementById('navBackdrop');
+
+if(mobileMenuButton){
+  mobileMenuButton.addEventListener('click',function(){
+    var navLinks=document.getElementById('navLinks');
+    if(navLinks&&navLinks.classList.contains('open')) closeMobileNav();
+    else openMobileNav();
+  });
+}
+
+if(mobileMenuBackdrop){
+  mobileMenuBackdrop.addEventListener('click',closeMobileNav);
+}
+
+document.addEventListener('click',function(e){
+  if(!document.body.classList.contains('nav-open')) return;
+  if(e.target.closest('.nav-inner')||e.target.closest('.nav-links')) return;
+  closeMobileNav();
+});
+
+document.addEventListener('keydown',function(e){
+  if(e.key==='Escape') closeMobileNav();
 });
 
 // Nav clicks
