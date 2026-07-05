@@ -1007,6 +1007,201 @@ body{background:var(--paper);color:var(--ink);letter-spacing:0}
 .brand-film-copy h2{font-size:30px;line-height:1.35;font-weight:500;color:var(--ink);margin-bottom:18px}
 .brand-film-copy p{font-size:14px;line-height:2;color:var(--muted)}
 
+.motion-atelier{
+  position:relative;
+  display:grid;
+  grid-template-columns:minmax(260px,.72fr) minmax(0,1.28fr) minmax(220px,.46fr);
+  gap:1px;
+  margin:18px 0 72px;
+  background:var(--line);
+  border:1px solid var(--line);
+  overflow:hidden;
+}
+.motion-atelier::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  background:
+    radial-gradient(circle at 78% 12%,rgba(200,163,108,.2),transparent 34%),
+    linear-gradient(135deg,rgba(255,255,255,.26),rgba(255,255,255,0));
+  pointer-events:none;
+  z-index:1;
+}
+.motion-copy{
+  position:relative;
+  z-index:2;
+  background:rgba(255,255,255,.68);
+  padding:38px;
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-end;
+  min-height:560px;
+}
+.motion-copy span,
+.motion-index,
+.motion-tile span{
+  display:block;
+  font-size:10px;
+  letter-spacing:1.8px;
+  color:var(--brand);
+  margin-bottom:12px;
+}
+.motion-copy h2{
+  font-size:clamp(1.7rem,2.8vw,3.2rem);
+  line-height:1.18;
+  font-weight:500;
+  color:var(--ink);
+  margin-bottom:18px;
+}
+.motion-copy p{
+  font-size:14px;
+  line-height:2;
+  color:var(--muted);
+}
+.motion-actions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  margin-top:26px;
+}
+.motion-feature,
+.motion-tile{
+  position:relative;
+  z-index:2;
+  border:0;
+  padding:0;
+  margin:0;
+  color:#fff;
+  background:#111;
+  text-align:left;
+  cursor:pointer;
+  overflow:hidden;
+  isolation:isolate;
+}
+.motion-feature{
+  min-height:560px;
+}
+.motion-feature video,
+.motion-tile video{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  filter:saturate(.9) contrast(1.02);
+  transform:scale(1.01);
+  transition:transform 1.1s var(--ease-luxe),filter 1.1s ease,opacity .4s ease;
+}
+.motion-feature:hover video,
+.motion-tile:hover video{
+  transform:scale(1.055);
+  filter:saturate(1.08) contrast(1.08);
+}
+.motion-shade,
+.motion-tile::after{
+  content:'';
+  position:absolute;
+  inset:0;
+  z-index:1;
+  background:linear-gradient(180deg,rgba(0,0,0,.12),rgba(0,0,0,.62));
+  pointer-events:none;
+}
+.motion-feature .motion-index{
+  position:absolute;
+  z-index:2;
+  left:34px;
+  top:34px;
+  color:rgba(255,255,255,.7);
+}
+.motion-feature strong{
+  position:absolute;
+  z-index:2;
+  left:34px;
+  right:34px;
+  bottom:70px;
+  font-size:clamp(2rem,4vw,4.8rem);
+  font-weight:500;
+  line-height:.98;
+}
+.motion-feature em{
+  position:absolute;
+  z-index:2;
+  left:34px;
+  bottom:34px;
+  font-style:normal;
+  font-size:12px;
+  letter-spacing:.12em;
+  color:rgba(255,255,255,.72);
+}
+.motion-stack{
+  position:relative;
+  z-index:2;
+  display:grid;
+  grid-template-rows:repeat(3,1fr);
+  gap:1px;
+}
+.motion-tile{
+  min-height:186px;
+  padding:22px;
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-end;
+}
+.motion-tile span,
+.motion-tile strong{
+  position:relative;
+  z-index:2;
+}
+.motion-tile span{color:rgba(255,255,255,.72)}
+.motion-tile strong{
+  font-size:18px;
+  font-weight:500;
+  line-height:1.3;
+}
+.motion-feature::before,
+.motion-tile::before{
+  content:'';
+  position:absolute;
+  z-index:3;
+  right:22px;
+  top:22px;
+  width:42px;
+  height:42px;
+  border:1px solid rgba(255,255,255,.48);
+  border-radius:50%;
+  background:rgba(255,255,255,.08);
+  backdrop-filter:blur(10px);
+  transition:transform .28s ease,background .28s ease;
+}
+.motion-feature:hover::before,
+.motion-tile:hover::before{
+  transform:scale(1.08);
+  background:rgba(178,130,71,.34);
+}
+.motion-feature::after{
+  content:'';
+  position:absolute;
+  z-index:4;
+  right:38px;
+  top:35px;
+  border-left:12px solid #fff;
+  border-top:8px solid transparent;
+  border-bottom:8px solid transparent;
+  pointer-events:none;
+}
+.motion-tile strong::after{
+  content:'';
+  display:block;
+  width:42px;
+  height:1px;
+  margin-top:12px;
+  background:rgba(255,255,255,.54);
+  transform-origin:left center;
+  transform:scaleX(.55);
+  transition:transform .3s var(--ease-luxe);
+}
+.motion-tile:hover strong::after{transform:scaleX(1)}
+
 .film-modal{position:fixed;inset:0;z-index:5000;display:none;align-items:center;justify-content:center;padding:28px;background:rgba(10,9,8,.72);backdrop-filter:blur(12px)}
 body.film-open{overflow:hidden}
 .film-modal.open{display:flex}
@@ -1180,6 +1375,24 @@ body.film-open{overflow:hidden}
   .home-manifesto p{grid-column:auto}
   .brand-film-section{grid-template-columns:1fr}
   .brand-film-copy{padding:30px}
+  .motion-atelier{
+    grid-template-columns:1fr;
+    margin-bottom:48px;
+  }
+  .motion-copy{
+    min-height:auto;
+    padding:30px;
+  }
+  .motion-feature{
+    min-height:520px;
+  }
+  .motion-stack{
+    grid-template-columns:repeat(3,1fr);
+    grid-template-rows:none;
+  }
+  .motion-tile{
+    min-height:220px;
+  }
 }
 @media(max-width:640px){
   .hero{min-height:auto}
@@ -1227,6 +1440,50 @@ body.film-open{overflow:hidden}
   .brand-film-card strong{left:24px;right:24px;bottom:28px;font-size:2rem}
   .brand-film-copy{padding:24px}
   .brand-film-copy h2{font-size:24px}
+  .motion-atelier{
+    margin:18px 0 38px;
+  }
+  .motion-copy{
+    padding:24px;
+  }
+  .motion-copy h2{
+    font-size:28px;
+  }
+  .motion-feature{
+    min-height:430px;
+  }
+  .motion-feature .motion-index{
+    left:24px;
+    top:24px;
+  }
+  .motion-feature strong{
+    left:24px;
+    right:24px;
+    bottom:64px;
+    font-size:42px;
+  }
+  .motion-feature em{
+    left:24px;
+    bottom:28px;
+  }
+  .motion-stack{
+    grid-template-columns:1fr;
+  }
+  .motion-tile{
+    min-height:210px;
+    padding:20px;
+  }
+  .motion-feature::before,
+  .motion-tile::before{
+    right:18px;
+    top:18px;
+    width:38px;
+    height:38px;
+  }
+  .motion-feature::after{
+    right:33px;
+    top:30px;
+  }
   .film-modal{padding:14px}
   .film-modal-close{right:10px;top:10px}
   .film-fallback{padding:22px}
