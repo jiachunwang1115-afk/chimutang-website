@@ -248,6 +248,7 @@ function initProductsPage(){
 
 function buildAllFilters(){
   ["series","wood","board","surface","structure"].forEach(function(g){buildFilterRow(g)});
+  updateFilterSummary();
 }
 
 function collectValues(field){
@@ -291,6 +292,7 @@ function buildFilterRow(group){
 function setFilter(group,val){
   activeFilters[group]=val;
   buildFilterRow(group);
+  updateFilterSummary();
   buildProds();
 }
 
@@ -334,6 +336,40 @@ function clearProductFilters(){
   resetProductFiltersForSeries("全部");
   buildAllFilters();
   buildProds();
+}
+
+function updateFilterSummary(){
+  var el=document.getElementById("filterSummary");
+  if(!el)return;
+  var labels={series:"系列",wood:"木种",board:"板材",surface:"表面",structure:"结构"};
+  var selected=[];
+  Object.keys(activeFilters).forEach(function(key){
+    if(activeFilters[key]&&activeFilters[key]!=="全部"){
+      selected.push(labels[key]+"："+activeFilters[key]);
+    }
+  });
+  el.textContent=selected.length?selected.join(" / "):"全部产品";
+}
+
+function setMobileFiltersOpen(open){
+  var filters=document.getElementById("prodFilters");
+  var toggle=document.getElementById("filterToggle");
+  var text=document.getElementById("filterToggleText");
+  if(!filters)return;
+  filters.classList.toggle("open",!!open);
+  filters.classList.toggle("filters-collapsed",!open);
+  if(toggle)toggle.setAttribute("aria-expanded",open?"true":"false");
+  if(text)text.textContent=open?"收起":"展开";
+}
+
+function initMobileFilterToggle(){
+  var toggle=document.getElementById("filterToggle");
+  var filters=document.getElementById("prodFilters");
+  if(!toggle||!filters)return;
+  setMobileFiltersOpen(false);
+  toggle.addEventListener("click",function(){
+    setMobileFiltersOpen(!filters.classList.contains("open"));
+  });
 }
 
 function selectProd(p){
@@ -740,6 +776,7 @@ document.addEventListener('DOMContentLoaded',function(){
     });
   }
   initMotionAtelier();
+  initMobileFilterToggle();
   initPremiumInteractions();
 });
 
