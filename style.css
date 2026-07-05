@@ -2333,3 +2333,93 @@ body.route-changing .page.active{
     border-width:1px;
   }
 }
+
+/* ===== Image Surface Readability Pass ===== */
+.journal-cover::after{
+  background:
+    linear-gradient(90deg,rgba(0,0,0,.78),rgba(0,0,0,.42) 48%,rgba(0,0,0,.5)),
+    linear-gradient(180deg,rgba(0,0,0,.16),rgba(0,0,0,.74));
+}
+
+.journal-cover-text{
+  isolation:isolate;
+  padding-bottom:88px;
+}
+
+.journal-cover-text::after{
+  content:'';
+  position:absolute;
+  left:-42px;
+  bottom:46px;
+  width:min(780px,calc(100% + 84px));
+  height:360px;
+  z-index:-1;
+  pointer-events:none;
+  background:
+    radial-gradient(circle at 18% 58%,rgba(0,0,0,.46),transparent 54%),
+    linear-gradient(90deg,rgba(0,0,0,.34),rgba(0,0,0,.08) 72%,transparent);
+  filter:blur(.2px);
+}
+
+.journal-cover-text::before,
+.about-hero::before{
+  opacity:.96;
+  filter:brightness(0) invert(1) drop-shadow(0 12px 28px rgba(0,0,0,.38));
+}
+
+.journal-cover-text h2{
+  color:#fff!important;
+  text-shadow:0 10px 34px rgba(0,0,0,.52),0 2px 10px rgba(0,0,0,.34);
+}
+
+.journal-cover-text span,
+.journal-cover-text p,
+.journal-hero-copy span,
+.journal-hero-copy h3,
+.journal-hero-copy p,
+.brand-film-meta,
+.brand-film-title,
+.motion-feature h3,
+.motion-tile strong{
+  text-shadow:0 8px 26px rgba(0,0,0,.44);
+}
+
+.journal-cover-text span,
+.journal-cover-text p{
+  color:rgba(255,255,255,.92);
+}
+
+.brand-film-shade{
+  background:
+    linear-gradient(90deg,rgba(0,0,0,.78),rgba(0,0,0,.34) 48%,rgba(0,0,0,.22)),
+    linear-gradient(180deg,rgba(0,0,0,.12),rgba(0,0,0,.72));
+}
+
+.journal-hero-card::after{
+  background:
+    linear-gradient(90deg,rgba(0,0,0,.68),rgba(0,0,0,.2) 58%,rgba(0,0,0,.34)),
+    linear-gradient(180deg,rgba(0,0,0,.04),rgba(0,0,0,.5));
+}
+
+@media(max-width:640px){
+  .journal-cover{min-height:620px}
+  .journal-cover::after{
+    background:
+      linear-gradient(90deg,rgba(0,0,0,.72),rgba(0,0,0,.38)),
+      linear-gradient(180deg,rgba(0,0,0,.12),rgba(0,0,0,.78));
+  }
+  .journal-cover-text{
+    width:calc(100% - 48px);
+    padding-bottom:108px;
+  }
+  .journal-cover-text::after{
+    left:-24px;
+    bottom:70px;
+    width:calc(100% + 48px);
+    height:330px;
+    background:
+      radial-gradient(circle at 20% 56%,rgba(0,0,0,.5),transparent 58%),
+      linear-gradient(90deg,rgba(0,0,0,.36),rgba(0,0,0,.1) 76%,transparent);
+  }
+  .journal-cover-text p{max-width:100%;font-size:15px;line-height:1.9}
+}
