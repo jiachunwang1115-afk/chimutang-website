@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>痴木堂 · 高端木地板品牌</title>
-<link rel="stylesheet" href="style.css?v=filter-polish-1">
+<link rel="stylesheet" href="style.css?v=space-media-5">
 </head>
 <body>
 
@@ -42,6 +42,15 @@
       <p>若当前网络暂时无法播放，请稍后重试。您也可以继续浏览产品、工艺与服务内容，了解痴木堂的木作体系。</p>
     </div>
   </div>
+</div>
+
+<div class="space-case-modal" id="spaceCaseModal" aria-hidden="true">
+  <div class="space-case-backdrop" id="spaceCaseBackdrop"></div>
+  <article class="space-case-panel" role="dialog" aria-modal="true" aria-label="空间案例详情">
+    <button class="space-case-close" id="spaceCaseClose" type="button" aria-label="关闭空间案例">×</button>
+    <div class="space-case-media" id="spaceCaseMedia"></div>
+    <div class="space-case-copy" id="spaceCaseCopy"></div>
+  </article>
 </div>
 
 <!-- ===== PAGES ===== -->
@@ -192,6 +201,22 @@
       </div>
     </div>
 
+    <div class="section space-showcase-section" id="homeSpaceSection">
+      <div class="space-section-head">
+        <span>SPACE GALLERY</span>
+        <h2>让木地板先进入真实空间</h2>
+        <p>从客厅、卧室、书房到茶室与商业空间，用空间影像帮助客户判断木色、尺度、光线和生活气质。</p>
+      </div>
+      <div class="space-showcase-layout">
+        <div class="space-feature-slot" id="homeSpaceFeature"></div>
+        <div class="space-card-grid" id="homeSpaceGrid"></div>
+      </div>
+      <div class="space-showcase-foot">
+        <a href="#cases" class="btn-primary">进入空间灵感库</a>
+        <a href="#products" class="btn-secondary">按空间选产品</a>
+      </div>
+    </div>
+
     <div class="section">
       <div class="section-title"><h2>产品系列</h2><p>四大在售系列稳定供货，高端一体化与珍稀原木定制持续开放咨询</p></div>
       <div class="series-grid">
@@ -293,6 +318,15 @@
         <strong>按系列、木种、板型和表面处理逐层筛选</strong>
       </div>
       <p>像浏览展厅陈列一样看产品：先看整体效果，再进入抽屉查看纹理细节与规格参数。</p>
+    </div>
+
+    <div class="space-product-guide">
+      <div>
+        <span>SPACE FILTER</span>
+        <strong>按空间选地板</strong>
+        <p>不确定参数时，先从生活场景进入：客厅看尺度，卧室看柔和度，书房看沉静感，茶室看木色气韵。</p>
+      </div>
+      <div class="space-shortcuts" id="prodSpaceShortcuts"></div>
     </div>
 
     <!-- 筛选横排 -->
@@ -543,80 +577,28 @@
 
 <!-- CASES -->
 <section class="page" id="page-cases">
-  <div class="container" style="padding-top:40px;padding-bottom:60px">
-    <div class="section-title"><h2>案例展示</h2><p>多系列适配不同空间场景，总有一款属于您的家</p></div>
-
-    <div class="cases-grid">
-      <div class="case-card">
-        <div class="case-img"><img src="journal/case-family-room.webp" alt="温暖家庭木地板空间" loading="lazy" decoding="async"></div>
-        <div class="case-body">
-          <span class="case-tag">境系列</span>
-          <h3>意式极简 · 现代大平层</h3>
-          <p>Valinge无缝锁扣 + 零度薄涂工艺，极致哑光质感，适配意式极简、现代轻奢风格。大板幅面，空间延伸感极强。</p>
-          <div class="case-info"><span>📐 适用空间</span>客厅 / 餐厅 / 开放式空间</div>
-          <div class="case-info"><span>🎨 适配风格</span>意式极简 · 现代轻奢 · 侘寂风</div>
-        </div>
-      </div>
-
-      <div class="case-card">
-        <div class="case-img"><img src="journal/case-villa.webp" alt="高端别墅木地板空间" loading="lazy" decoding="async"></div>
-        <div class="case-body">
-          <span class="case-tag">森系列</span>
-          <h3>国际联名 · 高端别墅</h3>
-          <p>Ciranova通体化染 + Bona色彩研发 + 宣伟UV漆，全维度领先。独栋别墅、顶层复式首选，天然木纹与高级色彩完美融合。</p>
-          <div class="case-info"><span>📐 适用空间</span>别墅全屋 / 顶层复式 / 书房</div>
-          <div class="case-info"><span>🎨 适配风格</span>自然主义 · 现代原木 · 北欧</div>
-        </div>
-      </div>
-
-      <div class="case-card">
-        <div class="case-img"><img src="journal/case-light.webp" alt="意式简奢木地板空间" loading="lazy" decoding="async"></div>
-        <div class="case-body">
-          <span class="case-tag">悦系列</span>
-          <h3>意式简奢 · 品质住宅</h3>
-          <p>172纳米氮气工艺 + N+1表面处理，纳米级色彩精度。追求生活品质的改善型住宅，细节中见奢华。</p>
-          <div class="case-info"><span>📐 适用空间</span>主卧 / 衣帽间 / 品质住宅全屋</div>
-          <div class="case-info"><span>🎨 适配风格</span>意式简奢 · 现代雅致 · 轻法式</div>
-        </div>
-      </div>
-
-      <div class="case-card">
-        <div class="case-img"><img src="journal/case-all-house-model.webp" alt="全屋一体化木作系统" loading="lazy" decoding="async"></div>
-        <div class="case-body">
-          <span class="case-tag">匠系列</span>
-          <h3>全屋一体化 · 大宅定制</h3>
-          <p>全域同纹同色一体化解决方案，专利隐藏榫卯。地板与护墙、柜体完美统一，全案落地不妥协。</p>
-          <div class="case-info"><span>📐 适用空间</span>大平层 / 独栋 / 全案定制项目</div>
-          <div class="case-info"><span>🎨 适配风格</span>新中式 · 东方美学 · 定制奢居</div>
-        </div>
-      </div>
-
-      <div class="case-card">
-        <div class="case-img"><img src="journal/wood-ring.webp" alt="收藏级原木年轮" loading="lazy" decoding="async"></div>
-        <div class="case-body">
-          <span class="case-tag">璞系列</span>
-          <h3>收藏级原木 · 传世大宅</h3>
-          <p>108道工序 + 长城抗变形结构 + 燕尾榫卯。北美黑胡桃、缅甸柚木等顶级木种，每一块都是可传承的艺术品。</p>
-          <div class="case-info"><span>📐 适用空间</span>客厅 / 茶室 / 收藏级大宅 / 会所</div>
-          <div class="case-info"><span>🎨 适配风格</span>东方禅意 · 新中式 · 经典复古</div>
-        </div>
-      </div>
-
-      <div class="case-card">
-        <div class="case-img"><img src="journal/culture-color-door.webp" alt="色彩木作文化空间" loading="lazy" decoding="async"></div>
-        <div class="case-body">
-          <span class="case-tag">商业空间</span>
-          <h3>酒店 · 展厅 · 文创空间</h3>
-          <p>设计师团队经验覆盖酒店、展厅、文创空间等公共木作项目。从空间规划到材料落地，全流程把控。</p>
-          <div class="case-info"><span>📐 适用空间</span>精品酒店 / 品牌展厅 / 文创空间</div>
-          <div class="case-info"><span>🎨 适配风格</span>商业定制 · 品牌美学 · 设计师联名</div>
-        </div>
-      </div>
+  <div class="container case-space-page">
+    <div class="case-space-hero">
+      <span>SPACE INSPIRATION</span>
+      <h2>空间灵感库</h2>
+      <p>把产品放回真实生活里看：木色如何承接光线，纹理如何拉开尺度，脚感如何让空间慢下来。</p>
     </div>
 
-    <div class="case-cta">
-      <p>📸 实景案例照片整理中，敬请期待</p>
-      <p style="margin-top:8px;font-size:.78rem;opacity:.6">如需查看实际铺装效果，欢迎预约展厅体验或联系设计师</p>
+    <div class="case-space-toolbar">
+      <div class="case-filter-tabs" id="caseSpaceFilters"></div>
+      <div class="case-space-note">支持图片、GIF、短视频持续补充；点击任意案例查看空间说明与相关产品。</div>
+    </div>
+
+    <div class="space-gallery" id="caseSpaceGallery"></div>
+
+    <div class="case-cta space-case-cta">
+      <span>PROJECT MATERIALS</span>
+      <h3>后续可继续补充实景、样板间、GIF 与项目视频</h3>
+      <p>第一版先搭好空间媒体框架。每个空间都可继续补充更多视角、铺装细节、工艺视频和客户案例文字。</p>
+      <div class="page-cta">
+        <a href="#products" class="btn-primary">按空间查看产品</a>
+        <a href="#contact" class="btn-secondary">预约空间选材</a>
+      </div>
     </div>
   </div>
 </section>
@@ -1201,6 +1183,6 @@
   <div class="footer-bottom">© 2025 痴木堂 CHIMUTANG. All rights reserved.</div>
 </footer>
 
-<script src="app.js?v=filter-polish-1"></script>
+<script src="app.js?v=space-media-5"></script>
 </body>
 </html>

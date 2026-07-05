@@ -80,6 +80,8 @@ document.addEventListener('keydown',function(e){
   if(e.key==='Escape'){
     closeMobileNav();
     closeBrandFilm();
+    closeSpaceCase();
+    closeDrawer();
   }
 });
 
@@ -145,6 +147,88 @@ function handleHash(){
 window.addEventListener('hashchange',handleHash);
 
 // ===== PRODUCT DATA & FILTERING =====
+var SPACE_MEDIA=[
+  {
+    id:"living-oak",
+    mediaType:"image",
+    src:"journal/case-family-room.webp",
+    alt:"客厅橡木地板与柔和家具空间",
+    title:"客厅里的安静底色",
+    spaceType:"客厅",
+    wood:"橡木",
+    series:"境系列",
+    summary:"浅橡木适合大面积客餐厅，它让光线停留得更柔和，也让家具、墙面和人的动线自然分层。",
+    productFilter:{series:"境系列",wood:"橡木"},
+    journalLink:"#journal"
+  },
+  {
+    id:"bedroom-ash",
+    mediaType:"image",
+    src:"journal/case-light.webp",
+    alt:"卧室浅橡木地板与自然光",
+    title:"卧室需要更轻的呼吸感",
+    spaceType:"卧室",
+    wood:"橡木",
+    series:"悦系列",
+    summary:"浅橡木能降低卧室视觉重量，适合柔和织物、低饱和墙面和简洁收纳系统。",
+    productFilter:{series:"悦系列",wood:"橡木"},
+    journalLink:"#journal"
+  },
+  {
+    id:"study-walnut",
+    mediaType:"image",
+    src:"journal/case-villa.webp",
+    alt:"书房深色木地板与沉静空间",
+    title:"书房的沉静与尺度",
+    spaceType:"书房",
+    wood:"黑胡桃",
+    series:"境系列",
+    summary:"深色木纹可以建立更稳定的专注氛围，适合书房、会客室和需要安静秩序的大宅区域。",
+    productFilter:{series:"境系列",wood:"黑胡桃"},
+    journalLink:"#journal"
+  },
+  {
+    id:"tea-room-walnut",
+    mediaType:"image",
+    src:"journal/wood-ring.webp",
+    alt:"茶室木纹年轮与东方空间气质",
+    title:"茶室里的时间纹理",
+    spaceType:"茶室",
+    wood:"胡桃木",
+    series:"森系列",
+    summary:"茶室更看重木材的静气和触感。温润深木色能承接器物、光影和留白。",
+    productFilter:{series:"森系列",wood:"胡桃木"},
+    journalLink:"#journal"
+  },
+  {
+    id:"showroom-motion",
+    mediaType:"video",
+    src:"media/motion-atelier-01.mp4",
+    poster:"media/brand-film-poster.jpg",
+    alt:"展厅大板木纹动态影像",
+    title:"展厅里的木纹尺度",
+    spaceType:"展厅",
+    wood:"欧橡",
+    series:"森系列",
+    summary:"展厅适合用大幅面影像呈现纹理连续性，让客户更快理解木色、比例和空间延展感。",
+    productFilter:{series:"森系列",wood:"欧橡"},
+    journalLink:"#craft"
+  },
+  {
+    id:"commercial-system",
+    mediaType:"image",
+    src:"journal/culture-color-door.webp",
+    alt:"商业空间木作与色彩设计",
+    title:"商业空间的品牌底色",
+    spaceType:"商业空间",
+    wood:"橡木",
+    series:"境系列",
+    summary:"酒店、展厅和会所需要更稳定的材料叙事。木地板既是耐用界面，也是品牌氛围的一部分。",
+    productFilter:{series:"境系列",wood:"橡木"},
+    journalLink:"#service"
+  }
+];
+
 var PRODUCTS=[], currentProd=null, COS_BASE='https://woodall-1307516706.cos.ap-guangzhou.myqcloud.com/';
 fetch('./products_clean.json').then(function(r){return r.json()}).then(function(data){
   PRODUCTS=data.map(function(p){
@@ -171,11 +255,12 @@ fetch('./products_clean.json').then(function(r){return r.json()}).then(function(
   console.error('Product data load failed', e);
   var grid=document.getElementById("prodGrid");
   if(grid)grid.innerHTML='<div class="prod-empty"><span>LOAD FAILED</span><h3>产品数据暂时加载失败</h3><p>请刷新页面，或直接联系管家获取产品资料。</p><div class="page-cta"><a href="#contact" class="btn-primary">联系管家</a></div></div>';
-}); currentProd=null, COS_BASE='https://woodall-1307516706.cos.ap-guangzhou.myqcloud.com/';
+});
 var activeFilters={series:"全部",wood:"全部",board:"全部",surface:"全部",structure:"全部"};
 var productsInitialized=false;
 var activeSeriesKey=null;
 var pendingSeriesKey=null;
+var activeCaseSpaceType="全部";
 
 function countProductsBySeries(series){
   return PRODUCTS.filter(function(p){return p.series===series||p.series.indexOf(series)===0}).length;
@@ -248,6 +333,167 @@ function goSeriesIntro(series){
   },0);
 }
 
+function escapeHtml(value){
+  return String(value||"").replace(/[&<>"']/g,function(ch){
+    return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[ch];
+  });
+}
+
+function getSpaceById(id){
+  return SPACE_MEDIA.find(function(item){return item.id===id});
+}
+
+function getSpaceTypes(){
+  var seen={"全部":true},types=["全部"];
+  SPACE_MEDIA.forEach(function(item){
+    if(item.spaceType&&!seen[item.spaceType]){
+      seen[item.spaceType]=true;
+      types.push(item.spaceType);
+    }
+  });
+  return types;
+}
+
+function renderSpaceMedia(item, className){
+  var cls=className?className:"";
+  if(item.mediaType==="video"){
+    return '<video class="'+cls+'" muted playsinline loop preload="metadata" poster="'+escapeHtml(item.poster||"")+'" aria-label="'+escapeHtml(item.alt)+'"><source src="'+escapeHtml(item.src)+'" type="video/mp4"></video>';
+  }
+  return '<img class="'+cls+'" src="'+escapeHtml(item.src)+'" alt="'+escapeHtml(item.alt)+'" loading="lazy" decoding="async">';
+}
+
+function playSpaceVideos(scope){
+  var root=scope||document;
+  var reduceMotion=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(reduceMotion)return;
+  root.querySelectorAll('.space-feature-card video, .space-card video, .space-gallery-card video, .space-case-media video').forEach(function(video){
+    var attempt=video.play();
+    if(attempt&&attempt.catch) attempt.catch(function(){});
+  });
+}
+
+function renderHomeSpaces(){
+  var feature=document.getElementById("homeSpaceFeature");
+  var grid=document.getElementById("homeSpaceGrid");
+  if(!feature||!grid)return;
+  var lead=SPACE_MEDIA[0];
+  feature.innerHTML='<button class="space-feature-card" type="button" data-space-id="'+lead.id+'" aria-label="查看'+escapeHtml(lead.title)+'">'+renderSpaceMedia(lead,'space-media')+'<span class="space-image-shade"></span><span class="space-logo-mark" aria-hidden="true"></span><div class="space-feature-copy"><span>'+escapeHtml(lead.spaceType)+' / '+escapeHtml(lead.wood)+'</span><h3>'+escapeHtml(lead.title)+'</h3><p>'+escapeHtml(lead.summary)+'</p><em>查看空间案例</em></div></button>';
+  grid.innerHTML=SPACE_MEDIA.slice(1,6).map(function(item){
+    return '<button class="space-card" type="button" data-space-id="'+item.id+'" aria-label="查看'+escapeHtml(item.title)+'">'+renderSpaceMedia(item,'space-media')+'<span class="space-image-shade"></span><div class="space-card-copy"><span>'+escapeHtml(item.spaceType)+' · '+escapeHtml(item.wood)+'</span><strong>'+escapeHtml(item.title)+'</strong><em>'+escapeHtml(item.series)+'</em></div></button>';
+  }).join("");
+  playSpaceVideos(document.getElementById("homeSpaceSection"));
+}
+
+function renderProductSpaceShortcuts(){
+  var el=document.getElementById("prodSpaceShortcuts");
+  if(!el)return;
+  el.innerHTML=SPACE_MEDIA.map(function(item){
+    return '<button class="space-shortcut" type="button" data-space-id="'+item.id+'" aria-label="按'+escapeHtml(item.spaceType)+'筛选产品"><span>'+escapeHtml(item.spaceType)+'</span><em>'+escapeHtml(item.wood)+' / '+escapeHtml(item.series)+'</em></button>';
+  }).join("");
+}
+
+function renderCaseFilters(){
+  var el=document.getElementById("caseSpaceFilters");
+  if(!el)return;
+  el.innerHTML=getSpaceTypes().map(function(type){
+    return '<button class="case-filter-tab'+(type===activeCaseSpaceType?' active':'')+'" type="button" data-space-type="'+escapeHtml(type)+'">'+escapeHtml(type)+'</button>';
+  }).join("");
+}
+
+function renderCaseGallery(){
+  var el=document.getElementById("caseSpaceGallery");
+  if(!el)return;
+  var list=SPACE_MEDIA.filter(function(item){return activeCaseSpaceType==="全部"||item.spaceType===activeCaseSpaceType});
+  el.innerHTML=list.map(function(item,index){
+    var large=index===0&&activeCaseSpaceType==="全部"?" large":"";
+    return '<button class="space-gallery-card'+large+'" type="button" data-space-id="'+item.id+'" aria-label="打开'+escapeHtml(item.title)+'案例">'+renderSpaceMedia(item,'space-media')+'<span class="space-image-shade"></span><span class="space-logo-mark" aria-hidden="true"></span><div class="space-gallery-copy"><span>'+escapeHtml(item.spaceType)+' · '+escapeHtml(item.wood)+'</span><h3>'+escapeHtml(item.title)+'</h3><p>'+escapeHtml(item.summary)+'</p><em>'+escapeHtml(item.series)+' · 查看详情</em></div></button>';
+  }).join("");
+  playSpaceVideos(el);
+}
+
+function applyProductFilterObject(filter){
+  filter=filter||{};
+  activeFilters=resolveProductFilterObject(filter);
+  closeSpaceCase();
+  navigate("#products");
+  setTimeout(function(){
+    if(PRODUCTS.length){
+      buildAllFilters();
+      buildProds();
+    }
+    renderProductSpaceShortcuts();
+    var header=document.querySelector(".prod-page-header");
+    if(header)header.scrollIntoView({behavior:"smooth",block:"start"});
+  },0);
+}
+
+function openSpaceCase(id){
+  var item=getSpaceById(id);
+  var modal=document.getElementById("spaceCaseModal");
+  var media=document.getElementById("spaceCaseMedia");
+  var copy=document.getElementById("spaceCaseCopy");
+  if(!item||!modal||!media||!copy)return;
+  media.innerHTML=renderSpaceMedia(item,'space-case-asset')+'<span class="space-image-shade"></span><span class="space-logo-mark" aria-hidden="true"></span>';
+  copy.innerHTML='<span>SPACE CASE / '+escapeHtml(item.spaceType)+'</span><h3>'+escapeHtml(item.title)+'</h3><p>'+escapeHtml(item.summary)+'</p><dl><div><dt>推荐木种</dt><dd>'+escapeHtml(item.wood)+'</dd></div><div><dt>适配系列</dt><dd>'+escapeHtml(item.series)+'</dd></div></dl><div class="page-cta"><button class="btn-primary" type="button" data-case-products="'+item.id+'">查看相关产品</button><a class="btn-secondary" href="'+escapeHtml(item.journalLink||"#journal")+'">阅读木作内容</a><a class="btn-secondary" href="#contact">预约咨询</a></div>';
+  modal.classList.add("open");
+  modal.setAttribute("aria-hidden","false");
+  document.body.classList.add("space-case-open");
+  playSpaceVideos(modal);
+}
+
+function closeSpaceCase(){
+  var modal=document.getElementById("spaceCaseModal");
+  if(!modal)return;
+  modal.classList.remove("open");
+  modal.setAttribute("aria-hidden","true");
+  document.body.classList.remove("space-case-open");
+  modal.querySelectorAll("video").forEach(function(video){video.pause()});
+}
+
+function initSpaceExperience(){
+  renderHomeSpaces();
+  renderProductSpaceShortcuts();
+  renderCaseFilters();
+  renderCaseGallery();
+  var closeBtn=document.getElementById("spaceCaseClose");
+  var backdrop=document.getElementById("spaceCaseBackdrop");
+  if(closeBtn)closeBtn.addEventListener("click",closeSpaceCase);
+  if(backdrop)backdrop.addEventListener("click",closeSpaceCase);
+  document.addEventListener("click",function(e){
+    var shortcut=e.target.closest(".space-shortcut");
+    if(shortcut){
+      e.preventDefault();
+      var shortcutItem=getSpaceById(shortcut.getAttribute("data-space-id"));
+      if(shortcutItem)applyProductFilterObject(shortcutItem.productFilter);
+      return;
+    }
+    var tab=e.target.closest(".case-filter-tab");
+    if(tab){
+      activeCaseSpaceType=tab.getAttribute("data-space-type")||"全部";
+      renderCaseFilters();
+      renderCaseGallery();
+      return;
+    }
+    var caseLink=e.target.closest(".space-case-copy a[href^='#']");
+    if(caseLink){
+      closeSpaceCase();
+      return;
+    }
+    var productBtn=e.target.closest("[data-case-products]");
+    if(productBtn){
+      e.preventDefault();
+      var caseItem=getSpaceById(productBtn.getAttribute("data-case-products"));
+      if(caseItem)applyProductFilterObject(caseItem.productFilter);
+      return;
+    }
+    var mediaCard=e.target.closest("[data-space-id]");
+    if(mediaCard){
+      e.preventDefault();
+      openSpaceCase(mediaCard.getAttribute("data-space-id"));
+    }
+  });
+}
+
 function initProductsPage(){
   if(productsInitialized){
     buildAllFilters();
@@ -287,6 +533,34 @@ function matchSurface(productSurface,filterVal){
   return tokens.indexOf(filterVal)>=0;
 }
 
+function matchesProductFilters(product,filters){
+  return (filters.series==="全部"||product.series===filters.series||product.series.indexOf(filters.series)===0)
+    &&(filters.wood==="全部"||product.wood===filters.wood)
+    &&(filters.board==="全部"||product.board===filters.board)
+    &&(filters.surface==="全部"||matchSurface(product.surface,filters.surface))
+    &&(filters.structure==="全部"||product.structure===filters.structure);
+}
+
+function countProductsForFilters(filters){
+  return PRODUCTS.filter(function(product){return matchesProductFilters(product,filters)}).length;
+}
+
+function resolveProductFilterObject(filter){
+  var next={
+    series:filter.series?getProductSeriesValue(filter.series):"全部",
+    wood:filter.wood||"全部",
+    board:filter.board||"全部",
+    surface:filter.surface||"全部",
+    structure:filter.structure||"全部"
+  };
+  if(!PRODUCTS.length||countProductsForFilters(next))return next;
+  var woodOnly={series:"全部",wood:next.wood,board:next.board,surface:next.surface,structure:next.structure};
+  if(next.wood!=="全部"&&countProductsForFilters(woodOnly))return woodOnly;
+  var seriesOnly={series:next.series,wood:"全部",board:next.board,surface:next.surface,structure:next.structure};
+  if(next.series!=="全部"&&countProductsForFilters(seriesOnly))return seriesOnly;
+  return {series:"全部",wood:"全部",board:"全部",surface:"全部",structure:"全部"};
+}
+
 function buildFilterRow(group){
   var el=document.getElementById("filter"+group.charAt(0).toUpperCase()+group.slice(1));
   if(!el)return;
@@ -314,13 +588,7 @@ function setFilter(group,val){
 }
 
 function getFiltered(){
-  return PRODUCTS.filter(function(p){
-    return (activeFilters.series==="全部"||p.series===activeFilters.series||p.series.indexOf(activeFilters.series)===0)
-      &&(activeFilters.wood==="全部"||p.wood===activeFilters.wood)
-      &&(activeFilters.board==="全部"||p.board===activeFilters.board)
-      &&(activeFilters.surface==="全部"||matchSurface(p.surface,activeFilters.surface))
-      &&(activeFilters.structure==="全部"||p.structure===activeFilters.structure);
-  });
+  return PRODUCTS.filter(function(p){return matchesProductFilters(p,activeFilters)});
 }
 
 function buildProds(){
@@ -471,6 +739,16 @@ function closeDrawer(){
   document.getElementById('drawerOverlay').classList.remove('open');
   unbindDrawerSwipe();
 }
+
+document.addEventListener("click",function(e){
+  if(e.target.closest(".drawer-back")){
+    e.preventDefault();
+    closeDrawer();
+  }
+  if(e.target&&e.target.id==="drawerOverlay"){
+    closeDrawer();
+  }
+});
 
 function getFilteredList(){return getFiltered();}
 
@@ -838,7 +1116,7 @@ document.addEventListener('DOMContentLoaded',function(){
     });
   }
 
-  var revealItems=document.querySelectorAll('.stats,.home-capabilities,.brand-film-section,.motion-atelier,.section,.prod-page-header,.product-experience-bar,.prod-filters,.wood-academy,.journal-intro,.journal-topics,.journal-plan');
+  var revealItems=document.querySelectorAll('.stats,.home-capabilities,.brand-film-section,.motion-atelier,.space-showcase-section,.section,.prod-page-header,.product-experience-bar,.space-product-guide,.prod-filters,.wood-academy,.journal-intro,.journal-topics,.journal-plan,.case-space-hero,.case-space-toolbar,.space-gallery,.space-case-cta');
   if('IntersectionObserver' in window){
     var observer=new IntersectionObserver(function(entries){
       entries.forEach(function(entry){
@@ -854,6 +1132,7 @@ document.addEventListener('DOMContentLoaded',function(){
     });
   }
   initMotionAtelier();
+  initSpaceExperience();
   initMobileFilterToggle();
   initWoodAcademy();
   initPremiumInteractions();
@@ -917,13 +1196,13 @@ function initWoodAcademy(){
 function initPremiumInteractions(){
   var reduceMotion=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var pressableSelector=[
-    'a','button','.chip','.pcard','.series-card','.series-tab','.case-card','.journal-topic',
+    'a','button','.chip','.pcard','.series-card','.series-tab','.case-card','.space-card','.space-feature-card','.space-gallery-card','.journal-topic',
     '.journal-hero-card','.journal-mini-card','.craft-item','.service-card','.phase-card-header',
     '.contact-card','.detail-card','.plan-grid div','.wood-family-card'
   ].join(',');
   var motionCardSelector=[
-    '.case-card','.journal-topic','.craft-item','.service-card','.phase-card','.contact-card',
-    '.detail-card','.plan-grid div','.wood-family-card'
+    '.case-card','.space-card','.space-feature-card','.space-gallery-card','.journal-topic','.craft-item','.service-card','.phase-card','.contact-card',
+    '.detail-card','.plan-grid div','.wood-family-card','.space-shortcut'
   ].join(',');
 
   document.querySelectorAll('.phase-card-header').forEach(function(header){
