@@ -523,12 +523,12 @@ var IMAGE_SLOT_MAP=[
   {id:"T01",route:"#craft",page:"工艺技术",selector:"#page-craft .craft-editorial",title:"工艺页头图",asset:"journal/craft-hand.webp"},
   {id:"T02",route:"#craft",page:"工艺技术",selector:"#craftContent .craft-item:nth-child(1)",title:"工艺卡 01",asset:"journal/craft-parquet-system.png"},
   {id:"T03",route:"#craft",page:"工艺技术",selector:"#craftContent .craft-item:nth-child(2)",title:"工艺卡 02",asset:"journal/craft-stone-board.png"},
-  {id:"T04",route:"#craft",page:"工艺技术",selector:"#craftContent .craft-item:nth-child(3)",title:"工艺卡 03",asset:"journal/craft-color-steps.png"},
-  {id:"T05",route:"#craft",page:"工艺技术",selector:"#craftContent .craft-item:nth-child(4)",title:"工艺卡 04",asset:"journal/craft-table-object.png"},
-  {id:"T06",route:"#craft",page:"工艺技术",selector:"#craftContent .craft-item:nth-child(5)",title:"工艺卡 05",asset:"journal/craft-eye-grain.png"},
-  {id:"T07",route:"#craft",page:"工艺技术",selector:"#craftContent .craft-item:nth-child(6)",title:"工艺卡 06",asset:"journal/craft-barefoot-dark.png"},
-  {id:"T08",route:"#craft",page:"工艺技术",selector:"#craftContent .craft-item:nth-child(7)",title:"工艺卡 07",asset:"journal/craft-section-line.png"},
-  {id:"T09",route:"#craft",page:"工艺技术",selector:"#craftContent .craft-item:nth-child(8)",title:"工艺卡 08",asset:"journal/craft-material-blocks.png"},
+  {id:"T04",route:"#craft",page:"工艺技术",selector:"#craftContent .craft-item:nth-child(3)",title:"工艺卡 03",asset:"partners/ciranova.jpg"},
+  {id:"T05",route:"#craft",page:"工艺技术",selector:"#craftContent .craft-item:nth-child(4)",title:"工艺卡 04",asset:"partners/sherwin.jpg"},
+  {id:"T06",route:"#craft",page:"工艺技术",selector:"#craftContent .craft-item:nth-child(5)",title:"工艺卡 05",asset:"partners/bona.png"},
+  {id:"T07",route:"#craft",page:"工艺技术",selector:"#craftContent .craft-item:nth-child(6)",title:"工艺卡 06",asset:"media/motion-atelier-02.mp4"},
+  {id:"T08",route:"#craft",page:"工艺技术",selector:"#craftContent .craft-item:nth-child(7)",title:"工艺卡 07",asset:"journal/wood-art.webp"},
+  {id:"T09",route:"#craft",page:"工艺技术",selector:"#craftContent .craft-item:nth-child(8)",title:"工艺卡 08",asset:"journal/material-blue-floor.webp"},
   {id:"J01",route:"#journal",page:"木作志",selector:"#page-journal .journal-cover",title:"木作志封面",asset:"journal/craft-oriental-card.webp"},
   {id:"J02",route:"#journal",page:"木作志",selector:"#woodAcademy .wood-academy-media",title:"木材学堂主图",asset:"journal/craft-ring-section.webp"},
   {id:"J03",route:"#journal",page:"木作志",selector:"#page-journal .journal-topic.large",title:"木作志卡片：空间灵感",asset:"journal/space-floor.webp"},
@@ -1156,15 +1156,22 @@ var craftData=[
 function initCraftPage(){
   var html='';
   var craftImages=[
-    'journal/craft-parquet-system.png','journal/craft-stone-board.png','journal/craft-color-steps.png','journal/craft-table-object.png',
-    'journal/craft-eye-grain.png','journal/craft-barefoot-dark.png','journal/craft-section-line.png','journal/craft-material-blocks.png',
+    'journal/craft-parquet-system.png','journal/craft-stone-board.png','partners/ciranova.jpg','partners/sherwin.jpg',
+    'partners/bona.png','media/motion-atelier-02.mp4','journal/wood-art.webp','journal/material-blue-floor.webp',
     'journal/craft-section-shelf.png','journal/craft-face-grain.png','journal/craft-floor-face.png','journal/craft-night-plank.png',
     'journal/craft-oriental-card.webp','journal/craft-ring-section.png','journal/craft-human-wood.png','journal/craft-wood-portrait-art.png'
   ];
   var craftTags=['LOCK','COATING','COLOR','SURFACE','MATERIAL','STABILITY','JOINERY','ECO'];
   craftData.forEach(function(item,i){
+    var media=craftImages[i]||craftImages[i%craftImages.length];
     html+='<div class="craft-item">';
-    html+='<div class="craft-item-media"><img src="'+(craftImages[i]||craftImages[i%craftImages.length])+'" alt="'+item.title+'"></div>';
+    html+='<div class="craft-item-media">';
+    if(/\.mp4($|\?)/i.test(media)){
+      html+='<video src="'+media+'" muted loop playsinline autoplay preload="metadata" aria-label="'+item.title+'"></video>';
+    }else{
+      html+='<img src="'+media+'" alt="'+item.title+'" loading="lazy" decoding="async">';
+    }
+    html+='</div>';
     html+='<div class="craft-item-header"><span class="num">'+String(i+1).padStart(2,'0')+'</span><div><em>'+craftTags[i%craftTags.length]+'</em><h3>'+item.title+'</h3></div></div>';
     html+='<div class="craft-item-body"><ul>';
     item.items.forEach(function(t){html+='<li>'+t+'</li>'});
