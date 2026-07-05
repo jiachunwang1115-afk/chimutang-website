@@ -676,6 +676,36 @@ document.addEventListener('DOMContentLoaded',function(){handleHash()});
 
 // ===== QUIET INTERACTIONS =====
 document.addEventListener('DOMContentLoaded',function(){
+  var heroVideo=document.getElementById('heroVideo');
+  if(heroVideo){
+    var fadeSeconds=.5;
+    var rafId=null;
+    function setHeroVideoOpacity(){
+      var duration=heroVideo.duration||0;
+      var current=heroVideo.currentTime||0;
+      var opacity=1;
+      if(duration>fadeSeconds*2){
+        if(current<fadeSeconds) opacity=current/fadeSeconds;
+        else if(duration-current<fadeSeconds) opacity=Math.max(0,(duration-current)/fadeSeconds);
+      }
+      heroVideo.style.opacity=String(Math.max(0,Math.min(1,opacity*.38)));
+      rafId=requestAnimationFrame(setHeroVideoOpacity);
+    }
+    heroVideo.addEventListener('ended',function(){
+      heroVideo.style.opacity='0';
+      window.setTimeout(function(){
+        heroVideo.currentTime=0;
+        heroVideo.play().catch(function(){});
+      },100);
+    });
+    heroVideo.addEventListener('play',function(){
+      if(!rafId) rafId=requestAnimationFrame(setHeroVideoOpacity);
+    });
+    heroVideo.play().catch(function(){
+      heroVideo.style.opacity='0';
+    });
+  }
+
   var gallery=document.querySelector('.hero-gallery');
   if(gallery){
     gallery.addEventListener('mousemove',function(e){
@@ -691,7 +721,7 @@ document.addEventListener('DOMContentLoaded',function(){
     });
   }
 
-  var revealItems=document.querySelectorAll('.stats,.section,.prod-page-header,.product-experience-bar,.prod-filters,.journal-intro,.journal-topics,.journal-plan');
+  var revealItems=document.querySelectorAll('.stats,.home-capabilities,.section,.prod-page-header,.product-experience-bar,.prod-filters,.journal-intro,.journal-topics,.journal-plan');
   if('IntersectionObserver' in window){
     var observer=new IntersectionObserver(function(entries){
       entries.forEach(function(entry){
