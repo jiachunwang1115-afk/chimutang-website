@@ -194,8 +194,8 @@ var SPACE_MEDIA=[
   {
     id:"tea-room-walnut",
     mediaType:"image",
-    src:"journal/wood-ring.webp",
-    alt:"茶室木纹年轮与东方空间气质",
+    src:"journal/craft-lounge-board.webp",
+    alt:"茶室休闲空间与木地板温润气质",
     title:"茶室里的时间纹理",
     spaceType:"茶室",
     wood:"胡桃木",
@@ -511,7 +511,7 @@ var IMAGE_SLOT_MAP=[
   {id:"S01",route:"#home",page:"首页",selector:"#homeSpaceFeature [data-space-id='living-oak']",title:"空间应用主图：客厅",asset:"journal/case-family-room.webp"},
   {id:"S02",route:"#home",page:"首页",selector:"#homeSpaceGrid [data-space-id='bedroom-ash']",title:"空间应用卡：卧室",asset:"journal/case-light.webp"},
   {id:"S03",route:"#home",page:"首页",selector:"#homeSpaceGrid [data-space-id='study-walnut']",title:"空间应用卡：书房",asset:"journal/case-villa.webp"},
-  {id:"S04",route:"#home",page:"首页",selector:"#homeSpaceGrid [data-space-id='tea-room-walnut']",title:"空间应用卡：茶室",asset:"journal/wood-ring.webp"},
+  {id:"S04",route:"#home",page:"首页",selector:"#homeSpaceGrid [data-space-id='tea-room-walnut']",title:"空间应用卡：茶室",asset:"journal/craft-lounge-board.webp"},
   {id:"S05",route:"#home",page:"首页",selector:"#homeSpaceGrid [data-space-id='showroom-motion']",title:"空间应用卡：展厅视频",asset:"media/motion-atelier-01.mp4"},
   {id:"S06",route:"#home",page:"首页",selector:"#homeSpaceGrid [data-space-id='commercial-system']",title:"空间应用卡：商业空间",asset:"journal/culture-color-door.webp"},
   {id:"H06",route:"#home",page:"首页",selector:"#page-home .design-media-panel",title:"木作内容主入口大图",asset:"journal/case-lake-residence.webp"},
@@ -529,7 +529,7 @@ var IMAGE_SLOT_MAP=[
   {id:"T07",route:"#craft",page:"工艺技术",selector:"#craftContent .craft-item:nth-child(6)",title:"工艺卡 06",asset:"journal/craft-barefoot-dark.png"},
   {id:"T08",route:"#craft",page:"工艺技术",selector:"#craftContent .craft-item:nth-child(7)",title:"工艺卡 07",asset:"journal/craft-section-line.png"},
   {id:"T09",route:"#craft",page:"工艺技术",selector:"#craftContent .craft-item:nth-child(8)",title:"工艺卡 08",asset:"journal/craft-material-blocks.png"},
-  {id:"J01",route:"#journal",page:"木作志",selector:"#page-journal .journal-cover",title:"木作志封面",asset:"journal/journal-cover-pine.webp"},
+  {id:"J01",route:"#journal",page:"木作志",selector:"#page-journal .journal-cover",title:"木作志封面",asset:"journal/craft-oriental-card.webp"},
   {id:"J02",route:"#journal",page:"木作志",selector:"#woodAcademy .wood-academy-media",title:"木材学堂主图",asset:"journal/wood-ring.webp"},
   {id:"J03",route:"#journal",page:"木作志",selector:"#page-journal .journal-topic.large",title:"木作志卡片：空间灵感",asset:"journal/craft-warm-room.webp"},
   {id:"J04",route:"#journal",page:"木作志",selector:"#page-journal .journal-topic:nth-child(2)",title:"木作志卡片：木材百科",asset:"journal/craft-material-blocks.webp"},
@@ -539,7 +539,7 @@ var IMAGE_SLOT_MAP=[
   {id:"C01",route:"#cases",page:"空间灵感库",selector:"#caseSpaceGallery [data-space-id='living-oak']",title:"空间案例：客厅",asset:"journal/case-family-room.webp"},
   {id:"C02",route:"#cases",page:"空间灵感库",selector:"#caseSpaceGallery [data-space-id='bedroom-ash']",title:"空间案例：卧室",asset:"journal/case-light.webp"},
   {id:"C03",route:"#cases",page:"空间灵感库",selector:"#caseSpaceGallery [data-space-id='study-walnut']",title:"空间案例：书房",asset:"journal/case-villa.webp"},
-  {id:"C04",route:"#cases",page:"空间灵感库",selector:"#caseSpaceGallery [data-space-id='tea-room-walnut']",title:"空间案例：茶室",asset:"journal/wood-ring.webp"},
+  {id:"C04",route:"#cases",page:"空间灵感库",selector:"#caseSpaceGallery [data-space-id='tea-room-walnut']",title:"空间案例：茶室",asset:"journal/craft-lounge-board.webp"},
   {id:"C05",route:"#cases",page:"空间灵感库",selector:"#caseSpaceGallery [data-space-id='showroom-motion']",title:"空间案例：展厅视频",asset:"media/motion-atelier-01.mp4"},
   {id:"C06",route:"#cases",page:"空间灵感库",selector:"#caseSpaceGallery [data-space-id='commercial-system']",title:"空间案例：商业空间",asset:"journal/culture-color-door.webp"}
 ];
@@ -1159,7 +1159,7 @@ function initCraftPage(){
     'journal/craft-parquet-system.png','journal/craft-stone-board.png','journal/craft-color-steps.png','journal/craft-table-object.png',
     'journal/craft-eye-grain.png','journal/craft-barefoot-dark.png','journal/craft-section-line.png','journal/craft-material-blocks.png',
     'journal/craft-section-shelf.png','journal/craft-face-grain.png','journal/craft-floor-face.png','journal/craft-night-plank.png',
-    'journal/craft-oriental-card.png','journal/craft-ring-section.png','journal/craft-human-wood.png','journal/craft-wood-portrait-art.png'
+    'journal/craft-oriental-card.webp','journal/craft-ring-section.png','journal/craft-human-wood.png','journal/craft-wood-portrait-art.png'
   ];
   var craftTags=['LOCK','COATING','COLOR','SURFACE','MATERIAL','STABILITY','JOINERY','ECO'];
   craftData.forEach(function(item,i){
