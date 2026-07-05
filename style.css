@@ -300,7 +300,7 @@ a{text-decoration:none;color:inherit}
 /* ===== ABOUT PAGE ===== */
 .about-page{padding-bottom:60px}
 .about-hero{background:linear-gradient(135deg,#4a2c18,#6b4226,#4a2c18);color:#fff;text-align:center;padding:60px 20px 50px;margin-bottom:40px;border-radius:0 0 24px 24px}
-.about-hero h1{font-size:1.8rem;font-weight:700;margin-bottom:10px;letter-spacing:2px}
+.about-hero h2{font-size:1.8rem;font-weight:700;margin-bottom:10px;letter-spacing:2px}
 .about-hero .tagline{font-size:.95rem;opacity:.85;font-style:italic}
 .about-hero .slogan{margin-top:16px;display:inline-block;padding:8px 24px;border:1px solid rgba(255,255,255,.3);border-radius:30px;font-size:.82rem;letter-spacing:1px}
 .about-block{margin-bottom:36px}
@@ -404,6 +404,93 @@ a{text-decoration:none;color:inherit}
   .nav-hamburger{display:flex}
   .cases-grid{grid-template-columns:repeat(2,1fr)}
   .contact-grid{grid-template-columns:repeat(2,1fr)}
+}
+
+/* ===== UX RESCUE: CTA, EMPTY STATES, NOT FOUND ===== */
+.page-cta{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}
+.btn-primary,.btn-secondary{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-height:44px;
+  padding:0 20px;
+  border:1px solid var(--ink);
+  border-radius:0;
+  font-size:14px;
+  font-weight:700;
+  cursor:pointer;
+  transition:background .22s ease,color .22s ease,transform .22s ease,border-color .22s ease;
+}
+.btn-primary{background:var(--ink);color:#fff}
+.btn-secondary{background:transparent;color:var(--ink);border-color:rgba(31,28,25,.28)}
+.btn-primary:hover,.btn-secondary:hover{background:var(--brand);border-color:var(--brand);color:#fff;transform:translateY(-1px)}
+.prod-empty{
+  grid-column:1/-1;
+  min-height:280px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:flex-start;
+  padding:42px;
+  background:#fff;
+  border:1px solid var(--line);
+}
+.prod-empty span,.not-found-page .eyebrow{
+  color:var(--brand);
+  font-size:12px;
+  font-weight:700;
+  letter-spacing:.18em;
+}
+.prod-empty h3,.not-found-page h2{
+  margin-top:12px;
+  color:var(--ink);
+  font-size:clamp(1.45rem,3vw,2.45rem);
+  line-height:1.2;
+}
+.prod-empty p,.not-found-page p{
+  max-width:560px;
+  margin-top:10px;
+  color:var(--muted);
+  font-size:14px;
+  line-height:1.8;
+}
+.not-found-page{
+  min-height:62vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  padding-top:80px;
+  padding-bottom:80px;
+}
+.contact-brief{
+  margin-top:18px;
+  padding:28px;
+  background:#fff;
+  border:1px solid var(--line);
+}
+.contact-brief span{
+  color:var(--brand);
+  font-size:12px;
+  font-weight:700;
+  letter-spacing:.18em;
+}
+.contact-brief h3{
+  margin-top:10px;
+  color:var(--ink);
+  font-size:1.25rem;
+}
+.contact-brief p{
+  max-width:760px;
+  margin-top:8px;
+  color:var(--muted);
+  font-size:14px;
+  line-height:1.8;
+}
+@media(max-width:640px){
+  .page-cta{flex-direction:column}
+  .btn-primary,.btn-secondary{width:100%}
+  .prod-empty{padding:28px 20px;min-height:240px}
+  .contact-brief{padding:22px}
 }
 
 /* ===== SERIES TO PRODUCT INTERACTION UPGRADE ===== */
@@ -914,7 +1001,7 @@ body.film-open{overflow:hidden}
 .journal-cover::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,rgba(0,0,0,.68),rgba(0,0,0,.18) 54%,rgba(0,0,0,.45))}
 .journal-cover-text{position:relative;z-index:2;width:min(1180px,calc(100% - 40px));margin:0 auto;padding:0 0 72px}
 .journal-cover-text span{display:block;font-size:11px;letter-spacing:2px;color:rgba(255,255,255,.72);margin-bottom:18px}
-.journal-cover-text h1{font-size:clamp(4rem,12vw,10rem);font-weight:500;line-height:.9;margin-bottom:24px}
+.journal-cover-text h2{font-size:clamp(4rem,12vw,10rem);font-weight:500;line-height:.9;margin-bottom:24px}
 .journal-cover-text p{font-size:16px;line-height:2;max-width:560px;color:rgba(255,255,255,.82)}
 .journal-intro{display:grid;grid-template-columns:minmax(320px,.85fr) 1fr;gap:42px;padding:72px 0;border-bottom:1px solid var(--line)}
 .journal-intro h2{font-size:32px;line-height:1.35;font-weight:500;max-width:560px}
@@ -1013,7 +1100,7 @@ body.film-open{overflow:hidden}
   .journal-topic.large{grid-column:auto;grid-row:auto}
   .journal-topic.large img,.journal-topic img{height:240px}
   .journal-cover{min-height:560px}
-  .journal-cover-text h1{font-size:4.4rem}
+  .journal-cover-text h2{font-size:4.4rem}
   .plan-grid{grid-template-columns:1fr}
   .craft-grid{grid-template-columns:1fr}
   .craft-editorial img{height:260px}

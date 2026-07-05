@@ -1,5 +1,8 @@
 // ===== ROUTING =====
+var ROUTES=['#home','#products','#series','#craft','#journal','#cases','#about','#service','#contact'];
+
 function navigate(hash){
+  if(ROUTES.indexOf(hash)<0) hash='#not-found';
   window.location.hash=hash;
   updateNav(hash);
   showPage(hash);
@@ -19,6 +22,7 @@ function showPage(hash){
   document.querySelectorAll('.page').forEach(function(p){p.classList.remove('active')});
   var pageId='page-'+hash.replace('#','');
   var page=document.getElementById(pageId);
+  if(!page) page=document.getElementById('page-not-found');
   if(page){page.classList.add('active');window.scrollTo(0,0)}
 }
 
@@ -155,8 +159,15 @@ fetch('./products_clean.json').then(function(r){return r.json()}).then(function(
       img_e_hd:p.img_e?COS_BASE+'product-images/'+p.img_e.replace(/^.*[\\/]/,''):''
     };
   });
+  if(window.location.hash==='#products'){
+    currentProd=PRODUCTS[0]||null;
+    buildAllFilters();
+    buildProds();
+  }
 }).catch(function(e){
   console.error('Product data load failed', e);
+  var grid=document.getElementById("prodGrid");
+  if(grid)grid.innerHTML='<div class="prod-empty"><span>LOAD FAILED</span><h3>产品数据暂时加载失败</h3><p>请刷新页面，或直接联系管家获取产品资料。</p><div class="page-cta"><a href="#contact" class="btn-primary">联系管家</a></div></div>';
 }); currentProd=null, COS_BASE='https://woodall-1307516706.cos.ap-guangzhou.myqcloud.com/';
 var activeFilters={series:"全部",wood:"全部",board:"全部",surface:"全部",structure:"全部"};
 var productsInitialized=false;
@@ -292,15 +303,34 @@ function getFiltered(){
 
 function buildProds(){
   var el=document.getElementById("prodGrid");el.innerHTML="";
+  if(!PRODUCTS.length){
+    document.getElementById("prodCount").textContent="正在加载产品";
+    el.innerHTML='<div class="prod-empty"><span>LOADING</span><h3>正在整理产品纹理</h3><p>产品图片与参数正在加载，请稍候。</p></div>';
+    return;
+  }
   var list=getFiltered();
   document.getElementById("prodCount").textContent=list.length+"/"+PRODUCTS.length+"款";
+  if(!list.length){
+    el.innerHTML='<div class="prod-empty"><span>NO RESULT</span><h3>没有找到匹配产品</h3><p>可以清除筛选重新浏览，或直接联系管家为您推荐合适系列。</p><div class="page-cta"><button type="button" class="btn-primary" onclick="clearProductFilters()">清除筛选</button><a href="#contact" class="btn-secondary">联系管家</a></div></div>';
+    return;
+  }
   list.forEach(function(p){
     var card=document.createElement("div");
     card.className="pcard"+(currentProd&&currentProd.code===p.code?" active":"");
-    card.innerHTML='<img src="'+p.img_b_thumb+'" loading="lazy"><span class="pname">'+p.code+' · '+p.wood+'</span>';
+    card.setAttribute("role","button");
+    card.setAttribute("tabindex","0");
+    card.setAttribute("aria-label","查看产品 "+p.code+" "+p.wood+" 详情");
+    card.innerHTML='<img src="'+p.img_b_thumb+'" loading="lazy" decoding="async" alt="'+p.code+' '+p.wood+' 木地板纹理"><span class="pname">'+p.code+' · '+p.wood+'</span>';
     card.onclick=function(){selectProd(p)};
+    card.onkeydown=function(e){if(e.key==="Enter"||e.key===" "){e.preventDefault();selectProd(p)}};
     el.appendChild(card);
   });
+}
+
+function clearProductFilters(){
+  resetProductFiltersForSeries("全部");
+  buildAllFilters();
+  buildProds();
 }
 
 function selectProd(p){
