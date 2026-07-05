@@ -25,7 +25,11 @@ function showPage(hash){
   if(!page) page=document.getElementById('page-not-found');
   document.body.classList.add('route-changing');
   if(page){page.classList.add('active');window.scrollTo(0,0)}
-  window.setTimeout(function(){document.body.classList.remove('route-changing')},360);
+  window.setTimeout(applyImageSlotBadges,80);
+  window.setTimeout(function(){
+    document.body.classList.remove('route-changing');
+    applyImageSlotBadges();
+  },360);
 }
 
 // Mobile navigation
@@ -492,6 +496,109 @@ function initSpaceExperience(){
       openSpaceCase(mediaCard.getAttribute("data-space-id"));
     }
   });
+}
+
+var IMAGE_SLOT_MAP=[
+  {id:"H01",route:"#home",page:"首页",selector:"#page-home .hero-video-layer",title:"首屏电影感视频背景",asset:"media/chimutang-brand-film.mp4"},
+  {id:"H02",route:"#home",page:"首页",selector:"#page-home .gallery-main",title:"首屏右侧主空间图",asset:"journal/case-villa.webp"},
+  {id:"H03",route:"#home",page:"首页",selector:"#page-home .gallery-side-a",title:"首屏叠放小图A",asset:"journal/space-floor.webp"},
+  {id:"H04",route:"#home",page:"首页",selector:"#page-home .gallery-side-b",title:"首屏叠放小图B",asset:"journal/touch-wood.webp"},
+  {id:"H05",route:"#home",page:"首页",selector:"#page-home .brand-film-card",title:"品牌故事影片封面",asset:"media/brand-story-wood-ring.webp"},
+  {id:"M01",route:"#home",page:"首页",selector:"#page-home .motion-feature",title:"WOOD ALL MOTION 主视频",asset:"media/motion-atelier-01.mp4"},
+  {id:"M02",route:"#home",page:"首页",selector:"#page-home .motion-tile[data-video-src='media/motion-atelier-02.mp4']",title:"影像小卡 02",asset:"media/motion-atelier-02.mp4"},
+  {id:"M03",route:"#home",page:"首页",selector:"#page-home .motion-tile[data-video-src='media/motion-atelier-03.mp4']",title:"影像小卡 03",asset:"media/motion-atelier-03.mp4"},
+  {id:"M04",route:"#home",page:"首页",selector:"#page-home .motion-tile[data-video-src='media/motion-atelier-04.mp4']",title:"影像小卡 04",asset:"media/motion-atelier-04.mp4"},
+  {id:"S01",route:"#home",page:"首页",selector:"#homeSpaceFeature [data-space-id='living-oak']",title:"空间应用主图：客厅",asset:"journal/case-family-room.webp"},
+  {id:"S02",route:"#home",page:"首页",selector:"#homeSpaceGrid [data-space-id='bedroom-ash']",title:"空间应用卡：卧室",asset:"journal/case-light.webp"},
+  {id:"S03",route:"#home",page:"首页",selector:"#homeSpaceGrid [data-space-id='study-walnut']",title:"空间应用卡：书房",asset:"journal/case-villa.webp"},
+  {id:"S04",route:"#home",page:"首页",selector:"#homeSpaceGrid [data-space-id='tea-room-walnut']",title:"空间应用卡：茶室",asset:"journal/wood-ring.webp"},
+  {id:"S05",route:"#home",page:"首页",selector:"#homeSpaceGrid [data-space-id='showroom-motion']",title:"空间应用卡：展厅视频",asset:"media/motion-atelier-01.mp4"},
+  {id:"S06",route:"#home",page:"首页",selector:"#homeSpaceGrid [data-space-id='commercial-system']",title:"空间应用卡：商业空间",asset:"journal/culture-color-door.webp"},
+  {id:"H06",route:"#home",page:"首页",selector:"#page-home .design-media-panel",title:"木作内容主入口大图",asset:"journal/case-lake-residence.webp"},
+  {id:"H07",route:"#home",page:"首页",selector:"#page-home .design-mini-card:nth-child(1)",title:"首页内容入口：材料触感",asset:"journal/craft-soft-touch.webp"},
+  {id:"H08",route:"#home",page:"首页",selector:"#page-home .design-mini-card:nth-child(2)",title:"首页内容入口：森林来源",asset:"journal/forest-origin.webp"},
+  {id:"H09",route:"#home",page:"首页",selector:"#page-home .design-mini-card:nth-child(3)",title:"首页内容入口：光线脚感",asset:"journal/craft-light-step.webp"},
+  {id:"P01",route:"#products",page:"产品中心",selector:"#page-products .space-product-guide",title:"按空间选地板快捷入口区",asset:"SPACE_MEDIA"},
+  {id:"P02",route:"#products",page:"产品中心",selector:"#page-products #prodGrid",title:"产品缩略图网格（由产品数据生成）",asset:"product-images-thumb/*"},
+  {id:"T01",route:"#craft",page:"工艺技术",selector:"#page-craft .craft-editorial",title:"工艺页头图",asset:"journal/craft-hand.webp"},
+  {id:"T02",route:"#craft",page:"工艺技术",selector:"#craftContent .craft-item:nth-child(1)",title:"工艺卡 01",asset:"journal/craft-parquet-system.png"},
+  {id:"T03",route:"#craft",page:"工艺技术",selector:"#craftContent .craft-item:nth-child(2)",title:"工艺卡 02",asset:"journal/craft-stone-board.png"},
+  {id:"T04",route:"#craft",page:"工艺技术",selector:"#craftContent .craft-item:nth-child(3)",title:"工艺卡 03",asset:"journal/craft-color-steps.png"},
+  {id:"T05",route:"#craft",page:"工艺技术",selector:"#craftContent .craft-item:nth-child(4)",title:"工艺卡 04",asset:"journal/craft-table-object.png"},
+  {id:"T06",route:"#craft",page:"工艺技术",selector:"#craftContent .craft-item:nth-child(5)",title:"工艺卡 05",asset:"journal/craft-eye-grain.png"},
+  {id:"T07",route:"#craft",page:"工艺技术",selector:"#craftContent .craft-item:nth-child(6)",title:"工艺卡 06",asset:"journal/craft-barefoot-dark.png"},
+  {id:"T08",route:"#craft",page:"工艺技术",selector:"#craftContent .craft-item:nth-child(7)",title:"工艺卡 07",asset:"journal/craft-section-line.png"},
+  {id:"T09",route:"#craft",page:"工艺技术",selector:"#craftContent .craft-item:nth-child(8)",title:"工艺卡 08",asset:"journal/craft-material-blocks.png"},
+  {id:"J01",route:"#journal",page:"木作志",selector:"#page-journal .journal-cover",title:"木作志封面",asset:"journal/journal-cover-pine.webp"},
+  {id:"J02",route:"#journal",page:"木作志",selector:"#woodAcademy .wood-academy-media",title:"木材学堂主图",asset:"journal/wood-ring.webp"},
+  {id:"J03",route:"#journal",page:"木作志",selector:"#page-journal .journal-topic.large",title:"木作志卡片：空间灵感",asset:"journal/craft-warm-room.webp"},
+  {id:"J04",route:"#journal",page:"木作志",selector:"#page-journal .journal-topic:nth-child(2)",title:"木作志卡片：木材百科",asset:"journal/craft-material-blocks.webp"},
+  {id:"J05",route:"#journal",page:"木作志",selector:"#page-journal .journal-topic:nth-child(3)",title:"木作志卡片：从森林到家",asset:"journal/culture-pine-painting.webp"},
+  {id:"J06",route:"#journal",page:"木作志",selector:"#page-journal .journal-topic:nth-child(4)",title:"木作志卡片：工艺手记",asset:"journal/touch-wood.webp"},
+  {id:"J07",route:"#journal",page:"木作志",selector:"#page-journal .journal-topic:nth-child(5)",title:"木作志卡片：全屋木作系统",asset:"journal/system-section-house.webp"},
+  {id:"C01",route:"#cases",page:"空间灵感库",selector:"#caseSpaceGallery [data-space-id='living-oak']",title:"空间案例：客厅",asset:"journal/case-family-room.webp"},
+  {id:"C02",route:"#cases",page:"空间灵感库",selector:"#caseSpaceGallery [data-space-id='bedroom-ash']",title:"空间案例：卧室",asset:"journal/case-light.webp"},
+  {id:"C03",route:"#cases",page:"空间灵感库",selector:"#caseSpaceGallery [data-space-id='study-walnut']",title:"空间案例：书房",asset:"journal/case-villa.webp"},
+  {id:"C04",route:"#cases",page:"空间灵感库",selector:"#caseSpaceGallery [data-space-id='tea-room-walnut']",title:"空间案例：茶室",asset:"journal/wood-ring.webp"},
+  {id:"C05",route:"#cases",page:"空间灵感库",selector:"#caseSpaceGallery [data-space-id='showroom-motion']",title:"空间案例：展厅视频",asset:"media/motion-atelier-01.mp4"},
+  {id:"C06",route:"#cases",page:"空间灵感库",selector:"#caseSpaceGallery [data-space-id='commercial-system']",title:"空间案例：商业空间",asset:"journal/culture-color-door.webp"}
+];
+
+function isImageSlotReviewMode(){
+  try{
+    var params=new URLSearchParams(window.location.search);
+    return params.get("imageSlots")==="1"||params.get("slots")==="1"||window.localStorage.getItem("imageSlots")==="1";
+  }catch(e){
+    return false;
+  }
+}
+
+function getCurrentImageSlots(){
+  var route=window.location.hash||"#home";
+  return IMAGE_SLOT_MAP.filter(function(slot){return slot.route===route});
+}
+
+function copyImageSlotList(slots){
+  var text=slots.map(function(slot){return slot.id+" = （填写 IMG 编号） // "+slot.page+" · "+slot.title+" · 当前："+slot.asset}).join("\n");
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(text).catch(function(){});
+  }
+}
+
+function renderImageSlotPanel(slots){
+  if(!isImageSlotReviewMode())return;
+  var panel=document.getElementById("imageSlotPanel");
+  if(!panel){
+    panel=document.createElement("aside");
+    panel.id="imageSlotPanel";
+    panel.className="image-slot-panel";
+    document.body.appendChild(panel);
+  }
+  panel.innerHTML='<strong>图片位编号</strong><p>告诉我：<code>H02 = IMG023</code></p><button type="button" id="copyImageSlots">复制本页编号</button><div>'+slots.map(function(slot){
+    return '<a href="'+slot.route+'" data-slot-jump="'+slot.id+'"><b>'+slot.id+'</b><span>'+escapeHtml(slot.title)+'</span></a>';
+  }).join("")+'</div>';
+  var copyBtn=document.getElementById("copyImageSlots");
+  if(copyBtn)copyBtn.onclick=function(){copyImageSlotList(slots)};
+}
+
+function applyImageSlotBadges(){
+  if(!isImageSlotReviewMode())return;
+  document.body.classList.add("image-slot-review");
+  document.querySelectorAll(".image-slot-badge").forEach(function(badge){badge.remove()});
+  document.querySelectorAll(".image-slot-debug-target").forEach(function(node){node.classList.remove("image-slot-debug-target")});
+  var slots=getCurrentImageSlots();
+  slots.forEach(function(slot){
+    var target=document.querySelector(slot.selector);
+    if(!target)return;
+    target.classList.add("image-slot-debug-target");
+    if(window.getComputedStyle(target).position==="static")target.style.position="relative";
+    var badge=document.createElement("span");
+    badge.className="image-slot-badge";
+    badge.textContent=slot.id;
+    badge.title=slot.title+" / "+slot.asset;
+    target.appendChild(badge);
+  });
+  renderImageSlotPanel(slots);
 }
 
 function initProductsPage(){

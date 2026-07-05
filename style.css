@@ -2894,3 +2894,97 @@ body.space-case-open{overflow:hidden}
 }
 .drawer-overlay{z-index:4200}
 .space-case-modal{z-index:4300}
+
+/* ===== Image Selection Review Mode (?imageSlots=1) ===== */
+.image-slot-review .image-slot-debug-target{
+  outline:2px solid rgba(178,130,71,.95);
+  outline-offset:-2px;
+}
+.image-slot-badge{
+  position:absolute;
+  left:10px;
+  top:10px;
+  z-index:9999;
+  min-width:46px;
+  height:30px;
+  padding:0 10px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  background:#1f1c19;
+  color:#fff;
+  border:1px solid rgba(255,255,255,.74);
+  box-shadow:0 10px 26px rgba(0,0,0,.22);
+  font-size:13px;
+  line-height:1;
+  font-weight:700;
+  letter-spacing:.08em;
+  pointer-events:none;
+}
+.image-slot-panel{
+  position:fixed;
+  right:18px;
+  bottom:18px;
+  z-index:9998;
+  width:min(310px,calc(100vw - 36px));
+  max-height:min(520px,70vh);
+  overflow:auto;
+  padding:16px;
+  background:rgba(247,245,240,.96);
+  border:1px solid rgba(31,28,25,.16);
+  box-shadow:0 24px 72px rgba(31,28,25,.22);
+  color:var(--ink);
+  backdrop-filter:blur(18px);
+}
+.image-slot-panel strong{
+  display:block;
+  font-size:15px;
+  margin-bottom:4px;
+}
+.image-slot-panel p{
+  margin:0 0 10px;
+  color:var(--muted);
+  font-size:12px;
+  line-height:1.7;
+}
+.image-slot-panel code{
+  color:var(--brand-deep);
+  font-weight:700;
+}
+.image-slot-panel button{
+  width:100%;
+  min-height:40px;
+  margin-bottom:12px;
+  border:1px solid var(--ink);
+  background:var(--ink);
+  color:#fff;
+  cursor:pointer;
+  font-size:12px;
+  font-weight:700;
+}
+.image-slot-panel a{
+  display:grid;
+  grid-template-columns:52px minmax(0,1fr);
+  gap:8px;
+  padding:8px 0;
+  border-top:1px solid rgba(31,28,25,.08);
+  font-size:12px;
+  color:var(--ink);
+}
+.image-slot-panel b{
+  color:var(--brand);
+  letter-spacing:.06em;
+}
+.image-slot-panel span{
+  color:#5d5750;
+}
+@media(max-width:640px){
+  .image-slot-panel{
+    left:12px;
+    right:12px;
+    bottom:12px;
+    width:auto;
+    max-height:42vh;
+  }
+  .image-slot-badge{left:8px;top:8px;min-width:42px;height:28px;font-size:12px}
+}
