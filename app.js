@@ -223,6 +223,20 @@ function goProductsBySeries(series){
   },0);
 }
 
+function goProductsByWood(wood){
+  closeDrawer();
+  activeFilters={series:"全部",wood:wood,board:"全部",surface:"全部",structure:"全部"};
+  navigate("#products");
+  setTimeout(function(){
+    if(PRODUCTS.length){
+      buildAllFilters();
+      buildProds();
+    }
+    var header=document.querySelector(".prod-page-header");
+    if(header)header.scrollIntoView({behavior:"smooth",block:"start"});
+  },0);
+}
+
 function goSeriesIntro(series){
   closeDrawer();
   pendingSeriesKey=getIntroSeriesKey(series);
@@ -294,6 +308,9 @@ function setFilter(group,val){
   buildFilterRow(group);
   updateFilterSummary();
   buildProds();
+  if(isProductFilterRail()){
+    window.setTimeout(function(){setMobileFilterGroup(null)},80);
+  }
 }
 
 function getFiltered(){
@@ -362,14 +379,75 @@ function setMobileFiltersOpen(open){
   if(text)text.textContent=open?"收起":"展开";
 }
 
+function isProductFilterRail(){
+  return window.matchMedia&&window.matchMedia("(max-width:640px)").matches;
+}
+
+function setMobileFilterGroup(group){
+  var filters=document.getElementById("prodFilters");
+  var toggle=document.getElementById("filterToggle");
+  var text=document.getElementById("filterToggleText");
+  var rows=document.querySelectorAll(".filter-row-wrap[data-filter-group]");
+  var hasGroup=!!group;
+  rows.forEach(function(row){
+    row.classList.toggle("mobile-active",row.getAttribute("data-filter-group")===group);
+  });
+  if(filters){
+    filters.classList.toggle("open",hasGroup);
+    filters.classList.toggle("filters-collapsed",!hasGroup);
+  }
+  if(toggle)toggle.setAttribute("aria-expanded",hasGroup?"true":"false");
+  if(text)text.textContent=hasGroup?"收起":"选择";
+}
+
+function syncMobileFilterLabels(){
+  var isRail=isProductFilterRail();
+  document.querySelectorAll(".filter-row-wrap[data-filter-group] .filter-label").forEach(function(label){
+    if(isRail){
+      label.setAttribute("role","button");
+      label.setAttribute("tabindex","0");
+      label.setAttribute("aria-label","展开"+label.textContent.trim()+"筛选");
+    }else{
+      label.removeAttribute("role");
+      label.removeAttribute("tabindex");
+      label.removeAttribute("aria-label");
+    }
+  });
+  if(!isRail)setMobileFilterGroup(null);
+}
+
 function initMobileFilterToggle(){
   var toggle=document.getElementById("filterToggle");
   var filters=document.getElementById("prodFilters");
   if(!toggle||!filters)return;
-  setMobileFiltersOpen(false);
+  setMobileFilterGroup(null);
+  syncMobileFilterLabels();
   toggle.addEventListener("click",function(){
-    setMobileFiltersOpen(!filters.classList.contains("open"));
+    setMobileFilterGroup(null);
   });
+  document.querySelectorAll(".filter-row-wrap[data-filter-group]").forEach(function(row){
+    var label=row.querySelector(".filter-label");
+    if(!label)return;
+    label.addEventListener("click",function(e){
+      if(!isProductFilterRail())return;
+      e.preventDefault();
+      var group=row.getAttribute("data-filter-group");
+      setMobileFilterGroup(row.classList.contains("mobile-active")?null:group);
+    });
+    label.addEventListener("keydown",function(e){
+      if(!isProductFilterRail())return;
+      if(e.key==="Enter"||e.key===" "){
+        e.preventDefault();
+        var group=row.getAttribute("data-filter-group");
+        setMobileFilterGroup(row.classList.contains("mobile-active")?null:group);
+      }
+    });
+  });
+  document.addEventListener("click",function(e){
+    if(!isProductFilterRail()||!filters.classList.contains("open"))return;
+    if(!filters.contains(e.target))setMobileFilterGroup(null);
+  });
+  window.addEventListener("resize",syncMobileFilterLabels);
 }
 
 function selectProd(p){
@@ -760,7 +838,7 @@ document.addEventListener('DOMContentLoaded',function(){
     });
   }
 
-  var revealItems=document.querySelectorAll('.stats,.home-capabilities,.brand-film-section,.motion-atelier,.section,.prod-page-header,.product-experience-bar,.prod-filters,.journal-intro,.journal-topics,.journal-plan');
+  var revealItems=document.querySelectorAll('.stats,.home-capabilities,.brand-film-section,.motion-atelier,.section,.prod-page-header,.product-experience-bar,.prod-filters,.wood-academy,.journal-intro,.journal-topics,.journal-plan');
   if('IntersectionObserver' in window){
     var observer=new IntersectionObserver(function(entries){
       entries.forEach(function(entry){
@@ -777,6 +855,7 @@ document.addEventListener('DOMContentLoaded',function(){
   }
   initMotionAtelier();
   initMobileFilterToggle();
+  initWoodAcademy();
   initPremiumInteractions();
 });
 
@@ -813,16 +892,38 @@ function initMotionAtelier(){
   }
 }
 
+function initWoodAcademy(){
+  var cards=document.querySelectorAll('.wood-family-card');
+  if(!cards.length)return;
+  cards.forEach(function(card){
+    card.setAttribute('tabindex','0');
+    card.addEventListener('click',function(e){
+      if(e.target.closest('a,button'))return;
+      cards.forEach(function(item){item.classList.remove('active')});
+      card.classList.add('active');
+    });
+    card.addEventListener('focusin',function(){
+      cards.forEach(function(item){item.classList.remove('active')});
+      card.classList.add('active');
+    });
+    card.addEventListener('mousemove',function(e){
+      var rect=card.getBoundingClientRect();
+      card.style.setProperty('--px',((e.clientX-rect.left)/rect.width*100).toFixed(1)+'%');
+      card.style.setProperty('--py',((e.clientY-rect.top)/rect.height*100).toFixed(1)+'%');
+    });
+  });
+}
+
 function initPremiumInteractions(){
   var reduceMotion=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var pressableSelector=[
     'a','button','.chip','.pcard','.series-card','.series-tab','.case-card','.journal-topic',
     '.journal-hero-card','.journal-mini-card','.craft-item','.service-card','.phase-card-header',
-    '.contact-card','.detail-card','.plan-grid div'
+    '.contact-card','.detail-card','.plan-grid div','.wood-family-card'
   ].join(',');
   var motionCardSelector=[
     '.case-card','.journal-topic','.craft-item','.service-card','.phase-card','.contact-card',
-    '.detail-card','.plan-grid div'
+    '.detail-card','.plan-grid div','.wood-family-card'
   ].join(',');
 
   document.querySelectorAll('.phase-card-header').forEach(function(header){

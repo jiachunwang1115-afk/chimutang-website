@@ -296,6 +296,7 @@
     </div>
 
     <!-- 筛选横排 -->
+    <div class="prod-mobile-workspace">
     <div class="prod-filters filters-collapsed" id="prodFilters">
       <div class="filter-mobile-head">
         <button class="filter-toggle" id="filterToggle" type="button" aria-expanded="false" aria-controls="filterPanel">
@@ -304,19 +305,22 @@
         <span class="filter-summary" id="filterSummary">全部产品</span>
       </div>
       <div class="filter-panel" id="filterPanel">
-        <div class="filter-row-wrap"><span class="filter-label">系列</span><div class="filter-row" id="filterSeries"></div></div>
-        <div class="filter-row-wrap"><span class="filter-label">木种</span><div class="filter-row" id="filterWood"></div></div>
-        <div class="filter-row-wrap"><span class="filter-label">板材</span><div class="filter-row" id="filterBoard"></div></div>
-        <div class="filter-row-wrap"><span class="filter-label">表面</span><div class="filter-row" id="filterSurface"></div></div>
-        <div class="filter-row-wrap"><span class="filter-label">结构</span><div class="filter-row" id="filterStructure"></div></div>
+        <div class="filter-row-wrap" data-filter-group="series"><span class="filter-label">系列</span><div class="filter-row" id="filterSeries"></div></div>
+        <div class="filter-row-wrap" data-filter-group="wood"><span class="filter-label">木种</span><div class="filter-row" id="filterWood"></div></div>
+        <div class="filter-row-wrap" data-filter-group="board"><span class="filter-label">板材</span><div class="filter-row" id="filterBoard"></div></div>
+        <div class="filter-row-wrap" data-filter-group="surface"><span class="filter-label">表面</span><div class="filter-row" id="filterSurface"></div></div>
+        <div class="filter-row-wrap" data-filter-group="structure"><span class="filter-label">结构</span><div class="filter-row" id="filterStructure"></div></div>
       </div>
     </div>
 
     <!-- 产品数量 -->
+    <div class="prod-results">
     <div class="prod-count-bar"><span id="prodCount">0/0款</span><span style="font-size:.75rem;color:var(--text-light);margin-left:auto">点击产品卡片查看效果图、纹理细节和咨询入口</span></div>
 
     <!-- 全宽产品网格 -->
     <div class="prod-grid-full" id="prodGrid"></div>
+    </div>
+    </div>
 
     <!-- 产品详情抽屉 -->
     <div class="drawer-overlay" id="drawerOverlay" onclick="closeDrawer()"></div>
@@ -392,6 +396,89 @@
         </div>
         <p>痴木堂希望呈现的不只是地板本身，更是木材从森林、工艺到空间的完整旅程。每一种纹理、每一次触感、每一处铺装细节，都在回应人们对温润居所的向往。</p>
       </div>
+
+      <section class="wood-academy" id="woodAcademy">
+        <div class="wood-academy-head">
+          <div>
+            <span class="eyebrow">WOOD ACADEMY</span>
+            <h2>木材学堂｜识木成境</h2>
+          </div>
+          <p>木材不是一种单纯的装饰材料，而是一套由树种、纹理、密度、含水率、结构工艺与表面处理共同构成的空间系统。痴木堂以真实产品体系为基础，将木种知识转化为客户看得懂、设计师用得上、落地更可靠的选材语言。</p>
+        </div>
+
+        <div class="wood-academy-hero">
+          <div class="wood-academy-media">
+            <img src="journal/wood-ring.webp" alt="木材年轮与纹理细节" loading="lazy" decoding="async">
+            <div class="wood-academy-mark">
+              <span>394</span>
+              <strong>款产品记录</strong>
+              <em>39 个木种条目</em>
+            </div>
+          </div>
+          <div class="wood-academy-copy">
+            <span>SELECTION LOGIC</span>
+            <h3>先理解木，再选择家的底色</h3>
+            <p>不同木种决定空间的明暗、纹理秩序、脚感温度与长期稳定性。同一木种，也会因为产地、等级、拼法和工艺而呈现截然不同的气质。我们把复杂的木材知识，整理成六组更容易判断的选材路径。</p>
+            <div class="wood-academy-tags">
+              <b>色泽</b><b>纹理</b><b>硬度</b><b>稳定性</b><b>表面工艺</b><b>空间气质</b>
+            </div>
+          </div>
+        </div>
+
+        <div class="wood-family-grid">
+          <article class="wood-family-card active" data-family="oak">
+            <span>01</span>
+            <h3>橡栎系统</h3>
+            <p>橡木、欧橡、白橡、红橡、栎木、俄柞等，纹理清晰，秩序感强，是全屋通铺和高端住宅里最稳妥的经典木种体系。</p>
+            <div class="wood-family-meta">经典 / 稳定 / 耐看 / 建筑感</div>
+            <button type="button" onclick="goProductsByWood('橡木')">查看橡木产品</button>
+          </article>
+          <article class="wood-family-card" data-family="ash">
+            <span>02</span>
+            <h3>白蜡与梣木</h3>
+            <p>白蜡木、欧洲梣木色调明亮，纹理舒展，适合营造通透、轻盈、自然有呼吸感的空间底色。</p>
+            <div class="wood-family-meta">清爽 / 明亮 / 舒展 / 自然</div>
+            <button type="button" onclick="goProductsByWood('白蜡木')">查看白蜡木产品</button>
+          </article>
+          <article class="wood-family-card" data-family="walnut">
+            <span>03</span>
+            <h3>胡桃系统</h3>
+            <p>黑胡桃与胡桃木更强调沉稳、细腻和艺术感，适合书房、主卧、茶室和需要安静气质的高端空间。</p>
+            <div class="wood-family-meta">沉稳 / 温润 / 克制 / 高级</div>
+            <button type="button" onclick="goProductsByWood('黑胡桃')">查看黑胡桃产品</button>
+          </article>
+          <article class="wood-family-card" data-family="teak">
+            <span>04</span>
+            <h3>柚木系统</h3>
+            <p>柚木、缅甸柚木、老挝柚木等以油性、耐久性和温厚色泽著称，适合大宅、会所、户外或半户外木作场景。</p>
+            <div class="wood-family-meta">耐久 / 温厚 / 稳定 / 时间感</div>
+            <a href="#contact">预约查看完整产品库</a>
+          </article>
+          <article class="wood-family-card" data-family="hardwood">
+            <span>05</span>
+            <h3>热带重硬木</h3>
+            <p>圆盘豆、二翅豆、孪叶苏木、印茄木、拉帕乔等多具备更高密度和强材料感，适合高频使用与重质感项目。</p>
+            <div class="wood-family-meta">坚实 / 耐磨 / 厚重 / 张力</div>
+            <a href="#contact">咨询硬木选材</a>
+          </article>
+          <article class="wood-family-card" data-family="art">
+            <span>06</span>
+            <h3>艺术纹理木作</h3>
+            <p>相思木、沙比利、番龙眼、雨树木、榆木、碳化木等适合艺术拼花、墙板、造型拼和主题空间表达。</p>
+            <div class="wood-family-meta">个性 / 肌理 / 主题 / 识别度</div>
+            <a href="#cases">查看空间案例</a>
+          </article>
+        </div>
+
+        <div class="wood-index-panel">
+          <div>
+            <span class="eyebrow">WOOD INDEX</span>
+            <h3>完整木种索引</h3>
+            <p>木材名称在不同产地、供应链和贸易体系中可能存在差异。痴木堂建议以实际样板、批次色泽、纹理表现和项目使用场景作为最终选材依据。</p>
+          </div>
+          <p class="wood-index-list">橡木、白蜡木、欧橡、俄柞、黑胡桃、栎木、缅甸柚木、欧洲梣木、相思木、柚木、胡桃木、圆盘豆、白橡、白柚木、橡木纹、落腺豆、孪叶苏木、沙比利、番龙眼、二翅豆、拉帕乔、柯库木、红橡、红檀香、红橡木、雨树木、枫桦木、美国红橡、榆木、亚花梨、老挝柚木、碳化木、印茄木、缅柚、西非苏木、船形木、黄沙君子、香脂木豆、印度紫檀。</p>
+        </div>
+      </section>
 
       <div class="journal-topics">
         <article class="journal-topic large">
