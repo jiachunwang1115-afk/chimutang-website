@@ -3849,3 +3849,38 @@ html,body{overflow-x:hidden}
     line-height:1.9!important;
   }
 }
+
+/* ===== Visual Header Type Scale Sync ===== */
+.journal-cover-text h2,
+.page:not(#page-home) .page-header h2{
+  font-size:var(--fs-page-title)!important;
+  line-height:1.05!important;
+  font-weight:500!important;
+}
+
+.journal-cover-text span,
+.page:not(#page-home) .page-header .page-eyebrow{
+  font-size:11px!important;
+  line-height:1.2!important;
+  letter-spacing:.2em!important;
+}
+
+.journal-cover-text p,
+.page:not(#page-home) .page-header p{
+  font-size:16px!important;
+  line-height:2!important;
+}
+
+@media(max-width:900px){
+  .journal-cover-text h2,
+  .page:not(#page-home) .page-header h2{
+    font-size:clamp(3rem,14.8vw,3.6rem)!important;
+    line-height:1.05!important;
+  }
+
+  .journal-cover-text p,
+  .page:not(#page-home) .page-header p{
+    font-size:15px!important;
+    line-height:1.9!important;
+  }
+}
