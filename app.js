@@ -264,6 +264,7 @@ fetch('./products_clean.json').then(function(r){return r.json()}).then(function(
   if(grid)grid.innerHTML='<div class="prod-empty"><span>LOAD FAILED</span><h3>产品数据暂时加载失败</h3><p>请刷新页面，或直接联系管家获取产品资料。</p><div class="page-cta"><a href="#contact" class="btn-primary">联系管家</a></div></div>';
 });
 var activeFilters={series:"全部",wood:"全部",board:"全部",surface:"全部",structure:"全部"};
+var PRODUCT_FILTER_LABELS={series:"系列",wood:"木种",board:"板材",surface:"表面",structure:"结构"};
 var productsInitialized=false;
 var activeSeriesKey=null;
 var pendingSeriesKey=null;
@@ -705,6 +706,7 @@ function getFiltered(){
 
 function buildProds(){
   var el=document.getElementById("prodGrid");el.innerHTML="";
+  updateFilterSummary();
   if(!PRODUCTS.length){
     document.getElementById("prodCount").textContent="正在加载产品";
     el.innerHTML='<div class="prod-empty"><span>LOADING</span><h3>正在整理产品纹理</h3><p>产品图片与参数正在加载，请稍候。</p></div>';
@@ -735,17 +737,59 @@ function clearProductFilters(){
   buildProds();
 }
 
-function updateFilterSummary(){
-  var el=document.getElementById("filterSummary");
-  if(!el)return;
-  var labels={series:"系列",wood:"木种",board:"板材",surface:"表面",structure:"结构"};
+function getSelectedProductFilterPairs(){
   var selected=[];
   Object.keys(activeFilters).forEach(function(key){
     if(activeFilters[key]&&activeFilters[key]!=="全部"){
-      selected.push(labels[key]+"："+activeFilters[key]);
+      selected.push({key:key,label:PRODUCT_FILTER_LABELS[key]||key,value:activeFilters[key]});
     }
   });
-  el.textContent=selected.length?selected.join(" / "):"全部产品";
+  return selected;
+}
+
+function renderProductFilterState(selected){
+  var state=document.getElementById("prodFilterState");
+  var clear=document.getElementById("prodClearFilters");
+  var filters=document.getElementById("prodFilters");
+  if(state){
+    state.classList.toggle("is-empty",!selected.length);
+    state.innerHTML="";
+    if(selected.length){
+      selected.forEach(function(item){
+        var chip=document.createElement("span");
+        chip.textContent=item.label+"："+item.value;
+        state.appendChild(chip);
+      });
+    }else{
+      var all=document.createElement("span");
+      all.textContent="全部产品";
+      state.appendChild(all);
+    }
+  }
+  if(clear){
+    clear.classList.toggle("is-visible",selected.length>0);
+  }
+  if(filters){
+    filters.classList.toggle("has-active-filters",selected.length>0);
+  }
+}
+
+function updateFilterSummary(){
+  var el=document.getElementById("filterSummary");
+  var selected=getSelectedProductFilterPairs();
+  renderProductFilterState(selected);
+  if(!el)return;
+  el.textContent=selected.length?selected.map(function(item){return item.label+"："+item.value}).join(" / "):"全部产品";
+}
+
+function initProductFilterActions(){
+  var clear=document.getElementById("prodClearFilters");
+  if(clear&&!clear.dataset.bound){
+    clear.dataset.bound="true";
+    clear.addEventListener("click",function(){
+      clearProductFilters();
+    });
+  }
 }
 
 function setMobileFiltersOpen(open){
@@ -1274,6 +1318,7 @@ document.addEventListener('DOMContentLoaded',function(){
   initMotionAtelier();
   initSpaceExperience();
   initMobileFilterToggle();
+  initProductFilterActions();
   initWoodAcademy();
   initPremiumInteractions();
 });
@@ -1339,11 +1384,13 @@ function initPremiumInteractions(){
   var pressableSelector=[
     'a','button','.chip','.pcard','.series-card','.series-tab','.case-card','.space-card','.space-feature-card','.space-gallery-card','.journal-topic',
     '.journal-hero-card','.journal-mini-card','.craft-item','.service-card','.phase-card-header',
-    '.contact-card','.detail-card','.plan-grid div','.wood-family-card'
+    '.contact-card','.detail-card','.plan-grid div','.wood-family-card','.brand-film-card','.motion-feature','.motion-tile',
+    '.space-shortcut','.case-filter-tab','.prod-clear-filter'
   ].join(',');
   var motionCardSelector=[
     '.case-card','.space-card','.space-feature-card','.space-gallery-card','.journal-topic','.craft-item','.service-card','.phase-card','.contact-card',
-    '.detail-card','.plan-grid div','.wood-family-card','.space-shortcut'
+    '.detail-card','.plan-grid div','.wood-family-card','.space-shortcut','.brand-film-card','.motion-feature','.motion-tile',
+    '.pcard','.product-experience-bar','.space-product-guide'
   ].join(',');
 
   document.querySelectorAll('.phase-card-header').forEach(function(header){
@@ -1367,6 +1414,8 @@ function initPremiumInteractions(){
     if(!target||target.closest('.prod-drawer')&&target.classList.contains('drawer-scene')) return;
     var rect=target.getBoundingClientRect();
     if(!rect.width||!rect.height) return;
+    target.classList.add('is-pressed');
+    window.setTimeout(function(){target.classList.remove('is-pressed')},180);
     var ripple=document.createElement('span');
     ripple.className='click-ripple';
     ripple.style.left=(e.clientX-rect.left)+'px';
@@ -1376,6 +1425,14 @@ function initPremiumInteractions(){
   });
 
   document.addEventListener('keydown',function(e){
+    if(e.key==='Escape'){
+      closeMobileNav();
+      closeBrandFilm();
+      closeSpaceCase();
+      closeDrawer();
+      if(isProductFilterRail()) setMobileFilterGroup(null);
+      return;
+    }
     if(e.key!=='Enter'&&e.key!==' ') return;
     var phaseHeader=e.target.closest&&e.target.closest('.phase-card-header');
     if(!phaseHeader) return;

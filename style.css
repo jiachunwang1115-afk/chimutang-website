@@ -4048,3 +4048,416 @@ html,body{overflow-x:hidden}
     font-size:14px;
   }
 }
+
+/* ===== Experience Refinement ===== */
+:root{
+  --ct-ease:cubic-bezier(.16,1,.3,1);
+  --ct-border-soft:rgba(143,95,51,.16);
+  --ct-border-mid:rgba(143,95,51,.26);
+  --ct-glow:rgba(208,168,112,.22);
+  --ct-shadow-soft:0 18px 58px rgba(39,30,24,.08);
+  --ct-shadow-luxe:0 28px 86px rgba(39,30,24,.14);
+}
+
+.btn-primary,
+.btn-secondary,
+.nav-contact-cta,
+.drawer-actions a,
+.series-hero-side button,
+.space-feature-copy em,
+.space-card-copy em,
+.space-gallery-copy em,
+.prod-clear-filter,
+.case-filter-tab,
+.chip{
+  position:relative;
+  overflow:hidden;
+  transform:translateZ(0);
+  transition:
+    transform .28s var(--ct-ease),
+    box-shadow .28s var(--ct-ease),
+    border-color .28s var(--ct-ease),
+    background-color .28s var(--ct-ease),
+    color .28s var(--ct-ease);
+}
+
+.btn-primary:hover,
+.btn-secondary:hover,
+.nav-contact-cta:hover,
+.drawer-actions a:hover,
+.series-hero-side button:hover,
+.prod-clear-filter:hover,
+.case-filter-tab:hover,
+.chip:hover{
+  transform:translateY(-1px);
+}
+
+.is-pressed,
+.btn-primary:active,
+.btn-secondary:active,
+.nav-contact-cta:active,
+.drawer-actions a:active,
+.series-hero-side button:active,
+.prod-clear-filter:active,
+.case-filter-tab:active,
+.chip:active{
+  transform:translateY(1px) scale(.992)!important;
+}
+
+.brand-film-section,
+.motion-atelier,
+.space-showcase-layout,
+.space-product-guide,
+.prod-filters,
+.prod-results,
+.case-space-toolbar,
+.space-case-cta,
+.journal-feature,
+.wood-academy,
+.service-phase-list{
+  border-color:var(--ct-border-soft);
+}
+
+.brand-film-card,
+.motion-feature,
+.motion-tile,
+.space-feature-card,
+.space-card,
+.space-gallery-card,
+.pcard,
+.space-shortcut,
+.journal-topic,
+.craft-item,
+.service-card,
+.phase-card,
+.contact-card,
+.detail-card,
+.wood-family-card{
+  position:relative;
+  overflow:hidden;
+  transform:translateZ(0);
+  transition:
+    transform .42s var(--ct-ease),
+    box-shadow .42s var(--ct-ease),
+    border-color .42s var(--ct-ease),
+    filter .42s var(--ct-ease);
+}
+
+.brand-film-card::after,
+.motion-feature::after,
+.motion-tile::after,
+.space-feature-card::after,
+.space-card::after,
+.space-gallery-card::after,
+.pcard::after,
+.space-shortcut::after,
+.journal-topic::after,
+.craft-item::after,
+.service-card::after,
+.phase-card::after,
+.contact-card::after,
+.detail-card::after,
+.wood-family-card::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  opacity:0;
+  background:
+    radial-gradient(circle at var(--mx,50%) var(--my,50%),rgba(255,255,255,.24),transparent 26%),
+    linear-gradient(135deg,rgba(208,168,112,.16),transparent 42%);
+  transition:opacity .42s var(--ct-ease);
+}
+
+.brand-film-card:hover,
+.motion-feature:hover,
+.motion-tile:hover,
+.space-feature-card:hover,
+.space-card:hover,
+.space-gallery-card:hover,
+.pcard:hover,
+.space-shortcut:hover,
+.journal-topic:hover,
+.craft-item:hover,
+.service-card:hover,
+.phase-card:hover,
+.contact-card:hover,
+.detail-card:hover,
+.wood-family-card:hover{
+  border-color:var(--ct-border-mid);
+  box-shadow:var(--ct-shadow-luxe);
+}
+
+.brand-film-card:hover::after,
+.motion-feature:hover::after,
+.motion-tile:hover::after,
+.space-feature-card:hover::after,
+.space-card:hover::after,
+.space-gallery-card:hover::after,
+.pcard:hover::after,
+.space-shortcut:hover::after,
+.journal-topic:hover::after,
+.craft-item:hover::after,
+.service-card:hover::after,
+.phase-card:hover::after,
+.contact-card:hover::after,
+.detail-card:hover::after,
+.wood-family-card:hover::after{
+  opacity:1;
+}
+
+.brand-film-card:hover img,
+.motion-feature:hover video,
+.motion-tile:hover video,
+.space-feature-card:hover img,
+.space-feature-card:hover video,
+.space-card:hover img,
+.space-card:hover video,
+.space-gallery-card:hover img,
+.space-gallery-card:hover video,
+.pcard:hover img,
+.journal-topic:hover img,
+.craft-item:hover img,
+.craft-item:hover video{
+  transform:scale(1.035);
+}
+
+.brand-film-card img,
+.motion-feature video,
+.motion-tile video,
+.space-feature-card img,
+.space-feature-card video,
+.space-card img,
+.space-card video,
+.space-gallery-card img,
+.space-gallery-card video,
+.pcard img,
+.journal-topic img,
+.craft-item img,
+.craft-item video{
+  transition:transform .7s var(--ct-ease),filter .7s var(--ct-ease);
+}
+
+.prod-count-bar{
+  display:flex!important;
+  align-items:center;
+  gap:10px;
+  flex-wrap:wrap;
+  margin:0 0 16px!important;
+  padding:10px 0 12px!important;
+  border-bottom:1px solid var(--ct-border-soft)!important;
+  color:var(--text)!important;
+  font-size:12px!important;
+  font-weight:500!important;
+}
+
+.prod-count-bar #prodCount{
+  display:inline-flex!important;
+  align-items:center;
+  min-height:28px;
+  color:var(--wood-dark);
+  font-weight:700;
+  letter-spacing:.04em;
+}
+
+.prod-filter-state{
+  display:flex;
+  align-items:center;
+  gap:6px;
+  flex:1 1 auto;
+  flex-wrap:wrap;
+  margin-left:auto;
+}
+
+.prod-filter-state span{
+  display:inline-flex!important;
+  align-items:center;
+  min-height:28px;
+  padding:4px 10px;
+  border:1px solid rgba(143,95,51,.2);
+  border-radius:999px;
+  background:rgba(255,255,255,.64);
+  color:rgba(62,39,35,.72);
+  font-size:11px!important;
+  line-height:1.2;
+  font-weight:500;
+}
+
+.prod-clear-filter{
+  display:none;
+  align-items:center;
+  justify-content:center;
+  min-height:30px;
+  padding:4px 12px;
+  border:1px solid rgba(143,95,51,.28);
+  border-radius:999px;
+  background:rgba(178,130,71,.08);
+  color:var(--wood-dark);
+  font-size:11px;
+  font-weight:700;
+  letter-spacing:.08em;
+  cursor:pointer;
+}
+
+.prod-clear-filter.is-visible{
+  display:inline-flex;
+}
+
+.prod-filters.has-active-filters{
+  border-color:rgba(178,130,71,.34)!important;
+  box-shadow:0 16px 48px rgba(92,62,36,.1);
+}
+
+.prod-filters.has-active-filters .filter-mobile-head{
+  border-color:rgba(178,130,71,.26);
+}
+
+.chip.active{
+  box-shadow:0 10px 24px rgba(79,53,33,.12);
+}
+
+.case-filter-tab{
+  border-radius:999px!important;
+}
+
+.case-filter-tab.active{
+  background:rgba(46,32,24,.92)!important;
+  color:#fff!important;
+  border-color:rgba(46,32,24,.92)!important;
+  box-shadow:0 14px 34px rgba(42,29,22,.16);
+}
+
+.space-gallery-card{
+  will-change:transform;
+}
+
+.space-gallery-card:focus-visible,
+.pcard:focus-visible,
+.space-feature-card:focus-visible,
+.space-card:focus-visible,
+.brand-film-card:focus-visible,
+.motion-feature:focus-visible,
+.motion-tile:focus-visible{
+  outline:2px solid rgba(178,130,71,.72);
+  outline-offset:4px;
+}
+
+.space-gallery-card .space-gallery-copy,
+.space-feature-card .space-feature-copy,
+.space-card .space-card-copy{
+  text-shadow:0 2px 18px rgba(0,0,0,.22);
+}
+
+.space-gallery-card .space-gallery-copy h3,
+.space-feature-card .space-feature-copy h3,
+.space-card .space-card-copy h3{
+  max-width:min(620px,92%);
+}
+
+.product-experience-bar,
+.space-product-guide{
+  box-shadow:var(--ct-shadow-soft);
+}
+
+@media(max-width:900px){
+  .prod-filter-state{
+    width:100%;
+    margin-left:0;
+    gap:5px;
+  }
+
+  .prod-filter-state span{
+    min-height:24px;
+    padding:3px 8px;
+    font-size:10px!important;
+  }
+
+  .prod-clear-filter{
+    min-height:34px;
+    padding:5px 12px;
+  }
+
+  .brand-film-card:hover,
+  .motion-feature:hover,
+  .motion-tile:hover,
+  .space-feature-card:hover,
+  .space-card:hover,
+  .space-gallery-card:hover,
+  .pcard:hover{
+    box-shadow:var(--ct-shadow-soft);
+  }
+}
+
+@media(max-width:640px){
+  .prod-mobile-workspace .filter-toggle,
+  .prod-mobile-workspace .filter-row-wrap .filter-label{
+    height:44px!important;
+    min-height:44px!important;
+  }
+
+  .prod-mobile-workspace .prod-count-bar{
+    align-items:center;
+    gap:8px;
+    padding:9px 0!important;
+  }
+
+  .prod-mobile-workspace .prod-filter-state.is-empty{
+    display:none;
+  }
+
+  .prod-mobile-workspace .prod-count-bar span:last-child{
+    display:inline-flex!important;
+  }
+
+  .prod-mobile-workspace .prod-filter-state{
+    order:3;
+    flex-basis:100%;
+    max-height:58px;
+    overflow:auto;
+    padding-bottom:2px;
+  }
+
+  .prod-mobile-workspace .prod-clear-filter.is-visible{
+    display:inline-flex;
+    margin-left:auto;
+  }
+}
+
+@media(prefers-reduced-motion:reduce){
+  .btn-primary,
+  .btn-secondary,
+  .nav-contact-cta,
+  .drawer-actions a,
+  .series-hero-side button,
+  .prod-clear-filter,
+  .case-filter-tab,
+  .chip,
+  .brand-film-card,
+  .motion-feature,
+  .motion-tile,
+  .space-feature-card,
+  .space-card,
+  .space-gallery-card,
+  .pcard,
+  .space-shortcut,
+  .journal-topic,
+  .craft-item,
+  .service-card,
+  .phase-card,
+  .contact-card,
+  .detail-card,
+  .wood-family-card,
+  .brand-film-card img,
+  .motion-feature video,
+  .motion-tile video,
+  .space-feature-card img,
+  .space-feature-card video,
+  .space-card img,
+  .space-card video,
+  .space-gallery-card img,
+  .space-gallery-card video,
+  .pcard img{
+    transition:none!important;
+    transform:none!important;
+  }
+}
