@@ -2103,6 +2103,40 @@ body.route-changing .page.active{
   }
 }
 
+/* Keep critical page headers readable immediately; motion should never hide content. */
+.reveal-item{
+  opacity:1!important;
+  transform:none!important;
+}
+
+@media(max-width:640px){
+  .craft-archive-hero,
+  .prod-page-header,
+  .page:not(#page-home) .section-title{
+    display:block!important;
+    padding-left:20px!important;
+    padding-right:20px!important;
+    margin-left:0!important;
+    margin-right:0!important;
+  }
+  .craft-archive-hero h2,
+  .prod-page-header h2,
+  .page:not(#page-home) .section-title h2{
+    max-width:100%;
+    overflow-wrap:anywhere;
+  }
+  .craft-archive-hero p,
+  .prod-page-header p,
+  .page:not(#page-home) .section-title p{
+    display:block!important;
+    max-width:100%!important;
+    width:100%!important;
+    margin-top:12px!important;
+    overflow-wrap:anywhere;
+    word-break:normal;
+  }
+}
+
 @media(max-width:640px){
   .section-title,
   .prod-page-header,
@@ -3444,5 +3478,89 @@ html,body{overflow-x:hidden}
   .journal-plan,
   .page-conversion{
     min-width:0;
+  }
+}
+
+/* ===== Logo Alignment Pass ===== */
+@media(min-width:981px){
+  .nav-inner{
+    max-width:1280px;
+    padding:0;
+    height:76px;
+  }
+  .nav-logo{
+    height:76px;
+    min-width:118px;
+    justify-content:flex-start;
+  }
+  .nav-logo-img{
+    height:48px;
+    width:auto;
+    object-fit:contain;
+  }
+  .nav-links a{
+    padding-top:28px;
+    padding-bottom:24px;
+  }
+  .nav-contact-cta{
+    min-height:42px;
+    padding:0 20px;
+  }
+}
+
+.page:not(#page-home) .section-title::before,
+.prod-page-header::before,
+.craft-archive-hero::before{
+  display:none!important;
+  content:none!important;
+}
+
+.page:not(#page-home) .section-title,
+.prod-page-header,
+.craft-archive-hero{
+  grid-template-columns:minmax(0,1fr) minmax(260px,520px)!important;
+  column-gap:36px;
+  align-items:end;
+}
+
+.page:not(#page-home) .section-title h2,
+.prod-page-header h2{
+  grid-column:1!important;
+}
+
+.page:not(#page-home) .section-title p,
+.prod-page-header p{
+  grid-column:2!important;
+}
+
+.craft-archive-hero span{
+  grid-column:1/3!important;
+}
+
+.craft-archive-hero h2{
+  grid-column:1!important;
+}
+
+.craft-archive-hero p{
+  grid-column:2!important;
+}
+
+@media(max-width:900px){
+  .page:not(#page-home) .section-title,
+  .prod-page-header,
+  .craft-archive-hero{
+    display:block!important;
+    grid-template-columns:1fr!important;
+    column-gap:0;
+  }
+  .page:not(#page-home) .section-title h2,
+  .page:not(#page-home) .section-title p,
+  .prod-page-header h2,
+  .prod-page-header p,
+  .craft-archive-hero span,
+  .craft-archive-hero h2,
+  .craft-archive-hero p{
+    grid-column:1!important;
+    text-align:left!important;
   }
 }
