@@ -3884,3 +3884,167 @@ html,body{overflow-x:hidden}
     line-height:1.9!important;
   }
 }
+
+/* ===== Typography Refinement ===== */
+:root{
+  --ct-title-page:clamp(2.625rem,3.35vw,3rem);
+  --ct-title-section:clamp(1.35rem,1.75vw,1.75rem);
+  --ct-title-feature:clamp(1.85rem,2.35vw,2.125rem);
+  --ct-title-media:clamp(2.125rem,2.8vw,2.5rem);
+  --ct-title-space:clamp(2.25rem,3.05vw,2.75rem);
+  --ct-title-card:clamp(1rem,1.08vw,1.125rem);
+  --ct-body:14px;
+  --ct-small:12px;
+  --ct-eyebrow:10px;
+}
+
+#home-content p,
+.page:not(#page-home) p,
+.page:not(#page-home) li{
+  font-size:var(--ct-body);
+  line-height:1.82;
+}
+
+#page-home .section-title h2,
+.page:not(#page-home) .section-title h2{
+  font-size:var(--ct-title-section)!important;
+  line-height:1.28!important;
+  font-weight:500!important;
+}
+
+#page-home .section-title p,
+.page:not(#page-home) .section-title p{
+  font-size:13px!important;
+  line-height:1.75!important;
+}
+
+#page-home .home-manifesto h2{
+  max-width:720px;
+  font-size:var(--ct-title-feature)!important;
+  line-height:1.28!important;
+  font-weight:500!important;
+}
+
+#page-home .home-manifesto p{
+  max-width:680px;
+  font-size:14px!important;
+  line-height:1.86!important;
+}
+
+#page-home .capability-card h3{
+  font-size:clamp(1.45rem,1.8vw,1.75rem)!important;
+  line-height:1.18!important;
+}
+
+#page-home .brand-film-title{
+  max-width:430px;
+  gap:8px;
+  font-size:clamp(2.15rem,3.15vw,2.75rem)!important;
+  line-height:1.02!important;
+}
+
+#page-home .brand-film-copy h2,
+#page-home .motion-copy h2{
+  font-size:var(--ct-title-section)!important;
+  line-height:1.36!important;
+  font-weight:500!important;
+}
+
+#page-home .motion-copy p,
+#page-home .brand-film-copy p{
+  font-size:14px!important;
+  line-height:1.86!important;
+}
+
+#page-home .motion-feature strong{
+  max-width:560px;
+  font-size:var(--ct-title-media)!important;
+  line-height:1.08!important;
+  font-weight:500!important;
+}
+
+#page-home .motion-tile strong,
+#page-home .journal-hero-copy h3,
+.journal-topic h3,
+.craft-item-header h3,
+.service-card-header h3,
+.contact-card h3{
+  font-size:var(--ct-title-card)!important;
+  line-height:1.42!important;
+  font-weight:500!important;
+}
+
+.space-feature-card .space-feature-copy h3,
+.space-gallery-card.large .space-gallery-copy h3{
+  max-width:620px;
+  font-size:var(--ct-title-space)!important;
+  line-height:1.08!important;
+  font-weight:500!important;
+}
+
+.space-card .space-gallery-copy h3,
+.space-card .space-card-copy h3,
+.space-gallery-card:not(.large) .space-gallery-copy h3{
+  font-size:clamp(1.15rem,1.55vw,1.45rem)!important;
+  line-height:1.22!important;
+}
+
+.journal-cover-text h2,
+.page:not(#page-home) .page-header h2{
+  max-width:820px;
+  font-size:var(--ct-title-page)!important;
+  line-height:1.08!important;
+  font-weight:500!important;
+}
+
+.journal-cover-text span,
+.page:not(#page-home) .page-header .page-eyebrow,
+#page-home .home-manifesto span,
+#page-home .motion-copy span,
+#page-home .section-title span{
+  font-size:var(--ct-eyebrow)!important;
+  line-height:1.2!important;
+  letter-spacing:.16em!important;
+}
+
+.journal-cover-text p,
+.page:not(#page-home) .page-header p{
+  max-width:560px!important;
+  font-size:14px!important;
+  line-height:1.86!important;
+}
+
+@media(max-width:900px){
+  .journal-cover-text h2,
+  .page:not(#page-home) .page-header h2{
+    font-size:clamp(2.125rem,9.8vw,2.5rem)!important;
+    line-height:1.08!important;
+  }
+
+  #page-home .home-manifesto h2{
+    font-size:clamp(1.55rem,7vw,1.9rem)!important;
+    line-height:1.3!important;
+  }
+
+  #page-home .brand-film-title{
+    font-size:clamp(2rem,9vw,2.4rem)!important;
+  }
+
+  #page-home .motion-copy h2,
+  #page-home .brand-film-copy h2{
+    font-size:clamp(1.35rem,6.2vw,1.65rem)!important;
+  }
+
+  #page-home .motion-feature strong,
+  .space-feature-card .space-feature-copy h3,
+  .space-gallery-card.large .space-gallery-copy h3{
+    font-size:clamp(1.8rem,8vw,2.15rem)!important;
+    line-height:1.12!important;
+  }
+
+  #home-content p,
+  .page:not(#page-home) p,
+  .page:not(#page-home) li{
+    font-size:14px;
+  }
+}
