@@ -3685,3 +3685,167 @@ html,body{overflow-x:hidden}
     line-height:1.85!important;
   }
 }
+
+/* ===== Journal-style Visual Headers ===== */
+#page-products .page-header{
+  --page-head-img:url("journal/surface-wood-mosaic.webp");
+  --page-head-position:center 48%;
+}
+#page-series .page-header{
+  --page-head-img:url("journal/wood-ring.webp");
+  --page-head-position:center 52%;
+}
+#page-craft .page-header{
+  --page-head-img:url("journal/craft-material-blocks.webp");
+  --page-head-position:center 44%;
+}
+#page-cases .page-header{
+  --page-head-img:url("journal/case-lake-residence.webp");
+  --page-head-position:center 52%;
+}
+#page-service .page-header{
+  --page-head-img:url("journal/case-all-house-model.webp");
+  --page-head-position:center 50%;
+}
+#page-contact .page-header{
+  --page-head-img:url("journal/home-hero-forest-door.webp");
+  --page-head-position:center 50%;
+}
+
+.page:not(#page-home) .page-header{
+  position:relative;
+  left:50%;
+  width:100vw;
+  min-height:clamp(500px,68vh,720px);
+  display:grid!important;
+  grid-template-columns:minmax(22px,1fr) minmax(0,1240px) minmax(22px,1fr)!important;
+  grid-template-rows:1fr auto auto auto auto;
+  align-items:end;
+  row-gap:0;
+  padding:0 0 clamp(64px,8vh,96px)!important;
+  margin:0 0 clamp(42px,5vw,70px) -50vw!important;
+  border:0!important;
+  overflow:hidden;
+  color:#fff;
+  isolation:isolate;
+  background:
+    linear-gradient(90deg,rgba(0,0,0,.78),rgba(0,0,0,.34) 48%,rgba(0,0,0,.5)),
+    linear-gradient(180deg,rgba(0,0,0,.12),rgba(0,0,0,.72)),
+    var(--page-head-img);
+  background-size:cover;
+  background-position:var(--page-head-position,center);
+}
+
+.page:not(#page-home) .page-header::before{
+  content:''!important;
+  display:block!important;
+  position:relative;
+  z-index:2;
+  grid-column:2!important;
+  grid-row:2!important;
+  width:72px;
+  height:54px;
+  margin:0 0 18px;
+  background:url("logo/logo.png") center/contain no-repeat;
+  opacity:.96;
+  filter:brightness(0) invert(1) drop-shadow(0 12px 28px rgba(0,0,0,.38));
+}
+
+.page:not(#page-home) .page-header::after{
+  content:''!important;
+  position:absolute;
+  left:max(22px,calc((100vw - 1240px)/2 - 42px));
+  bottom:clamp(38px,5.4vh,62px);
+  z-index:1;
+  width:min(820px,calc(100vw - 44px));
+  height:clamp(300px,40vh,390px);
+  pointer-events:none;
+  background:
+    radial-gradient(circle at 18% 58%,rgba(0,0,0,.5),transparent 56%),
+    linear-gradient(90deg,rgba(0,0,0,.36),rgba(0,0,0,.1) 72%,transparent);
+  filter:blur(.2px);
+}
+
+.page:not(#page-home) .page-header .page-eyebrow,
+.page:not(#page-home) .page-header h2,
+.page:not(#page-home) .page-header p{
+  position:relative;
+  z-index:2;
+  grid-column:2!important;
+  justify-self:start!important;
+  text-align:left!important;
+  text-shadow:0 10px 34px rgba(0,0,0,.52),0 2px 10px rgba(0,0,0,.34);
+}
+
+.page:not(#page-home) .page-header .page-eyebrow{
+  grid-row:3!important;
+  margin:0 0 18px!important;
+  color:rgba(255,255,255,.72)!important;
+  font-size:11px!important;
+  line-height:1.2!important;
+  letter-spacing:.2em;
+}
+
+.page:not(#page-home) .page-header h2{
+  grid-row:4!important;
+  max-width:min(900px,78vw);
+  color:#fff!important;
+  font-size:clamp(4.4rem,9vw,8.8rem)!important;
+  line-height:.9!important;
+  font-weight:500!important;
+  margin:0!important;
+}
+
+.page:not(#page-home) .page-header p{
+  grid-row:5!important;
+  max-width:640px!important;
+  margin:clamp(20px,2.8vh,30px) 0 0!important;
+  color:rgba(255,255,255,.84)!important;
+  font-size:16px!important;
+  line-height:2!important;
+}
+
+@media(max-width:900px){
+  .page:not(#page-home) .page-header{
+    left:50%;
+    width:100vw;
+    min-height:560px;
+    display:grid!important;
+    grid-template-columns:20px minmax(0,1fr) 20px!important;
+    grid-template-rows:1fr auto auto auto auto;
+    padding:0 0 54px!important;
+    margin:0 0 34px -50vw!important;
+    background-position:center;
+  }
+  .page:not(#page-home) .page-header::before{
+    grid-column:2!important;
+    width:64px;
+    height:48px;
+    margin-bottom:16px;
+  }
+  .page:not(#page-home) .page-header::after{
+    left:0;
+    bottom:28px;
+    width:100%;
+    height:330px;
+    background:linear-gradient(90deg,rgba(0,0,0,.52),rgba(0,0,0,.08));
+  }
+  .page:not(#page-home) .page-header .page-eyebrow{
+    grid-column:2!important;
+    font-size:10px!important;
+    margin-bottom:16px!important;
+  }
+  .page:not(#page-home) .page-header h2{
+    grid-column:2!important;
+    max-width:100%;
+    font-size:clamp(3.4rem,18vw,5rem)!important;
+    line-height:.92!important;
+  }
+  .page:not(#page-home) .page-header p{
+    grid-column:2!important;
+    max-width:100%!important;
+    margin-top:22px!important;
+    font-size:14px!important;
+    line-height:1.9!important;
+  }
+}
