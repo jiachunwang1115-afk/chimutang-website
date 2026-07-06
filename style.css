@@ -2225,6 +2225,864 @@ body.route-changing .page.active{
   }
 }
 
+/* ===== Corporate True Final Overrides ===== */
+.fixed-action-rail{
+  position:fixed!important;
+  right:18px!important;
+  top:50%!important;
+  z-index:940!important;
+  display:flex!important;
+  flex-direction:column!important;
+  gap:8px!important;
+  transform:translateY(-50%)!important;
+}
+
+.fixed-action-rail a,
+.fixed-action-rail button{
+  width:72px!important;
+  min-height:64px!important;
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:center!important;
+  justify-content:center!important;
+  gap:4px!important;
+  border:1px solid rgba(178,130,71,.3)!important;
+  background:rgba(253,251,247,.92)!important;
+  color:#1f1b17!important;
+  box-shadow:0 18px 48px rgba(31,28,25,.1)!important;
+  backdrop-filter:blur(16px)!important;
+  cursor:pointer!important;
+  letter-spacing:.08em!important;
+}
+
+.fixed-action-rail span{font-size:10px!important;color:rgba(31,28,25,.54)!important}
+.fixed-action-rail strong{font-size:13px!important;font-weight:600!important}
+.fixed-action-rail a.active,
+.fixed-action-rail a:hover,
+.fixed-action-rail button:hover{transform:translateX(-4px)!important;background:#fff!important;border-color:rgba(178,130,71,.58)!important}
+.fixed-action-rail button{opacity:.55}
+body.has-scrolled .fixed-action-rail button{opacity:1}
+.film-open .fixed-action-rail,
+.space-case-open .fixed-action-rail,
+.nav-open .fixed-action-rail{opacity:0!important;pointer-events:none!important}
+
+.btn-primary,
+.btn-secondary,
+.hero .btn,
+.nav-contact-cta,
+.drawer-actions a,
+.wood-family-card button,
+.wood-family-card a{
+  position:relative!important;
+  padding-right:44px!important;
+  letter-spacing:.08em!important;
+}
+
+.btn-primary::before,
+.btn-secondary::before,
+.hero .btn::before,
+.nav-contact-cta::before,
+.drawer-actions a::before,
+.wood-family-card button::before,
+.wood-family-card a::before{
+  content:""!important;
+  position:absolute!important;
+  right:16px!important;
+  top:50%!important;
+  width:18px!important;
+  height:1px!important;
+  background:currentColor!important;
+  opacity:.54!important;
+  transform:translateY(-50%) scaleX(.48)!important;
+  transform-origin:right center!important;
+  transition:transform .28s var(--ct-ease),opacity .28s var(--ct-ease)!important;
+}
+
+.btn-primary:hover::before,
+.btn-secondary:hover::before,
+.hero .btn:hover::before,
+.nav-contact-cta:hover::before,
+.drawer-actions a:hover::before,
+.wood-family-card button:hover::before,
+.wood-family-card a:hover::before{
+  opacity:.9!important;
+  transform:translateY(-50%) scaleX(1)!important;
+}
+
+.action-card,
+.series-card,
+.service-card,
+.contact-card{
+  position:relative!important;
+  cursor:pointer!important;
+}
+
+.action-card::before,
+.series-card::before,
+.service-card::before,
+.contact-card::before{
+  content:""!important;
+  position:absolute!important;
+  right:18px!important;
+  top:18px!important;
+  width:34px!important;
+  height:34px!important;
+  z-index:5!important;
+  border:1px solid rgba(255,255,255,.58)!important;
+  border-radius:999px!important;
+  background:rgba(31,28,25,.14)!important;
+  backdrop-filter:blur(10px)!important;
+  opacity:.84!important;
+  pointer-events:none!important;
+  transition:transform .32s var(--ct-ease),background .32s var(--ct-ease)!important;
+}
+
+.action-card::after,
+.series-card::after,
+.service-card::after,
+.contact-card::after{
+  content:"↗"!important;
+  position:absolute!important;
+  right:28px!important;
+  top:22px!important;
+  z-index:6!important;
+  color:#fff!important;
+  font-size:13px!important;
+  line-height:1!important;
+  opacity:.9!important;
+  pointer-events:none!important;
+  background:none!important;
+  border:0!important;
+  transform:none!important;
+}
+
+.series-card::before,
+.service-card::before,
+.contact-card::before{border-color:rgba(178,130,71,.32)!important;background:rgba(253,251,247,.76)!important}
+.series-card::after,
+.service-card::after,
+.contact-card::after{color:#b28247!important}
+.action-card:hover::before,
+.series-card:hover::before,
+.service-card:hover::before,
+.contact-card:hover::before{transform:translate(2px,-2px)!important;background:rgba(178,130,71,.2)!important}
+.action-card:hover::after,
+.series-card:hover::after,
+.service-card:hover::after,
+.contact-card:hover::after{transform:translate(2px,-2px)!important}
+
+.pcard::before{display:none!important}
+.pcard::after{
+  content:"查看纹理"!important;
+  left:10px!important;
+  right:10px!important;
+  top:auto!important;
+  bottom:34px!important;
+  width:auto!important;
+  height:auto!important;
+  z-index:3!important;
+  opacity:0!important;
+  transform:translateY(8px)!important;
+  color:#fff!important;
+  font-size:11px!important;
+  text-align:center!important;
+  border:1px solid rgba(255,255,255,.76)!important;
+  padding:5px 8px!important;
+  background:rgba(31,28,25,.34)!important;
+  backdrop-filter:blur(8px)!important;
+}
+.pcard:hover::after{opacity:1!important;transform:translateY(0)!important}
+.space-feature-copy em,
+.space-card-copy em,
+.space-gallery-copy em{border-color:rgba(255,255,255,.68)!important;background:rgba(31,28,25,.26)!important}
+
+@media(max-width:760px){
+  body{padding-bottom:76px}
+  .fixed-action-rail{display:none!important}
+  .mobile-action-bar{
+    position:fixed!important;
+    left:14px!important;
+    right:14px!important;
+    bottom:12px!important;
+    z-index:1200!important;
+    display:grid!important;
+    grid-template-columns:repeat(3,1fr)!important;
+    gap:6px!important;
+    padding:6px!important;
+    border:1px solid rgba(178,130,71,.24)!important;
+    background:rgba(253,251,247,.92)!important;
+    box-shadow:0 18px 64px rgba(31,28,25,.2)!important;
+    backdrop-filter:blur(18px)!important;
+  }
+  .mobile-action-bar a{
+    min-height:44px!important;
+    display:flex!important;
+    align-items:center!important;
+    justify-content:center!important;
+    border:1px solid transparent!important;
+    color:#1f1b17!important;
+    font-size:13px!important;
+    font-weight:700!important;
+    letter-spacing:.12em!important;
+  }
+  .mobile-action-bar a.active{background:#1f1b17!important;color:#fff!important;border-color:#1f1b17!important}
+  .film-open .mobile-action-bar,
+  .space-case-open .mobile-action-bar,
+  .nav-open .mobile-action-bar{display:none!important}
+  .action-card::before,
+  .series-card::before,
+  .service-card::before,
+  .contact-card::before,
+  .action-card::after,
+  .series-card::after,
+  .service-card::after,
+  .contact-card::after{display:none!important}
+}
+
+/* ===== Corporate Final Overrides ===== */
+.fixed-action-rail{
+  position:fixed!important;
+  right:18px!important;
+  top:50%!important;
+  z-index:940!important;
+  display:flex!important;
+  flex-direction:column!important;
+  gap:8px!important;
+  transform:translateY(-50%)!important;
+}
+
+.fixed-action-rail a,
+.fixed-action-rail button{
+  width:72px!important;
+  min-height:64px!important;
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:center!important;
+  justify-content:center!important;
+  gap:4px!important;
+  border:1px solid rgba(178,130,71,.28)!important;
+  background:rgba(253,251,247,.9)!important;
+  color:#1f1b17!important;
+  box-shadow:0 18px 48px rgba(31,28,25,.1)!important;
+  backdrop-filter:blur(16px)!important;
+  cursor:pointer!important;
+  font:inherit!important;
+  letter-spacing:.08em!important;
+}
+
+.fixed-action-rail span{font-size:10px!important;color:rgba(31,28,25,.54)!important}
+.fixed-action-rail strong{font-size:13px!important;font-weight:600!important}
+.fixed-action-rail a.active,
+.fixed-action-rail a:hover,
+.fixed-action-rail button:hover{
+  transform:translateX(-4px)!important;
+  border-color:rgba(178,130,71,.56)!important;
+  background:#fff!important;
+}
+
+.fixed-action-rail button{opacity:.55}
+body.has-scrolled .fixed-action-rail button{opacity:1}
+.film-open .fixed-action-rail,
+.space-case-open .fixed-action-rail,
+.nav-open .fixed-action-rail{opacity:0;pointer-events:none}
+
+.mobile-action-bar{display:none}
+
+.btn-primary,
+.btn-secondary,
+.hero .btn,
+.nav-contact-cta,
+.drawer-actions a,
+.wood-family-card button,
+.wood-family-card a{
+  position:relative!important;
+  padding-right:44px!important;
+  letter-spacing:.08em!important;
+}
+
+.btn-primary::before,
+.btn-secondary::before,
+.hero .btn::before,
+.nav-contact-cta::before,
+.drawer-actions a::before,
+.wood-family-card button::before,
+.wood-family-card a::before{
+  content:""!important;
+  position:absolute!important;
+  right:16px!important;
+  top:50%!important;
+  width:18px!important;
+  height:1px!important;
+  background:currentColor!important;
+  opacity:.54!important;
+  transform:translateY(-50%) scaleX(.48)!important;
+  transform-origin:right center!important;
+  transition:transform .28s var(--ct-ease),opacity .28s var(--ct-ease)!important;
+}
+
+.btn-primary:hover::before,
+.btn-secondary:hover::before,
+.hero .btn:hover::before,
+.nav-contact-cta:hover::before,
+.drawer-actions a:hover::before,
+.wood-family-card button:hover::before,
+.wood-family-card a:hover::before{
+  opacity:.9!important;
+  transform:translateY(-50%) scaleX(1)!important;
+}
+
+.action-card,
+.series-card,
+.service-card,
+.contact-card{
+  position:relative!important;
+  cursor:pointer!important;
+}
+
+.action-card::before,
+.series-card::before,
+.service-card::before,
+.contact-card::before{
+  content:""!important;
+  position:absolute!important;
+  right:18px!important;
+  top:18px!important;
+  width:34px!important;
+  height:34px!important;
+  z-index:5!important;
+  border:1px solid rgba(255,255,255,.58)!important;
+  border-radius:999px!important;
+  background:rgba(31,28,25,.14)!important;
+  backdrop-filter:blur(10px)!important;
+  opacity:.84!important;
+  pointer-events:none!important;
+  transition:transform .32s var(--ct-ease),opacity .32s var(--ct-ease),background .32s var(--ct-ease)!important;
+}
+
+.action-card::after,
+.series-card::after,
+.service-card::after,
+.contact-card::after{
+  content:"↗"!important;
+  position:absolute!important;
+  right:28px!important;
+  top:22px!important;
+  z-index:6!important;
+  color:#fff!important;
+  font-size:13px!important;
+  line-height:1!important;
+  opacity:.9!important;
+  pointer-events:none!important;
+  background:none!important;
+  border:0!important;
+  transform:none!important;
+}
+
+.series-card::before,
+.service-card::before,
+.contact-card::before{
+  border-color:rgba(178,130,71,.32)!important;
+  background:rgba(253,251,247,.76)!important;
+}
+
+.series-card::after,
+.service-card::after,
+.contact-card::after{
+  color:#b28247!important;
+}
+
+.action-card:hover::before,
+.series-card:hover::before,
+.service-card:hover::before,
+.contact-card:hover::before{
+  transform:translate(2px,-2px)!important;
+  background:rgba(178,130,71,.2)!important;
+}
+
+.action-card:hover::after,
+.series-card:hover::after,
+.service-card:hover::after,
+.contact-card:hover::after{
+  transform:translate(2px,-2px)!important;
+}
+
+.pcard::before{
+  display:none!important;
+}
+
+.pcard::after{
+  content:"查看纹理"!important;
+  left:10px!important;
+  right:10px!important;
+  top:auto!important;
+  bottom:34px!important;
+  width:auto!important;
+  height:auto!important;
+  z-index:3!important;
+  opacity:0!important;
+  transform:translateY(8px)!important;
+  color:#fff!important;
+  font-size:11px!important;
+  text-align:center!important;
+  border:1px solid rgba(255,255,255,.76)!important;
+  padding:5px 8px!important;
+  background:rgba(31,28,25,.34)!important;
+  backdrop-filter:blur(8px)!important;
+}
+
+.pcard:hover::after{
+  opacity:1!important;
+  transform:translateY(0)!important;
+}
+
+.space-feature-copy em,
+.space-card-copy em,
+.space-gallery-copy em{
+  border-color:rgba(255,255,255,.68)!important;
+  background:rgba(31,28,25,.26)!important;
+}
+
+.page-conversion h3,
+.brand-film-copy h2,
+.motion-copy h2,
+.space-section-head h2,
+.journal-intro h2,
+.wood-academy-copy h3,
+.case-space-hero h2,
+.prod-page-header h2{
+  text-wrap:balance;
+}
+
+@media(max-width:760px){
+  body{padding-bottom:76px}
+  .fixed-action-rail{display:none!important}
+  .mobile-action-bar{
+    position:fixed!important;
+    left:14px!important;
+    right:14px!important;
+    bottom:12px!important;
+    z-index:1200!important;
+    display:grid!important;
+    grid-template-columns:repeat(3,1fr)!important;
+    gap:6px!important;
+    padding:6px!important;
+    border:1px solid rgba(178,130,71,.24)!important;
+    background:rgba(253,251,247,.92)!important;
+    box-shadow:0 18px 64px rgba(31,28,25,.2)!important;
+    backdrop-filter:blur(18px)!important;
+  }
+  .mobile-action-bar a{
+    min-height:44px!important;
+    display:flex!important;
+    align-items:center!important;
+    justify-content:center!important;
+    border:1px solid transparent!important;
+    color:#1f1b17!important;
+    font-size:13px!important;
+    font-weight:700!important;
+    letter-spacing:.12em!important;
+  }
+  .mobile-action-bar a.active{
+    background:#1f1b17!important;
+    color:#fff!important;
+    border-color:#1f1b17!important;
+  }
+  .film-open .mobile-action-bar,
+  .space-case-open .mobile-action-bar,
+  .nav-open .mobile-action-bar{display:none!important}
+  .action-card::before,
+  .series-card::before,
+  .service-card::before,
+  .contact-card::before,
+  .action-card::after,
+  .series-card::after,
+  .service-card::after,
+  .contact-card::after{display:none!important}
+}
+
+/* ===== Corporate CTA & Copy Refinement ===== */
+:root{
+  --corp-ink:#1f1b17;
+  --corp-line:rgba(95,66,43,.22);
+  --corp-gold:#b28247;
+  --corp-paper:rgba(253,251,247,.9);
+}
+
+.fixed-action-rail{
+  position:fixed;
+  right:18px;
+  top:50%;
+  z-index:940;
+  display:flex;
+  flex-direction:column;
+  gap:8px;
+  transform:translateY(-50%);
+  pointer-events:auto;
+}
+
+.fixed-action-rail a,
+.fixed-action-rail button{
+  width:72px;
+  min-height:64px;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:4px;
+  border:1px solid rgba(178,130,71,.26);
+  background:rgba(253,251,247,.86);
+  color:var(--corp-ink);
+  box-shadow:0 18px 48px rgba(31,28,25,.1);
+  backdrop-filter:blur(16px);
+  cursor:pointer;
+  font:inherit;
+  letter-spacing:.08em;
+  transition:transform .28s var(--ct-ease),background .28s var(--ct-ease),border-color .28s var(--ct-ease),box-shadow .28s var(--ct-ease),opacity .28s var(--ct-ease);
+}
+
+.fixed-action-rail span{
+  font-size:10px;
+  color:rgba(31,28,25,.54);
+}
+
+.fixed-action-rail strong{
+  font-size:13px;
+  font-weight:600;
+}
+
+.fixed-action-rail a::after,
+.fixed-action-rail button::after{
+  content:"";
+  width:18px;
+  height:1px;
+  background:var(--corp-gold);
+  transform-origin:left center;
+  transform:scaleX(.42);
+  transition:transform .28s var(--ct-ease);
+}
+
+.fixed-action-rail a:hover,
+.fixed-action-rail button:hover,
+.fixed-action-rail a.active{
+  transform:translateX(-4px);
+  border-color:rgba(178,130,71,.52);
+  background:rgba(255,255,255,.96);
+  box-shadow:0 24px 72px rgba(31,28,25,.16);
+}
+
+.fixed-action-rail a:hover::after,
+.fixed-action-rail button:hover::after,
+.fixed-action-rail a.active::after{
+  transform:scaleX(1);
+}
+
+.fixed-action-rail button{
+  opacity:.54;
+}
+
+body.has-scrolled .fixed-action-rail button{
+  opacity:1;
+}
+
+.film-open .fixed-action-rail,
+.space-case-open .fixed-action-rail,
+.nav-open .fixed-action-rail{
+  opacity:0;
+  pointer-events:none;
+}
+
+.mobile-action-bar{
+  display:none;
+}
+
+.btn-primary,
+.btn-secondary,
+.hero .btn,
+.hero .btn-outline,
+.nav-contact-cta,
+.drawer-actions a,
+.wood-family-card button,
+.wood-family-card a{
+  letter-spacing:.08em;
+}
+
+.btn-primary::before,
+.btn-secondary::before,
+.hero .btn::before,
+.nav-contact-cta::before,
+.drawer-actions a::before,
+.wood-family-card button::before,
+.wood-family-card a::before{
+  content:"";
+  position:absolute;
+  right:16px;
+  top:50%;
+  width:18px;
+  height:1px;
+  background:currentColor;
+  opacity:.52;
+  transform:translateY(-50%) scaleX(.48);
+  transform-origin:right center;
+  transition:transform .28s var(--ct-ease),opacity .28s var(--ct-ease);
+}
+
+.btn-primary:hover::before,
+.btn-secondary:hover::before,
+.hero .btn:hover::before,
+.nav-contact-cta:hover::before,
+.drawer-actions a:hover::before,
+.wood-family-card button:hover::before,
+.wood-family-card a:hover::before{
+  opacity:.9;
+  transform:translateY(-50%) scaleX(1);
+}
+
+.btn-primary,
+.btn-secondary,
+.hero .btn,
+.nav-contact-cta,
+.drawer-actions a,
+.wood-family-card button,
+.wood-family-card a{
+  padding-right:44px!important;
+}
+
+.action-card,
+.series-card,
+.journal-topic,
+.craft-item,
+.service-card,
+.contact-card,
+.wood-family-card{
+  cursor:pointer;
+}
+
+.action-card::before,
+.series-card::before,
+.service-card::before,
+.contact-card::before,
+.wood-family-card::before{
+  content:"";
+  position:absolute;
+  right:18px;
+  top:18px;
+  width:34px;
+  height:34px;
+  z-index:5;
+  border:1px solid rgba(255,255,255,.58);
+  border-radius:999px;
+  background:rgba(31,28,25,.14);
+  backdrop-filter:blur(10px);
+  opacity:.78;
+  transition:transform .32s var(--ct-ease),opacity .32s var(--ct-ease),background .32s var(--ct-ease);
+}
+
+.action-card::after,
+.series-card::after,
+.service-card::after,
+.contact-card::after,
+.wood-family-card::after{
+  content:"↗";
+  position:absolute;
+  right:28px;
+  top:22px;
+  z-index:6;
+  color:#fff;
+  font-size:13px;
+  line-height:1;
+  opacity:.86;
+  pointer-events:none;
+  transition:transform .32s var(--ct-ease),opacity .32s var(--ct-ease);
+}
+
+.series-card::before,
+.service-card::before,
+.contact-card::before,
+.wood-family-card::before{
+  border-color:rgba(178,130,71,.32);
+  background:rgba(253,251,247,.72);
+}
+
+.series-card::after,
+.service-card::after,
+.contact-card::after,
+.wood-family-card::after{
+  color:var(--corp-gold);
+}
+
+.action-card:hover::before,
+.series-card:hover::before,
+.service-card:hover::before,
+.contact-card:hover::before,
+.wood-family-card:hover::before{
+  opacity:1;
+  transform:translate(2px,-2px);
+  background:rgba(178,130,71,.2);
+}
+
+.action-card:hover::after,
+.series-card:hover::after,
+.service-card:hover::after,
+.contact-card:hover::after,
+.wood-family-card:hover::after{
+  transform:translate(2px,-2px);
+}
+
+.pcard::after{
+  content:"查看纹理"!important;
+  border-color:rgba(255,255,255,.76)!important;
+  background:rgba(31,28,25,.34)!important;
+}
+
+.craft-item::before,
+.journal-topic::before{
+  opacity:.2;
+}
+
+.craft-item:hover::before,
+.journal-topic:hover::before{
+  opacity:.42;
+}
+
+.craft-item .craft-item-header::after,
+.journal-topic h3::after{
+  content:"查看";
+  display:inline-flex;
+  margin-left:10px;
+  color:var(--corp-gold);
+  font-size:11px;
+  letter-spacing:.12em;
+  opacity:0;
+  transform:translateX(-4px);
+  transition:opacity .28s var(--ct-ease),transform .28s var(--ct-ease);
+}
+
+.craft-item:hover .craft-item-header::after{
+  content:"查看工法";
+  opacity:1;
+  transform:translateX(0);
+}
+
+.journal-topic:hover h3::after{
+  content:"阅读全文";
+  opacity:1;
+  transform:translateX(0);
+}
+
+.hero-trust{
+  position:relative;
+}
+
+.hero-trust span{
+  font-weight:600;
+}
+
+.page-conversion h3,
+.brand-film-copy h2,
+.motion-copy h2,
+.space-section-head h2,
+.journal-intro h2,
+.wood-academy-copy h3,
+.case-space-hero h2,
+.prod-page-header h2{
+  text-wrap:balance;
+}
+
+.page-conversion p,
+.brand-film-copy p,
+.motion-copy p,
+.space-section-head p,
+.journal-intro p,
+.wood-academy-head p,
+.case-space-hero p,
+.prod-page-header p{
+  max-width:680px;
+}
+
+a:not(.nav-logo):not(.btn-primary):not(.btn-secondary):not(.btn):not(.nav-contact-cta):not(.fixed-action-rail a):not(.mobile-action-bar a):not(.footer a){
+  text-underline-offset:4px;
+  text-decoration-thickness:1px;
+}
+
+.page-cta{
+  gap:12px;
+}
+
+@media(max-width:1180px){
+  .fixed-action-rail{
+    right:10px;
+  }
+
+  .fixed-action-rail a,
+  .fixed-action-rail button{
+    width:64px;
+    min-height:58px;
+  }
+}
+
+@media(max-width:760px){
+  body{
+    padding-bottom:76px;
+  }
+
+  .fixed-action-rail{
+    display:none;
+  }
+
+  .mobile-action-bar{
+    position:fixed;
+    left:14px;
+    right:14px;
+    bottom:12px;
+    z-index:1200;
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:6px;
+    padding:6px;
+    border:1px solid rgba(178,130,71,.24);
+    background:rgba(253,251,247,.92);
+    box-shadow:0 18px 64px rgba(31,28,25,.2);
+    backdrop-filter:blur(18px);
+  }
+
+  .mobile-action-bar a{
+    min-height:44px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border:1px solid transparent;
+    color:var(--corp-ink);
+    font-size:13px;
+    font-weight:700;
+    letter-spacing:.12em;
+  }
+
+  .mobile-action-bar a.active{
+    background:var(--corp-ink);
+    color:#fff;
+    border-color:var(--corp-ink);
+  }
+
+  .film-open .mobile-action-bar,
+  .space-case-open .mobile-action-bar,
+  .nav-open .mobile-action-bar{
+    display:none;
+  }
+
+  .action-card::before,
+  .series-card::before,
+  .service-card::before,
+  .contact-card::before,
+  .wood-family-card::before,
+  .action-card::after,
+  .series-card::after,
+  .service-card::after,
+  .contact-card::after,
+  .wood-family-card::after{
+    display:none;
+  }
+}
+
 /* ===== WOOD ACADEMY + MOBILE FILTER COMPLETION ===== */
 @media(max-width:900px){
   .wood-academy-head,
@@ -4461,3 +5319,28 @@ html,body{overflow-x:hidden}
     transform:none!important;
   }
 }
+
+/* ===== Corporate True Final Overrides - End Anchor ===== */
+.fixed-action-rail{position:fixed!important;right:18px!important;top:50%!important;z-index:940!important;display:flex!important;flex-direction:column!important;gap:8px!important;transform:translateY(-50%)!important}
+.fixed-action-rail a,.fixed-action-rail button{width:72px!important;min-height:64px!important;display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;gap:4px!important;border:1px solid rgba(178,130,71,.3)!important;background:rgba(253,251,247,.92)!important;color:#1f1b17!important;box-shadow:0 18px 48px rgba(31,28,25,.1)!important;backdrop-filter:blur(16px)!important;cursor:pointer!important;letter-spacing:.08em!important}
+.fixed-action-rail span{font-size:10px!important;color:rgba(31,28,25,.54)!important}
+.fixed-action-rail strong{font-size:13px!important;font-weight:600!important}
+.fixed-action-rail a.active,.fixed-action-rail a:hover,.fixed-action-rail button:hover{transform:translateX(-4px)!important;background:#fff!important;border-color:rgba(178,130,71,.58)!important}
+.fixed-action-rail button{opacity:.55}
+body.has-scrolled .fixed-action-rail button{opacity:1}
+.film-open .fixed-action-rail,.space-case-open .fixed-action-rail,.nav-open .fixed-action-rail{opacity:0!important;pointer-events:none!important}
+.btn-primary,.btn-secondary,.hero .btn,.nav-contact-cta,.drawer-actions a,.wood-family-card button,.wood-family-card a{position:relative!important;padding-right:44px!important;letter-spacing:.08em!important}
+.btn-primary::before,.btn-secondary::before,.hero .btn::before,.nav-contact-cta::before,.drawer-actions a::before,.wood-family-card button::before,.wood-family-card a::before{content:""!important;position:absolute!important;right:16px!important;top:50%!important;width:18px!important;height:1px!important;background:currentColor!important;opacity:.54!important;transform:translateY(-50%) scaleX(.48)!important;transform-origin:right center!important;transition:transform .28s var(--ct-ease),opacity .28s var(--ct-ease)!important}
+.btn-primary:hover::before,.btn-secondary:hover::before,.hero .btn:hover::before,.nav-contact-cta:hover::before,.drawer-actions a:hover::before,.wood-family-card button:hover::before,.wood-family-card a:hover::before{opacity:.9!important;transform:translateY(-50%) scaleX(1)!important}
+.action-card,.series-card,.service-card,.contact-card{position:relative!important;cursor:pointer!important}
+.action-card::before,.series-card::before,.service-card::before,.contact-card::before{content:""!important;position:absolute!important;right:18px!important;top:18px!important;width:34px!important;height:34px!important;z-index:5!important;border:1px solid rgba(255,255,255,.58)!important;border-radius:999px!important;background:rgba(31,28,25,.14)!important;backdrop-filter:blur(10px)!important;opacity:.84!important;pointer-events:none!important;transition:transform .32s var(--ct-ease),background .32s var(--ct-ease)!important}
+.action-card::after,.series-card::after,.service-card::after,.contact-card::after{content:"↗"!important;position:absolute!important;right:28px!important;top:22px!important;z-index:6!important;color:#fff!important;font-size:13px!important;line-height:1!important;opacity:.9!important;pointer-events:none!important;background:none!important;border:0!important;transform:none!important}
+.series-card::before,.service-card::before,.contact-card::before{border-color:rgba(178,130,71,.32)!important;background:rgba(253,251,247,.76)!important}
+.series-card::after,.service-card::after,.contact-card::after{color:#b28247!important}
+.action-card:hover::before,.series-card:hover::before,.service-card:hover::before,.contact-card:hover::before{transform:translate(2px,-2px)!important;background:rgba(178,130,71,.2)!important}
+.action-card:hover::after,.series-card:hover::after,.service-card:hover::after,.contact-card:hover::after{transform:translate(2px,-2px)!important}
+.pcard::before{display:none!important}
+.pcard::after{content:"查看纹理"!important;left:10px!important;right:10px!important;top:auto!important;bottom:34px!important;width:auto!important;height:auto!important;z-index:3!important;opacity:0!important;transform:translateY(8px)!important;color:#fff!important;font-size:11px!important;text-align:center!important;border:1px solid rgba(255,255,255,.76)!important;padding:5px 8px!important;background:rgba(31,28,25,.34)!important;backdrop-filter:blur(8px)!important}
+.pcard:hover::after{opacity:1!important;transform:translateY(0)!important}
+.space-feature-copy em,.space-card-copy em,.space-gallery-copy em{border-color:rgba(255,255,255,.68)!important;background:rgba(31,28,25,.26)!important}
+@media(max-width:760px){body{padding-bottom:76px}.fixed-action-rail{display:none!important}.mobile-action-bar{position:fixed!important;left:14px!important;right:14px!important;bottom:12px!important;z-index:1200!important;display:grid!important;grid-template-columns:repeat(3,1fr)!important;gap:6px!important;padding:6px!important;border:1px solid rgba(178,130,71,.24)!important;background:rgba(253,251,247,.92)!important;box-shadow:0 18px 64px rgba(31,28,25,.2)!important;backdrop-filter:blur(18px)!important}.mobile-action-bar a{min-height:44px!important;display:flex!important;align-items:center!important;justify-content:center!important;border:1px solid transparent!important;color:#1f1b17!important;font-size:13px!important;font-weight:700!important;letter-spacing:.12em!important}.mobile-action-bar a.active{background:#1f1b17!important;color:#fff!important;border-color:#1f1b17!important}.film-open .mobile-action-bar,.space-case-open .mobile-action-bar,.nav-open .mobile-action-bar{display:none!important}.action-card::before,.series-card::before,.service-card::before,.contact-card::before,.action-card::after,.series-card::after,.service-card::after,.contact-card::after{display:none!important}}

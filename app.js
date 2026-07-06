@@ -5,6 +5,7 @@ function navigate(hash){
   if(ROUTES.indexOf(hash)<0) hash='#not-found';
   window.location.hash=hash;
   updateNav(hash);
+  updateCorporateCta(hash);
   showPage(hash);
   if(hash==='#products') initProductsPage();
   if(hash==='#series') initSeriesPage();
@@ -16,6 +17,28 @@ function updateNav(hash){
     a.classList.toggle('active',a.getAttribute('href')===hash);
   });
   closeMobileNav();
+}
+
+function updateCorporateCta(hash){
+  document.querySelectorAll('[data-quick-route]').forEach(function(item){
+    item.classList.toggle('active',item.getAttribute('data-quick-route')===hash);
+  });
+}
+
+function initCorporateCta(){
+  var backTop=document.getElementById('backToTop');
+  if(backTop&&!backTop.dataset.bound){
+    backTop.dataset.bound='true';
+    backTop.addEventListener('click',function(){
+      window.scrollTo({top:0,behavior:'smooth'});
+    });
+  }
+  var toggleTop=function(){
+    document.body.classList.toggle('has-scrolled',window.scrollY>420);
+  };
+  toggleTop();
+  window.addEventListener('scroll',toggleTop,{passive:true});
+  updateCorporateCta(window.location.hash||'#home');
 }
 
 function showPage(hash){
@@ -386,9 +409,9 @@ function renderHomeSpaces(){
   var grid=document.getElementById("homeSpaceGrid");
   if(!feature||!grid)return;
   var lead=SPACE_MEDIA[0];
-  feature.innerHTML='<button class="space-feature-card" type="button" data-space-id="'+lead.id+'" aria-label="查看'+escapeHtml(lead.title)+'">'+renderSpaceMedia(lead,'space-media')+'<span class="space-image-shade"></span><span class="space-logo-mark" aria-hidden="true"></span><div class="space-feature-copy"><span>'+escapeHtml(lead.spaceType)+' / '+escapeHtml(lead.wood)+'</span><h3>'+escapeHtml(lead.title)+'</h3><p>'+escapeHtml(lead.summary)+'</p><em>查看空间案例</em></div></button>';
+  feature.innerHTML='<button class="space-feature-card action-card" type="button" data-space-id="'+lead.id+'" aria-label="查看'+escapeHtml(lead.title)+'">'+renderSpaceMedia(lead,'space-media')+'<span class="space-image-shade"></span><span class="space-logo-mark" aria-hidden="true"></span><div class="space-feature-copy"><span>'+escapeHtml(lead.spaceType)+' / '+escapeHtml(lead.wood)+'</span><h3>'+escapeHtml(lead.title)+'</h3><p>'+escapeHtml(lead.summary)+'</p><em>入境查看</em></div></button>';
   grid.innerHTML=SPACE_MEDIA.slice(1,6).map(function(item){
-    return '<button class="space-card" type="button" data-space-id="'+item.id+'" aria-label="查看'+escapeHtml(item.title)+'">'+renderSpaceMedia(item,'space-media')+'<span class="space-image-shade"></span><div class="space-card-copy"><span>'+escapeHtml(item.spaceType)+' · '+escapeHtml(item.wood)+'</span><strong>'+escapeHtml(item.title)+'</strong><em>'+escapeHtml(item.series)+'</em></div></button>';
+    return '<button class="space-card action-card" type="button" data-space-id="'+item.id+'" aria-label="查看'+escapeHtml(item.title)+'">'+renderSpaceMedia(item,'space-media')+'<span class="space-image-shade"></span><div class="space-card-copy"><span>'+escapeHtml(item.spaceType)+' · '+escapeHtml(item.wood)+'</span><strong>'+escapeHtml(item.title)+'</strong><em>入境查看</em></div></button>';
   }).join("");
   playSpaceVideos(document.getElementById("homeSpaceSection"));
 }
@@ -415,7 +438,7 @@ function renderCaseGallery(){
   var list=SPACE_MEDIA.filter(function(item){return activeCaseSpaceType==="全部"||item.spaceType===activeCaseSpaceType});
   el.innerHTML=list.map(function(item,index){
     var large=index===0&&activeCaseSpaceType==="全部"?" large":"";
-    return '<button class="space-gallery-card'+large+'" type="button" data-space-id="'+item.id+'" aria-label="打开'+escapeHtml(item.title)+'案例">'+renderSpaceMedia(item,'space-media')+'<span class="space-image-shade"></span><span class="space-logo-mark" aria-hidden="true"></span><div class="space-gallery-copy"><span>'+escapeHtml(item.spaceType)+' · '+escapeHtml(item.wood)+'</span><h3>'+escapeHtml(item.title)+'</h3><p>'+escapeHtml(item.summary)+'</p><em>'+escapeHtml(item.series)+' · 查看详情</em></div></button>';
+    return '<button class="space-gallery-card action-card'+large+'" type="button" data-space-id="'+item.id+'" aria-label="打开'+escapeHtml(item.title)+'案例">'+renderSpaceMedia(item,'space-media')+'<span class="space-image-shade"></span><span class="space-logo-mark" aria-hidden="true"></span><div class="space-gallery-copy"><span>'+escapeHtml(item.spaceType)+' · '+escapeHtml(item.wood)+'</span><h3>'+escapeHtml(item.title)+'</h3><p>'+escapeHtml(item.summary)+'</p><em>'+escapeHtml(item.series)+' · 入境查看</em></div></button>';
   }).join("");
   playSpaceVideos(el);
 }
@@ -443,7 +466,7 @@ function openSpaceCase(id){
   var copy=document.getElementById("spaceCaseCopy");
   if(!item||!modal||!media||!copy)return;
   media.innerHTML=renderSpaceMedia(item,'space-case-asset')+'<span class="space-image-shade"></span><span class="space-logo-mark" aria-hidden="true"></span>';
-  copy.innerHTML='<span>SPACE CASE / '+escapeHtml(item.spaceType)+'</span><h3>'+escapeHtml(item.title)+'</h3><p>'+escapeHtml(item.summary)+'</p><dl><div><dt>推荐木种</dt><dd>'+escapeHtml(item.wood)+'</dd></div><div><dt>适配系列</dt><dd>'+escapeHtml(item.series)+'</dd></div></dl><div class="page-cta"><button class="btn-primary" type="button" data-case-products="'+item.id+'">查看相关产品</button><a class="btn-secondary" href="'+escapeHtml(item.journalLink||"#journal")+'">阅读木作内容</a><a class="btn-secondary" href="#contact">预约咨询</a></div>';
+  copy.innerHTML='<span>SPACE CASE / '+escapeHtml(item.spaceType)+'</span><h3>'+escapeHtml(item.title)+'</h3><p>'+escapeHtml(item.summary)+'</p><dl><div><dt>推荐木种</dt><dd>'+escapeHtml(item.wood)+'</dd></div><div><dt>适配系列</dt><dd>'+escapeHtml(item.series)+'</dd></div></dl><div class="page-cta"><button class="btn-primary" type="button" data-case-products="'+item.id+'">看相关产品</button><a class="btn-secondary" href="'+escapeHtml(item.journalLink||"#journal")+'">读木作志</a><a class="btn-secondary" href="#contact">预约选材</a></div>';
   modal.classList.add("open");
   modal.setAttribute("aria-hidden","false");
   document.body.classList.add("space-case-open");
@@ -720,7 +743,7 @@ function buildProds(){
   }
   list.forEach(function(p){
     var card=document.createElement("div");
-    card.className="pcard"+(currentProd&&currentProd.code===p.code?" active":"");
+    card.className="pcard action-card"+(currentProd&&currentProd.code===p.code?" active":"");
     card.setAttribute("role","button");
     card.setAttribute("tabindex","0");
     card.setAttribute("aria-label","查看产品 "+p.code+" "+p.wood+" 详情");
@@ -1002,9 +1025,9 @@ function showProductInDrawer(p){
     +'<div class="drawer-card"><div class="val">'+p.spec+'</div><div class="lbl">规格</div></div>'
     +'</div>'
     +'<div class="drawer-actions">'
-    +'<a href="#contact" onclick="closeDrawer()">咨询这款 '+p.code+'</a>'
-    +'<a class="secondary" href="#series" onclick="goSeriesIntro(\''+p.series+'\');return false;">查看'+getIntroSeriesKey(p.series)+'介绍</a>'
-    +'<a class="secondary" href="#service" onclick="closeDrawer()">预约量尺与安装</a>'
+    +'<a href="#contact" onclick="closeDrawer()">预约选材 '+p.code+'</a>'
+    +'<a class="secondary" href="#series" onclick="goSeriesIntro(\''+p.series+'\');return false;">看'+getIntroSeriesKey(p.series)+'</a>'
+    +'<a class="secondary" href="#service" onclick="closeDrawer()">量尺安装</a>'
     +'</div>';
 }
 
@@ -1319,6 +1342,7 @@ document.addEventListener('DOMContentLoaded',function(){
   initSpaceExperience();
   initMobileFilterToggle();
   initProductFilterActions();
+  initCorporateCta();
   initWoodAcademy();
   initPremiumInteractions();
 });
@@ -1385,7 +1409,7 @@ function initPremiumInteractions(){
     'a','button','.chip','.pcard','.series-card','.series-tab','.case-card','.space-card','.space-feature-card','.space-gallery-card','.journal-topic',
     '.journal-hero-card','.journal-mini-card','.craft-item','.service-card','.phase-card-header',
     '.contact-card','.detail-card','.plan-grid div','.wood-family-card','.brand-film-card','.motion-feature','.motion-tile',
-    '.space-shortcut','.case-filter-tab','.prod-clear-filter'
+    '.space-shortcut','.case-filter-tab','.prod-clear-filter','.fixed-action-rail a','.fixed-action-rail button','.mobile-action-bar a'
   ].join(',');
   var motionCardSelector=[
     '.case-card','.space-card','.space-feature-card','.space-gallery-card','.journal-topic','.craft-item','.service-card','.phase-card','.contact-card',
