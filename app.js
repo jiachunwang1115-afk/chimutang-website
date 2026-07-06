@@ -255,6 +255,9 @@ fetch('./products_clean.json').then(function(r){return r.json()}).then(function(
     buildAllFilters();
     buildProds();
   }
+  if(window.location.hash==='#series'){
+    initSeriesPage();
+  }
 }).catch(function(e){
   console.error('Product data load failed', e);
   var grid=document.getElementById("prodGrid");
@@ -369,7 +372,8 @@ function renderSpaceMedia(item, className){
 function playSpaceVideos(scope){
   var root=scope||document;
   var reduceMotion=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if(reduceMotion)return;
+  var coarseMobile=window.matchMedia&&window.matchMedia('(max-width: 640px)').matches;
+  if(reduceMotion||coarseMobile)return;
   root.querySelectorAll('.space-feature-card video, .space-card video, .space-gallery-card video, .space-case-media video').forEach(function(video){
     var attempt=video.play();
     if(attempt&&attempt.catch) attempt.catch(function(){});
@@ -503,7 +507,7 @@ var IMAGE_SLOT_MAP=[
   {id:"H02",route:"#home",page:"首页",selector:"#page-home .gallery-main",title:"首屏右侧主空间图",asset:"journal/case-villa.webp"},
   {id:"H03",route:"#home",page:"首页",selector:"#page-home .gallery-side-a",title:"首屏叠放小图A",asset:"journal/space-floor.webp"},
   {id:"H04",route:"#home",page:"首页",selector:"#page-home .gallery-side-b",title:"首屏叠放小图B",asset:"journal/touch-wood.webp"},
-  {id:"H05",route:"#home",page:"首页",selector:"#page-home .brand-film-card",title:"品牌故事影片封面",asset:"media/brand-story-wood-ring.webp"},
+  {id:"H05",route:"#home",page:"首页",selector:"#page-home .brand-film-card",title:"品牌故事影片封面",asset:"media/brand-story-wood-ring-lite.webp"},
   {id:"M01",route:"#home",page:"首页",selector:"#page-home .motion-feature",title:"WOOD ALL MOTION 主视频",asset:"media/motion-atelier-01.mp4"},
   {id:"M02",route:"#home",page:"首页",selector:"#page-home .motion-tile[data-video-src='media/motion-atelier-02.mp4']",title:"影像小卡 02",asset:"media/motion-atelier-02.mp4"},
   {id:"M03",route:"#home",page:"首页",selector:"#page-home .motion-tile[data-video-src='media/motion-atelier-03.mp4']",title:"影像小卡 03",asset:"media/motion-atelier-03.mp4"},
@@ -521,8 +525,8 @@ var IMAGE_SLOT_MAP=[
   {id:"P01",route:"#products",page:"产品中心",selector:"#page-products .space-product-guide",title:"按空间选地板快捷入口区",asset:"SPACE_MEDIA"},
   {id:"P02",route:"#products",page:"产品中心",selector:"#page-products #prodGrid",title:"产品缩略图网格（由产品数据生成）",asset:"product-images-thumb/*"},
   {id:"T01",route:"#craft",page:"工艺技术",selector:"#page-craft .craft-editorial",title:"工艺页头图",asset:"journal/craft-hand.webp"},
-  {id:"T02",route:"#craft",page:"工艺技术",selector:"#craftContent .craft-item:nth-child(1)",title:"工艺卡 01",asset:"journal/craft-parquet-system.png"},
-  {id:"T03",route:"#craft",page:"工艺技术",selector:"#craftContent .craft-item:nth-child(2)",title:"工艺卡 02",asset:"journal/craft-stone-board.png"},
+  {id:"T02",route:"#craft",page:"工艺技术",selector:"#craftContent .craft-item:nth-child(1)",title:"工艺卡 01",asset:"journal/craft-parquet-system.webp"},
+  {id:"T03",route:"#craft",page:"工艺技术",selector:"#craftContent .craft-item:nth-child(2)",title:"工艺卡 02",asset:"journal/craft-stone-board.webp"},
   {id:"T04",route:"#craft",page:"工艺技术",selector:"#craftContent .craft-item:nth-child(3)",title:"工艺卡 03",asset:"partners/ciranova.jpg"},
   {id:"T05",route:"#craft",page:"工艺技术",selector:"#craftContent .craft-item:nth-child(4)",title:"工艺卡 04",asset:"partners/sherwin.jpg"},
   {id:"T06",route:"#craft",page:"工艺技术",selector:"#craftContent .craft-item:nth-child(5)",title:"工艺卡 05",asset:"partners/bona.png"},
@@ -674,9 +678,10 @@ function buildFilterRow(group){
   el.innerHTML="";
   var vals=collectValues(group);
   vals.forEach(function(v){
-    var c=document.createElement("span");
+    var c=document.createElement("button");
     var isAlt=(group==="surface"||group==="structure");
     var isActive=v===activeFilters[group]||(group==="series"&&activeFilters[group]!=="全部"&&v.indexOf(activeFilters[group])===0);
+    c.type="button";
     c.className="chip"+(isAlt?" alt":"")+(isActive?" active":"");
     c.textContent=v;
     c.onclick=function(){setFilter(group,v)};
@@ -1054,12 +1059,18 @@ function switchSeries(key){
 function renderSeriesContent(key){
   var d=seriesData[key];
   var count=countProductsBySeries(key);
+  var hasProducts=count>0;
+  var sideCount=hasProducts?count:'档案';
+  var sideLabel=hasProducts?'在售产品':'定制咨询';
+  var productText=hasProducts?'查看本系列产品':'查看在售产品';
+  var productSeries=hasProducts?key:'全部';
+  var contactText=hasProducts?'预约系列咨询':'预约定制咨询';
   var html='<div class="series-content active">';
   html+='<div class="series-hero">'
     +'<div class="series-hero-kicker">WOOD ALL SERIES</div>'
     +'<div class="series-hero-grid">'
     +'<div class="series-hero-copy"><h2>'+key+'</h2><p class="series-tagline"><strong>'+d.tagline+'</strong></p><p class="series-desc">'+d.hero+'</p></div>'
-    +'<div class="series-hero-side"><span>'+(count||'--')+'</span><em>在售产品</em><button class="series-link-products" type="button" data-series="'+key+'">查看本系列产品</button><button class="series-link-contact" type="button">预约系列咨询</button></div>'
+    +'<div class="series-hero-side '+(hasProducts?'':'is-archive')+'"><span>'+sideCount+'</span><em>'+sideLabel+'</em><button class="series-link-products" type="button" data-series="'+productSeries+'">'+productText+'</button><button class="series-link-contact" type="button">'+contactText+'</button></div>'
     +'</div></div>';
   html+='<div class="series-grid-detail">';
   d.features.forEach(function(f){
@@ -1068,7 +1079,11 @@ function renderSeriesContent(key){
   html+='</div></div>';
   document.getElementById('seriesContent').innerHTML=html;
   var productBtn=document.querySelector('.series-link-products');
-  if(productBtn)productBtn.onclick=function(){goProductsBySeries(this.getAttribute('data-series'))};
+  if(productBtn)productBtn.onclick=function(){
+    var series=this.getAttribute('data-series');
+    if(series==="全部") navigate("#products");
+    else goProductsBySeries(series);
+  };
   var contactBtn=document.querySelector('.series-link-contact');
   if(contactBtn)contactBtn.onclick=function(){navigate('#contact')};
 }
@@ -1156,10 +1171,10 @@ var craftData=[
 function initCraftPage(){
   var html='';
   var craftImages=[
-    'journal/craft-parquet-system.png','journal/craft-stone-board.png','partners/ciranova.jpg','partners/sherwin.jpg',
+    'journal/craft-parquet-system.webp','journal/craft-stone-board.webp','partners/ciranova.jpg','partners/sherwin.jpg',
     'partners/bona.png','media/motion-atelier-02.mp4','journal/wood-art.webp','journal/material-blue-floor.webp',
-    'journal/craft-section-shelf.png','journal/craft-face-grain.png','journal/craft-floor-face.png','journal/craft-night-plank.png',
-    'journal/craft-oriental-card.webp','journal/craft-ring-section.png','journal/craft-human-wood.png','journal/craft-wood-portrait-art.png'
+    'journal/craft-section-shelf.webp','journal/craft-face-grain.webp','journal/craft-floor-face.webp','journal/craft-night-plank.webp',
+    'journal/craft-oriental-card.webp','journal/craft-ring-section.webp','journal/craft-human-wood.webp','journal/craft-wood-portrait-art.webp'
   ];
   var craftTags=['LOCK','COATING','COLOR','SURFACE','MATERIAL','STABILITY','JOINERY','ECO'];
   craftData.forEach(function(item,i){
@@ -1167,7 +1182,7 @@ function initCraftPage(){
     html+='<div class="craft-item">';
     html+='<div class="craft-item-media">';
     if(/\.mp4($|\?)/i.test(media)){
-      html+='<video src="'+media+'" muted loop playsinline autoplay preload="metadata" aria-label="'+item.title+'"></video>';
+      html+='<video src="'+media+'" muted loop playsinline preload="metadata" poster="media/brand-film-poster.jpg" aria-label="'+item.title+'"></video>';
     }else{
       html+='<img src="'+media+'" alt="'+item.title+'" loading="lazy" decoding="async">';
     }
@@ -1187,6 +1202,16 @@ document.addEventListener('DOMContentLoaded',function(){handleHash()});
 document.addEventListener('DOMContentLoaded',function(){
   var heroVideo=document.getElementById('heroVideo');
   if(heroVideo){
+    var reduceMotion=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var coarseMobile=window.matchMedia&&window.matchMedia('(max-width: 640px)').matches;
+    if(reduceMotion||coarseMobile){
+      heroVideo.style.opacity=coarseMobile?'.22':'0';
+    }else{
+      var src=heroVideo.getAttribute('data-src');
+      if(src&&!heroVideo.getAttribute('src')){
+        heroVideo.setAttribute('src',src);
+        heroVideo.load();
+      }
     var fadeSeconds=.5;
     var rafId=null;
     function setHeroVideoOpacity(){
@@ -1213,6 +1238,7 @@ document.addEventListener('DOMContentLoaded',function(){
     heroVideo.play().catch(function(){
       heroVideo.style.opacity='0';
     });
+    }
   }
 
   var gallery=document.querySelector('.hero-gallery');
@@ -1256,8 +1282,9 @@ function initMotionAtelier(){
   var videos=document.querySelectorAll('.motion-atelier video');
   if(!videos.length) return;
   var reduceMotion=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var coarseMobile=window.matchMedia&&window.matchMedia('(max-width: 640px)').matches;
   function playVideo(v){
-    if(reduceMotion) return;
+    if(reduceMotion||coarseMobile) return;
     var attempt=v.play();
     if(attempt&&attempt.catch) attempt.catch(function(){});
   }

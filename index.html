@@ -2,9 +2,10 @@
 <html lang="zh-CN">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="痴木堂 WOOD ALL，高端原木地板定制品牌，提供木地板产品选型、空间案例、工艺技术、安装交付与终身维保服务。">
 <title>痴木堂 · 高端木地板品牌</title>
-<link rel="stylesheet" href="style.css?v=readability-1">
+<link rel="stylesheet" href="style.css?v=integrity-1">
 </head>
 <body>
 
@@ -22,8 +23,10 @@
       <li><a href="#journal">木作志</a></li>
       <li><a href="#cases">案例展示</a></li>
       <li><a href="#service">服务支持</a></li>
-      <li><a href="#contact">联系我们</a></li>
+      <li class="nav-mobile-contact"><a href="#contact">联系我们</a></li>
+      <li class="nav-mobile-action"><a href="#contact">预约咨询</a></li>
     </ul>
+    <a href="#contact" class="nav-contact-cta" aria-label="预约痴木堂木地板咨询">预约咨询</a>
     <button class="nav-hamburger" id="hamburger" aria-label="菜单" aria-controls="navLinks" aria-expanded="false">
       <span></span><span></span><span></span>
     </button>
@@ -35,7 +38,7 @@
   <div class="film-modal-backdrop" id="filmModalBackdrop"></div>
   <div class="film-modal-panel" role="dialog" aria-modal="true" aria-label="痴木堂品牌宣传视频">
     <button class="film-modal-close" id="filmModalClose" type="button" aria-label="关闭视频">×</button>
-    <video id="brandFilmVideo" class="brand-film-video" controls playsinline preload="metadata" poster="media/brand-story-wood-ring.webp"></video>
+    <video id="brandFilmVideo" class="brand-film-video" controls playsinline preload="metadata" poster="media/brand-story-wood-ring-lite.webp"></video>
     <div class="film-fallback" id="filmFallback">
       <span>VIDEO SOURCE</span>
       <strong>品牌影像正在加载</strong>
@@ -59,9 +62,7 @@
 <section class="page active" id="page-home">
   <div class="hero">
     <div class="hero-video-layer" aria-hidden="true">
-      <video class="hero-video" id="heroVideo" muted playsinline preload="metadata" poster="media/brand-film-poster.jpg">
-        <source src="media/chimutang-brand-film.mp4" type="video/mp4">
-      </video>
+      <video class="hero-video" id="heroVideo" muted playsinline preload="none" poster="media/brand-film-poster.jpg" data-src="media/chimutang-brand-film.mp4"></video>
       <div class="hero-video-gradient"></div>
     </div>
     <div class="hero-content">
@@ -84,9 +85,9 @@
         </div>
       </div>
       <div class="hero-gallery" aria-hidden="true">
-        <div class="gallery-card gallery-main"><img src="journal/case-villa.webp" alt=""></div>
-        <div class="gallery-card gallery-side gallery-side-a"><img src="journal/space-floor.webp" alt=""></div>
-        <div class="gallery-card gallery-side gallery-side-b"><img src="journal/touch-wood.webp" alt=""></div>
+        <div class="gallery-card gallery-main"><img src="journal/case-villa.webp" alt="大宅空间木地板搭配效果"></div>
+        <div class="gallery-card gallery-side gallery-side-a"><img src="journal/space-floor.webp" alt="木地板空间尺度与光线关系"></div>
+        <div class="gallery-card gallery-side gallery-side-b"><img src="journal/touch-wood.webp" alt="手触木材纹理与表面质感"></div>
         <div class="gallery-caption">
           <span>Flooring Atmosphere</span>
           <strong>空间 / 木纹 / 触感</strong>
@@ -144,7 +145,7 @@
 
     <div class="brand-film-section">
       <button class="brand-film-card" id="brandFilmOpen" type="button" data-video-src="media/chimutang-brand-film.mp4" aria-label="播放痴木堂品牌宣传视频">
-        <img src="media/brand-story-wood-ring.webp" alt="原木年轮与木纹肌理">
+        <img src="media/brand-story-wood-ring-lite.webp" alt="原木年轮与木纹肌理">
         <span class="brand-film-shade"></span>
         <span class="brand-film-play" aria-hidden="true"></span>
         <span class="brand-film-meta">BRAND FILM · WOOD ALL</span>
@@ -168,7 +169,7 @@
         </div>
       </div>
       <button class="motion-feature" type="button" data-video-src="media/motion-atelier-01.mp4" aria-label="播放展厅大板木纹影像">
-        <video muted playsinline loop preload="metadata" poster="media/brand-film-poster.jpg">
+        <video muted playsinline loop preload="none" poster="media/brand-film-poster.jpg">
           <source src="media/motion-atelier-01.mp4" type="video/mp4">
         </video>
         <span class="motion-shade"></span>
@@ -178,21 +179,21 @@
       </button>
       <div class="motion-stack">
         <button class="motion-tile" type="button" data-video-src="media/motion-atelier-02.mp4" aria-label="播放地板光影影像">
-          <video muted playsinline loop preload="metadata" poster="media/brand-film-poster.jpg">
+          <video muted playsinline loop preload="none" poster="media/brand-film-poster.jpg">
             <source src="media/motion-atelier-02.mp4" type="video/mp4">
           </video>
           <span>02</span>
           <strong>地板光影</strong>
         </button>
         <button class="motion-tile" type="button" data-video-src="media/motion-atelier-03.mp4" aria-label="播放原木运输影像">
-          <video muted playsinline loop preload="metadata" poster="media/brand-film-poster.jpg">
+          <video muted playsinline loop preload="none" poster="media/brand-film-poster.jpg">
             <source src="media/motion-atelier-03.mp4" type="video/mp4">
           </video>
           <span>03</span>
           <strong>原木源头</strong>
         </button>
         <button class="motion-tile" type="button" data-video-src="media/motion-atelier-04.mp4" aria-label="播放刨花手作影像">
-          <video muted playsinline loop preload="metadata" poster="media/brand-film-poster.jpg">
+          <video muted playsinline loop preload="none" poster="media/brand-film-poster.jpg">
             <source src="media/motion-atelier-04.mp4" type="video/mp4">
           </video>
           <span>04</span>
@@ -356,6 +357,16 @@
     </div>
     </div>
 
+    <div class="page-conversion product-conversion">
+      <span>SELECTION SUPPORT</span>
+      <h3>还不确定适合哪一款？让管家根据户型、采光和预算先帮你缩小范围。</h3>
+      <p>发送面积、城市、喜欢的木色和预计安装时间，我们会优先推荐适合的系列、木种与铺装方式。</p>
+      <div class="page-cta">
+        <a href="#contact" class="btn-primary">预约选材咨询</a>
+        <a href="#series" class="btn-secondary">了解系列差异</a>
+      </div>
+    </div>
+
     <!-- 产品详情抽屉 -->
     <div class="drawer-overlay" id="drawerOverlay" onclick="closeDrawer()"></div>
     <div class="prod-drawer" id="prodDrawer">
@@ -387,6 +398,15 @@
     <div class="section-title"><h2>系列介绍</h2><p>深入了解痴木堂产品系列的核心定位与工艺特色</p></div>
     <div class="series-tabs" id="seriesTabs"></div>
     <div id="seriesContent"></div>
+    <div class="page-conversion">
+      <span>SERIES TO PRODUCT</span>
+      <h3>看完系列定位后，可以直接进入对应产品，或让管家按空间风格推荐。</h3>
+      <p>境、森、悦、墨为当前在售产品系列；匠、璞为高端定制与原木档案，可预约咨询。</p>
+      <div class="page-cta">
+        <a href="#products" class="btn-primary">查看在售产品</a>
+        <a href="#contact" class="btn-secondary">预约系列咨询</a>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -407,6 +427,15 @@
       </div>
     </div>
     <div class="craft-grid" id="craftContent"></div>
+    <div class="page-conversion">
+      <span>CRAFT TO SERVICE</span>
+      <h3>工艺决定长期稳定性，交付决定最终体验。</h3>
+      <p>了解锁扣、涂装、化染和安装标准后，可以继续查看管家服务如何把工艺落到现场。</p>
+      <div class="page-cta">
+        <a href="#service" class="btn-primary">查看服务标准</a>
+        <a href="#contact" class="btn-secondary">预约工艺咨询</a>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -569,6 +598,15 @@
           <div><span>04</span><strong>工艺档案</strong><p>什么是零度薄涂，为什么高级</p></div>
           <div><span>05</span><strong>东方审美</strong><p>木纹里的留白、秩序与克制</p></div>
           <div><span>06</span><strong>展览动态</strong><p>木作美学小展与设计师沙龙</p></div>
+        </div>
+      </div>
+      <div class="page-conversion journal-conversion">
+        <span>READ TO SELECT</span>
+        <h3>读懂木材之后，再回到产品和空间里做选择。</h3>
+        <p>如果你已经有偏好的木种、颜色或空间氛围，可以直接进入产品中心筛选，或查看空间灵感库。</p>
+        <div class="page-cta">
+          <a href="#products" class="btn-primary">按木种看产品</a>
+          <a href="#cases" class="btn-secondary">查看空间灵感</a>
         </div>
       </div>
     </div>
@@ -776,6 +814,10 @@
     <div class="about-contact">
       <div class="ct"><strong>合作洽谈</strong>：飞书 @痴木堂团队，或加入「痴木堂合作交流群」获取最新合作资讯</div>
       <div class="ct"><strong>其他咨询</strong>：木作设计、原料甄选、工艺技术交流等需求，可直接联系对应负责人</div>
+      <div class="page-cta">
+        <a href="#products" class="btn-primary">查看产品体系</a>
+        <a href="#contact" class="btn-secondary">联系品牌团队</a>
+      </div>
     </div>
   </div>
 </section>
@@ -1071,6 +1113,15 @@
       <div class="service-contact-item"><span>⚡</span> 极速响应：8小时内上门</div>
       <div class="service-contact-item"><span>🔄</span> 终身维保：30年质保</div>
     </div>
+    <div class="page-conversion service-conversion">
+      <span>SERVICE NEXT</span>
+      <h3>服务不是售后补救，而是从选材前就开始的全周期保障。</h3>
+      <p>如果你正在装修、准备量尺或需要判断地面条件，可以先预约一次选材与勘测沟通。</p>
+      <div class="page-cta">
+        <a href="#contact" class="btn-primary">预约量尺咨询</a>
+        <a href="#products" class="btn-secondary">先看产品</a>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -1163,19 +1214,22 @@
       <p><a href="#series">境系列</a></p>
       <p><a href="#series">森系列</a></p>
       <p><a href="#series">悦系列</a></p>
-      <p><a href="#series">匠系列</a></p>
-      <p><a href="#series">璞系列</a></p>
+      <p><a href="#series">墨系列</a></p>
+      <p><a href="#series">匠 / 璞定制档案</a></p>
     </div>
     <div>
       <h4>快捷链接</h4>
       <p><a href="#products">产品中心</a></p>
+      <p><a href="#about">品牌故事</a></p>
       <p><a href="#journal">木作志</a></p>
       <p><a href="#craft">工艺技术</a></p>
       <p><a href="#cases">案例展示</a></p>
       <p><a href="#service">服务支持</a></p>
     </div>
     <div>
-      <h4>关注我们</h4>
+      <h4>联系咨询</h4>
+      <p><a href="#contact">预约选材咨询</a></p>
+      <p>售后电话：88399375</p>
       <p>微信 · 抖音 · 小红书</p>
       <p>展厅预约参观</p>
     </div>
@@ -1183,6 +1237,6 @@
   <div class="footer-bottom">© 2025 痴木堂 CHIMUTANG. All rights reserved.</div>
 </footer>
 
-<script src="app.js?v=readability-1"></script>
+<script src="app.js?v=integrity-1"></script>
 </body>
 </html>
