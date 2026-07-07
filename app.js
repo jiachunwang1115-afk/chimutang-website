@@ -989,6 +989,8 @@ function buildProds(){
     card.setAttribute("aria-label","查看产品 "+p.code+" "+p.wood+" 详情");
     card.innerHTML='<img src="'+p.img_b_thumb+'" loading="lazy" decoding="async" alt="'+p.code+' '+p.wood+' 木地板纹理"><span class="pname">'+p.code+' · '+p.wood+'</span>';
     card.onclick=function(){selectProd(p)};
+    card.onpointerenter=function(){warmProductImages(p,1)};
+    card.onfocus=function(){warmProductImages(p,1)};
     card.onkeydown=function(e){if(e.key==="Enter"||e.key===" "){e.preventDefault();selectProd(p)}};
     el.appendChild(card);
   });
@@ -1234,10 +1236,115 @@ function unbindDrawerSwipe(){
 
 function getProductSceneSources(p){
   var sources=[];
-  [p.img_e_hd,p.img_b_hd,p.img_e_thumb,p.img_b_thumb].forEach(function(src){
+  [p.img_e_thumb,p.img_b_thumb,p.img_e_hd,p.img_b_hd].forEach(function(src){
     if(src&&sources.indexOf(src)<0)sources.push(src);
   });
   return sources;
+}
+
+var productImageWarmCache={};
+var drawerImageLoadToken=0;
+var productHdFailureStreak=0;
+var productHdDisabled=false;
+
+function uniqueProductSources(sources){
+  var unique=[];
+  sources.forEach(function(src){
+    if(src&&unique.indexOf(src)<0)unique.push(src);
+  });
+  return unique;
+}
+
+function getProductHighResSources(p){
+  if(productHdDisabled)return [];
+  return uniqueProductSources([p.img_e_hd,p.img_b_hd]);
+}
+
+function isProductHdSource(src){
+  return !!src&&src.indexOf(COS_BASE+"product-images/")===0;
+}
+
+function noteProductHdSuccess(src){
+  if(!isProductHdSource(src))return;
+  productHdFailureStreak=0;
+}
+
+function noteProductHdFailure(src){
+  if(!isProductHdSource(src))return;
+  productHdFailureStreak+=1;
+  if(productHdFailureStreak>=6)productHdDisabled=true;
+}
+
+function filterVisibleProductSources(sources){
+  var filtered=sources.filter(function(src){return !isTextHeavyProductImage(src)});
+  return filtered.length?filtered:sources;
+}
+
+function loadWarmImage(src,onLoad,onError){
+  if(!src){
+    if(onError)onError();
+    return;
+  }
+  var cached=productImageWarmCache[src];
+  if(cached&&cached.state==="loaded"){
+    if(onLoad)window.setTimeout(function(){onLoad(src)},0);
+    return;
+  }
+  if(cached&&cached.state==="error"){
+    if(onError)window.setTimeout(function(){onError(src)},0);
+    return;
+  }
+  if(cached&&cached.state==="loading"){
+    if(onLoad)cached.onload.push(onLoad);
+    if(onError)cached.onerror.push(onError);
+    return;
+  }
+  var entry={state:"loading",onload:onLoad?[onLoad]:[],onerror:onError?[onError]:[]};
+  productImageWarmCache[src]=entry;
+  var img=new Image();
+  img.decoding="async";
+  img.onload=function(){
+    entry.state="loaded";
+    noteProductHdSuccess(src);
+    entry.onload.splice(0).forEach(function(fn){fn(src)});
+  };
+  img.onerror=function(){
+    entry.state="error";
+    noteProductHdFailure(src);
+    entry.onerror.splice(0).forEach(function(fn){fn(src)});
+  };
+  img.src=src;
+}
+
+function loadFirstWarmImage(sources,onReady){
+  var list=uniqueProductSources(sources);
+  var index=0;
+  function next(){
+    if(index>=list.length)return;
+    var src=list[index++];
+    loadWarmImage(src,function(readySrc){
+      onReady(readySrc);
+    },next);
+  }
+  next();
+}
+
+function warmProductImages(product,limit){
+  filterVisibleProductSources(getProductHighResSources(product)).slice(0,limit||1).forEach(function(src){
+    loadWarmImage(src);
+  });
+}
+
+function warmNeighborProductImages(product){
+  var list=getFilteredList();
+  if(!product||!list.length)return;
+  var idx=-1;
+  for(var i=0;i<list.length;i++){
+    if(list[i].code===product.code){idx=i;break;}
+  }
+  [idx-1,idx+1].forEach(function(nextIndex){
+    if(nextIndex>=0&&nextIndex<list.length)warmProductImages(list[nextIndex],1);
+  });
 }
 
 function isTextHeavyProductImage(src){
@@ -1253,15 +1360,41 @@ function showProductInDrawer(p){
 
   // Scene image (full screen bg)
   var sceneImg=document.getElementById('drawerScene');
+  var loadToken=++drawerImageLoadToken;
+  sceneImg.decoding="async";
+  sceneImg.loading="eager";
+  sceneImg.classList.remove("is-hd-ready");
+  sceneImg.classList.add("is-loading");
   var sceneSources=getProductSceneSources(p).filter(function(src){return !isTextHeavyProductImage(src);});
   if(sceneSources.length===0)sceneSources=getProductSceneSources(p);
   sceneImg.alt=(p.code||'')+' 木地板空间效果图';
   var sourceIndex=0;
+  sceneImg.onload=function(){
+    if(loadToken!==drawerImageLoadToken)return;
+    sceneImg.classList.remove("is-loading");
+  };
   sceneImg.onerror=function(){
+    if(loadToken!==drawerImageLoadToken)return;
     sourceIndex+=1;
     if(sourceIndex<sceneSources.length)sceneImg.src=sceneSources[sourceIndex];
   };
   sceneImg.src=sceneSources[0]||'';
+  loadFirstWarmImage(filterVisibleProductSources(getProductHighResSources(p)),function(hdSrc){
+    if(loadToken!==drawerImageLoadToken||!hdSrc)return;
+    if(sceneImg.getAttribute("src")===hdSrc){
+      sceneImg.classList.add("is-hd-ready");
+      return;
+    }
+    sceneImg.onload=function(){
+      if(loadToken!==drawerImageLoadToken)return;
+      sceneImg.classList.remove("is-loading");
+      sceneImg.classList.add("is-hd-ready");
+    };
+    sceneImg.onerror=null;
+    sceneImg.classList.add("is-loading");
+    sceneImg.src=hdSrc;
+  });
+  warmNeighborProductImages(p);
 
   // Info panel
   var info=document.getElementById('drawerInfoPanel');

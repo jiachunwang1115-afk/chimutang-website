@@ -6555,3 +6555,44 @@ body.has-scrolled .fixed-action-rail button{opacity:1}
     margin-top:28px!important;
   }
 }
+
+/* ===== Image Loading Flow Refinement ===== */
+.drawer-bg .drawer-scene{
+  position:relative!important;
+  z-index:1!important;
+  transition:opacity .34s var(--ease-luxe),filter .34s ease,transform .34s var(--ease-luxe)!important;
+  will-change:opacity,filter;
+}
+.drawer-bg .drawer-scene.is-loading{
+  opacity:.78!important;
+  filter:saturate(1.02) contrast(1.01) brightness(1.02) blur(3px)!important;
+}
+.drawer-bg .drawer-scene.is-hd-ready{
+  opacity:1!important;
+  filter:saturate(1.03) contrast(1.02) brightness(1.03)!important;
+}
+.drawer-bg::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:0;
+  pointer-events:none;
+  background:
+    linear-gradient(110deg,rgba(255,255,255,0),rgba(255,255,255,.12),rgba(255,255,255,0)),
+    linear-gradient(180deg,#2a2119,#15110d);
+  opacity:.28;
+  transform:translateX(-42%);
+  transition:opacity .32s ease;
+}
+.drawer-bg::after{
+  z-index:2!important;
+}
+.drawer-bg:has(.drawer-scene.is-hd-ready)::before{
+  opacity:0;
+}
+
+@media(prefers-reduced-motion:reduce){
+  .drawer-bg .drawer-scene{
+    transition:none!important;
+  }
+}
