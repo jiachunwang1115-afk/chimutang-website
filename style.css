@@ -6228,3 +6228,61 @@ body.has-scrolled .fixed-action-rail button{opacity:1}
     width:100%;
   }
 }
+
+/* ===== Product Drawer Cropped Original Images ===== */
+.drawer-bg{
+  min-height:620px!important;
+  height:74vh!important;
+  max-height:820px!important;
+  background:#241d17!important;
+}
+.drawer-bg .drawer-scene{
+  object-fit:cover!important;
+  object-position:center 60%!important;
+  transform:scale(1.018);
+  filter:saturate(1.04) contrast(1.02) brightness(1.03)!important;
+  background:#241d17!important;
+}
+.drawer-bg::after{
+  display:block!important;
+  content:""!important;
+  position:absolute!important;
+  inset:0!important;
+  pointer-events:none!important;
+  background:
+    linear-gradient(180deg,rgba(18,14,10,.04),rgba(18,14,10,.34)),
+    linear-gradient(90deg,rgba(18,14,10,.18),rgba(18,14,10,.02) 46%,rgba(18,14,10,.18))!important;
+}
+.drawer-content{
+  margin-top:-118px!important;
+}
+.drawer-info-panel{
+  width:min(980px,calc(100% - 72px))!important;
+}
+
+@media(max-width:900px){
+  .drawer-bg{
+    min-height:500px!important;
+    height:64vh!important;
+  }
+  .drawer-content{
+    margin-top:-88px!important;
+  }
+}
+
+@media(max-width:640px){
+  .drawer-bg{
+    min-height:390px!important;
+    height:58vh!important;
+  }
+  .drawer-bg .drawer-scene{
+    object-position:center 58%!important;
+    transform:scale(1.012);
+  }
+  .drawer-content{
+    margin-top:-54px!important;
+  }
+  .drawer-info-panel{
+    width:100%!important;
+  }
+}
