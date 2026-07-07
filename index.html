@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="痴木堂 WOOD ALL，高端原木地板定制品牌，提供木地板产品选型、铺装参考、工艺技术、安装交付与终身维保服务。">
 <title>痴木堂 · 高端木地板品牌</title>
-<link rel="stylesheet" href="style.css?v=case-label-refine-1">
+<link rel="stylesheet" href="style.css?v=paving-atlas-3">
 </head>
 <body>
 
@@ -49,7 +49,7 @@
 
 <div class="space-case-modal" id="spaceCaseModal" aria-hidden="true">
   <div class="space-case-backdrop" id="spaceCaseBackdrop"></div>
-  <article class="space-case-panel" role="dialog" aria-modal="true" aria-label="铺装参考详情">
+  <article class="space-case-panel" role="dialog" aria-modal="true" aria-label="铺装参考库详情">
     <button class="space-case-close" id="spaceCaseClose" type="button" aria-label="关闭铺装参考">×</button>
     <div class="space-case-media" id="spaceCaseMedia"></div>
     <div class="space-case-copy" id="spaceCaseCopy"></div>
@@ -60,6 +60,7 @@
   <a href="#contact" data-quick-route="#contact"><span>预约</span><strong>选材</strong></a>
   <a href="#products" data-quick-route="#products"><span>查看</span><strong>产品</strong></a>
   <a href="#cases" data-quick-route="#cases"><span>铺装</span><strong>参考</strong></a>
+  <button type="button" id="pavingSelectionButton" aria-label="复制铺装参考选材夹"><span>选材</span><strong><b id="pavingSelectionCount">0</b>项</strong></button>
   <button type="button" id="backToTop" aria-label="回到页面顶部"><span>回到</span><strong>顶部</strong></button>
 </aside>
 
@@ -217,9 +218,9 @@
 
     <div class="section space-showcase-section" id="homeSpaceSection">
       <div class="space-section-head">
-        <span>SPACE GALLERY</span>
+        <span>PAVING ATLAS</span>
         <h2>木入其境</h2>
-        <p>以客厅、卧室、书房、茶室与商业空间，判断木色、尺度、光线和气质。</p>
+        <p>以房间、木色、铺法与光线，先判断家的气质，再进入产品选择。</p>
       </div>
       <div class="space-showcase-layout">
         <div class="space-feature-slot" id="homeSpaceFeature"></div>
@@ -639,14 +640,21 @@
 <section class="page" id="page-cases">
   <div class="container case-space-page">
     <div class="case-space-hero page-header">
-      <span class="page-eyebrow">SPACE INSPIRATION</span>
-      <h2>铺装参考</h2>
-      <p>把产品放回真实生活里，看木色、光线、尺度与脚感。</p>
+      <span class="page-eyebrow">PAVING ATLAS</span>
+      <h2>铺装参考库</h2>
+      <p>以空间定木色，以铺法定秩序。参考图库仅作选材与铺装效果参考。</p>
+    </div>
+
+    <div class="case-atlas-stats" aria-label="铺装参考库概览">
+      <div><strong>36</strong><span>组铺装参考</span></div>
+      <div><strong>9</strong><span>类空间场景</span></div>
+      <div><strong>5</strong><span>种木色方向</span></div>
+      <div><strong>多种</strong><span>铺法建议</span></div>
     </div>
 
     <div class="case-space-toolbar">
       <div class="case-filter-tabs" id="caseSpaceFilters"></div>
-      <div class="case-space-note">点击参考，查看空间说明与相关产品。</div>
+      <div class="case-space-note">点击参考，查看空间、木色、铺法与相关产品。</div>
     </div>
 
     <div class="space-gallery" id="caseSpaceGallery"></div>
@@ -1267,6 +1275,6 @@
   <div class="footer-bottom">© 2025 痴木堂 CHIMUTANG. All rights reserved.</div>
 </footer>
 
-<script src="app.js?v=case-label-refine-1"></script>
+<script src="app.js?v=paving-atlas-3"></script>
 </body>
 </html>

@@ -174,86 +174,79 @@ function handleHash(){
 window.addEventListener('hashchange',handleHash);
 
 // ===== PRODUCT DATA & FILTERING =====
+var PAVING_SUPPORT_ASSETS={
+  oakLight:{src:"journal/paving-support/support-texture-oak-light.webp",alt:"浅橡木纹理近观",title:"浅木纹理"},
+  oakNatural:{src:"journal/paving-support/support-texture-oak-natural.webp",alt:"自然橡木纹理近观",title:"原木纹理"},
+  oakBrown:{src:"journal/paving-support/support-texture-oak-brown.webp",alt:"中棕木纹纹理近观",title:"中棕纹理"},
+  warm:{src:"journal/paving-support/support-texture-warm.webp",alt:"温润木色纹理近观",title:"温润木色"},
+  deep:{src:"journal/paving-support/support-texture-deep.webp",alt:"深色木纹纹理近观",title:"深色纹理"},
+  smoke:{src:"journal/paving-support/support-texture-smoke.webp",alt:"烟熏灰木纹纹理近观",title:"烟熏灰调"},
+  maintenance:{src:"journal/paving-support/support-maintenance-kit.webp",alt:"木地板养护用品",title:"养护建议"},
+  repair:{src:"journal/paving-support/support-maintenance-before-after.webp",alt:"木地板维护前后对比",title:"维护前后"},
+  oil:{src:"journal/paving-support/support-maintenance-oil.webp",alt:"木地板表面护理油",title:"表面护理"},
+  nosing:{src:"journal/paving-support/support-stair-nosing.webp",alt:"楼梯收口木作部件",title:"楼梯收口"},
+  skirting:{src:"journal/paving-support/support-skirting-installed.webp",alt:"踢脚线安装效果",title:"墙地收边"},
+  section:{src:"journal/paving-support/support-section-stile.webp",alt:"木作部件剖面结构",title:"结构剖面"}
+};
+
+function getPavingSupport(keys){
+  return (keys||[]).map(function(key){return PAVING_SUPPORT_ASSETS[key]}).filter(Boolean);
+}
+
+function paving(item){
+  item.mediaType=item.mediaType||"image";
+  item.title=item.title||item.headline;
+  item.spaceType=item.roomType;
+  item.journalLink=item.journalLink||"#journal";
+  item.relatedAssets=getPavingSupport(item.support);
+  return item;
+}
+
 var SPACE_MEDIA=[
-  {
-    id:"living-oak",
-    mediaType:"image",
-    src:"journal/case-family-room.webp",
-    alt:"客厅橡木地板与柔和家具空间",
-    title:"客厅里的安静底色",
-    spaceType:"客厅",
-    wood:"橡木",
-    series:"境系列",
-    summary:"浅橡木适合大面积客餐厅，它让光线停留得更柔和，也让家具、墙面和人的动线自然分层。",
-    productFilter:{series:"境系列",wood:"橡木"},
-    journalLink:"#journal"
-  },
-  {
-    id:"bedroom-ash",
-    mediaType:"image",
-    src:"journal/case-light.webp",
-    alt:"卧室浅橡木地板与自然光",
-    title:"卧室需要更轻的呼吸感",
-    spaceType:"卧室",
-    wood:"橡木",
-    series:"悦系列",
-    summary:"浅橡木能降低卧室视觉重量，适合柔和织物、低饱和墙面和简洁收纳系统。",
-    productFilter:{series:"悦系列",wood:"橡木"},
-    journalLink:"#journal"
-  },
-  {
-    id:"study-walnut",
-    mediaType:"image",
-    src:"journal/case-villa.webp",
-    alt:"书房深色木地板与沉静空间",
-    title:"书房的沉静与尺度",
-    spaceType:"书房",
-    wood:"黑胡桃",
-    series:"境系列",
-    summary:"深色木纹可以建立更稳定的专注氛围，适合书房、会客室和需要安静秩序的大宅区域。",
-    productFilter:{series:"境系列",wood:"黑胡桃"},
-    journalLink:"#journal"
-  },
-  {
-    id:"tea-room-walnut",
-    mediaType:"image",
-    src:"journal/craft-lounge-board.webp",
-    alt:"茶室休闲空间与木地板温润气质",
-    title:"茶室里的时间纹理",
-    spaceType:"茶室",
-    wood:"胡桃木",
-    series:"森系列",
-    summary:"茶室更看重木材的静气和触感。温润深木色能承接器物、光影和留白。",
-    productFilter:{series:"森系列",wood:"胡桃木"},
-    journalLink:"#journal"
-  },
-  {
-    id:"showroom-motion",
-    mediaType:"video",
-    src:"media/motion-atelier-01.mp4",
-    poster:"media/brand-film-poster.jpg",
-    alt:"展厅大板木纹动态影像",
-    title:"展厅里的木纹尺度",
-    spaceType:"展厅",
-    wood:"欧橡",
-    series:"森系列",
-    summary:"展厅适合用大幅面影像呈现纹理连续性，让客户更快理解木色、比例和空间延展感。",
-    productFilter:{series:"森系列",wood:"欧橡"},
-    journalLink:"#craft"
-  },
-  {
-    id:"commercial-system",
-    mediaType:"image",
-    src:"journal/culture-color-door.webp",
-    alt:"商业空间木作与色彩设计",
-    title:"商业空间的品牌底色",
-    spaceType:"商业空间",
-    wood:"橡木",
-    series:"境系列",
-    summary:"酒店、展厅和会所需要更稳定的材料叙事。木地板既是耐用界面，也是品牌氛围的一部分。",
-    productFilter:{series:"境系列",wood:"橡木"},
-    journalLink:"#service"
-  }
+  paving({id:"living-hero",src:"journal/paving-reference/ref-living-hero.webp",alt:"浅木客厅与电视墙空间铺装参考",headline:"木入客厅",subline:"以浅木承光",roomType:"客厅",colorTone:"浅木",styleTag:"自然侘寂",pattern:"通铺长板",mood:"明亮",wood:"橡木",series:"境系列",summary:"大面积浅木让客餐厅先有明度，再承接家具、墙面与人的动线。适合采光充足、希望空间显得舒展的户型。",detailPoints:["空间观感：浅木作底，客厅更显宽阔。","木色建议：橡木、欧橡适合大面积通铺。","铺法建议：长板顺光铺设，减少视觉切割。"],support:["oakLight","section"],productFilter:{series:"境系列",wood:"橡木"},featured:true}),
+  paving({id:"living-light",src:"journal/paving-reference/ref-living-light.webp",alt:"明亮客厅浅木地板铺装参考",headline:"光下原木",subline:"明厅宜浅",roomType:"客厅",colorTone:"原木",styleTag:"现代极简",pattern:"宽板",mood:"明亮",wood:"欧橡",series:"悦系列",summary:"原木色能把自然光转成温和底色。适合白墙、低饱和家具和开敞客厅，视觉安静而不单薄。",detailPoints:["空间观感：明亮、干净、家具更易搭配。","木色建议：选择纹理清晰但色差克制的原木色。","铺法建议：宽板更能保留大宅尺度。"],support:["oakNatural","maintenance"],productFilter:{series:"悦系列",wood:"欧橡"},featured:true}),
+  paving({id:"living-dark-lounge",src:"journal/paving-reference/ref-living-dark-lounge.webp",alt:"深色会客厅木地板铺装参考",headline:"深厅有序",subline:"以暗定静",roomType:"客厅",colorTone:"深胡桃",styleTag:"意式沉稳",pattern:"宽板",mood:"沉静",wood:"黑胡桃",series:"墨系列",summary:"深色地面能压住大尺度空间，让沙发、皮革、金属和灯光更有层次。适合会客厅与沉稳型大宅。",detailPoints:["空间观感：深色收束视线，增强秩序。","木色建议：黑胡桃或深烟熏色更适合低照度空间。","铺法建议：宽板少接缝，氛围更完整。"],support:["deep","oil"],productFilter:{series:"墨系列",wood:"黑胡桃"},featured:true}),
+  paving({id:"living-soft-sofa",src:"journal/paving-reference/ref-living-soft-sofa.webp",alt:"柔和客厅中棕木地板铺装参考",headline:"柔厅温木",subline:"中棕宜居",roomType:"客厅",colorTone:"中棕",styleTag:"自然侘寂",pattern:"通铺长板",mood:"温润",wood:"橡木",series:"森系列",summary:"中棕色不抢家具，也能稳定空间温度。适合客厅、家庭厅和需要长期耐看的居住场景。",detailPoints:["空间观感：温润、耐看，适合日常居住。","木色建议：中棕橡木兼顾温度和耐脏。","铺法建议：通铺长板让家庭厅更连贯。"],support:["oakBrown","maintenance"],productFilter:{series:"森系列",wood:"橡木"},featured:true}),
+  paving({id:"living-warm-classic",src:"journal/paving-reference/ref-living-warm-classic.webp",alt:"温润客厅木地板与壁炉空间铺装参考",headline:"暖木成厅",subline:"光影入座",roomType:"客厅",colorTone:"中棕",styleTag:"东方静奢",pattern:"通铺长板",mood:"温润",wood:"胡桃木",series:"森系列",summary:"暖木色适合壁炉、织物、石材和软装共处。它不追求明亮，而是让客厅更有停留感。",detailPoints:["空间观感：暖色木地面承接家具与火光。","木色建议：胡桃木、暖棕橡木更显温度。","铺法建议：顺主视线铺设，强调空间纵深。"],support:["warm","oil"],productFilter:{series:"森系列",wood:"胡桃木"},featured:true}),
+  paving({id:"dining-open",src:"journal/paving-reference/ref-dining-open.webp",alt:"开放餐厨中棕木地板铺装参考",headline:"餐厨连贯",subline:"动线成序",roomType:"餐厨",colorTone:"中棕",styleTag:"现代极简",pattern:"通铺长板",mood:"温润",wood:"橡木",series:"境系列",summary:"开放餐厨更需要地面统一。中棕通铺能把餐桌、岛台与客厅连成一条清晰动线。",detailPoints:["空间观感：餐厨与客厅一体，少分割。","木色建议：中棕橡木耐看，也更抗生活痕迹。","铺法建议：通铺长板优先，减少门槛感。"],support:["oakBrown","skirting"],productFilter:{series:"境系列",wood:"橡木"},featured:true}),
+  paving({id:"dining-light",src:"journal/paving-reference/ref-dining-light.webp",alt:"明亮餐厅浅木地板铺装参考",headline:"光中用餐",subline:"浅色显净",roomType:"餐厨",colorTone:"浅木",styleTag:"现代极简",pattern:"宽板",mood:"明亮",wood:"白蜡木",series:"悦系列",summary:"浅木色能弱化餐厨的功能感，让空间更轻。适合白墙、浅色餐桌与自然光充足的户型。",detailPoints:["空间观感：轻、净、适合开放式餐厨。","木色建议：白蜡木或浅橡木能提升明度。","铺法建议：宽板少线条，餐厅更利落。"],support:["oakLight","maintenance"],productFilter:{series:"悦系列",wood:"白蜡木"},featured:true}),
+  paving({id:"dining-minimal",src:"journal/paving-reference/ref-dining-minimal.webp",alt:"极简餐厨浅木地板铺装参考",headline:"简席见木",subline:"留白见质",roomType:"餐厨",colorTone:"浅木",styleTag:"现代极简",pattern:"通铺长板",mood:"明亮",wood:"橡木",series:"悦系列",summary:"在极简餐厨里，木地板承担温度。浅木与白墙同场时，纹理不宜过强，留一点自然即可。",detailPoints:["空间观感：简洁、清爽，适合轻量家具。","木色建议：浅木低色差更显高级。","铺法建议：长板顺光，保留空间纵深。"],support:["oakLight","section"],productFilter:{series:"悦系列",wood:"橡木"},featured:true}),
+  paving({id:"kitchen-ceiling",src:"journal/paving-reference/ref-kitchen-ceiling.webp",alt:"木顶与木地餐厨空间铺装参考",headline:"上下同木",subline:"木作一体",roomType:"餐厨",colorTone:"原木",styleTag:"东方静奢",pattern:"木作一体",mood:"温润",wood:"欧橡",series:"森系列",summary:"当地面、顶面和柜体都有木作，色阶要统一。原木色能让空间完整，但不至于压暗。",detailPoints:["空间观感：顶地呼应，空间更完整。","木色建议：原木色适合全屋木作系统。","铺法建议：地板方向应与顶面线条保持秩序。"],support:["oakNatural","skirting"],productFilter:{series:"森系列",wood:"欧橡"},featured:false}),
+  paving({id:"kitchen-long",src:"journal/paving-reference/ref-kitchen-long.webp",alt:"长餐厨空间浅木地板铺装参考",headline:"长厨通铺",subline:"一线到底",roomType:"餐厨",colorTone:"浅木",styleTag:"现代极简",pattern:"通铺长板",mood:"明亮",wood:"橡木",series:"境系列",summary:"狭长餐厨最忌地面被切碎。顺动线通铺能把空间拉直，也让清洁和维护逻辑更简单。",detailPoints:["空间观感：长向更清楚，动线更舒展。","木色建议：浅橡木能降低狭长空间压迫感。","铺法建议：顺长边铺设，减少横向切割。"],support:["oakLight","maintenance"],productFilter:{series:"境系列",wood:"橡木"},featured:false}),
+  paving({id:"kitchen-family",src:"journal/paving-reference/ref-kitchen-family.webp",alt:"家庭餐厨原木地板铺装参考",headline:"家常有木",subline:"烟火不重",roomType:"餐厨",colorTone:"原木",styleTag:"自然侘寂",pattern:"宽板",mood:"柔光",wood:"橡木",series:"悦系列",summary:"家庭餐厨需要耐看与亲近。原木宽板能容纳日常使用痕迹，空间仍保持温和秩序。",detailPoints:["空间观感：亲近、自然，适合日常使用。","木色建议：原木橡木耐看，不易过时。","铺法建议：宽板让餐厨更有尺度感。"],support:["oakNatural","repair"],productFilter:{series:"悦系列",wood:"橡木"},featured:false}),
+  paving({id:"bedroom-light",src:"journal/paving-reference/ref-bedroom-light.webp",alt:"浅木卧室地板铺装参考",headline:"卧室轻呼吸",subline:"浅木入眠",roomType:"卧室",colorTone:"浅木",styleTag:"现代极简",pattern:"通铺长板",mood:"明亮",wood:"橡木",series:"悦系列",summary:"卧室更适合降低视觉重量。浅木地面搭配织物、低床和柔光，让休息区更安静。",detailPoints:["空间观感：轻、柔、适合休息。","木色建议：浅橡木更容易搭配织物。","铺法建议：床边保持连续纹理，减少切割。"],support:["oakLight","maintenance"],productFilter:{series:"悦系列",wood:"橡木"},featured:false}),
+  paving({id:"bedroom-deep",src:"journal/paving-reference/ref-bedroom-deep.webp",alt:"深色卧室木地板铺装参考",headline:"静室深纹",subline:"深色定静气",roomType:"卧室",colorTone:"深胡桃",styleTag:"意式沉稳",pattern:"人字拼",mood:"沉静",wood:"黑胡桃",series:"墨系列",summary:"深色卧室不追求明亮，而在于稳定。人字纹理给空间一点秩序，适合主卧和套房。",detailPoints:["空间观感：沉静、包裹感更强。","木色建议：黑胡桃或深棕色更适合低照度卧室。","铺法建议：人字拼增强秩序，但需控制软装复杂度。"],support:["deep","oil"],productFilter:{series:"墨系列",wood:"黑胡桃"},featured:false}),
+  paving({id:"bedroom-warm",src:"journal/paving-reference/ref-bedroom-warm.webp",alt:"温润卧室木地板铺装参考",headline:"暖卧有度",subline:"柔光近身",roomType:"卧室",colorTone:"中棕",styleTag:"东方静奢",pattern:"通铺长板",mood:"柔光",wood:"胡桃木",series:"森系列",summary:"暖棕木色能让卧室更有安定感。适合布艺、木作柜体和低饱和墙面一起使用。",detailPoints:["空间观感：暖而不闷，适合主卧。","木色建议：胡桃木或暖棕橡木更显温度。","铺法建议：床头到窗边保持同向铺设。"],support:["warm","skirting"],productFilter:{series:"森系列",wood:"胡桃木"},featured:false}),
+  paving({id:"study-shadow",src:"journal/paving-reference/ref-study-shadow.webp",alt:"书房深色木地板铺装参考",headline:"书房藏静",subline:"深纹收心",roomType:"书房",colorTone:"深胡桃",styleTag:"意式沉稳",pattern:"宽板",mood:"暗场",wood:"黑胡桃",series:"墨系列",summary:"书房需要收心。深色宽板能让桌椅、灯光和书墙沉下来，形成更稳定的工作氛围。",detailPoints:["空间观感：暗场更专注，适合书房会客。","木色建议：深胡桃和烟熏棕都可建立稳定基调。","铺法建议：宽板减少纹理噪音。"],support:["deep","section"],productFilter:{series:"墨系列",wood:"黑胡桃"},featured:false}),
+  paving({id:"study-chair",src:"journal/paving-reference/ref-study-chair.webp",alt:"书房椅旁中棕木地板铺装参考",headline:"独坐见光",subline:"小室宜温",roomType:"书房",colorTone:"中棕",styleTag:"自然侘寂",pattern:"通铺长板",mood:"柔光",wood:"橡木",series:"境系列",summary:"小书房不宜过暗。中棕木色保留温度，也能让椅子、边几和自然光有清楚层次。",detailPoints:["空间观感：安静但不沉闷。","木色建议：中棕橡木适合小面积书房。","铺法建议：顺窗光铺设，纹理更自然。"],support:["oakBrown","maintenance"],productFilter:{series:"境系列",wood:"橡木"},featured:false}),
+  paving({id:"tea-room-dark",src:"journal/paving-reference/ref-tea-room-dark.webp",alt:"暗场茶室木地板铺装参考",headline:"茶室留白",subline:"温木承器",roomType:"茶室",colorTone:"深胡桃",styleTag:"东方静奢",pattern:"宽板",mood:"暗场",wood:"胡桃木",series:"森系列",summary:"茶室看重器物、坐卧和光影。深木色承住空间，让留白更安稳，也让茶席更有分量。",detailPoints:["空间观感：静、暗、适合器物陈设。","木色建议：深胡桃或暖棕色能承接茶席。","铺法建议：宽板减少接缝，坐卧更安定。"],support:["deep","oil"],productFilter:{series:"森系列",wood:"胡桃木"},featured:false}),
+  paving({id:"tatami-light",src:"journal/paving-reference/ref-tatami-light.webp",alt:"和室浅木地板铺装参考",headline:"和室明净",subline:"浅木留白",roomType:"茶室",colorTone:"浅木",styleTag:"东方静奢",pattern:"通铺长板",mood:"明亮",wood:"橡木",series:"悦系列",summary:"浅木和室更轻，也更适合自然光。地面不要过多色差，才能让榻、席与墙面保持宁静。",detailPoints:["空间观感：明净、克制，适合和室。","木色建议：低色差浅木最稳妥。","铺法建议：沿主光线通铺，减少视觉断点。"],support:["oakLight","section"],productFilter:{series:"悦系列",wood:"橡木"},featured:false}),
+  paving({id:"japanese-quiet",src:"journal/paving-reference/ref-japanese-quiet.webp",alt:"日式静室原木地板铺装参考",headline:"静室素木",subline:"素色见雅",roomType:"茶室",colorTone:"原木",styleTag:"自然侘寂",pattern:"宽板",mood:"沉静",wood:"欧橡",series:"森系列",summary:"素木空间要控制装饰。原木地面与障子、坐垫、矮桌共处时，越克制越耐看。",detailPoints:["空间观感：素、静、适合低家具。","木色建议：原木色保持自然呼吸感。","铺法建议：宽板配留白，空间更沉稳。"],support:["oakNatural","maintenance"],productFilter:{series:"森系列",wood:"欧橡"},featured:false}),
+  paving({id:"entry-slats",src:"journal/paving-reference/ref-entry-slats.webp",alt:"玄关木格栅与木地板铺装参考",headline:"玄关定序",subline:"入门见木",roomType:"玄关",colorTone:"原木",styleTag:"东方静奢",pattern:"木作一体",mood:"温润",wood:"橡木",series:"境系列",summary:"玄关是家的第一步。墙面格栅与地板同色时，入户秩序更清楚，也能弱化门厅的零碎感。",detailPoints:["空间观感：入户即见秩序。","木色建议：墙地同色，材质更统一。","铺法建议：收边与踢脚线要提前规划。"],support:["oakNatural","skirting"],productFilter:{series:"境系列",wood:"橡木"},featured:false}),
+  paving({id:"corridor-wood",src:"journal/paving-reference/ref-corridor-wood.webp",alt:"走廊木地板通铺参考",headline:"廊道引光",subline:"一线入室",roomType:"玄关",colorTone:"中棕",styleTag:"现代极简",pattern:"通铺长板",mood:"柔光",wood:"橡木",series:"境系列",summary:"走廊更需要方向感。长板顺廊道铺设，能把光、门洞和动线拉成一条安静轴线。",detailPoints:["空间观感：长廊更有引导性。","木色建议：中棕橡木耐看，也更适合高频通行。","铺法建议：顺长边通铺，门口收边要简洁。"],support:["oakBrown","skirting"],productFilter:{series:"境系列",wood:"橡木"},featured:false}),
+  paving({id:"hall-open",src:"journal/paving-reference/ref-hall-open.webp",alt:"开敞玄关客厅浅木地板铺装参考",headline:"入户开阔",subline:"浅木展厅",roomType:"玄关",colorTone:"浅木",styleTag:"现代极简",pattern:"宽板",mood:"明亮",wood:"白蜡木",series:"悦系列",summary:"开敞入户适合浅木宽板。它能让玄关与客厅自然衔接，减少空间转换时的突兀。",detailPoints:["空间观感：入户明亮，视线舒展。","木色建议：浅木或白蜡木更显开阔。","铺法建议：宽板减少入口接缝。"],support:["oakLight","section"],productFilter:{series:"悦系列",wood:"白蜡木"},featured:false}),
+  paving({id:"stairs-open",src:"journal/paving-reference/ref-stairs-open.webp",alt:"楼梯与客厅木地板铺装参考",headline:"楼梯成景",subline:"上下同序",roomType:"楼梯",colorTone:"原木",styleTag:"东方静奢",pattern:"木作一体",mood:"明亮",wood:"欧橡",series:"森系列",summary:"楼梯不是附属空间。踏步、地面与扶手色阶统一，才能让上下层关系自然连成一体。",detailPoints:["空间观感：楼梯成为空间主体。","木色建议：原木色适合上下层连贯。","铺法建议：踏步收口需与地板系统一起定。"],support:["nosing","section"],productFilter:{series:"森系列",wood:"欧橡"},featured:false}),
+  paving({id:"stairs-silent",src:"journal/paving-reference/ref-stairs-silent.webp",alt:"楼梯过道浅木地板铺装参考",headline:"梯间留白",subline:"转折见净",roomType:"楼梯",colorTone:"浅木",styleTag:"现代极简",pattern:"通铺长板",mood:"明亮",wood:"橡木",series:"悦系列",summary:"楼梯转角容易显乱。浅木色配白墙能降低压迫，让上下层转换更轻。",detailPoints:["空间观感：清爽、轻盈，适合小楼梯间。","木色建议：浅橡木减少转角压迫感。","铺法建议：转角处预先规划收边。"],support:["oakLight","nosing"],productFilter:{series:"悦系列",wood:"橡木"},featured:false}),
+  paving({id:"gallery-library",src:"journal/paving-reference/ref-gallery-library.webp",alt:"展厅木地板与书墙空间参考",headline:"展厅藏木",subline:"材料入库",roomType:"展厅",colorTone:"中棕",styleTag:"商业雅奢",pattern:"宽板",mood:"沉静",wood:"橡木",series:"境系列",summary:"展厅需要让材料被看见。中棕地面能承接样板、书墙和灯光，让客户更快建立材质判断。",detailPoints:["空间观感：专业、稳重，适合材料展厅。","木色建议：中棕色不抢展陈。","铺法建议：宽板更能展示纹理尺度。"],support:["oakBrown","section"],productFilter:{series:"境系列",wood:"橡木"},featured:false}),
+  paving({id:"showroom-wide",src:"journal/paving-reference/ref-showroom-wide.webp",alt:"展厅大面积木地板铺装参考",headline:"展厅尺度",subline:"一木成场",roomType:"展厅",colorTone:"中棕",styleTag:"商业雅奢",pattern:"通铺长板",mood:"暗场",wood:"胡桃木",series:"森系列",summary:"大面积展厅最怕材料零散。中棕通铺能把灯光、人流和展示系统统摄在同一秩序里。",detailPoints:["空间观感：尺度清楚，场域稳定。","木色建议：中棕或暖棕适合展陈空间。","铺法建议：长向通铺，强调场地纵深。"],support:["warm","maintenance"],productFilter:{series:"森系列",wood:"胡桃木"},featured:false}),
+  paving({id:"atelier-commercial",src:"journal/paving-reference/ref-atelier-commercial.webp",alt:"商业木作展厅铺装参考",headline:"商空有骨",subline:"以木立面",roomType:"商业空间",colorTone:"深胡桃",styleTag:"商业雅奢",pattern:"木作一体",mood:"暗场",wood:"黑胡桃",series:"墨系列",summary:"商业空间需要识别度。深木色地面与木作墙面同场时，品牌气质更稳，也更有记忆点。",detailPoints:["空间观感：稳、重、有品牌识别。","木色建议：深木色适合高端商业与会所。","铺法建议：墙地一体时控制色阶，避免压暗。"],support:["deep","section"],productFilter:{series:"墨系列",wood:"黑胡桃"},featured:false}),
+  paving({id:"lounge-gray",src:"journal/paving-reference/ref-lounge-gray.webp",alt:"烟熏灰休闲空间地板铺装参考",headline:"灰调会客",subline:"冷静有度",roomType:"商业空间",colorTone:"烟熏灰",styleTag:"意式沉稳",pattern:"宽板",mood:"沉静",wood:"橡木",series:"墨系列",summary:"烟熏灰适合现代会所、办公会客和低饱和软装。它比深棕更冷静，也更适合金属与石材。",detailPoints:["空间观感：冷静、现代、适合商业会客。","木色建议：烟熏灰橡木适合低饱和空间。","铺法建议：宽板减少拼接感，质感更完整。"],support:["smoke","oil"],productFilter:{series:"墨系列",wood:"橡木"},featured:false}),
+  paving({id:"retail-floor",src:"journal/paving-reference/ref-retail-floor.webp",alt:"商业零售空间木地板铺装参考",headline:"店面有温",subline:"木色留客",roomType:"商业空间",colorTone:"原木",styleTag:"商业雅奢",pattern:"通铺长板",mood:"明亮",wood:"欧橡",series:"境系列",summary:"零售空间需要亲近感。原木色能降低商业空间的冷硬，让顾客停留更自然。",detailPoints:["空间观感：明亮、有温度，适合零售与展示。","木色建议：原木色兼顾亲近与耐看。","铺法建议：通铺让客流动线更清楚。"],support:["oakNatural","maintenance"],productFilter:{series:"境系列",wood:"欧橡"},featured:false}),
+  paving({id:"herringbone-tv",src:"journal/paving-reference/ref-herringbone-tv.webp",alt:"电视墙人字拼木地板铺装参考",headline:"人字成厅",subline:"纹理有礼",roomType:"客厅",colorTone:"中棕",styleTag:"东方静奢",pattern:"人字拼",mood:"温润",wood:"橡木",series:"境系列",summary:"人字拼让客厅更有仪式感。适合电视墙、壁炉和中轴明确的空间，不宜与复杂家具同时抢戏。",detailPoints:["空间观感：有仪式感，适合主厅。","木色建议：中棕橡木最稳，不易显花。","铺法建议：确定主轴线后再排版。"],support:["oakBrown","section"],productFilter:{series:"境系列",wood:"橡木"},featured:false}),
+  paving({id:"herringbone-light",src:"journal/paving-reference/ref-herringbone-light.webp",alt:"浅色人字拼木地板铺装参考",headline:"浅拼见光",subline:"轻纹有序",roomType:"客厅",colorTone:"浅木",styleTag:"现代极简",pattern:"人字拼",mood:"明亮",wood:"橡木",series:"悦系列",summary:"浅色人字拼比深色更轻，适合窗边、阳台和小面积客厅。纹理有变化，但不压空间。",detailPoints:["空间观感：轻盈、有节奏。","木色建议：浅橡木适合小空间人字拼。","铺法建议：控制边角收口，避免线条凌乱。"],support:["oakLight","skirting"],productFilter:{series:"悦系列",wood:"橡木"},featured:false}),
+  paving({id:"herringbone-dining",src:"journal/paving-reference/ref-herringbone-dining.webp",alt:"餐厅鱼骨拼木地板铺装参考",headline:"鱼骨入席",subline:"餐区有章",roomType:"餐厨",colorTone:"原木",styleTag:"意式沉稳",pattern:"鱼骨拼",mood:"温润",wood:"橡木",series:"境系列",summary:"鱼骨拼适合餐厅和会客区，能在不增加家具的前提下建立装饰秩序。木色越克制越高级。",detailPoints:["空间观感：精致、稳定，有装饰性。","木色建议：原木或中棕更耐看。","铺法建议：适合局部重点空间，不宜全屋复杂化。"],support:["oakNatural","section"],productFilter:{series:"境系列",wood:"橡木"},featured:false}),
+  paving({id:"gray-corridor",src:"journal/paving-reference/ref-gray-corridor.webp",alt:"烟熏灰走廊木地板铺装参考",headline:"灰木入廊",subline:"冷静延伸",roomType:"玄关",colorTone:"烟熏灰",styleTag:"现代极简",pattern:"通铺长板",mood:"沉静",wood:"橡木",series:"墨系列",summary:"烟熏灰在走廊里能形成克制的延伸感。适合黑白灰墙面、金属柜体和现代户型。",detailPoints:["空间观感：冷静、利落，适合现代走廊。","木色建议：烟熏灰避免过红过黄。","铺法建议：顺廊道铺设，拉长空间。"],support:["smoke","skirting"],productFilter:{series:"墨系列",wood:"橡木"},featured:false}),
+  paving({id:"wide-board-house",src:"journal/paving-reference/ref-wide-board-house.webp",alt:"大宅宽板木地板铺装参考",headline:"宽板成宅",subline:"少线见阔",roomType:"客厅",colorTone:"原木",styleTag:"自然侘寂",pattern:"宽板",mood:"明亮",wood:"欧橡",series:"森系列",summary:"宽板适合大宅与高开间空间。接缝少，纹理完整，更能表现木材本身的尺度。",detailPoints:["空间观感：宽阔、自然，适合大面积空间。","木色建议：欧橡宽板更能呈现自然纹理。","铺法建议：留足伸缩缝，配合专业收边。"],support:["oakNatural","section"],productFilter:{series:"森系列",wood:"欧橡"},featured:false}),
+  paving({id:"plank-sun",src:"journal/paving-reference/ref-plank-sun.webp",alt:"阳光下木地板纹理铺装参考",headline:"日光见纹",subline:"光照验色",roomType:"书房",colorTone:"原木",styleTag:"自然侘寂",pattern:"通铺长板",mood:"柔光",wood:"橡木",series:"悦系列",summary:"选木色不能只看样板。日光下的纹理、反光和色温，才更接近真实居住感受。",detailPoints:["空间观感：柔光下纹理更真实。","木色建议：原木色需现场看光照变化。","铺法建议：顺光铺设可让纹理更自然。"],support:["oakNatural","maintenance"],productFilter:{series:"悦系列",wood:"橡木"},featured:false}),
+  paving({id:"dark-tea",src:"journal/paving-reference/ref-dark-tea.webp",alt:"暗场茶室深色木地板铺装参考",headline:"暗室有光",subline:"深木映器",roomType:"茶室",colorTone:"深胡桃",styleTag:"东方静奢",pattern:"木作一体",mood:"暗场",wood:"黑胡桃",series:"墨系列",summary:"暗场茶室以少量光线见材质。深木色能让器物和墙面更安定，适合私宴、茶室与会所。",detailPoints:["空间观感：暗场、私密、适合器物陈设。","木色建议：深胡桃与烟熏色更有包裹感。","铺法建议：墙地木作需统一色阶。"],support:["deep","oil"],productFilter:{series:"墨系列",wood:"黑胡桃"},featured:false})
+];
+
+var CASE_FILTER_DEFS=[
+  {key:"roomType",label:"房间类型",all:"全部空间",options:["全部空间","客厅","餐厨","卧室","书房","茶室","玄关","楼梯","展厅","商业空间"]},
+  {key:"colorTone",label:"木色",all:"全部木色",options:["全部木色","浅木","原木","中棕","深胡桃","烟熏灰"]},
+  {key:"styleTag",label:"风格",all:"全部风格",options:["全部风格","现代极简","东方静奢","自然侘寂","意式沉稳","商业雅奢"]},
+  {key:"pattern",label:"铺法",all:"全部铺法",options:["全部铺法","通铺长板","人字拼","鱼骨拼","宽板","木作一体"]},
+  {key:"mood",label:"氛围",all:"全部氛围",options:["全部氛围","明亮","柔光","暗场","温润","沉静"]}
 ];
 
 var PRODUCTS=[], currentProd=null, COS_BASE='https://woodall-1307516706.cos.ap-guangzhou.myqcloud.com/';
@@ -291,7 +284,15 @@ var PRODUCT_FILTER_LABELS={series:"系列",wood:"木种",board:"板材",surface:
 var productsInitialized=false;
 var activeSeriesKey=null;
 var pendingSeriesKey=null;
-var activeCaseSpaceType="全部";
+var activeCaseFilters={
+  roomType:"全部空间",
+  colorTone:"全部木色",
+  styleTag:"全部风格",
+  pattern:"全部铺法",
+  mood:"全部氛围"
+};
+var caseAdvancedOpen=false;
+var PAVING_SELECTION_STORAGE="woodallPavingSelection";
 
 function countProductsBySeries(series){
   return PRODUCTS.filter(function(p){return p.series===series||p.series.indexOf(series)===0}).length;
@@ -379,15 +380,49 @@ function getSpaceById(id){
   return SPACE_MEDIA.find(function(item){return item.id===id});
 }
 
-function getSpaceTypes(){
-  var seen={"全部":true},types=["全部"];
-  SPACE_MEDIA.forEach(function(item){
-    if(item.spaceType&&!seen[item.spaceType]){
-      seen[item.spaceType]=true;
-      types.push(item.spaceType);
-    }
+function getCaseFilterDef(key){
+  return CASE_FILTER_DEFS.find(function(def){return def.key===key});
+}
+
+function isCaseAllValue(key,value){
+  var def=getCaseFilterDef(key);
+  return !def||value===def.all;
+}
+
+function getCaseSelectedFilters(){
+  return CASE_FILTER_DEFS.filter(function(def){
+    return !isCaseAllValue(def.key,activeCaseFilters[def.key]);
+  }).map(function(def){
+    return {key:def.key,label:def.label,value:activeCaseFilters[def.key]};
   });
-  return types;
+}
+
+function clearCaseFilters(){
+  CASE_FILTER_DEFS.forEach(function(def){activeCaseFilters[def.key]=def.all});
+  renderCaseFilters();
+  renderCaseGallery();
+}
+
+function getFilteredSpaceMedia(){
+  return SPACE_MEDIA.filter(function(item){
+    return CASE_FILTER_DEFS.every(function(def){
+      return isCaseAllValue(def.key,activeCaseFilters[def.key])||item[def.key]===activeCaseFilters[def.key];
+    });
+  });
+}
+
+function getFeaturedSpaceMedia(){
+  var featured=SPACE_MEDIA.filter(function(item){return item.featured});
+  return (featured.length?featured:SPACE_MEDIA).slice(0,8);
+}
+
+function getProductSpaceShortcuts(){
+  var seen={};
+  return SPACE_MEDIA.filter(function(item){
+    if(seen[item.roomType])return false;
+    seen[item.roomType]=true;
+    return true;
+  }).slice(0,9);
 }
 
 function renderSpaceMedia(item, className){
@@ -413,10 +448,11 @@ function renderHomeSpaces(){
   var feature=document.getElementById("homeSpaceFeature");
   var grid=document.getElementById("homeSpaceGrid");
   if(!feature||!grid)return;
-  var lead=SPACE_MEDIA[0];
-  feature.innerHTML='<button class="space-feature-card action-card" type="button" data-space-id="'+lead.id+'" aria-label="查看'+escapeHtml(lead.title)+'">'+renderSpaceMedia(lead,'space-media')+'<span class="space-image-shade"></span><span class="space-logo-mark" aria-hidden="true"></span><div class="space-feature-copy"><span>'+escapeHtml(lead.spaceType)+' / '+escapeHtml(lead.wood)+'</span><h3>'+escapeHtml(lead.title)+'</h3><p>'+escapeHtml(lead.summary)+'</p><em>入境查看</em></div></button>';
-  grid.innerHTML=SPACE_MEDIA.slice(1,6).map(function(item){
-    return '<button class="space-card action-card" type="button" data-space-id="'+item.id+'" aria-label="查看'+escapeHtml(item.title)+'">'+renderSpaceMedia(item,'space-media')+'<span class="space-image-shade"></span><div class="space-card-copy"><span>'+escapeHtml(item.spaceType)+' · '+escapeHtml(item.wood)+'</span><strong>'+escapeHtml(item.title)+'</strong><em>入境查看</em></div></button>';
+  var list=getFeaturedSpaceMedia();
+  var lead=list[0];
+  feature.innerHTML='<button class="space-feature-card action-card" type="button" data-space-id="'+lead.id+'" aria-label="查看'+escapeHtml(lead.title)+'">'+renderSpaceMedia(lead,'space-media')+'<span class="space-image-shade"></span><span class="space-logo-mark" aria-hidden="true"></span><div class="space-feature-copy"><span>'+escapeHtml(lead.roomType)+' / '+escapeHtml(lead.colorTone)+' / '+escapeHtml(lead.pattern)+'</span><h3>'+escapeHtml(lead.title)+'</h3><p>'+escapeHtml(lead.summary)+'</p><em>入境查看</em></div></button>';
+  grid.innerHTML=list.slice(1,8).map(function(item){
+    return '<button class="space-card action-card" type="button" data-space-id="'+item.id+'" aria-label="查看'+escapeHtml(item.title)+'">'+renderSpaceMedia(item,'space-media')+'<span class="space-image-shade"></span><div class="space-card-copy"><span>'+escapeHtml(item.roomType)+' · '+escapeHtml(item.colorTone)+'</span><strong>'+escapeHtml(item.title)+'</strong><em>入境查看</em></div></button>';
   }).join("");
   playSpaceVideos(document.getElementById("homeSpaceSection"));
 }
@@ -424,26 +460,51 @@ function renderHomeSpaces(){
 function renderProductSpaceShortcuts(){
   var el=document.getElementById("prodSpaceShortcuts");
   if(!el)return;
-  el.innerHTML=SPACE_MEDIA.map(function(item){
-    return '<button class="space-shortcut" type="button" data-space-id="'+item.id+'" aria-label="按'+escapeHtml(item.spaceType)+'筛选产品"><span>'+escapeHtml(item.spaceType)+'</span><em>'+escapeHtml(item.wood)+' / '+escapeHtml(item.series)+'</em></button>';
+  el.innerHTML=getProductSpaceShortcuts().map(function(item){
+    return '<button class="space-shortcut" type="button" data-space-id="'+item.id+'" aria-label="按'+escapeHtml(item.roomType)+'筛选产品"><span>'+escapeHtml(item.roomType)+'</span><em>'+escapeHtml(item.colorTone)+' / '+escapeHtml(item.pattern)+'</em></button>';
   }).join("");
 }
 
 function renderCaseFilters(){
   var el=document.getElementById("caseSpaceFilters");
   if(!el)return;
-  el.innerHTML=getSpaceTypes().map(function(type){
-    return '<button class="case-filter-tab'+(type===activeCaseSpaceType?' active':'')+'" type="button" data-space-type="'+escapeHtml(type)+'">'+escapeHtml(type)+'</button>';
-  }).join("");
+  var roomDef=getCaseFilterDef("roomType");
+  var selected=getCaseSelectedFilters();
+  var advanced=CASE_FILTER_DEFS.filter(function(def){return def.key!=="roomType"});
+  el.innerHTML='<div class="case-filter-shell'+(caseAdvancedOpen?' advanced-open':'')+'">'
+    +'<div class="case-filter-primary" aria-label="房间类型筛选">'
+    +roomDef.options.map(function(option){
+      return '<button class="case-filter-tab'+(activeCaseFilters.roomType===option?' active':'')+'" type="button" data-case-filter-key="roomType" data-case-filter-value="'+escapeHtml(option)+'">'+escapeHtml(option)+'</button>';
+    }).join("")
+    +'</div>'
+    +'<div class="case-filter-controls">'
+    +'<button class="case-advanced-toggle" type="button" data-case-advanced-toggle aria-expanded="'+(caseAdvancedOpen?'true':'false')+'">高级筛选<span>'+selected.length+'项</span></button>'
+    +'<button class="case-clear-filters'+(selected.length?' is-visible':'')+'" type="button" data-case-clear>清除筛选</button>'
+    +'</div>'
+    +'<div class="case-advanced-panel" aria-label="高级筛选">'
+    +advanced.map(function(def){
+      return '<div class="case-filter-group"><span>'+escapeHtml(def.label)+'</span><div>'+def.options.map(function(option){
+        return '<button class="case-filter-tab small'+(activeCaseFilters[def.key]===option?' active':'')+'" type="button" data-case-filter-key="'+escapeHtml(def.key)+'" data-case-filter-value="'+escapeHtml(option)+'">'+escapeHtml(option)+'</button>';
+      }).join("")+'</div></div>';
+    }).join("")
+    +'</div>'
+    +'<div class="case-filter-state">'+(selected.length?selected.map(function(item){return '<span>'+escapeHtml(item.label)+'：'+escapeHtml(item.value)+'</span>';}).join(""):'<span>全部铺装参考</span>')+'</div>'
+    +'</div>';
 }
 
 function renderCaseGallery(){
   var el=document.getElementById("caseSpaceGallery");
   if(!el)return;
-  var list=SPACE_MEDIA.filter(function(item){return activeCaseSpaceType==="全部"||item.spaceType===activeCaseSpaceType});
+  var list=getFilteredSpaceMedia();
+  el.classList.add("is-refreshing");
+  window.setTimeout(function(){el.classList.remove("is-refreshing")},180);
+  if(!list.length){
+    el.innerHTML='<div class="space-gallery-empty"><span>NO MATCH</span><h3>未找到合适参考</h3><p>可清除筛选重新浏览，或直接预约管家按户型、采光与预算推荐。</p><div class="page-cta"><button class="btn-primary" type="button" data-case-clear>清除筛选</button><a href="#contact" class="btn-secondary">预约咨询</a></div></div>';
+    return;
+  }
   el.innerHTML=list.map(function(item,index){
-    var large=index===0&&activeCaseSpaceType==="全部"?" large":"";
-    return '<button class="space-gallery-card action-card'+large+'" type="button" data-space-id="'+item.id+'" aria-label="打开'+escapeHtml(item.title)+'铺装参考">'+renderSpaceMedia(item,'space-media')+'<span class="space-image-shade"></span><span class="space-logo-mark" aria-hidden="true"></span><div class="space-gallery-copy"><span>'+escapeHtml(item.spaceType)+' · '+escapeHtml(item.wood)+'</span><h3>'+escapeHtml(item.title)+'</h3><p>'+escapeHtml(item.summary)+'</p><em>'+escapeHtml(item.series)+' · 入境查看</em></div></button>';
+    var large=index===0&&getCaseSelectedFilters().length===0?" large":"";
+    return '<button class="space-gallery-card action-card'+large+'" type="button" data-space-id="'+item.id+'" aria-label="打开'+escapeHtml(item.title)+'铺装参考">'+renderSpaceMedia(item,'space-media')+'<span class="space-image-shade"></span><span class="space-logo-mark" aria-hidden="true"></span><div class="space-gallery-copy"><span>'+escapeHtml(item.roomType)+' · '+escapeHtml(item.colorTone)+' · '+escapeHtml(item.pattern)+'</span><h3>'+escapeHtml(item.title)+'</h3><p>'+escapeHtml(item.summary)+'</p><em>入境查看 / 同色产品</em></div></button>';
   }).join("");
   playSpaceVideos(el);
 }
@@ -464,6 +525,82 @@ function applyProductFilterObject(filter){
   },0);
 }
 
+function getPavingSelection(){
+  try{
+    var raw=window.localStorage.getItem(PAVING_SELECTION_STORAGE);
+    var list=raw?JSON.parse(raw):[];
+    return Array.isArray(list)?list.filter(function(id){return !!getSpaceById(id)}):[];
+  }catch(e){
+    return [];
+  }
+}
+
+function setPavingSelection(list){
+  try{
+    window.localStorage.setItem(PAVING_SELECTION_STORAGE,JSON.stringify(list));
+  }catch(e){}
+  updatePavingSelectionUI();
+}
+
+function isPavingSelected(id){
+  return getPavingSelection().indexOf(id)>=0;
+}
+
+function togglePavingSelection(id){
+  var list=getPavingSelection();
+  var index=list.indexOf(id);
+  if(index>=0) list.splice(index,1);
+  else list.push(id);
+  setPavingSelection(list);
+}
+
+function getPavingSelectionText(){
+  var list=getPavingSelection().map(getSpaceById).filter(Boolean);
+  if(!list.length)return "";
+  return "痴木堂铺装参考选材夹\n"+list.map(function(item,index){
+    return (index+1)+". "+item.title+" / "+item.roomType+" / "+item.colorTone+" / "+item.pattern+" / 推荐："+item.wood+" · "+item.series;
+  }).join("\n")+"\n\n我想基于以上参考进一步预约选材。";
+}
+
+function copyPavingSelection(){
+  var text=getPavingSelectionText();
+  if(!text){
+    navigate("#cases");
+    return;
+  }
+  var done=function(){
+    document.querySelectorAll("#pavingSelectionButton,[data-copy-selection]").forEach(function(btn){
+      btn.classList.add("copied");
+      window.setTimeout(function(){btn.classList.remove("copied")},1400);
+    });
+  };
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(text).then(done).catch(done);
+  }else{
+    done();
+  }
+}
+
+function updatePavingSelectionUI(){
+  var list=getPavingSelection();
+  var count=document.getElementById("pavingSelectionCount");
+  if(count)count.textContent=String(list.length);
+  document.querySelectorAll("[data-case-save]").forEach(function(btn){
+    var selected=isPavingSelected(btn.getAttribute("data-case-save"));
+    btn.classList.toggle("selected",selected);
+    btn.textContent=selected?"移出选材夹":"加入选材夹";
+  });
+}
+
+function bindPavingSelectionButton(){
+  var btn=document.getElementById("pavingSelectionButton");
+  if(btn&&!btn.dataset.bound){
+    btn.dataset.bound="true";
+    btn.addEventListener("click",copyPavingSelection);
+  }
+  updatePavingSelectionUI();
+}
+
 function openSpaceCase(id){
   var item=getSpaceById(id);
   var modal=document.getElementById("spaceCaseModal");
@@ -471,10 +608,18 @@ function openSpaceCase(id){
   var copy=document.getElementById("spaceCaseCopy");
   if(!item||!modal||!media||!copy)return;
   media.innerHTML=renderSpaceMedia(item,'space-case-asset')+'<span class="space-image-shade"></span><span class="space-logo-mark" aria-hidden="true"></span>';
-  copy.innerHTML='<span>PAVING REFERENCE / '+escapeHtml(item.spaceType)+'</span><h3>'+escapeHtml(item.title)+'</h3><p>'+escapeHtml(item.summary)+'</p><dl><div><dt>推荐木种</dt><dd>'+escapeHtml(item.wood)+'</dd></div><div><dt>适配系列</dt><dd>'+escapeHtml(item.series)+'</dd></div></dl><div class="page-cta"><button class="btn-primary" type="button" data-case-products="'+item.id+'">看相关产品</button><a class="btn-secondary" href="'+escapeHtml(item.journalLink||"#journal")+'">读木作志</a><a class="btn-secondary" href="#contact">预约选材</a></div>';
+  var details=(item.detailPoints||[]).map(function(point){
+    var parts=String(point).split("：");
+    return '<li><strong>'+escapeHtml(parts.shift()||"建议")+'</strong><span>'+escapeHtml(parts.join("：")||point)+'</span></li>';
+  }).join("");
+  var assets=(item.relatedAssets||[]).slice(0,3).map(function(asset){
+    return '<figure><img src="'+escapeHtml(asset.src)+'" alt="'+escapeHtml(asset.alt)+'" loading="lazy" decoding="async"><figcaption>'+escapeHtml(asset.title)+'</figcaption></figure>';
+  }).join("");
+  copy.innerHTML='<span>PAVING ATLAS / '+escapeHtml(item.roomType)+'</span><h3>'+escapeHtml(item.title)+'</h3><strong class="space-case-subline">'+escapeHtml(item.subline)+'</strong><p>'+escapeHtml(item.summary)+'</p><div class="space-case-tags"><span>'+escapeHtml(item.colorTone)+'</span><span>'+escapeHtml(item.styleTag)+'</span><span>'+escapeHtml(item.pattern)+'</span><span>'+escapeHtml(item.mood)+'</span></div><dl><div><dt>推荐木种</dt><dd>'+escapeHtml(item.wood)+'</dd></div><div><dt>适配系列</dt><dd>'+escapeHtml(item.series)+'</dd></div></dl><ul class="space-case-detail">'+details+'</ul><div class="space-case-assets">'+assets+'</div><div class="page-cta"><button class="btn-primary" type="button" data-case-products="'+item.id+'">看相关产品</button><button class="btn-secondary" type="button" data-case-save="'+item.id+'">'+(isPavingSelected(item.id)?"移出选材夹":"加入选材夹")+'</button><a class="btn-secondary" href="#contact">预约咨询</a></div>';
   modal.classList.add("open");
   modal.setAttribute("aria-hidden","false");
   document.body.classList.add("space-case-open");
+  updatePavingSelectionUI();
   playSpaceVideos(modal);
 }
 
@@ -492,6 +637,7 @@ function initSpaceExperience(){
   renderProductSpaceShortcuts();
   renderCaseFilters();
   renderCaseGallery();
+  bindPavingSelectionButton();
   var closeBtn=document.getElementById("spaceCaseClose");
   var backdrop=document.getElementById("spaceCaseBackdrop");
   if(closeBtn)closeBtn.addEventListener("click",closeSpaceCase);
@@ -504,16 +650,23 @@ function initSpaceExperience(){
       if(shortcutItem)applyProductFilterObject(shortcutItem.productFilter);
       return;
     }
-    var tab=e.target.closest(".case-filter-tab");
+    var tab=e.target.closest("[data-case-filter-key]");
     if(tab){
-      activeCaseSpaceType=tab.getAttribute("data-space-type")||"全部";
+      var key=tab.getAttribute("data-case-filter-key");
+      var value=tab.getAttribute("data-case-filter-value");
+      if(key&&value)activeCaseFilters[key]=value;
       renderCaseFilters();
       renderCaseGallery();
       return;
     }
-    var caseLink=e.target.closest(".space-case-copy a[href^='#']");
-    if(caseLink){
-      closeSpaceCase();
+    var advancedToggle=e.target.closest("[data-case-advanced-toggle]");
+    if(advancedToggle){
+      caseAdvancedOpen=!caseAdvancedOpen;
+      renderCaseFilters();
+      return;
+    }
+    if(e.target.closest("[data-case-clear]")){
+      clearCaseFilters();
       return;
     }
     var productBtn=e.target.closest("[data-case-products]");
@@ -521,6 +674,22 @@ function initSpaceExperience(){
       e.preventDefault();
       var caseItem=getSpaceById(productBtn.getAttribute("data-case-products"));
       if(caseItem)applyProductFilterObject(caseItem.productFilter);
+      return;
+    }
+    var saveBtn=e.target.closest("[data-case-save]");
+    if(saveBtn){
+      e.preventDefault();
+      togglePavingSelection(saveBtn.getAttribute("data-case-save"));
+      return;
+    }
+    if(e.target.closest("[data-copy-selection]")){
+      e.preventDefault();
+      copyPavingSelection();
+      return;
+    }
+    var caseLink=e.target.closest(".space-case-copy a[href^='#']");
+    if(caseLink){
+      closeSpaceCase();
       return;
     }
     var mediaCard=e.target.closest("[data-space-id]");
@@ -541,12 +710,14 @@ var IMAGE_SLOT_MAP=[
   {id:"M02",route:"#home",page:"首页",selector:"#page-home .motion-tile[data-video-src='media/motion-atelier-02.mp4']",title:"影像小卡 02",asset:"media/motion-atelier-02.mp4"},
   {id:"M03",route:"#home",page:"首页",selector:"#page-home .motion-tile[data-video-src='media/motion-atelier-03.mp4']",title:"影像小卡 03",asset:"media/motion-atelier-03.mp4"},
   {id:"M04",route:"#home",page:"首页",selector:"#page-home .motion-tile[data-video-src='media/motion-atelier-04.mp4']",title:"影像小卡 04",asset:"media/motion-atelier-04.mp4"},
-  {id:"S01",route:"#home",page:"首页",selector:"#homeSpaceFeature [data-space-id='living-oak']",title:"空间应用主图：客厅",asset:"journal/case-family-room.webp"},
-  {id:"S02",route:"#home",page:"首页",selector:"#homeSpaceGrid [data-space-id='bedroom-ash']",title:"空间应用卡：卧室",asset:"journal/case-light.webp"},
-  {id:"S03",route:"#home",page:"首页",selector:"#homeSpaceGrid [data-space-id='study-walnut']",title:"空间应用卡：书房",asset:"journal/case-villa.webp"},
-  {id:"S04",route:"#home",page:"首页",selector:"#homeSpaceGrid [data-space-id='tea-room-walnut']",title:"空间应用卡：茶室",asset:"journal/craft-lounge-board.webp"},
-  {id:"S05",route:"#home",page:"首页",selector:"#homeSpaceGrid [data-space-id='showroom-motion']",title:"空间应用卡：展厅视频",asset:"media/motion-atelier-01.mp4"},
-  {id:"S06",route:"#home",page:"首页",selector:"#homeSpaceGrid [data-space-id='commercial-system']",title:"空间应用卡：商业空间",asset:"journal/culture-color-door.webp"},
+  {id:"S01",route:"#home",page:"首页",selector:"#homeSpaceFeature [data-space-id='living-hero']",title:"首页空间应用主图：木入客厅",asset:"journal/paving-reference/ref-living-hero.webp"},
+  {id:"S02",route:"#home",page:"首页",selector:"#homeSpaceGrid [data-space-id='living-light']",title:"首页空间应用卡：光下原木",asset:"journal/paving-reference/ref-living-light.webp"},
+  {id:"S03",route:"#home",page:"首页",selector:"#homeSpaceGrid [data-space-id='living-dark-lounge']",title:"首页空间应用卡：深厅有序",asset:"journal/paving-reference/ref-living-dark-lounge.webp"},
+  {id:"S04",route:"#home",page:"首页",selector:"#homeSpaceGrid [data-space-id='living-soft-sofa']",title:"首页空间应用卡：柔厅温木",asset:"journal/paving-reference/ref-living-soft-sofa.webp"},
+  {id:"S05",route:"#home",page:"首页",selector:"#homeSpaceGrid [data-space-id='living-warm-classic']",title:"首页空间应用卡：暖木成厅",asset:"journal/paving-reference/ref-living-warm-classic.webp"},
+  {id:"S06",route:"#home",page:"首页",selector:"#homeSpaceGrid [data-space-id='dining-open']",title:"首页空间应用卡：餐厨连贯",asset:"journal/paving-reference/ref-dining-open.webp"},
+  {id:"S07",route:"#home",page:"首页",selector:"#homeSpaceGrid [data-space-id='dining-light']",title:"首页空间应用卡：光中用餐",asset:"journal/paving-reference/ref-dining-light.webp"},
+  {id:"S08",route:"#home",page:"首页",selector:"#homeSpaceGrid [data-space-id='dining-minimal']",title:"首页空间应用卡：简席见木",asset:"journal/paving-reference/ref-dining-minimal.webp"},
   {id:"H06",route:"#home",page:"首页",selector:"#page-home .design-media-panel",title:"木作内容主入口大图",asset:"journal/case-lake-residence.webp"},
   {id:"H07",route:"#home",page:"首页",selector:"#page-home .design-mini-card:nth-child(1)",title:"首页内容入口：材料触感",asset:"journal/craft-soft-touch.webp"},
   {id:"H08",route:"#home",page:"首页",selector:"#page-home .design-mini-card:nth-child(2)",title:"首页内容入口：森林来源",asset:"journal/forest-origin.webp"},
@@ -569,12 +740,42 @@ var IMAGE_SLOT_MAP=[
   {id:"J05",route:"#journal",page:"木作志",selector:"#page-journal .journal-topic:nth-child(3)",title:"木作志卡片：从森林到家",asset:"journal/home-hero-forest-door.webp"},
   {id:"J06",route:"#journal",page:"木作志",selector:"#page-journal .journal-topic:nth-child(4)",title:"木作志卡片：工艺手记",asset:"journal/touch-wood.webp"},
   {id:"J07",route:"#journal",page:"木作志",selector:"#page-journal .journal-topic:nth-child(5)",title:"木作志卡片：全屋木作系统",asset:"journal/system-section-house.webp"},
-  {id:"C01",route:"#cases",page:"铺装参考",selector:"#caseSpaceGallery [data-space-id='living-oak']",title:"铺装参考：客厅",asset:"journal/case-family-room.webp"},
-  {id:"C02",route:"#cases",page:"铺装参考",selector:"#caseSpaceGallery [data-space-id='bedroom-ash']",title:"铺装参考：卧室",asset:"journal/case-light.webp"},
-  {id:"C03",route:"#cases",page:"铺装参考",selector:"#caseSpaceGallery [data-space-id='study-walnut']",title:"铺装参考：书房",asset:"journal/case-villa.webp"},
-  {id:"C04",route:"#cases",page:"铺装参考",selector:"#caseSpaceGallery [data-space-id='tea-room-walnut']",title:"铺装参考：茶室",asset:"journal/craft-lounge-board.webp"},
-  {id:"C05",route:"#cases",page:"铺装参考",selector:"#caseSpaceGallery [data-space-id='showroom-motion']",title:"铺装参考：展厅视频",asset:"media/motion-atelier-01.mp4"},
-  {id:"C06",route:"#cases",page:"铺装参考",selector:"#caseSpaceGallery [data-space-id='commercial-system']",title:"铺装参考：商业空间",asset:"journal/culture-color-door.webp"}
+{id:"C01",route:"#cases",page:"铺装参考库",selector:"#caseSpaceGallery [data-space-id='living-hero']",title:"铺装参考：木入客厅",asset:"journal/paving-reference/ref-living-hero.webp"},
+  {id:"C02",route:"#cases",page:"铺装参考库",selector:"#caseSpaceGallery [data-space-id='living-light']",title:"铺装参考：光下原木",asset:"journal/paving-reference/ref-living-light.webp"},
+  {id:"C03",route:"#cases",page:"铺装参考库",selector:"#caseSpaceGallery [data-space-id='living-dark-lounge']",title:"铺装参考：深厅有序",asset:"journal/paving-reference/ref-living-dark-lounge.webp"},
+  {id:"C04",route:"#cases",page:"铺装参考库",selector:"#caseSpaceGallery [data-space-id='living-soft-sofa']",title:"铺装参考：柔厅温木",asset:"journal/paving-reference/ref-living-soft-sofa.webp"},
+  {id:"C05",route:"#cases",page:"铺装参考库",selector:"#caseSpaceGallery [data-space-id='living-warm-classic']",title:"铺装参考：暖木成厅",asset:"journal/paving-reference/ref-living-warm-classic.webp"},
+  {id:"C06",route:"#cases",page:"铺装参考库",selector:"#caseSpaceGallery [data-space-id='dining-open']",title:"铺装参考：餐厨连贯",asset:"journal/paving-reference/ref-dining-open.webp"},
+  {id:"C07",route:"#cases",page:"铺装参考库",selector:"#caseSpaceGallery [data-space-id='dining-light']",title:"铺装参考：光中用餐",asset:"journal/paving-reference/ref-dining-light.webp"},
+  {id:"C08",route:"#cases",page:"铺装参考库",selector:"#caseSpaceGallery [data-space-id='dining-minimal']",title:"铺装参考：简席见木",asset:"journal/paving-reference/ref-dining-minimal.webp"},
+  {id:"C09",route:"#cases",page:"铺装参考库",selector:"#caseSpaceGallery [data-space-id='kitchen-ceiling']",title:"铺装参考：上下同木",asset:"journal/paving-reference/ref-kitchen-ceiling.webp"},
+  {id:"C10",route:"#cases",page:"铺装参考库",selector:"#caseSpaceGallery [data-space-id='kitchen-long']",title:"铺装参考：长厨通铺",asset:"journal/paving-reference/ref-kitchen-long.webp"},
+  {id:"C11",route:"#cases",page:"铺装参考库",selector:"#caseSpaceGallery [data-space-id='kitchen-family']",title:"铺装参考：家常有木",asset:"journal/paving-reference/ref-kitchen-family.webp"},
+  {id:"C12",route:"#cases",page:"铺装参考库",selector:"#caseSpaceGallery [data-space-id='bedroom-light']",title:"铺装参考：卧室轻呼吸",asset:"journal/paving-reference/ref-bedroom-light.webp"},
+  {id:"C13",route:"#cases",page:"铺装参考库",selector:"#caseSpaceGallery [data-space-id='bedroom-deep']",title:"铺装参考：静室深纹",asset:"journal/paving-reference/ref-bedroom-deep.webp"},
+  {id:"C14",route:"#cases",page:"铺装参考库",selector:"#caseSpaceGallery [data-space-id='bedroom-warm']",title:"铺装参考：暖卧有度",asset:"journal/paving-reference/ref-bedroom-warm.webp"},
+  {id:"C15",route:"#cases",page:"铺装参考库",selector:"#caseSpaceGallery [data-space-id='study-shadow']",title:"铺装参考：书房藏静",asset:"journal/paving-reference/ref-study-shadow.webp"},
+  {id:"C16",route:"#cases",page:"铺装参考库",selector:"#caseSpaceGallery [data-space-id='study-chair']",title:"铺装参考：独坐见光",asset:"journal/paving-reference/ref-study-chair.webp"},
+  {id:"C17",route:"#cases",page:"铺装参考库",selector:"#caseSpaceGallery [data-space-id='tea-room-dark']",title:"铺装参考：茶室留白",asset:"journal/paving-reference/ref-tea-room-dark.webp"},
+  {id:"C18",route:"#cases",page:"铺装参考库",selector:"#caseSpaceGallery [data-space-id='tatami-light']",title:"铺装参考：和室明净",asset:"journal/paving-reference/ref-tatami-light.webp"},
+  {id:"C19",route:"#cases",page:"铺装参考库",selector:"#caseSpaceGallery [data-space-id='japanese-quiet']",title:"铺装参考：静室素木",asset:"journal/paving-reference/ref-japanese-quiet.webp"},
+  {id:"C20",route:"#cases",page:"铺装参考库",selector:"#caseSpaceGallery [data-space-id='entry-slats']",title:"铺装参考：玄关定序",asset:"journal/paving-reference/ref-entry-slats.webp"},
+  {id:"C21",route:"#cases",page:"铺装参考库",selector:"#caseSpaceGallery [data-space-id='corridor-wood']",title:"铺装参考：廊道引光",asset:"journal/paving-reference/ref-corridor-wood.webp"},
+  {id:"C22",route:"#cases",page:"铺装参考库",selector:"#caseSpaceGallery [data-space-id='hall-open']",title:"铺装参考：入户开阔",asset:"journal/paving-reference/ref-hall-open.webp"},
+  {id:"C23",route:"#cases",page:"铺装参考库",selector:"#caseSpaceGallery [data-space-id='stairs-open']",title:"铺装参考：楼梯成景",asset:"journal/paving-reference/ref-stairs-open.webp"},
+  {id:"C24",route:"#cases",page:"铺装参考库",selector:"#caseSpaceGallery [data-space-id='stairs-silent']",title:"铺装参考：梯间留白",asset:"journal/paving-reference/ref-stairs-silent.webp"},
+  {id:"C25",route:"#cases",page:"铺装参考库",selector:"#caseSpaceGallery [data-space-id='gallery-library']",title:"铺装参考：展厅藏木",asset:"journal/paving-reference/ref-gallery-library.webp"},
+  {id:"C26",route:"#cases",page:"铺装参考库",selector:"#caseSpaceGallery [data-space-id='showroom-wide']",title:"铺装参考：展厅尺度",asset:"journal/paving-reference/ref-showroom-wide.webp"},
+  {id:"C27",route:"#cases",page:"铺装参考库",selector:"#caseSpaceGallery [data-space-id='atelier-commercial']",title:"铺装参考：商空有骨",asset:"journal/paving-reference/ref-atelier-commercial.webp"},
+  {id:"C28",route:"#cases",page:"铺装参考库",selector:"#caseSpaceGallery [data-space-id='lounge-gray']",title:"铺装参考：灰调会客",asset:"journal/paving-reference/ref-lounge-gray.webp"},
+  {id:"C29",route:"#cases",page:"铺装参考库",selector:"#caseSpaceGallery [data-space-id='retail-floor']",title:"铺装参考：店面有温",asset:"journal/paving-reference/ref-retail-floor.webp"},
+  {id:"C30",route:"#cases",page:"铺装参考库",selector:"#caseSpaceGallery [data-space-id='herringbone-tv']",title:"铺装参考：人字成厅",asset:"journal/paving-reference/ref-herringbone-tv.webp"},
+  {id:"C31",route:"#cases",page:"铺装参考库",selector:"#caseSpaceGallery [data-space-id='herringbone-light']",title:"铺装参考：浅拼见光",asset:"journal/paving-reference/ref-herringbone-light.webp"},
+  {id:"C32",route:"#cases",page:"铺装参考库",selector:"#caseSpaceGallery [data-space-id='herringbone-dining']",title:"铺装参考：鱼骨入席",asset:"journal/paving-reference/ref-herringbone-dining.webp"},
+  {id:"C33",route:"#cases",page:"铺装参考库",selector:"#caseSpaceGallery [data-space-id='gray-corridor']",title:"铺装参考：灰木入廊",asset:"journal/paving-reference/ref-gray-corridor.webp"},
+  {id:"C34",route:"#cases",page:"铺装参考库",selector:"#caseSpaceGallery [data-space-id='wide-board-house']",title:"铺装参考：宽板成宅",asset:"journal/paving-reference/ref-wide-board-house.webp"},
+  {id:"C35",route:"#cases",page:"铺装参考库",selector:"#caseSpaceGallery [data-space-id='plank-sun']",title:"铺装参考：日光见纹",asset:"journal/paving-reference/ref-plank-sun.webp"},
+  {id:"C36",route:"#cases",page:"铺装参考库",selector:"#caseSpaceGallery [data-space-id='dark-tea']",title:"铺装参考：暗室有光",asset:"journal/paving-reference/ref-dark-tea.webp"}
 ];
 
 function isImageSlotReviewMode(){
