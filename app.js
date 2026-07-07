@@ -319,6 +319,11 @@ function getProductSeriesValue(series){
   return matched?matched.series:series;
 }
 
+function getDisplayFilterLabel(group,value){
+  if(group==="series"&&value!=="全部")return value.replace(/[（(].*?[）)]/g,"");
+  return value;
+}
+
 function resetProductFiltersForSeries(series){
   activeFilters.series=getProductSeriesValue(series);
   activeFilters.wood="全部";
@@ -438,7 +443,7 @@ function renderCaseGallery(){
   var list=SPACE_MEDIA.filter(function(item){return activeCaseSpaceType==="全部"||item.spaceType===activeCaseSpaceType});
   el.innerHTML=list.map(function(item,index){
     var large=index===0&&activeCaseSpaceType==="全部"?" large":"";
-    return '<button class="space-gallery-card action-card'+large+'" type="button" data-space-id="'+item.id+'" aria-label="打开'+escapeHtml(item.title)+'案例">'+renderSpaceMedia(item,'space-media')+'<span class="space-image-shade"></span><span class="space-logo-mark" aria-hidden="true"></span><div class="space-gallery-copy"><span>'+escapeHtml(item.spaceType)+' · '+escapeHtml(item.wood)+'</span><h3>'+escapeHtml(item.title)+'</h3><p>'+escapeHtml(item.summary)+'</p><em>'+escapeHtml(item.series)+' · 入境查看</em></div></button>';
+    return '<button class="space-gallery-card action-card'+large+'" type="button" data-space-id="'+item.id+'" aria-label="打开'+escapeHtml(item.title)+'铺装参考">'+renderSpaceMedia(item,'space-media')+'<span class="space-image-shade"></span><span class="space-logo-mark" aria-hidden="true"></span><div class="space-gallery-copy"><span>'+escapeHtml(item.spaceType)+' · '+escapeHtml(item.wood)+'</span><h3>'+escapeHtml(item.title)+'</h3><p>'+escapeHtml(item.summary)+'</p><em>'+escapeHtml(item.series)+' · 入境查看</em></div></button>';
   }).join("");
   playSpaceVideos(el);
 }
@@ -466,7 +471,7 @@ function openSpaceCase(id){
   var copy=document.getElementById("spaceCaseCopy");
   if(!item||!modal||!media||!copy)return;
   media.innerHTML=renderSpaceMedia(item,'space-case-asset')+'<span class="space-image-shade"></span><span class="space-logo-mark" aria-hidden="true"></span>';
-  copy.innerHTML='<span>SPACE CASE / '+escapeHtml(item.spaceType)+'</span><h3>'+escapeHtml(item.title)+'</h3><p>'+escapeHtml(item.summary)+'</p><dl><div><dt>推荐木种</dt><dd>'+escapeHtml(item.wood)+'</dd></div><div><dt>适配系列</dt><dd>'+escapeHtml(item.series)+'</dd></div></dl><div class="page-cta"><button class="btn-primary" type="button" data-case-products="'+item.id+'">看相关产品</button><a class="btn-secondary" href="'+escapeHtml(item.journalLink||"#journal")+'">读木作志</a><a class="btn-secondary" href="#contact">预约选材</a></div>';
+  copy.innerHTML='<span>PAVING REFERENCE / '+escapeHtml(item.spaceType)+'</span><h3>'+escapeHtml(item.title)+'</h3><p>'+escapeHtml(item.summary)+'</p><dl><div><dt>推荐木种</dt><dd>'+escapeHtml(item.wood)+'</dd></div><div><dt>适配系列</dt><dd>'+escapeHtml(item.series)+'</dd></div></dl><div class="page-cta"><button class="btn-primary" type="button" data-case-products="'+item.id+'">看相关产品</button><a class="btn-secondary" href="'+escapeHtml(item.journalLink||"#journal")+'">读木作志</a><a class="btn-secondary" href="#contact">预约选材</a></div>';
   modal.classList.add("open");
   modal.setAttribute("aria-hidden","false");
   document.body.classList.add("space-case-open");
@@ -564,12 +569,12 @@ var IMAGE_SLOT_MAP=[
   {id:"J05",route:"#journal",page:"木作志",selector:"#page-journal .journal-topic:nth-child(3)",title:"木作志卡片：从森林到家",asset:"journal/home-hero-forest-door.webp"},
   {id:"J06",route:"#journal",page:"木作志",selector:"#page-journal .journal-topic:nth-child(4)",title:"木作志卡片：工艺手记",asset:"journal/touch-wood.webp"},
   {id:"J07",route:"#journal",page:"木作志",selector:"#page-journal .journal-topic:nth-child(5)",title:"木作志卡片：全屋木作系统",asset:"journal/system-section-house.webp"},
-  {id:"C01",route:"#cases",page:"空间灵感库",selector:"#caseSpaceGallery [data-space-id='living-oak']",title:"空间案例：客厅",asset:"journal/case-family-room.webp"},
-  {id:"C02",route:"#cases",page:"空间灵感库",selector:"#caseSpaceGallery [data-space-id='bedroom-ash']",title:"空间案例：卧室",asset:"journal/case-light.webp"},
-  {id:"C03",route:"#cases",page:"空间灵感库",selector:"#caseSpaceGallery [data-space-id='study-walnut']",title:"空间案例：书房",asset:"journal/case-villa.webp"},
-  {id:"C04",route:"#cases",page:"空间灵感库",selector:"#caseSpaceGallery [data-space-id='tea-room-walnut']",title:"空间案例：茶室",asset:"journal/craft-lounge-board.webp"},
-  {id:"C05",route:"#cases",page:"空间灵感库",selector:"#caseSpaceGallery [data-space-id='showroom-motion']",title:"空间案例：展厅视频",asset:"media/motion-atelier-01.mp4"},
-  {id:"C06",route:"#cases",page:"空间灵感库",selector:"#caseSpaceGallery [data-space-id='commercial-system']",title:"空间案例：商业空间",asset:"journal/culture-color-door.webp"}
+  {id:"C01",route:"#cases",page:"铺装参考",selector:"#caseSpaceGallery [data-space-id='living-oak']",title:"铺装参考：客厅",asset:"journal/case-family-room.webp"},
+  {id:"C02",route:"#cases",page:"铺装参考",selector:"#caseSpaceGallery [data-space-id='bedroom-ash']",title:"铺装参考：卧室",asset:"journal/case-light.webp"},
+  {id:"C03",route:"#cases",page:"铺装参考",selector:"#caseSpaceGallery [data-space-id='study-walnut']",title:"铺装参考：书房",asset:"journal/case-villa.webp"},
+  {id:"C04",route:"#cases",page:"铺装参考",selector:"#caseSpaceGallery [data-space-id='tea-room-walnut']",title:"铺装参考：茶室",asset:"journal/craft-lounge-board.webp"},
+  {id:"C05",route:"#cases",page:"铺装参考",selector:"#caseSpaceGallery [data-space-id='showroom-motion']",title:"铺装参考：展厅视频",asset:"media/motion-atelier-01.mp4"},
+  {id:"C06",route:"#cases",page:"铺装参考",selector:"#caseSpaceGallery [data-space-id='commercial-system']",title:"铺装参考：商业空间",asset:"journal/culture-color-door.webp"}
 ];
 
 function isImageSlotReviewMode(){
@@ -707,7 +712,7 @@ function buildFilterRow(group){
     var isActive=v===activeFilters[group]||(group==="series"&&activeFilters[group]!=="全部"&&v.indexOf(activeFilters[group])===0);
     c.type="button";
     c.className="chip"+(isAlt?" alt":"")+(isActive?" active":"");
-    c.textContent=v;
+    c.textContent=getDisplayFilterLabel(group,v);
     c.onclick=function(){setFilter(group,v)};
     el.appendChild(c);
   });
