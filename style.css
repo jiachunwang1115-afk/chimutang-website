@@ -5984,3 +5984,82 @@ body.has-scrolled .fixed-action-rail button{opacity:1}
     line-height:1.82!important;
   }
 }
+
+/* ===== Paving Detail Drawer Editorial Notes ===== */
+.space-case-media{
+  background:#efe7da!important;
+}
+.space-case-media .space-case-asset{
+  filter:saturate(1.02) contrast(1) brightness(1.1)!important;
+}
+.space-case-media .space-image-shade{
+  background:
+    linear-gradient(180deg,rgba(20,16,12,.02),rgba(20,16,12,.2)),
+    linear-gradient(90deg,rgba(20,16,12,.2),rgba(20,16,12,.02) 58%,rgba(20,16,12,.08))!important;
+}
+.space-case-media .space-logo-mark{
+  filter:brightness(0) invert(1) drop-shadow(0 10px 24px rgba(0,0,0,.28))!important;
+}
+.space-case-commentary{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:1px;
+  margin:24px 0 0;
+  border:1px solid rgba(143,95,51,.14);
+  background:rgba(143,95,51,.14);
+}
+.space-case-commentary article{
+  min-height:132px;
+  padding:18px 18px 16px;
+  background:rgba(255,253,249,.88);
+}
+.space-case-commentary article span{
+  display:block;
+  margin-bottom:10px;
+  color:var(--brand);
+  font-size:10px;
+  letter-spacing:.16em;
+  font-weight:700;
+}
+.space-case-commentary article strong{
+  display:block;
+  color:var(--ink);
+  font-size:16px;
+  line-height:1.35;
+  font-weight:500;
+}
+.space-case-commentary article p{
+  margin:9px 0 0!important;
+  color:rgba(31,28,25,.64)!important;
+  font-size:13px!important;
+  line-height:1.78!important;
+}
+.space-case-assets{
+  display:none!important;
+}
+.space-case-detail{
+  margin-top:18px!important;
+}
+
+@media(max-width:900px){
+  .space-case-commentary{
+    grid-template-columns:1fr;
+  }
+  .space-case-commentary article{
+    min-height:auto;
+  }
+}
+
+@media(max-width:640px){
+  .space-case-media .space-case-asset{
+    filter:saturate(1) contrast(1) brightness(1.06)!important;
+  }
+  .space-case-media .space-image-shade{
+    background:
+      linear-gradient(180deg,rgba(20,16,12,.01),rgba(20,16,12,.14)),
+      linear-gradient(90deg,rgba(20,16,12,.1),rgba(20,16,12,.02))!important;
+  }
+  .space-case-commentary{
+    margin-top:20px;
+  }
+}

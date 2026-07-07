@@ -601,6 +601,40 @@ function bindPavingSelectionButton(){
   updatePavingSelectionUI();
 }
 
+function getPavingCaseCommentary(item){
+  var toneText={
+    "浅木":"浅木适合承接白墙、亚麻、浅灰与藤编，让空间更松弛，也更容易显大。",
+    "原木":"原木色适合搭配棉麻、皮革、浅色石材与暖白灯光，保留自然感而不显粗糙。",
+    "中棕":"中棕能压住日常软装的杂色，适合布艺、皮革、石材和木作柜体并置。",
+    "深胡桃":"深胡桃适合低饱和墙面、皮革、金属与暖光，空间会更沉静、更有分量。",
+    "烟熏灰":"烟熏灰适合黑白灰、金属、石材与现代家具，气质冷静，适合克制型空间。"
+  };
+  var styleText={
+    "现代极简":"减少装饰线条，让地面纹理成为空间里最温和的层次。",
+    "东方静奢":"以留白和秩序为主，木色不争夺视线，只把器物与光影托住。",
+    "自然侘寂":"保留材料的微差与肌理，让空间看起来更松、更有时间感。",
+    "意式沉稳":"用低明度木色建立厚度，适合大体量家具与克制灯光。",
+    "商业雅奢":"强调识别度与耐看度，木地面承担空间记忆点，但不过分喧哗。"
+  };
+  var roomText={
+    "客厅":"客厅是家的主尺度，地板宜先定色温，再决定沙发、地毯与墙面关系。",
+    "餐厨":"餐厨重在连贯和耐看，地面不宜过碎，便于动线、清洁与视觉统一。",
+    "卧室":"卧室需要降低视觉重量，木地板与织物、低床、柔光之间要保持安静。",
+    "书房":"书房重在收心，木色和桌椅灯光应形成稳定的工作氛围。",
+    "茶室":"茶室看重器物与留白，木地板应托住茶席，不抢主角。",
+    "玄关":"玄关是第一眼尺度，木色与收边决定入户秩序。",
+    "楼梯":"楼梯要把上下层连成一体，踏步、扶手和地板色阶要统一。",
+    "展厅":"展厅要让材料被看见，地板需要承接灯光、样板与人流。",
+    "商业空间":"商业空间需要记忆点，木地板要有识别度，也要耐看。"
+  };
+  return [
+    {label:"IMAGE NOTE",title:"图像点评",text:roomText[item.roomType]||"先看空间尺度、采光和家具体量，再判断木色是否合适。"},
+    {label:"SOFT DECOR",title:"软装搭配",text:toneText[item.colorTone]||"软装应顺着木色的冷暖走，少用高饱和跳色，空间更稳。"},
+    {label:"STYLE",title:"风格描述",text:styleText[item.styleTag]||"让木色、光线和家具保持同一种语气，空间会更完整。"},
+    {label:"PAVING",title:"铺装取向",text:item.pattern+"适合"+item.roomType+"场景；"+(item.detailPoints&&item.detailPoints[2]?String(item.detailPoints[2]).replace(/^铺法建议[:：]/,""):"先确定主视线，再安排铺装方向。")}
+  ];
+}
+
 function openSpaceCase(id){
   var item=getSpaceById(id);
   var modal=document.getElementById("spaceCaseModal");
@@ -612,10 +646,10 @@ function openSpaceCase(id){
     var parts=String(point).split("：");
     return '<li><strong>'+escapeHtml(parts.shift()||"建议")+'</strong><span>'+escapeHtml(parts.join("：")||point)+'</span></li>';
   }).join("");
-  var assets=(item.relatedAssets||[]).slice(0,3).map(function(asset){
-    return '<figure><img src="'+escapeHtml(asset.src)+'" alt="'+escapeHtml(asset.alt)+'" loading="lazy" decoding="async"><figcaption>'+escapeHtml(asset.title)+'</figcaption></figure>';
+  var commentary=getPavingCaseCommentary(item).map(function(note){
+    return '<article><span>'+escapeHtml(note.label)+'</span><strong>'+escapeHtml(note.title)+'</strong><p>'+escapeHtml(note.text)+'</p></article>';
   }).join("");
-  copy.innerHTML='<span>PAVING ATLAS / '+escapeHtml(item.roomType)+'</span><h3>'+escapeHtml(item.title)+'</h3><strong class="space-case-subline">'+escapeHtml(item.subline)+'</strong><p>'+escapeHtml(item.summary)+'</p><div class="space-case-tags"><span>'+escapeHtml(item.colorTone)+'</span><span>'+escapeHtml(item.styleTag)+'</span><span>'+escapeHtml(item.pattern)+'</span><span>'+escapeHtml(item.mood)+'</span></div><dl><div><dt>推荐木种</dt><dd>'+escapeHtml(item.wood)+'</dd></div><div><dt>适配系列</dt><dd>'+escapeHtml(item.series)+'</dd></div></dl><ul class="space-case-detail">'+details+'</ul><div class="space-case-assets">'+assets+'</div><div class="page-cta"><button class="btn-primary" type="button" data-case-products="'+item.id+'">看相关产品</button><button class="btn-secondary" type="button" data-case-save="'+item.id+'">'+(isPavingSelected(item.id)?"移出选材夹":"加入选材夹")+'</button><a class="btn-secondary" href="#contact">预约咨询</a></div>';
+  copy.innerHTML='<span>PAVING ATLAS / '+escapeHtml(item.roomType)+'</span><h3>'+escapeHtml(item.title)+'</h3><strong class="space-case-subline">'+escapeHtml(item.subline)+'</strong><p>'+escapeHtml(item.summary)+'</p><div class="space-case-tags"><span>'+escapeHtml(item.colorTone)+'</span><span>'+escapeHtml(item.styleTag)+'</span><span>'+escapeHtml(item.pattern)+'</span><span>'+escapeHtml(item.mood)+'</span></div><dl><div><dt>推荐木种</dt><dd>'+escapeHtml(item.wood)+'</dd></div><div><dt>适配系列</dt><dd>'+escapeHtml(item.series)+'</dd></div></dl><div class="space-case-commentary">'+commentary+'</div><ul class="space-case-detail">'+details+'</ul><div class="page-cta"><button class="btn-primary" type="button" data-case-products="'+item.id+'">看相关产品</button><button class="btn-secondary" type="button" data-case-save="'+item.id+'">'+(isPavingSelected(item.id)?"移出选材夹":"加入选材夹")+'</button><a class="btn-secondary" href="#contact">预约咨询</a></div>';
   modal.classList.add("open");
   modal.setAttribute("aria-hidden","false");
   document.body.classList.add("space-case-open");
