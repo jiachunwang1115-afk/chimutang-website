@@ -1245,106 +1245,6 @@ function isTextHeavyProductImage(src){
   return /logo|banner|poster|text|title|word|qr|wechat|weixin|公众号|海报|文字/i.test(src);
 }
 
-function normalizeMatchText(v){
-  return String(v||"").toLowerCase();
-}
-
-function getProductWoodFamily(p){
-  var text=[p.wood,p.surface,p.series,p.code].map(normalizeMatchText).join(" ");
-  if(/黑胡桃/.test(text))return "黑胡桃";
-  if(/胡桃/.test(text))return "胡桃木";
-  if(/白蜡|梣/.test(text))return "白蜡木";
-  if(/欧橡/.test(text))return "欧橡";
-  if(/橡/.test(text))return "橡木";
-  if(/俄罗斯|桦/.test(text))return "俄罗斯桦木";
-  return p.wood||"";
-}
-
-function getProductColorTone(p){
-  var text=[p.surface,p.wood,p.series,p.code].map(normalizeMatchText).join(" ");
-  if(/灰|烟|熏|喷砂|碳|炭/.test(text))return "烟熏灰";
-  if(/黑|墨|深/.test(text))return "深胡桃";
-  if(/胡桃/.test(text)&&!/浅/.test(text))return "深胡桃";
-  if(/白|浅|米|奶|素|本色/.test(text))return "浅木";
-  if(/原木|自然|无色/.test(text))return "原木";
-  if(/棕|褐|咖|栗|红/.test(text))return "中棕";
-  return /胡桃/.test(getProductWoodFamily(p))?"深胡桃":"原木";
-}
-
-function getProductPattern(p){
-  var text=[p.board,p.surface,p.structure,p.spec,p.width].map(normalizeMatchText).join(" ");
-  if(/人字/.test(text))return "人字拼";
-  if(/鱼骨/.test(text))return "鱼骨拼";
-  if(/独幅|宽板|大板|240|220|200|190/.test(text))return "宽板";
-  if(/窄板|窄幅|小板|90|100|120/.test(text))return "窄板";
-  return "通铺长板";
-}
-
-function toneScore(productTone,itemTone){
-  if(!itemTone)return 0;
-  if(productTone===itemTone)return 18;
-  var warmGroup=["原木","浅木","中棕"];
-  var darkGroup=["深胡桃","烟熏灰","中棕"];
-  if(warmGroup.indexOf(productTone)>=0&&warmGroup.indexOf(itemTone)>=0)return 9;
-  if(darkGroup.indexOf(productTone)>=0&&darkGroup.indexOf(itemTone)>=0)return 8;
-  return -12;
-}
-
-function patternScore(productPattern,itemPattern){
-  if(!itemPattern)return 0;
-  if(productPattern===itemPattern)return 24;
-  if((productPattern==="宽板"&&itemPattern==="通铺长板")||(productPattern==="通铺长板"&&itemPattern==="宽板"))return 10;
-  if(productPattern==="窄板"&&itemPattern==="通铺长板")return 5;
-  if((productPattern==="人字拼"||productPattern==="鱼骨拼")&&productPattern!==itemPattern)return -22;
-  if((itemPattern==="人字拼"||itemPattern==="鱼骨拼")&&productPattern!==itemPattern)return -14;
-  return -4;
-}
-
-function woodScore(productWood,itemWood){
-  if(!itemWood)return 0;
-  if(productWood===itemWood)return 18;
-  if(productWood.indexOf(itemWood)>=0||itemWood.indexOf(productWood)>=0)return 12;
-  if(/胡桃/.test(productWood)&&/胡桃/.test(itemWood))return 12;
-  if(/橡/.test(productWood)&&/橡/.test(itemWood))return 12;
-  return -10;
-}
-
-function stableProductIndex(code,count){
-  if(count<=1)return 0;
-  var sum=0;
-  String(code||"").split("").forEach(function(ch){sum+=ch.charCodeAt(0);});
-  return sum%count;
-}
-
-function scorePavingSceneForProduct(item,p){
-  if(!item||item.mediaType==="video")return -999;
-  if(!item.src||item.src.indexOf("journal/paving-reference/")<0)return -999;
-  if(isTextHeavyProductImage(item.src)||isTextHeavyProductImage(item.alt)||isTextHeavyProductImage(item.headline))return -999;
-  var score=0;
-  var productTone=getProductColorTone(p);
-  var productPattern=getProductPattern(p);
-  var productWood=getProductWoodFamily(p);
-  score+=toneScore(productTone,item.colorTone);
-  score+=patternScore(productPattern,item.pattern);
-  score+=woodScore(productWood,item.wood||"");
-  if(item.series&&p.series&&item.series===p.series)score+=8;
-  if(item.productFilter&&item.productFilter.series&&item.productFilter.series===p.series)score+=8;
-  if(item.productFilter&&item.productFilter.wood)score+=woodScore(productWood,item.productFilter.wood);
-  if(item.featured)score+=2;
-  if(item.roomType==="客厅"||item.roomType==="卧室")score+=1;
-  return score;
-}
-
-function getMatchedProductScene(p){
-  var ranked=SPACE_MEDIA.map(function(item){
-    return {item:item,score:scorePavingSceneForProduct(item,p)};
-  }).filter(function(entry){return entry.score>-100;}).sort(function(a,b){return b.score-a.score;});
-  if(!ranked.length)return null;
-  var best=ranked[0].score;
-  var close=ranked.filter(function(entry){return entry.score>=best-3;});
-  return close[stableProductIndex(p.code,close.length)]||ranked[0];
-}
-
 function showProductInDrawer(p){
   // Quick fade flash
   var bg=document.querySelector('.drawer-bg');
@@ -1353,19 +1253,9 @@ function showProductInDrawer(p){
 
   // Scene image (full screen bg)
   var sceneImg=document.getElementById('drawerScene');
-  var matchedScene=getMatchedProductScene(p);
   var sceneSources=getProductSceneSources(p).filter(function(src){return !isTextHeavyProductImage(src);});
-  if(matchedScene)sceneSources=[matchedScene.item.src];
   if(sceneSources.length===0)sceneSources=getProductSceneSources(p);
   sceneImg.alt=(p.code||'')+' 木地板空间效果图';
-  if(matchedScene){
-    sceneImg.alt=p.code+' 空间参考图 · '+matchedScene.item.headline;
-    sceneImg.dataset.sceneTone=matchedScene.item.colorTone;
-    sceneImg.dataset.scenePattern=matchedScene.item.pattern;
-  }else{
-    sceneImg.dataset.sceneTone=getProductColorTone(p);
-    sceneImg.dataset.scenePattern=getProductPattern(p);
-  }
   var sourceIndex=0;
   sceneImg.onerror=function(){
     sourceIndex+=1;
@@ -1376,7 +1266,6 @@ function showProductInDrawer(p){
   // Info panel
   var info=document.getElementById('drawerInfoPanel');
   info.innerHTML='<h3>'+p.code+'</h3><div class="d-meta">'+p.wood+' · '+p.surface+'</div>'
-    +(matchedScene?'<div class="drawer-scene-note">空间参考 · '+matchedScene.item.colorTone+' / '+matchedScene.item.pattern+' / '+(matchedScene.item.wood||p.wood)+'</div>':'')
     +'<div class="drawer-cards">'
     +'<div class="drawer-card"><div class="val">'+p.wood+'</div><div class="lbl">木种</div></div>'
     +'<div class="drawer-card"><div class="val">'+p.board+'</div><div class="lbl">板材</div></div>'
