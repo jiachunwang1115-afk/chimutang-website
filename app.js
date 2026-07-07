@@ -1215,17 +1215,12 @@ function bindDrawerSwipe(){
     if(dy<0)drawerNavNext();
     else drawerNavPrev();
   }
-  function onWheel(e){
-    if(e.deltaY>20)drawerNavNext();
-    else if(e.deltaY<-20)drawerNavPrev();
-  }
   drawer.addEventListener('touchstart',onTouchStart,{passive:true});
   drawer.addEventListener('touchmove',onTouchMove,{passive:true});
   drawer.addEventListener('touchend',onTouchEnd,{passive:true});
-  drawer.addEventListener('wheel',onWheel,{passive:true});
   document.getElementById('drawerNavUp').onclick=drawerNavPrev;
   document.getElementById('drawerNavDown').onclick=drawerNavNext;
-  drawerSwipeBinding={el:drawer,ts:onTouchStart,tm:onTouchMove,te:onTouchEnd,wh:onWheel};
+  drawerSwipeBinding={el:drawer,ts:onTouchStart,tm:onTouchMove,te:onTouchEnd};
 }
 
 function unbindDrawerSwipe(){
@@ -1234,8 +1229,20 @@ function unbindDrawerSwipe(){
   b.el.removeEventListener('touchstart',b.ts);
   b.el.removeEventListener('touchmove',b.tm);
   b.el.removeEventListener('touchend',b.te);
-  b.el.removeEventListener('wheel',b.wh);
   drawerSwipeBinding=null;
+}
+
+function getProductSceneSources(p){
+  var sources=[];
+  [p.img_e_hd,p.img_b_hd,p.img_e_thumb,p.img_b_thumb].forEach(function(src){
+    if(src&&sources.indexOf(src)<0)sources.push(src);
+  });
+  return sources;
+}
+
+function isTextHeavyProductImage(src){
+  if(!src)return false;
+  return /logo|banner|poster|text|title|word|qr|wechat|weixin|公众号|海报|文字/i.test(src);
 }
 
 function showProductInDrawer(p){
@@ -1246,10 +1253,15 @@ function showProductInDrawer(p){
 
   // Scene image (full screen bg)
   var sceneImg=document.getElementById('drawerScene');
-  sceneImg.src=p.img_e_thumb||p.img_b_thumb||'';
-  var hdS=new Image();hdS.onload=function(){sceneImg.src=hdS.src};
-  if(p.img_e_hd)hdS.src=p.img_e_hd;
-  else if(p.img_b_hd)hdS.src=p.img_b_hd;
+  var sceneSources=getProductSceneSources(p).filter(function(src){return !isTextHeavyProductImage(src);});
+  if(sceneSources.length===0)sceneSources=getProductSceneSources(p);
+  sceneImg.alt=(p.code||'')+' 木地板空间效果图';
+  var sourceIndex=0;
+  sceneImg.onerror=function(){
+    sourceIndex+=1;
+    if(sourceIndex<sceneSources.length)sceneImg.src=sceneSources[sourceIndex];
+  };
+  sceneImg.src=sceneSources[0]||'';
 
   // Info panel
   var info=document.getElementById('drawerInfoPanel');
