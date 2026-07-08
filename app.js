@@ -2,7 +2,7 @@
 var ROUTES=['#home','#products','#series','#craft','#journal','#cases','#about','#service','#contact'];
 var MOBILE_NAV_META={
   '#home':{eyebrow:'WOOD ALL',title:'痴木堂'},
-  '#products':{eyebrow:'PRODUCT CENTER',title:'产品中心 · 116款'},
+  '#products':{eyebrow:'PRODUCT CENTER',title:'产品中心'},
   '#series':{eyebrow:'SERIES ARCHIVE',title:'系列介绍'},
   '#craft':{eyebrow:'CRAFT ARCHIVE',title:'工艺技术'},
   '#journal':{eyebrow:'WOOD ALL JOURNAL',title:'木作志'},
@@ -1545,7 +1545,7 @@ function initSeriesPage(){
     var count=countProductsBySeries(k);
     btn.className='series-tab'+(k===initial?' active':'');
     btn.setAttribute('data-index',index);
-    btn.innerHTML='<span>'+k+'</span><small>'+(count?count+'款产品':'系列档案')+'</small>';
+    btn.innerHTML='<span>'+k+'</span><small>'+(count?'在售产品':'系列档案')+'</small>';
     btn.onclick=function(){switchSeries(k)};
     tabs.appendChild(btn);
   });
