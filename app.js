@@ -1,5 +1,17 @@
 // ===== ROUTING =====
 var ROUTES=['#home','#products','#series','#craft','#journal','#cases','#about','#service','#contact'];
+var MOBILE_NAV_META={
+  '#home':{eyebrow:'WOOD ALL',title:'痴木堂'},
+  '#products':{eyebrow:'PRODUCT CENTER',title:'产品中心 · 116款'},
+  '#series':{eyebrow:'SERIES ARCHIVE',title:'系列介绍'},
+  '#craft':{eyebrow:'CRAFT ARCHIVE',title:'工艺技术'},
+  '#journal':{eyebrow:'WOOD ALL JOURNAL',title:'木作志'},
+  '#cases':{eyebrow:'PAVING ATLAS',title:'铺装参考库'},
+  '#about':{eyebrow:'BRAND STORY',title:'品牌故事'},
+  '#service':{eyebrow:'SERVICE',title:'服务支持'},
+  '#contact':{eyebrow:'REACH US',title:'联系我们'},
+  '#not-found':{eyebrow:'WOOD ALL',title:'未找到页面'}
+};
 
 function navigate(hash){
   if(ROUTES.indexOf(hash)<0) hash='#not-found';
@@ -13,7 +25,17 @@ function navigate(hash){
 }
 
 function updateNav(hash){
+  var routeName=(hash||'#home').replace('#','')||'home';
+  document.body.setAttribute('data-route',routeName);
+  var meta=MOBILE_NAV_META[hash]||MOBILE_NAV_META['#home'];
+  var mobileEyebrow=document.getElementById('mobileNavEyebrow');
+  var mobileTitle=document.getElementById('mobileNavTitle');
+  if(mobileEyebrow) mobileEyebrow.textContent=meta.eyebrow;
+  if(mobileTitle) mobileTitle.textContent=meta.title;
   document.querySelectorAll('.nav-links a').forEach(function(a){
+    a.classList.toggle('active',a.getAttribute('href')===hash);
+  });
+  document.querySelectorAll('[data-mobile-chapter]').forEach(function(a){
     a.classList.toggle('active',a.getAttribute('href')===hash);
   });
   closeMobileNav();
@@ -160,6 +182,13 @@ if(brandFilmVideo){
 
 // Nav clicks
 document.querySelectorAll('.nav-links a').forEach(function(a){
+  a.addEventListener('click',function(e){
+    e.preventDefault();
+    navigate(this.getAttribute('href'));
+  });
+});
+
+document.querySelectorAll('[data-mobile-chapter]').forEach(function(a){
   a.addEventListener('click',function(e){
     e.preventDefault();
     navigate(this.getAttribute('href'));
