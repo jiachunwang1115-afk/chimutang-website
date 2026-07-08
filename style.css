@@ -8407,3 +8407,143 @@ body{background:linear-gradient(180deg,#fbf8f1 0%,#f2eee6 46%,#fbf8f1 100%)!impo
     padding:28px 22px!important;
   }
 }
+
+/* ===== Site-wide readability lift ===== */
+:root{
+  --ct-nav-readable:clamp(15px,.82vw,16px);
+  --ct-ui-readable:clamp(14px,.78vw,15px);
+  --ct-ui-small-readable:13px;
+}
+
+body{
+  font-size:16px!important;
+}
+
+.nav-inner{
+  min-height:88px!important;
+}
+
+.nav-links{
+  gap:2px!important;
+}
+
+.nav-links a{
+  padding:33px 18px 29px!important;
+  font-size:var(--ct-nav-readable)!important;
+  line-height:1.2!important;
+  font-weight:520!important;
+  letter-spacing:.02em!important;
+}
+
+.nav-contact-cta{
+  min-height:52px!important;
+  padding:0 48px 0 24px!important;
+  font-size:var(--ct-nav-readable)!important;
+  line-height:1!important;
+  font-weight:760!important;
+}
+
+.btn-primary,
+.btn-secondary,
+.hero .btn,
+.page-cta a,
+.page-cta button,
+.drawer-actions a,
+.prod-clear-filter,
+.case-filter-tab,
+.chip,
+.space-shortcut,
+.wood-family-card button,
+.wood-family-card a{
+  font-size:var(--ct-ui-readable)!important;
+  line-height:1.25!important;
+}
+
+.filter-row-wrap .filter-label,
+.prod-count-bar,
+.product-experience-bar .eyebrow,
+.space-section-head span,
+.journal-cover-text span,
+.page:not(#page-home) .page-header .page-eyebrow{
+  font-size:var(--ct-ui-small-readable)!important;
+}
+
+.chip{
+  min-height:34px!important;
+  padding:7px 12px!important;
+}
+
+.case-filter-tab{
+  min-height:38px!important;
+  padding:9px 16px!important;
+}
+
+.series-tab span{
+  font-size:16px!important;
+}
+
+.series-tab small{
+  font-size:13px!important;
+}
+
+.pcard .pname{
+  font-size:13px!important;
+  line-height:1.35!important;
+}
+
+.space-shortcut span{
+  font-size:15px!important;
+}
+
+.space-shortcut em{
+  font-size:13px!important;
+}
+
+.fixed-action-rail a,
+.fixed-action-rail button{
+  width:82px!important;
+  min-height:74px!important;
+}
+
+.fixed-action-rail span{
+  font-size:12px!important;
+}
+
+.fixed-action-rail strong{
+  font-size:15px!important;
+}
+
+.mobile-action-bar a{
+  font-size:14px!important;
+}
+
+@media(max-width:1180px){
+  .nav-links a{
+    padding-left:12px!important;
+    padding-right:12px!important;
+    font-size:15px!important;
+  }
+
+  .nav-contact-cta{
+    font-size:15px!important;
+    padding-left:20px!important;
+    padding-right:44px!important;
+  }
+}
+
+@media(max-width:760px){
+  .nav-inner{
+    min-height:70px!important;
+  }
+
+  .nav-links a{
+    padding:16px 18px!important;
+    font-size:16px!important;
+  }
+
+  .chip,
+  .case-filter-tab,
+  .prod-clear-filter{
+    font-size:14px!important;
+  }
+}
