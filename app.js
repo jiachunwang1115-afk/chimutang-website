@@ -81,11 +81,16 @@ function showPage(hash){
 function closeMobileNav(){
   var navLinks=document.getElementById('navLinks');
   var hamburger=document.getElementById('hamburger');
+  var menuChip=document.getElementById('mobileMenuChip');
   var backdrop=document.getElementById('navBackdrop');
   if(navLinks) navLinks.classList.remove('open');
   if(hamburger){
     hamburger.classList.remove('open');
     hamburger.setAttribute('aria-expanded','false');
+  }
+  if(menuChip){
+    menuChip.classList.remove('open');
+    menuChip.setAttribute('aria-expanded','false');
   }
   if(backdrop) backdrop.classList.remove('open');
   document.body.classList.remove('nav-open');
@@ -94,17 +99,24 @@ function closeMobileNav(){
 function openMobileNav(){
   var navLinks=document.getElementById('navLinks');
   var hamburger=document.getElementById('hamburger');
+  var menuChip=document.getElementById('mobileMenuChip');
   var backdrop=document.getElementById('navBackdrop');
   if(navLinks) navLinks.classList.add('open');
   if(hamburger){
     hamburger.classList.add('open');
     hamburger.setAttribute('aria-expanded','true');
   }
+  if(menuChip){
+    menuChip.classList.add('open');
+    menuChip.setAttribute('aria-expanded','true');
+  }
   if(backdrop) backdrop.classList.add('open');
   document.body.classList.add('nav-open');
 }
 
 var mobileMenuButton=document.getElementById('hamburger');
+var mobileMenuChip=document.getElementById('mobileMenuChip');
+var mobileMenuClose=document.getElementById('mobileMenuClose');
 var mobileMenuBackdrop=document.getElementById('navBackdrop');
 
 if(mobileMenuButton){
@@ -113,6 +125,18 @@ if(mobileMenuButton){
     if(navLinks&&navLinks.classList.contains('open')) closeMobileNav();
     else openMobileNav();
   });
+}
+
+if(mobileMenuChip){
+  mobileMenuChip.addEventListener('click',function(){
+    var navLinks=document.getElementById('navLinks');
+    if(navLinks&&navLinks.classList.contains('open')) closeMobileNav();
+    else openMobileNav();
+  });
+}
+
+if(mobileMenuClose){
+  mobileMenuClose.addEventListener('click',closeMobileNav);
 }
 
 if(mobileMenuBackdrop){
