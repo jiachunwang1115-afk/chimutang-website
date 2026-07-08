@@ -7750,3 +7750,55 @@ body.has-scrolled .fixed-action-rail button{opacity:1}
     text-align:left!important;
   }
 }
+
+/* Detail polish: keep Chinese microcopy composed and avoid orphan characters. */
+.case-space-note{
+  flex:0 0 auto!important;
+  min-width:max-content!important;
+  max-width:none!important;
+  white-space:nowrap!important;
+  text-align:right!important;
+  justify-content:flex-end!important;
+  align-items:center!important;
+  text-wrap:pretty;
+  line-break:strict;
+  word-break:normal!important;
+  overflow-wrap:normal!important;
+}
+
+.section-title p,
+.page-header p,
+.product-experience-bar p,
+.space-product-guide p,
+.case-cta p,
+.space-case-cta p,
+.contact-card p,
+.prod-empty p,
+.space-gallery-empty p,
+.footer-luxe p{
+  text-wrap:pretty;
+  line-break:strict;
+  word-break:normal!important;
+  overflow-wrap:break-word;
+}
+
+.btn-primary,
+.btn-secondary,
+.page-cta a,
+.page-cta button,
+.mobile-action-bar a,
+.fixed-action-rail a,
+.fixed-action-rail button{
+  text-wrap:balance;
+}
+
+@media(max-width:900px){
+  .case-space-note{
+    display:block!important;
+    min-width:0!important;
+    max-width:100%!important;
+    white-space:normal!important;
+    text-align:left!important;
+    margin-top:10px!important;
+  }
+}
