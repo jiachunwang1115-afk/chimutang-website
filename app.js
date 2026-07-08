@@ -1673,6 +1673,12 @@ var craftData=[
   ]}
 ];
 
+function getVideoPoster(media){
+  var match=(media||'').match(/media\/motion-atelier-(\d{2})\.mp4/i);
+  if(match) return 'media/motion-atelier-'+match[1]+'-poster.jpg';
+  return 'media/brand-story-wood-ring-lite.webp';
+}
+
 function initCraftPage(){
   var html='';
   var craftImages=[
@@ -1687,7 +1693,7 @@ function initCraftPage(){
     html+='<div class="craft-item">';
     html+='<div class="craft-item-media">';
     if(/\.mp4($|\?)/i.test(media)){
-      html+='<video src="'+media+'" muted loop playsinline preload="metadata" poster="media/brand-film-poster.jpg" aria-label="'+item.title+'"></video>';
+      html+='<video src="'+media+'" muted loop playsinline preload="metadata" poster="'+getVideoPoster(media)+'" aria-label="'+item.title+'"></video>';
     }else{
       html+='<img src="'+media+'" alt="'+item.title+'" loading="lazy" decoding="async">';
     }
