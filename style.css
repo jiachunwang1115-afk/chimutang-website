@@ -5776,8 +5776,8 @@ body.has-scrolled .fixed-action-rail button{opacity:1}
   --page-head-position:center 54%;
 }
 #page-craft .page-header{
-  --page-head-img:url("journal/craft-hand.webp");
-  --page-head-position:center 48%;
+  --page-head-img:url("journal/craft-material-blocks.webp");
+  --page-head-position:center 54%;
 }
 #page-cases .page-header{
   --page-head-img:url("journal/paving-reference/ref-living-light.webp");
