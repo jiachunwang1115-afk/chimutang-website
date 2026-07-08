@@ -558,7 +558,7 @@ function renderCaseGallery(){
   }
   el.innerHTML=list.map(function(item,index){
     var large=index===0&&getCaseSelectedFilters().length===0?" large":"";
-    return '<article class="space-gallery-card action-card'+large+'" role="button" tabindex="0" data-space-id="'+item.id+'" aria-label="打开'+escapeHtml(item.title)+'铺装参考">'+renderSpaceMedia(item,'space-media')+'<span class="space-image-shade"></span><span class="space-logo-mark" aria-hidden="true"></span><button class="case-save-chip" type="button" data-case-save="'+escapeHtml(item.id)+'" aria-pressed="'+(isPavingSelected(item.id)?"true":"false")+'">'+(isPavingSelected(item.id)?"已入参考夹":"加入参考夹")+'</button><div class="space-gallery-copy"><span>'+escapeHtml(item.roomType)+' · '+escapeHtml(item.colorTone)+' · '+escapeHtml(item.pattern)+'</span><h3>'+escapeHtml(item.title)+'</h3><p>'+escapeHtml(item.summary)+'</p><em>入境查看 / 同色产品</em></div></article>';
+    return '<article class="space-gallery-card action-card'+large+'" role="button" tabindex="0" data-space-id="'+item.id+'" aria-label="打开'+escapeHtml(item.title)+'铺装参考">'+renderSpaceMedia(item,'space-media')+'<span class="space-image-shade"></span><span class="space-logo-mark" aria-hidden="true"></span><button class="case-save-chip" type="button" data-case-save="'+escapeHtml(item.id)+'" aria-pressed="'+(isPavingSelected(item.id)?"true":"false")+'">'+(isPavingSelected(item.id)?"已入库":"入库")+'</button><div class="space-gallery-copy"><span>'+escapeHtml(item.roomType)+' · '+escapeHtml(item.colorTone)+' · '+escapeHtml(item.pattern)+'</span><h3>'+escapeHtml(item.title)+'</h3><p>'+escapeHtml(item.summary)+'</p><em>入境查看 / 同色产品</em></div></article>';
   }).join("");
   playSpaceVideos(el);
 }
@@ -695,7 +695,7 @@ function updatePavingSelectionUI(){
     var selected=isPavingSelected(btn.getAttribute("data-case-save"));
     btn.classList.toggle("selected",selected);
     btn.setAttribute("aria-pressed",selected?"true":"false");
-    btn.textContent=selected?"已入参考夹":"加入参考夹";
+    btn.textContent=selected?"已入库":"入库";
   });
   document.querySelectorAll("[data-product-save]").forEach(function(btn){
     var selected=isProductSelected(btn.getAttribute("data-product-save"));
@@ -703,7 +703,7 @@ function updatePavingSelectionUI(){
     var card=btn.closest(".pcard");
     if(card)card.classList.toggle("selected",selected);
     btn.setAttribute("aria-pressed",selected?"true":"false");
-    btn.textContent=selected?"已入选材夹":"加入选材夹";
+    btn.textContent=selected?"已入库":"入库";
   });
 }
 
@@ -764,7 +764,7 @@ function openSpaceCase(id){
   var commentary=getPavingCaseCommentary(item).map(function(note){
     return '<article><span>'+escapeHtml(note.label)+'</span><strong>'+escapeHtml(note.title)+'</strong><p>'+escapeHtml(note.text)+'</p></article>';
   }).join("");
-  copy.innerHTML='<span>PAVING ATLAS / '+escapeHtml(item.roomType)+'</span><h3>'+escapeHtml(item.title)+'</h3><strong class="space-case-subline">'+escapeHtml(item.subline)+'</strong><p>'+escapeHtml(item.summary)+'</p><div class="space-case-tags"><span>'+escapeHtml(item.colorTone)+'</span><span>'+escapeHtml(item.styleTag)+'</span><span>'+escapeHtml(item.pattern)+'</span><span>'+escapeHtml(item.mood)+'</span></div><dl><div><dt>推荐木种</dt><dd>'+escapeHtml(item.wood)+'</dd></div><div><dt>适配系列</dt><dd>'+escapeHtml(item.series)+'</dd></div></dl><div class="space-case-commentary">'+commentary+'</div><ul class="space-case-detail">'+details+'</ul><div class="page-cta"><button class="btn-primary" type="button" data-case-products="'+item.id+'">看相关产品</button><button class="btn-secondary" type="button" data-case-save="'+item.id+'">'+(isPavingSelected(item.id)?"已入参考夹":"加入参考夹")+'</button><a class="btn-secondary" href="#contact">预约咨询</a></div>';
+  copy.innerHTML='<span>PAVING ATLAS / '+escapeHtml(item.roomType)+'</span><h3>'+escapeHtml(item.title)+'</h3><strong class="space-case-subline">'+escapeHtml(item.subline)+'</strong><p>'+escapeHtml(item.summary)+'</p><div class="space-case-tags"><span>'+escapeHtml(item.colorTone)+'</span><span>'+escapeHtml(item.styleTag)+'</span><span>'+escapeHtml(item.pattern)+'</span><span>'+escapeHtml(item.mood)+'</span></div><dl><div><dt>推荐木种</dt><dd>'+escapeHtml(item.wood)+'</dd></div><div><dt>适配系列</dt><dd>'+escapeHtml(item.series)+'</dd></div></dl><div class="space-case-commentary">'+commentary+'</div><ul class="space-case-detail">'+details+'</ul><div class="page-cta"><button class="btn-primary" type="button" data-case-products="'+item.id+'">看相关产品</button><button class="btn-secondary" type="button" data-case-save="'+item.id+'">'+(isPavingSelected(item.id)?"已入库":"入库")+'</button><a class="btn-secondary" href="#contact">预约咨询</a></div>';
   modal.classList.add("open");
   modal.setAttribute("aria-hidden","false");
   document.body.classList.add("space-case-open");
@@ -1116,7 +1116,7 @@ function buildProds(){
     card.setAttribute("role","button");
     card.setAttribute("tabindex","0");
     card.setAttribute("aria-label","查看产品 "+p.code+" "+p.wood+" 详情");
-    card.innerHTML='<img src="'+p.img_b_thumb+'" loading="lazy" decoding="async" alt="'+p.code+' '+p.wood+' 木地板纹理"><span class="pname">'+p.code+' · '+p.wood+'</span><button class="product-save-chip" type="button" data-product-save="'+escapeHtml(p.code)+'" aria-pressed="'+(isProductSelected(p.code)?"true":"false")+'">'+(isProductSelected(p.code)?"已入选材夹":"加入选材夹")+'</button>';
+    card.innerHTML='<img src="'+p.img_b_thumb+'" loading="lazy" decoding="async" alt="'+p.code+' '+p.wood+' 木地板纹理"><span class="pname">'+p.code+' · '+p.wood+'</span><button class="product-save-chip" type="button" data-product-save="'+escapeHtml(p.code)+'" aria-pressed="'+(isProductSelected(p.code)?"true":"false")+'">'+(isProductSelected(p.code)?"已入库":"入库")+'</button>';
     card.onclick=function(){selectProd(p)};
     var saveBtn=card.querySelector("[data-product-save]");
     if(saveBtn){
@@ -1548,7 +1548,7 @@ function showProductInDrawer(p){
     +'<div class="drawer-card"><div class="val">'+p.spec+'</div><div class="lbl">规格</div></div>'
     +'</div>'
     +'<div class="drawer-actions">'
-    +'<button class="secondary product-selection-action" type="button" data-product-save="'+escapeHtml(p.code)+'">'+(isProductSelected(p.code)?"已入选材夹":"加入选材夹")+'</button>'
+    +'<button class="secondary product-selection-action" type="button" data-product-save="'+escapeHtml(p.code)+'">'+(isProductSelected(p.code)?"已入库":"入库")+'</button>'
     +'<a href="#contact" onclick="closeDrawer()">预约选材 '+p.code+'</a>'
     +'<a class="secondary" href="#series" onclick="goSeriesIntro(\''+p.series+'\');return false;">看'+getIntroSeriesKey(p.series)+'</a>'
     +'<a class="secondary" href="#service" onclick="closeDrawer()">量尺安装</a>'
