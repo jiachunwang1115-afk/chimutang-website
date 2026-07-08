@@ -7281,3 +7281,85 @@ body.has-scrolled .fixed-action-rail button{opacity:1}
     text-align:left!important;
   }
 }
+
+/* ===== Mobile Navigation Button Unification ===== */
+@media(max-width:760px){
+  .mobile-chapter-rail{
+    gap:6px!important;
+    padding:8px 14px 10px!important;
+    background:rgba(253,251,247,.94)!important;
+    border-top:1px solid rgba(126,82,45,.08)!important;
+    border-bottom:1px solid rgba(126,82,45,.14)!important;
+    box-shadow:0 12px 32px rgba(45,34,24,.05)!important;
+  }
+
+  .mobile-chapter-rail a,
+  .mobile-menu-chip,
+  .mobile-action-bar a{
+    min-height:44px!important;
+    display:inline-flex!important;
+    align-items:center!important;
+    justify-content:center!important;
+    padding:0 17px!important;
+    border:1px solid rgba(126,82,45,.18)!important;
+    background:rgba(255,252,246,.82)!important;
+    color:rgba(31,28,25,.78)!important;
+    box-shadow:inset 0 0 0 1px rgba(255,255,255,.42)!important;
+    text-decoration:none!important;
+    font-size:13px!important;
+    font-weight:720!important;
+    letter-spacing:.12em!important;
+    line-height:1!important;
+    white-space:nowrap!important;
+    border-radius:0!important;
+    transition:background .24s ease,color .24s ease,border-color .24s ease,box-shadow .24s ease,transform .24s var(--ease-luxe)!important;
+  }
+
+  .mobile-chapter-rail a:active,
+  .mobile-menu-chip:active,
+  .mobile-action-bar a:active{
+    transform:translateY(1px)!important;
+  }
+
+  .mobile-menu-chip,
+  .mobile-menu-chip.open,
+  .mobile-chapter-rail a.active,
+  body[data-route="series"] .mobile-chapter-rail a[href="#series"],
+  body[data-route="craft"] .mobile-chapter-rail a[href="#craft"],
+  body[data-route="journal"] .mobile-chapter-rail a[href="#journal"],
+  body[data-route="service"] .mobile-chapter-rail a[href="#service"],
+  .mobile-action-bar a.active{
+    background:#211d19!important;
+    border-color:#211d19!important;
+    color:#fff!important;
+    box-shadow:
+      inset 0 -2px 0 rgba(196,157,102,.68),
+      0 12px 26px rgba(31,28,25,.12)!important;
+  }
+
+  .mobile-menu-chip{
+    padding:0 18px 0 15px!important;
+  }
+
+  .mobile-menu-chip::before{
+    margin-right:9px!important;
+    opacity:.92!important;
+  }
+
+  .mobile-action-bar{
+    left:14px!important;
+    right:14px!important;
+    bottom:12px!important;
+    gap:6px!important;
+    padding:6px!important;
+    border:1px solid rgba(126,82,45,.18)!important;
+    background:rgba(253,251,247,.94)!important;
+    box-shadow:0 18px 64px rgba(31,28,25,.2)!important;
+    backdrop-filter:blur(18px)!important;
+  }
+
+  .mobile-action-bar a{
+    width:100%!important;
+    padding:0 10px!important;
+  }
+}
