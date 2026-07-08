@@ -7802,3 +7802,374 @@ body.has-scrolled .fixed-action-rail button{opacity:1}
     margin-top:10px!important;
   }
 }
+
+/* Immersive luxe pass: high-end showroom mood, clearer selection flow, steadier mobile conversion. */
+:root{
+  --luxe-ink:#171411;
+  --luxe-paper:#fbf8f1;
+  --luxe-stone:#d8d0c4;
+  --luxe-sage:#61715f;
+  --luxe-wine:#713f35;
+  --luxe-gold:#b28247;
+  --luxe-line:rgba(23,20,17,.12);
+  --luxe-shadow:0 28px 72px rgba(23,20,17,.14);
+}
+
+html{scroll-behavior:smooth}
+body{background:linear-gradient(180deg,#fbf8f1 0%,#f2eee6 46%,#fbf8f1 100%)!important}
+
+.luxe-scroll-progress{
+  position:fixed;
+  left:0;
+  top:0;
+  width:100%;
+  height:3px;
+  z-index:2000;
+  pointer-events:none;
+  transform-origin:left center;
+  transform:scaleX(0);
+  background:linear-gradient(90deg,var(--luxe-gold),var(--luxe-sage),var(--luxe-wine));
+}
+
+#page-home .hero{
+  min-height:calc(100svh - 84px)!important;
+  background:
+    linear-gradient(180deg,rgba(251,248,241,.96) 0%,rgba(251,248,241,.82) 48%,rgba(23,20,17,.08) 100%),
+    url("journal/home-hero-forest-door.webp") center bottom/cover no-repeat!important;
+  border-bottom:1px solid var(--luxe-line)!important;
+}
+
+#page-home .hero-video-layer{
+  top:38%!important;
+  mix-blend-mode:multiply;
+}
+
+#page-home .hero-video-gradient{
+  background:linear-gradient(180deg,rgba(251,248,241,.98),rgba(251,248,241,.28) 44%,rgba(23,20,17,.46))!important;
+}
+
+#page-home .hero-kicker,
+.page-eyebrow,
+.selection-command-copy span,
+.contact-luxe-lead span,
+.luxe-brief-strip span{
+  letter-spacing:0!important;
+  text-transform:none!important;
+}
+
+#page-home .hero-slogan{
+  color:var(--luxe-ink)!important;
+  text-shadow:0 18px 42px rgba(255,255,255,.58)!important;
+}
+
+#page-home .hero p{
+  color:#3f3a34!important;
+  font-size:17px!important;
+}
+
+.luxe-brief-strip{
+  position:relative;
+  z-index:8;
+  width:min(1180px,calc(100% - 44px));
+  margin:-58px auto 56px;
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  border:1px solid rgba(178,130,71,.26);
+  background:rgba(251,248,241,.9);
+  box-shadow:var(--luxe-shadow);
+  backdrop-filter:blur(18px);
+}
+
+.luxe-brief-strip a{
+  position:relative;
+  display:grid;
+  align-content:start;
+  gap:10px;
+  min-height:154px;
+  padding:24px;
+  color:var(--luxe-ink)!important;
+  border-right:1px solid var(--luxe-line);
+  text-decoration:none!important;
+  overflow:hidden;
+}
+
+.luxe-brief-strip a:last-child{border-right:0}
+.luxe-brief-strip a::before{
+  content:"";
+  position:absolute;
+  inset:auto 24px 20px 24px;
+  height:1px;
+  background:linear-gradient(90deg,var(--luxe-gold),rgba(178,130,71,0));
+  transform:scaleX(.22);
+  transform-origin:left center;
+  transition:transform .32s var(--ct-ease);
+}
+
+.luxe-brief-strip a:hover::before,
+.luxe-brief-strip a:focus-visible::before{transform:scaleX(1)}
+
+.luxe-brief-strip span{
+  color:var(--luxe-sage);
+  font-size:12px;
+  font-weight:800;
+}
+
+.luxe-brief-strip strong{
+  font-size:22px;
+  font-weight:600;
+}
+
+.luxe-brief-strip em{
+  color:#655d54;
+  font-size:14px;
+  font-style:normal;
+  line-height:1.85;
+}
+
+.selection-command{
+  display:grid;
+  grid-template-columns:minmax(0,.94fr) minmax(360px,1.06fr);
+  gap:1px;
+  margin:24px 0 28px;
+  border:1px solid var(--luxe-line);
+  background:var(--luxe-line);
+}
+
+.selection-command-copy,
+.selection-command-steps{
+  background:rgba(251,248,241,.92);
+}
+
+.selection-command-copy{
+  padding:34px;
+}
+
+.selection-command-copy span{
+  color:var(--luxe-wine);
+  font-size:12px;
+  font-weight:800;
+}
+
+.selection-command-copy h3{
+  margin:10px 0 12px;
+  color:var(--luxe-ink);
+  font-size:28px;
+  font-weight:560;
+  line-height:1.22;
+}
+
+.selection-command-copy p{
+  max-width:620px;
+  color:#5d554d;
+  font-size:15px;
+  line-height:1.95;
+}
+
+.selection-command-steps{
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+}
+
+.selection-command-steps a{
+  display:grid;
+  gap:10px;
+  min-height:100%;
+  padding:32px 22px;
+  color:var(--luxe-ink)!important;
+  border-right:1px solid var(--luxe-line);
+  text-decoration:none!important;
+}
+
+.selection-command-steps a:last-child{border-right:0}
+.selection-command-steps a:hover,
+.selection-command-steps a:focus-visible{background:#fff}
+.selection-command-steps b{font-size:18px;font-weight:650}
+.selection-command-steps em{color:#6b6259;font-size:13px;font-style:normal;line-height:1.75}
+
+.product-experience-bar,
+.space-product-guide,
+.case-space-toolbar,
+.case-atlas-stats,
+.contact-grid,
+.contact-brief,
+.page-conversion{
+  box-shadow:0 22px 58px rgba(23,20,17,.08)!important;
+}
+
+.prod-grid-full{
+  border-color:rgba(23,20,17,.14)!important;
+}
+
+.pcard{
+  background:#f8f5ee!important;
+}
+
+.pcard img{
+  filter:saturate(.92) contrast(.98);
+}
+
+.pcard:hover img,
+.pcard:focus-visible img{
+  filter:saturate(1.08) contrast(1.04);
+}
+
+.case-space-hero,
+#page-contact .page-header{
+  background:
+    linear-gradient(90deg,rgba(251,248,241,.96),rgba(251,248,241,.74)),
+    var(--page-head-img, url("journal/case-lake-residence.webp")) center/cover no-repeat!important;
+  border:1px solid rgba(178,130,71,.18)!important;
+  padding:34px!important;
+}
+
+.case-filter-tab{
+  border-radius:999px!important;
+}
+
+.contact-luxe-lead{
+  display:grid;
+  grid-template-columns:minmax(240px,.72fr) minmax(0,1fr) auto;
+  gap:24px;
+  align-items:center;
+  margin:0 0 22px;
+  padding:26px;
+  color:#fff;
+  background:
+    linear-gradient(135deg,rgba(23,20,17,.94),rgba(58,45,35,.94)),
+    url("journal/wood-ring.webp") center/cover no-repeat;
+  border:1px solid rgba(238,196,142,.22);
+  box-shadow:var(--luxe-shadow);
+}
+
+.contact-luxe-lead span{
+  color:#eec48e;
+  font-size:12px;
+  font-weight:800;
+}
+
+.contact-luxe-lead h3{
+  margin-top:8px;
+  color:#fff;
+  font-size:25px;
+  font-weight:560;
+  line-height:1.28;
+}
+
+.contact-luxe-lead p{
+  color:rgba(255,255,255,.76);
+  font-size:14px;
+  line-height:1.9;
+}
+
+.contact-luxe-lead a{
+  display:inline-flex;
+  min-height:46px;
+  align-items:center;
+  justify-content:center;
+  padding:0 22px;
+  color:#171411!important;
+  background:#eec48e;
+  border:1px solid rgba(255,255,255,.24);
+  text-decoration:none!important;
+  font-weight:800;
+  white-space:nowrap;
+}
+
+.drawer-info-panel{
+  border:1px solid rgba(238,196,142,.22)!important;
+}
+
+.drawer-actions a{
+  min-height:44px;
+}
+
+.luxe-reveal{
+  opacity:0;
+  transform:translateY(18px);
+  transition:opacity .7s var(--ct-ease),transform .7s var(--ct-ease);
+}
+
+.luxe-reveal.is-visible{
+  opacity:1;
+  transform:none;
+}
+
+@media(max-width:980px){
+  #page-home .hero{min-height:auto!important}
+  .luxe-brief-strip{
+    width:min(720px,calc(100% - 28px));
+    margin:18px auto 34px;
+    grid-template-columns:1fr;
+  }
+  .luxe-brief-strip a{
+    min-height:auto;
+    padding:20px;
+    border-right:0;
+    border-bottom:1px solid var(--luxe-line);
+  }
+  .luxe-brief-strip a:last-child{border-bottom:0}
+  .selection-command{
+    grid-template-columns:1fr;
+  }
+  .selection-command-steps{
+    grid-template-columns:1fr;
+  }
+  .selection-command-steps a{
+    min-height:auto;
+    padding:22px 26px;
+    border-right:0;
+    border-bottom:1px solid var(--luxe-line);
+  }
+  .selection-command-steps a:last-child{border-bottom:0}
+  .contact-luxe-lead{
+    grid-template-columns:1fr;
+    align-items:start;
+  }
+  .contact-luxe-lead a{
+    width:max-content;
+  }
+}
+
+@media(max-width:640px){
+  #page-home .hero p{
+    font-size:14px!important;
+  }
+  .luxe-brief-strip{
+    width:calc(100% - 24px);
+    margin:12px auto 28px;
+  }
+  .luxe-brief-strip strong{
+    font-size:19px;
+  }
+  .selection-command-copy{
+    padding:24px 20px;
+  }
+  .selection-command-copy h3{
+    font-size:22px;
+  }
+  .case-space-hero,
+  #page-contact .page-header{
+    padding:24px 20px!important;
+  }
+  .contact-luxe-lead{
+    margin-bottom:18px;
+    padding:22px;
+  }
+  .contact-luxe-lead h3{
+    font-size:21px;
+  }
+  .contact-luxe-lead a{
+    width:100%;
+  }
+}
+
+@media(prefers-reduced-motion:reduce){
+  .luxe-reveal{
+    opacity:1;
+    transform:none;
+    transition:none;
+  }
+  .luxe-scroll-progress{
+    display:none;
+  }
+}
