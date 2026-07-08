@@ -346,6 +346,7 @@ var activeCaseFilters={
 };
 var caseAdvancedOpen=false;
 var PAVING_SELECTION_STORAGE="woodallPavingSelection";
+var PRODUCT_SELECTION_STORAGE="woodallProductSelection";
 
 function countProductsBySeries(series){
   return PRODUCTS.filter(function(p){return p.series===series||p.series.indexOf(series)===0}).length;
@@ -557,7 +558,7 @@ function renderCaseGallery(){
   }
   el.innerHTML=list.map(function(item,index){
     var large=index===0&&getCaseSelectedFilters().length===0?" large":"";
-    return '<button class="space-gallery-card action-card'+large+'" type="button" data-space-id="'+item.id+'" aria-label="打开'+escapeHtml(item.title)+'铺装参考">'+renderSpaceMedia(item,'space-media')+'<span class="space-image-shade"></span><span class="space-logo-mark" aria-hidden="true"></span><div class="space-gallery-copy"><span>'+escapeHtml(item.roomType)+' · '+escapeHtml(item.colorTone)+' · '+escapeHtml(item.pattern)+'</span><h3>'+escapeHtml(item.title)+'</h3><p>'+escapeHtml(item.summary)+'</p><em>入境查看 / 同色产品</em></div></button>';
+    return '<article class="space-gallery-card action-card'+large+'" role="button" tabindex="0" data-space-id="'+item.id+'" aria-label="打开'+escapeHtml(item.title)+'铺装参考">'+renderSpaceMedia(item,'space-media')+'<span class="space-image-shade"></span><span class="space-logo-mark" aria-hidden="true"></span><button class="case-save-chip" type="button" data-case-save="'+escapeHtml(item.id)+'" aria-pressed="'+(isPavingSelected(item.id)?"true":"false")+'">'+(isPavingSelected(item.id)?"已入参考夹":"加入参考夹")+'</button><div class="space-gallery-copy"><span>'+escapeHtml(item.roomType)+' · '+escapeHtml(item.colorTone)+' · '+escapeHtml(item.pattern)+'</span><h3>'+escapeHtml(item.title)+'</h3><p>'+escapeHtml(item.summary)+'</p><em>入境查看 / 同色产品</em></div></article>';
   }).join("");
   playSpaceVideos(el);
 }
@@ -607,18 +608,71 @@ function togglePavingSelection(id){
   setPavingSelection(list);
 }
 
+function getProductByCode(code){
+  return PRODUCTS.find(function(p){return p.code===code})||null;
+}
+
+function getProductSelection(){
+  try{
+    var raw=window.localStorage.getItem(PRODUCT_SELECTION_STORAGE);
+    var list=raw?JSON.parse(raw):[];
+    return Array.isArray(list)?list.filter(function(code){return !!getProductByCode(code)}):[];
+  }catch(e){
+    return [];
+  }
+}
+
+function setProductSelection(list){
+  try{
+    window.localStorage.setItem(PRODUCT_SELECTION_STORAGE,JSON.stringify(list));
+  }catch(e){}
+  updatePavingSelectionUI();
+}
+
+function isProductSelected(code){
+  return getProductSelection().indexOf(code)>=0;
+}
+
+function toggleProductSelection(code){
+  var list=getProductSelection();
+  var index=list.indexOf(code);
+  if(index>=0) list.splice(index,1);
+  else list.push(code);
+  setProductSelection(list);
+}
+
+function getSelectionCount(){
+  return getPavingSelection().length+getProductSelection().length;
+}
+
 function getPavingSelectionText(){
-  var list=getPavingSelection().map(getSpaceById).filter(Boolean);
-  if(!list.length)return "";
-  return "痴木堂铺装参考选材夹\n"+list.map(function(item,index){
-    return (index+1)+". "+item.title+" / "+item.roomType+" / "+item.colorTone+" / "+item.pattern+" / 推荐："+item.wood+" · "+item.series;
-  }).join("\n")+"\n\n我想基于以上参考进一步预约选材。";
+  var pavingList=getPavingSelection().map(getSpaceById).filter(Boolean);
+  var productList=getProductSelection().map(getProductByCode).filter(Boolean);
+  if(!pavingList.length&&!productList.length)return "";
+  var lines=["痴木堂选材清单"];
+  if(productList.length){
+    lines.push("");
+    lines.push("【产品】");
+    productList.forEach(function(p,index){
+      lines.push((index+1)+". "+p.code+" / "+p.wood+" / "+p.series+" / "+p.surface+" / "+p.spec);
+    });
+  }
+  if(pavingList.length){
+    lines.push("");
+    lines.push("【铺装参考】");
+    pavingList.forEach(function(item,index){
+      lines.push((index+1)+". "+item.title+" / "+item.roomType+" / "+item.colorTone+" / "+item.pattern+" / 推荐："+item.wood+" · "+item.series);
+    });
+  }
+  lines.push("");
+  lines.push("我想基于以上产品与参考进一步预约选材。");
+  return lines.join("\n");
 }
 
 function copyPavingSelection(){
   var text=getPavingSelectionText();
   if(!text){
-    navigate("#cases");
+    navigate("#products");
     return;
   }
   var done=function(){
@@ -635,13 +689,21 @@ function copyPavingSelection(){
 }
 
 function updatePavingSelectionUI(){
-  var list=getPavingSelection();
   var count=document.getElementById("pavingSelectionCount");
-  if(count)count.textContent=String(list.length);
+  if(count)count.textContent=String(getSelectionCount());
   document.querySelectorAll("[data-case-save]").forEach(function(btn){
     var selected=isPavingSelected(btn.getAttribute("data-case-save"));
     btn.classList.toggle("selected",selected);
-    btn.textContent=selected?"移出选材夹":"加入选材夹";
+    btn.setAttribute("aria-pressed",selected?"true":"false");
+    btn.textContent=selected?"已入参考夹":"加入参考夹";
+  });
+  document.querySelectorAll("[data-product-save]").forEach(function(btn){
+    var selected=isProductSelected(btn.getAttribute("data-product-save"));
+    btn.classList.toggle("selected",selected);
+    var card=btn.closest(".pcard");
+    if(card)card.classList.toggle("selected",selected);
+    btn.setAttribute("aria-pressed",selected?"true":"false");
+    btn.textContent=selected?"已入选材夹":"加入选材夹";
   });
 }
 
@@ -702,7 +764,7 @@ function openSpaceCase(id){
   var commentary=getPavingCaseCommentary(item).map(function(note){
     return '<article><span>'+escapeHtml(note.label)+'</span><strong>'+escapeHtml(note.title)+'</strong><p>'+escapeHtml(note.text)+'</p></article>';
   }).join("");
-  copy.innerHTML='<span>PAVING ATLAS / '+escapeHtml(item.roomType)+'</span><h3>'+escapeHtml(item.title)+'</h3><strong class="space-case-subline">'+escapeHtml(item.subline)+'</strong><p>'+escapeHtml(item.summary)+'</p><div class="space-case-tags"><span>'+escapeHtml(item.colorTone)+'</span><span>'+escapeHtml(item.styleTag)+'</span><span>'+escapeHtml(item.pattern)+'</span><span>'+escapeHtml(item.mood)+'</span></div><dl><div><dt>推荐木种</dt><dd>'+escapeHtml(item.wood)+'</dd></div><div><dt>适配系列</dt><dd>'+escapeHtml(item.series)+'</dd></div></dl><div class="space-case-commentary">'+commentary+'</div><ul class="space-case-detail">'+details+'</ul><div class="page-cta"><button class="btn-primary" type="button" data-case-products="'+item.id+'">看相关产品</button><button class="btn-secondary" type="button" data-case-save="'+item.id+'">'+(isPavingSelected(item.id)?"移出选材夹":"加入选材夹")+'</button><a class="btn-secondary" href="#contact">预约咨询</a></div>';
+  copy.innerHTML='<span>PAVING ATLAS / '+escapeHtml(item.roomType)+'</span><h3>'+escapeHtml(item.title)+'</h3><strong class="space-case-subline">'+escapeHtml(item.subline)+'</strong><p>'+escapeHtml(item.summary)+'</p><div class="space-case-tags"><span>'+escapeHtml(item.colorTone)+'</span><span>'+escapeHtml(item.styleTag)+'</span><span>'+escapeHtml(item.pattern)+'</span><span>'+escapeHtml(item.mood)+'</span></div><dl><div><dt>推荐木种</dt><dd>'+escapeHtml(item.wood)+'</dd></div><div><dt>适配系列</dt><dd>'+escapeHtml(item.series)+'</dd></div></dl><div class="space-case-commentary">'+commentary+'</div><ul class="space-case-detail">'+details+'</ul><div class="page-cta"><button class="btn-primary" type="button" data-case-products="'+item.id+'">看相关产品</button><button class="btn-secondary" type="button" data-case-save="'+item.id+'">'+(isPavingSelected(item.id)?"已入参考夹":"加入参考夹")+'</button><a class="btn-secondary" href="#contact">预约咨询</a></div>';
   modal.classList.add("open");
   modal.setAttribute("aria-hidden","false");
   document.body.classList.add("space-case-open");
@@ -769,6 +831,12 @@ function initSpaceExperience(){
       togglePavingSelection(saveBtn.getAttribute("data-case-save"));
       return;
     }
+    var productSaveBtn=e.target.closest("[data-product-save]");
+    if(productSaveBtn){
+      e.preventDefault();
+      toggleProductSelection(productSaveBtn.getAttribute("data-product-save"));
+      return;
+    }
     if(e.target.closest("[data-copy-selection]")){
       e.preventDefault();
       copyPavingSelection();
@@ -781,6 +849,14 @@ function initSpaceExperience(){
     }
     var mediaCard=e.target.closest("[data-space-id]");
     if(mediaCard){
+      e.preventDefault();
+      openSpaceCase(mediaCard.getAttribute("data-space-id"));
+    }
+  });
+  document.addEventListener("keydown",function(e){
+    if(e.key!=="Enter"&&e.key!==" ")return;
+    var mediaCard=e.target.closest(".space-gallery-card[data-space-id]");
+    if(mediaCard&&e.target===mediaCard){
       e.preventDefault();
       openSpaceCase(mediaCard.getAttribute("data-space-id"));
     }
@@ -1036,17 +1112,26 @@ function buildProds(){
   }
   list.forEach(function(p){
     var card=document.createElement("div");
-    card.className="pcard action-card"+(currentProd&&currentProd.code===p.code?" active":"");
+    card.className="pcard action-card"+(currentProd&&currentProd.code===p.code?" active":"")+(isProductSelected(p.code)?" selected":"");
     card.setAttribute("role","button");
     card.setAttribute("tabindex","0");
     card.setAttribute("aria-label","查看产品 "+p.code+" "+p.wood+" 详情");
-    card.innerHTML='<img src="'+p.img_b_thumb+'" loading="lazy" decoding="async" alt="'+p.code+' '+p.wood+' 木地板纹理"><span class="pname">'+p.code+' · '+p.wood+'</span>';
+    card.innerHTML='<img src="'+p.img_b_thumb+'" loading="lazy" decoding="async" alt="'+p.code+' '+p.wood+' 木地板纹理"><span class="pname">'+p.code+' · '+p.wood+'</span><button class="product-save-chip" type="button" data-product-save="'+escapeHtml(p.code)+'" aria-pressed="'+(isProductSelected(p.code)?"true":"false")+'">'+(isProductSelected(p.code)?"已入选材夹":"加入选材夹")+'</button>';
     card.onclick=function(){selectProd(p)};
+    var saveBtn=card.querySelector("[data-product-save]");
+    if(saveBtn){
+      saveBtn.onclick=function(e){
+        e.preventDefault();
+        e.stopPropagation();
+        toggleProductSelection(p.code);
+      };
+    }
     card.onpointerenter=function(){warmProductImages(p,1)};
     card.onfocus=function(){warmProductImages(p,1)};
     card.onkeydown=function(e){if(e.key==="Enter"||e.key===" "){e.preventDefault();selectProd(p)}};
     el.appendChild(card);
   });
+  updatePavingSelectionUI();
 }
 
 function clearProductFilters(){
@@ -1463,6 +1548,7 @@ function showProductInDrawer(p){
     +'<div class="drawer-card"><div class="val">'+p.spec+'</div><div class="lbl">规格</div></div>'
     +'</div>'
     +'<div class="drawer-actions">'
+    +'<button class="secondary product-selection-action" type="button" data-product-save="'+escapeHtml(p.code)+'">'+(isProductSelected(p.code)?"已入选材夹":"加入选材夹")+'</button>'
     +'<a href="#contact" onclick="closeDrawer()">预约选材 '+p.code+'</a>'
     +'<a class="secondary" href="#series" onclick="goSeriesIntro(\''+p.series+'\');return false;">看'+getIntroSeriesKey(p.series)+'</a>'
     +'<a class="secondary" href="#service" onclick="closeDrawer()">量尺安装</a>'
