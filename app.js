@@ -681,7 +681,7 @@ function getPavingCaseCommentary(item){
     "商业空间":"商业空间需要记忆点，木地板要有识别度，也要耐看。"
   };
   return [
-    {label:"IMAGE NOTE",title:"图像点评",text:roomText[item.roomType]||"先看空间尺度、采光和家具体量，再判断木色是否合适。"},
+    {label:"IMAGE NOTE",title:"木作巧思",text:roomText[item.roomType]||"先看空间尺度、采光和家具体量，再判断木色是否合适。"},
     {label:"SOFT DECOR",title:"软装搭配",text:toneText[item.colorTone]||"软装应顺着木色的冷暖走，少用高饱和跳色，空间更稳。"},
     {label:"STYLE",title:"风格描述",text:styleText[item.styleTag]||"让木色、光线和家具保持同一种语气，空间会更完整。"},
     {label:"PAVING",title:"铺装取向",text:item.pattern+"适合"+item.roomType+"场景；"+(item.detailPoints&&item.detailPoints[2]?String(item.detailPoints[2]).replace(/^铺法建议[:：]/,""):"先确定主视线，再安排铺装方向。")}
