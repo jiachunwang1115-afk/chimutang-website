@@ -6596,3 +6596,16 @@ body.has-scrolled .fixed-action-rail button{opacity:1}
     transition:none!important;
   }
 }
+
+/* ===== Product Drawer Floor Focus ===== */
+.drawer-bg .drawer-scene{
+  object-fit:cover!important;
+  object-position:center 68%!important;
+  transform:scale(1)!important;
+}
+
+@media(max-width:900px){
+  .drawer-bg .drawer-scene{
+    object-position:center 64%!important;
+  }
+}
