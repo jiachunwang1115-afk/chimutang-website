@@ -12516,3 +12516,214 @@ body{
     line-height:1!important;
   }
 }
+
+/* ===== Canonical type hierarchy sweep ===== */
+.page.active :where(p,li,dd,blockquote) :where(strong,b){
+  font-size:1em!important;
+  line-height:inherit!important;
+  font-weight:650!important;
+}
+
+@media(max-width:760px){
+  :root{
+    --ct-final-body:14px;
+    --ct-final-lead:15px;
+    --ct-final-label:12px;
+    --ct-final-micro-title:16.5px;
+    --ct-final-card-title:20px;
+    --ct-final-subtitle:18px;
+    --ct-final-section:30px;
+    --ct-final-page:40px;
+    --ct-final-hero:38px;
+  }
+
+  body,
+  .page.active,
+  .page.active :where(p,li,dd,blockquote),
+  .page.active :where(.series-card-body p,.wood-family-card p,.wood-academy-copy p,.service-card-body,.service-list li,.phase-step-body p,.phase-card-body p,.journal-index-copy p,.home-journal-card p,.home-journal-lead p,.selection-command-copy p,.selection-command-steps em,.space-shortcut em,.contact-card p,.contact-info-item p,.contact-method p,.about-block p,.about-block li,.case-body>p,.case-info){
+    font-size:var(--ct-final-body)!important;
+    line-height:1.74!important;
+    font-weight:400!important;
+  }
+
+  #page-home .hero p,
+  #page-home .home-manifesto p,
+  .page.active :where(.page-header p,.prod-page-header p,.space-section-head p,.journal-intro p,.wood-academy-head p,.service-banner-text p,.contact-luxe-lead p,.section-title p){
+    font-size:var(--ct-final-lead)!important;
+    line-height:1.72!important;
+    font-weight:400!important;
+  }
+
+  .page.active :where(.eyebrow,.page-eyebrow,.hero-kicker,.journal-cover-text span,.journal-directory-title span,.journal-index-copy span,.home-journal-lead span,.home-journal-card span,.wood-academy-head .eyebrow,.wood-academy-copy span,.wood-family-card>span,.service-section-num,.service-num,.product-experience-bar .eyebrow,.space-section-head span,.subtitle,.stat-label),
+  .mobile-chapter-rail a,
+  .mobile-menu-chip{
+    font-size:var(--ct-final-label)!important;
+    line-height:1.28!important;
+    font-weight:620!important;
+  }
+
+  .page.active :where(h5,.phase-step-body h5),
+  #page-products .selection-command-steps b,
+  #page-products .product-experience-bar strong,
+  #page-products .space-product-guide strong,
+  #page-home .luxe-brief-strip strong{
+    font-size:var(--ct-final-micro-title)!important;
+    line-height:1.38!important;
+    font-weight:680!important;
+  }
+
+  .page.active :where(h4,.phase-card-header h4,.team-member h4,.process-step h4,.value-item h4),
+  #page-about :where(h4,.v-title),
+  #page-contact h4{
+    font-size:var(--ct-final-subtitle)!important;
+    line-height:1.42!important;
+    font-weight:680!important;
+  }
+
+  .page.active :where(h3,.series-card-body h3,.service-card-header h3,.contact-card h3,.contact-method h3,.journal-index-copy h3,.home-journal-card h3,.wood-family-card h3,.wood-academy-copy h3,.selection-command-copy h3),
+  #page-craft h3,
+  #page-about h3,
+  #page-contact h3{
+    font-size:var(--ct-final-card-title)!important;
+    line-height:1.34!important;
+    font-weight:650!important;
+  }
+
+  #page-home .home-manifesto h2,
+  #page-home .section-title:not(.page-header) h2,
+  #page-home .space-section-head h2,
+  #page-home .home-journal-lead h3,
+  #page-products .selection-command-copy h3,
+  #page-products .space-section-head h2,
+  #page-journal .journal-intro h2,
+  #page-journal .wood-academy-head h2,
+  #page-journal .journal-directory-title h3,
+  #page-cases .space-section-head h2,
+  #page-service .service-section-title h2,
+  .page-conversion h3{
+    font-size:var(--ct-final-section)!important;
+    line-height:1.18!important;
+    font-weight:540!important;
+  }
+
+  #page-home .slogan-line{
+    font-size:var(--ct-final-hero)!important;
+    line-height:1.16!important;
+    font-weight:470!important;
+  }
+
+  .page.active:not(#page-home) .page-header h2,
+  .page.active .prod-page-header h2,
+  #page-journal.page.active .journal-cover-text h2,
+  #page-contact.page.active .page-header h2{
+    font-size:var(--ct-final-page)!important;
+    line-height:1.08!important;
+    font-weight:450!important;
+  }
+
+  .page.active :where(p,li,dd,blockquote) :where(strong,b){
+    font-size:1em!important;
+    line-height:inherit!important;
+  }
+}
+
+@media(min-width:761px){
+  :root{
+    --ct-final-body-d:15px;
+    --ct-final-lead-d:16px;
+    --ct-final-label-d:12px;
+    --ct-final-micro-title-d:17px;
+    --ct-final-card-title-d:22px;
+    --ct-final-subtitle-d:19px;
+    --ct-final-section-d:clamp(32px,2.2vw,40px);
+    --ct-final-page-d:clamp(52px,4.4vw,76px);
+  }
+
+  .page.active :where(p,li,dd,blockquote),
+  .page.active :where(.series-card-body p,.wood-family-card p,.wood-academy-copy p,.service-card-body,.service-list li,.phase-step-body p,.phase-card-body p,.journal-index-copy p,.home-journal-card p,.home-journal-lead p,.selection-command-copy p,.selection-command-steps em,.space-shortcut em,.contact-card p,.contact-info-item p,.contact-method p,.about-block p,.about-block li,.case-body>p,.case-info){
+    font-size:var(--ct-final-body-d)!important;
+    line-height:1.82!important;
+    font-weight:400!important;
+  }
+
+  #page-home .hero p,
+  #page-home .home-manifesto p,
+  .page.active :where(.page-header p,.prod-page-header p,.space-section-head p,.journal-intro p,.wood-academy-head p,.service-banner-text p,.contact-luxe-lead p,.section-title p){
+    font-size:var(--ct-final-lead-d)!important;
+    line-height:1.78!important;
+    font-weight:400!important;
+  }
+
+  .page.active :where(.eyebrow,.page-eyebrow,.hero-kicker,.journal-cover-text span,.journal-directory-title span,.journal-index-copy span,.home-journal-lead span,.home-journal-card span,.wood-academy-head .eyebrow,.wood-academy-copy span,.wood-family-card>span,.service-section-num,.service-num,.product-experience-bar .eyebrow,.space-section-head span,.subtitle,.stat-label){
+    font-size:var(--ct-final-label-d)!important;
+    line-height:1.28!important;
+  }
+
+  .page.active :where(h5,.phase-step-body h5),
+  #page-products .selection-command-steps b,
+  #page-products .product-experience-bar strong,
+  #page-products .space-product-guide strong,
+  #page-home .luxe-brief-strip strong{
+    font-size:var(--ct-final-micro-title-d)!important;
+    line-height:1.42!important;
+    font-weight:680!important;
+  }
+
+  .page.active :where(h4,.phase-card-header h4,.team-member h4,.process-step h4,.value-item h4),
+  #page-about :where(h4,.v-title),
+  #page-contact h4{
+    font-size:var(--ct-final-subtitle-d)!important;
+    line-height:1.44!important;
+    font-weight:680!important;
+  }
+
+  .page.active :where(h3,.series-card-body h3,.service-card-header h3,.contact-card h3,.contact-method h3,.journal-index-copy h3,.home-journal-card h3,.wood-family-card h3,.wood-academy-copy h3,.selection-command-copy h3),
+  #page-craft h3,
+  #page-about h3,
+  #page-contact h3{
+    font-size:var(--ct-final-card-title-d)!important;
+    line-height:1.36!important;
+    font-weight:650!important;
+  }
+
+  #page-home .home-manifesto h2,
+  #page-home .section-title:not(.page-header) h2,
+  #page-home .space-section-head h2,
+  #page-home .home-journal-lead h3,
+  #page-products .selection-command-copy h3,
+  #page-products .space-section-head h2,
+  #page-journal .journal-intro h2,
+  #page-journal .wood-academy-head h2,
+  #page-journal .journal-directory-title h3,
+  #page-cases .space-section-head h2,
+  #page-service .service-section-title h2,
+  .page-conversion h3{
+    font-size:var(--ct-final-section-d)!important;
+    line-height:1.18!important;
+    font-weight:540!important;
+  }
+
+  .page.active:not(#page-home) .page-header h2,
+  .page.active .prod-page-header h2,
+  #page-journal.page.active .journal-cover-text h2,
+  #page-contact.page.active .page-header h2{
+    font-size:var(--ct-final-page-d)!important;
+    line-height:1.08!important;
+    font-weight:450!important;
+  }
+
+  .page.active :where(p,li,dd,blockquote) :where(strong,b){
+    font-size:1em!important;
+    line-height:inherit!important;
+  }
+}
+
+.muchi-reader{
+  visibility:hidden!important;
+  transition:opacity .28s ease,visibility 0s linear .28s!important;
+}
+
+.muchi-reader.open{
+  visibility:visible!important;
+  transition-delay:0s!important;
+}
