@@ -11910,3 +11910,56 @@ body{
     transform:none!important;
   }
 }
+
+/* ===== Tablet and desktop hierarchy sweep ===== */
+@media(min-width:761px){
+  #page-home .series-card-body h3{
+    font-size:clamp(18px,1.25vw,22px)!important;
+    line-height:1.32!important;
+    font-weight:560!important;
+  }
+
+  #page-service .service-card-header h3,
+  #page-service .service-section-title h2{
+    font-size:clamp(18px,1.15vw,21px)!important;
+    line-height:1.38!important;
+    font-weight:680!important;
+  }
+
+  #page-service .phase-card-header h4{
+    font-size:clamp(18px,1.1vw,20px)!important;
+    line-height:1.45!important;
+    font-weight:700!important;
+  }
+
+  #page-service .phase-step-body h5{
+    font-size:clamp(16px,.98vw,18px)!important;
+    line-height:1.48!important;
+    font-weight:700!important;
+  }
+
+  #page-about .team-member h4,
+  #page-about .value-item h4,
+  #page-about .process-step h4,
+  #page-about h4,
+  #page-contact h4{
+    font-size:clamp(16.5px,1vw,18px)!important;
+    line-height:1.42!important;
+    font-weight:680!important;
+  }
+
+  #footer .footer-link-group h4,
+  .footer-luxe .footer-link-group h4{
+    font-size:clamp(16px,.95vw,17px)!important;
+    line-height:1.35!important;
+    font-weight:720!important;
+  }
+}
+
+@media(max-width:760px){
+  #page-home .hero p{
+    word-break:keep-all!important;
+    overflow-wrap:break-word!important;
+    line-break:strict!important;
+  }
+}
