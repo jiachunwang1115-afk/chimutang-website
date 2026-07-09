@@ -1909,7 +1909,7 @@ var muchiActiveCategory='all';
 var muchiReturnScrollY=0;
 var muchiReaderArticleId='';
 var muchiDataLoadPromise=null;
-var MUCHI_DATA_SRC='journal/muchi_articles_data.js?v=asset-fallback-2';
+var MUCHI_DATA_SRC='journal/muchi_articles_data.min.js?v=asset-fallback-3';
 
 function escapeHTML(value){
   return String(value||'').replace(/[&<>"']/g,function(ch){
