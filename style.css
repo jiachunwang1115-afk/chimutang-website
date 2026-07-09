@@ -10362,6 +10362,627 @@ body{
   }
 }
 
+/* Final layer: Muchi magazine issue */
+.muchi-column{
+  border-top:1px solid rgba(31,28,25,.12)!important;
+  padding:20px 0 96px!important;
+}
+
+.muchi-heading{
+  grid-template-columns:minmax(180px,.42fr) 1fr!important;
+  padding:62px 0 34px!important;
+}
+
+.muchi-heading>span{
+  color:var(--brand)!important;
+}
+
+.muchi-heading h2{
+  font-size:clamp(48px,8vw,104px)!important;
+  line-height:.96!important;
+  font-weight:400!important;
+  letter-spacing:0!important;
+}
+
+.muchi-heading p{
+  max-width:620px!important;
+  font-size:15px!important;
+}
+
+.muchi-magazine-cover{
+  display:block;
+  margin-bottom:34px;
+}
+
+.muchi-mag-cover{
+  width:100%;
+  min-height:min(72vh,680px);
+  display:grid;
+  grid-template-columns:minmax(0,1.08fr) minmax(360px,.72fr);
+  gap:0;
+  padding:0;
+  border:1px solid rgba(31,28,25,.12);
+  background:#15120f;
+  color:#fff;
+  text-align:left;
+  cursor:pointer;
+  overflow:hidden;
+}
+
+.muchi-mag-visual{
+  position:relative;
+  display:block;
+  min-height:520px;
+  overflow:hidden;
+}
+
+.muchi-mag-visual::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(90deg,rgba(0,0,0,.08),rgba(0,0,0,.34));
+}
+
+.muchi-mag-visual img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+  filter:saturate(.9) contrast(.96);
+  transform:scale(1.01);
+}
+
+.muchi-mag-copy{
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  gap:28px;
+  min-height:520px;
+  padding:52px;
+  background:linear-gradient(145deg,#231d18,#14110f);
+}
+
+.muchi-mag-copy em,
+.muchi-mag-copy small,
+.muchi-mag-copy b,
+.muchi-mag-copy i{
+  font-style:normal;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+}
+
+.muchi-mag-copy em{
+  font-size:11px;
+  color:#c99a62;
+}
+
+.muchi-mag-copy strong{
+  display:block;
+  font-size:clamp(76px,10vw,142px);
+  line-height:.88;
+  font-weight:400;
+  letter-spacing:0;
+  margin-top:auto;
+}
+
+.muchi-mag-copy small{
+  display:block;
+  font-size:12px;
+  color:rgba(255,255,255,.7);
+}
+
+.muchi-mag-copy b{
+  display:block;
+  width:max-content;
+  max-width:100%;
+  padding:9px 14px;
+  border:1px solid rgba(255,255,255,.25);
+  color:#fff4df;
+  font-size:12px;
+  font-weight:500;
+}
+
+.muchi-mag-copy span{
+  display:block;
+  font-size:clamp(22px,3.2vw,36px);
+  line-height:1.3;
+  font-weight:400;
+  color:#fff;
+}
+
+.muchi-mag-copy i{
+  color:#c99a62;
+  font-size:11px;
+}
+
+.muchi-toolbar{
+  align-items:stretch!important;
+  padding:26px 0!important;
+  border-top:1px solid rgba(31,28,25,.12)!important;
+}
+
+.muchi-tabs{
+  display:grid!important;
+  grid-template-columns:repeat(7,minmax(0,1fr));
+  gap:1px!important;
+  width:100%;
+  background:rgba(31,28,25,.14);
+  border:1px solid rgba(31,28,25,.14);
+}
+
+.muchi-tabs button{
+  min-height:86px;
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:7px;
+  padding:14px!important;
+  border:0!important;
+  background:#fff!important;
+  color:var(--ink)!important;
+}
+
+.muchi-tabs button span{
+  font-size:10px;
+  letter-spacing:.16em;
+  color:var(--brand);
+}
+
+.muchi-tabs button strong{
+  font-size:17px;
+  line-height:1.2;
+  font-weight:500;
+}
+
+.muchi-tabs button em{
+  font-size:11px;
+  font-style:normal;
+  color:var(--muted);
+}
+
+.muchi-tabs button.active,
+.muchi-tabs button:hover{
+  background:var(--ink)!important;
+  color:#fff!important;
+}
+
+.muchi-tabs button.active span,
+.muchi-tabs button:hover span{
+  color:#c99a62;
+}
+
+.muchi-tabs button.active em,
+.muchi-tabs button:hover em{
+  color:rgba(255,255,255,.66);
+}
+
+.muchi-count{
+  min-width:160px;
+  display:flex;
+  align-items:center;
+  justify-content:flex-end;
+  color:var(--muted)!important;
+}
+
+.muchi-issue-list{
+  display:grid;
+  border-top:1px solid rgba(31,28,25,.14);
+}
+
+.muchi-issue-row{
+  display:grid;
+  grid-template-columns:120px 150px minmax(0,1fr) 72px;
+  gap:24px;
+  align-items:center;
+  width:100%;
+  padding:24px 0;
+  border:0;
+  border-bottom:1px solid rgba(31,28,25,.14);
+  background:transparent;
+  color:inherit;
+  text-align:left;
+  cursor:pointer;
+}
+
+.muchi-issue-cover{
+  aspect-ratio:4/5;
+  overflow:hidden;
+  background:#e9e2d8;
+}
+
+.muchi-issue-cover img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+  transition:transform .7s cubic-bezier(.2,.7,.2,1),filter .7s ease;
+}
+
+.muchi-issue-row:hover .muchi-issue-cover img{
+  transform:scale(1.05);
+  filter:saturate(1.04);
+}
+
+.muchi-issue-no{
+  display:block;
+  font-size:20px;
+  line-height:1.2;
+  color:var(--ink);
+}
+
+.muchi-issue-no small{
+  display:block;
+  margin-top:8px;
+  font-size:12px;
+  letter-spacing:.12em;
+  color:var(--muted);
+}
+
+.muchi-issue-copy em{
+  display:block;
+  margin-bottom:10px;
+  font-size:11px;
+  letter-spacing:.16em;
+  font-style:normal;
+  color:var(--brand);
+}
+
+.muchi-issue-copy strong{
+  display:block;
+  max-width:850px;
+  font-size:clamp(22px,2.8vw,34px);
+  line-height:1.3;
+  font-weight:400;
+  color:var(--ink);
+}
+
+.muchi-issue-copy small{
+  display:block;
+  max-width:720px;
+  margin-top:10px;
+  font-size:14px;
+  line-height:1.85;
+  color:var(--muted);
+}
+
+.muchi-issue-action{
+  justify-self:end;
+  font-size:11px;
+  letter-spacing:.16em;
+  color:var(--brand);
+}
+
+.muchi-reader{
+  background:var(--paper)!important;
+}
+
+.muchi-reader-backdrop{
+  display:none!important;
+}
+
+.muchi-reader-panel{
+  inset:0!important;
+  width:100vw!important;
+  height:100vh!important;
+  background:var(--paper)!important;
+  transform:translateY(24px)!important;
+  opacity:0;
+  box-shadow:none!important;
+  transition:opacity .26s ease,transform .32s cubic-bezier(.2,.7,.2,1)!important;
+}
+
+.muchi-reader.open .muchi-reader-panel{
+  opacity:1;
+  transform:translateY(0)!important;
+}
+
+.muchi-reader-topbar{
+  position:sticky;
+  top:0;
+  z-index:4;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  min-height:62px;
+  padding:0 clamp(18px,4vw,56px);
+  background:rgba(247,245,240,.88);
+  border-bottom:1px solid rgba(31,28,25,.12);
+  backdrop-filter:blur(14px);
+}
+
+.muchi-reader-close{
+  position:static!important;
+  width:auto!important;
+  height:38px!important;
+  padding:0 16px!important;
+  border-radius:0!important;
+  border:1px solid rgba(31,28,25,.18)!important;
+  background:#fff!important;
+  color:var(--ink)!important;
+  font-size:12px!important;
+  letter-spacing:.12em;
+}
+
+#muchiReaderIssue{
+  font-size:11px;
+  letter-spacing:.16em;
+  color:var(--brand);
+}
+
+.muchi-reader-cover{
+  position:relative;
+  min-height:calc(100vh - 62px)!important;
+  height:auto!important;
+  display:grid;
+  align-items:end;
+  background:#15120f!important;
+}
+
+.muchi-reader-cover::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(180deg,rgba(0,0,0,.08),rgba(0,0,0,.72));
+}
+
+.muchi-reader-cover img{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  filter:saturate(.9) contrast(.96);
+}
+
+.muchi-reader-cover-copy{
+  position:relative;
+  z-index:2;
+  width:min(1040px,calc(100% - 44px));
+  margin:0 auto;
+  padding:120px 0 76px;
+  color:#fff;
+}
+
+.muchi-reader-meta{
+  color:#c99a62!important;
+  font-size:12px!important;
+}
+
+.muchi-reader-content h2,
+.muchi-reader-cover-copy h2{
+  max-width:980px;
+  font-size:clamp(38px,6vw,82px)!important;
+  line-height:1.08!important;
+  font-weight:400!important;
+  color:#fff!important;
+  margin:18px 0 24px!important;
+}
+
+.muchi-reader-excerpt{
+  max-width:720px;
+  border:0!important;
+  color:rgba(255,255,255,.82)!important;
+  font-size:17px!important;
+  line-height:2!important;
+  padding:0!important;
+  margin:0!important;
+}
+
+.muchi-reader-content{
+  width:min(980px,calc(100% - 44px));
+  margin:0 auto;
+  padding:72px 0 96px!important;
+}
+
+.muchi-reader-body{
+  max-width:760px;
+  margin:0 auto;
+}
+
+.muchi-reader-body p{
+  font-size:17px!important;
+  line-height:2.18!important;
+  color:var(--ink)!important;
+  margin-bottom:24px!important;
+}
+
+.muchi-inline-figure{
+  width:min(980px,calc(100vw - 44px));
+  margin:54px 50% 58px;
+  transform:translateX(-50%);
+}
+
+.muchi-inline-figure img{
+  width:100%;
+  aspect-ratio:3/2;
+  object-fit:cover;
+  display:block;
+  border:1px solid rgba(31,28,25,.1);
+}
+
+.muchi-inline-figure figcaption{
+  margin-top:12px;
+  padding-left:18px;
+  border-left:2px solid var(--brand);
+  font-size:12px;
+  line-height:1.8;
+  color:var(--muted);
+}
+
+.muchi-reader-quote{
+  max-width:760px;
+  margin:58px auto 0!important;
+  padding:28px 34px!important;
+  background:#fff!important;
+  border-left:3px solid var(--brand)!important;
+  font-size:18px!important;
+  line-height:2!important;
+}
+
+.muchi-reader-nav{
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr;
+  gap:1px;
+  max-width:980px;
+  margin:54px auto 0;
+  background:rgba(31,28,25,.14);
+  border:1px solid rgba(31,28,25,.14);
+}
+
+.muchi-reader-nav button,
+.muchi-reader-nav>span{
+  min-height:112px;
+  padding:18px;
+  border:0;
+  background:#fff;
+  text-align:left;
+  color:var(--ink);
+}
+
+.muchi-reader-nav button:first-child{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  letter-spacing:.12em;
+  color:var(--brand);
+}
+
+.muchi-reader-nav span{
+  display:block;
+  font-size:11px;
+  letter-spacing:.14em;
+  color:var(--brand);
+}
+
+.muchi-reader-nav strong{
+  display:block;
+  margin-top:9px;
+  font-size:15px;
+  line-height:1.6;
+  font-weight:400;
+}
+
+@media(max-width:980px){
+  .muchi-mag-cover,
+  .muchi-heading{
+    grid-template-columns:1fr!important;
+  }
+
+  .muchi-mag-copy,
+  .muchi-mag-visual{
+    min-height:360px;
+  }
+
+  .muchi-tabs{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+  }
+
+  .muchi-toolbar{
+    display:block!important;
+  }
+
+  .muchi-count{
+    justify-content:flex-start;
+    margin-top:14px;
+  }
+
+  .muchi-issue-row{
+    grid-template-columns:82px 1fr;
+    gap:16px;
+  }
+
+  .muchi-issue-no,
+  .muchi-issue-action{
+    display:none;
+  }
+}
+
+@media(max-width:760px){
+  .muchi-column{
+    padding-bottom:68px!important;
+  }
+
+  .muchi-heading{
+    padding:40px 0 24px!important;
+  }
+
+  .muchi-mag-copy{
+    padding:30px 24px;
+  }
+
+  .muchi-mag-copy strong{
+    font-size:72px;
+  }
+
+  .muchi-mag-copy span{
+    font-size:23px;
+  }
+
+  .muchi-tabs{
+    grid-template-columns:1fr;
+  }
+
+  .muchi-tabs button{
+    min-height:70px;
+  }
+
+  .muchi-issue-row{
+    grid-template-columns:72px 1fr;
+    padding:18px 0;
+  }
+
+  .muchi-issue-copy strong{
+    font-size:20px;
+  }
+
+  .muchi-issue-copy small{
+    font-size:12px;
+  }
+
+  .muchi-reader-topbar{
+    padding:0 14px;
+  }
+
+  .muchi-reader-cover{
+    min-height:76vh!important;
+  }
+
+  .muchi-reader-cover-copy{
+    width:calc(100% - 36px);
+    padding:88px 0 42px;
+  }
+
+  .muchi-reader-cover-copy h2{
+    font-size:34px!important;
+  }
+
+  .muchi-reader-excerpt{
+    font-size:14px!important;
+  }
+
+  .muchi-reader-content{
+    width:calc(100% - 36px);
+    padding:42px 0 72px!important;
+  }
+
+  .muchi-reader-body p{
+    font-size:15px!important;
+    line-height:2.05!important;
+  }
+
+  .muchi-inline-figure{
+    width:100%;
+    margin:36px 0 40px;
+    transform:none;
+  }
+
+  .muchi-reader-nav{
+    grid-template-columns:1fr;
+  }
+}
+
 /* ===== Mobile brown visual calibration ===== */
 @media(max-width:760px){
   :root{
@@ -10975,4 +11596,171 @@ body{
   body #page-service.page .page-header p{
     color:#756557!important;
   }
+}
+
+/* ===== Mobile type hierarchy lock ===== */
+@media(max-width:760px){
+  :root{
+    --ct-m-type-body:14.5px;
+    --ct-m-type-lead:15px;
+    --ct-m-type-caption:12px;
+    --ct-m-type-label:12.5px;
+    --ct-m-type-h5:15.5px;
+    --ct-m-type-h4:16.5px;
+    --ct-m-type-h3:18px;
+    --ct-m-type-section:clamp(28px,7.8vw,32px);
+    --ct-m-type-page:clamp(36px,10.2vw,40px);
+    --ct-m-type-hero:clamp(34px,9.4vw,39px);
+  }
+
+  body,
+  .page{
+    font-size:var(--ct-m-type-body)!important;
+  }
+
+  .page :where(p,li,dd,blockquote),
+  .page :where(.service-card-body,.service-list li,.phase-step-body p,.phase-card-body p,.series-desc,.wood-academy-copy p,.journal-index-copy p,.home-journal-card p,.home-journal-lead p,.selection-command-copy p,.selection-command-steps em,.space-shortcut em,.contact-card p,.contact-info-item p,.contact-method p,.footer-luxe p){
+    font-size:var(--ct-m-type-body)!important;
+    line-height:1.72!important;
+    font-weight:400!important;
+  }
+
+  #page-home .hero p,
+  #page-home .home-manifesto p,
+  .page :where(.page-header p,.prod-page-header p,.space-section-head p,.journal-intro p,.wood-academy-head p,.service-banner-text p,.contact-luxe-lead p){
+    font-size:var(--ct-m-type-lead)!important;
+    line-height:1.74!important;
+  }
+
+  .page :where(.eyebrow,.page-eyebrow,.hero-kicker,.journal-cover-text span,.journal-directory-title span,.journal-index-copy span,.home-journal-lead span,.home-journal-card span,.wood-academy-head .eyebrow,.wood-academy-copy span,.wood-family-card>span,.service-section-num,.product-experience-bar .eyebrow,.space-section-head span),
+  .mobile-chapter-rail a,
+  .mobile-menu-chip{
+    font-size:var(--ct-m-type-label)!important;
+    line-height:1.2!important;
+  }
+
+  .page :where(small,.stat-label,.series-tab small,.product-save-text,.case-save-text){
+    font-size:var(--ct-m-type-caption)!important;
+    line-height:1.45!important;
+  }
+
+  #page-home .slogan-line{
+    font-size:var(--ct-m-type-hero)!important;
+    line-height:1.16!important;
+  }
+
+  #page-home .hero-slogan .brand-name{
+    font-size:18px!important;
+    line-height:1.2!important;
+  }
+
+  .page:not(#page-home) .page-header h2,
+  .prod-page-header h2,
+  .journal-cover-text h2,
+  #page-service .page-header h2,
+  #page-contact .page-header h2{
+    font-size:var(--ct-m-type-page)!important;
+    line-height:1.08!important;
+    font-weight:430!important;
+  }
+
+  #page-home .section-title:not(.page-header) h2,
+  #page-home .space-section-head h2,
+  #page-home .home-journal-lead h3,
+  #page-journal .journal-intro h2,
+  #page-journal .wood-academy-head h2,
+  #page-journal .journal-directory-title h3,
+  #page-products .space-section-head h2,
+  #page-cases .space-section-head h2,
+  .page-conversion h3{
+    font-size:var(--ct-m-type-section)!important;
+    line-height:1.18!important;
+    font-weight:450!important;
+  }
+
+  .page :where(h3,.service-card-header h3,.contact-card h3,.contact-method h3,.journal-index-copy h3,.home-journal-card h3,.wood-family-card h3,.wood-academy-copy h3,.selection-command-copy h3){
+    font-size:var(--ct-m-type-h3)!important;
+    line-height:1.38!important;
+    font-weight:620!important;
+  }
+
+  .page :where(h4,.phase-card-header h4,.team-member h4,.process-step h4,.value-item h4){
+    font-size:var(--ct-m-type-h4)!important;
+    line-height:1.42!important;
+    font-weight:680!important;
+  }
+
+  .page :where(h5,.phase-step-body h5){
+    font-size:var(--ct-m-type-h5)!important;
+    line-height:1.45!important;
+    font-weight:700!important;
+  }
+
+  #page-service .service-section-title h2,
+  #page-service .phase-card-header h4{
+    font-size:18px!important;
+    line-height:1.42!important;
+  }
+
+  #page-service .phase-step-body h5{
+    margin-bottom:6px!important;
+  }
+
+  #page-service .phase-step-body p{
+    font-size:14.25px!important;
+    line-height:1.76!important;
+  }
+
+  #page-about .page :where(h3),
+  #page-contact .page :where(h3),
+  #page-about h3,
+  #page-contact h3{
+    font-size:18px!important;
+    line-height:1.4!important;
+  }
+
+  #page-about h4,
+  #page-contact h4,
+  #page-about .v-title,
+  #page-contact .v-title{
+    font-size:16px!important;
+    line-height:1.42!important;
+  }
+
+    .btn-primary,
+    .btn-secondary,
+    .hero .btn,
+    .page-cta a,
+    .page-cta button,
+    .mobile-action-bar a,
+    .nav-contact-cta{
+        font-size:14px!important;
+        line-height:1.2!important;
+    }
+
+    #page-home .section-title:not(.page-header) p,
+    #page-home .section-title p,
+    #page-home .home-manifesto p,
+    #page-home .brand-film-copy p,
+    #page-home .motion-copy p,
+    #page-home .space-section-head p,
+    #page-home .home-journal-lead p{
+        font-size:15px!important;
+        line-height:1.72!important;
+    }
+
+    #page-home .capability-card p,
+    #page-home .home-journal-card p,
+    #page-home .journal-mini-card p,
+    #page-home .partner-note p,
+    #page-home .luxe-brief-strip em{
+        font-size:14.5px!important;
+        line-height:1.72!important;
+    }
+
+    #footer .footer-link-group h4,
+    .footer-link-group h4{
+        font-size:15.5px!important;
+        line-height:1.35!important;
+    }
 }

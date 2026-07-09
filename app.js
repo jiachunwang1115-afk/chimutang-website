@@ -18,16 +18,23 @@ function getBaseHash(hash){
   return hash;
 }
 
-function navigate(hash){
+var suppressNextHashChange=false;
+
+function navigate(hash,options){
+  options=options||{};
   var baseHash=getBaseHash(hash);
   if(ROUTES.indexOf(baseHash)<0){
     hash='#not-found';
     baseHash='#not-found';
   }
-  window.location.hash=hash;
+  var preserveScroll=!!options.preserveScroll||(baseHash==='#journal'&&document.body.classList.contains('muchi-reader-open'));
+  if(window.location.hash!==hash){
+    suppressNextHashChange=true;
+    window.location.hash=hash;
+  }
   updateNav(baseHash);
   updateCorporateCta(baseHash);
-  showPage(baseHash);
+  showPage(baseHash,{preserveScroll:preserveScroll});
   if(baseHash==='#products') initProductsPage();
   if(baseHash==='#series') initSeriesPage();
   if(baseHash==='#craft') initCraftPage();
@@ -73,13 +80,17 @@ function initCorporateCta(){
   updateCorporateCta(window.location.hash||'#home');
 }
 
-function showPage(hash){
+function showPage(hash,options){
+  options=options||{};
   document.querySelectorAll('.page').forEach(function(p){p.classList.remove('active')});
   var pageId='page-'+hash.replace('#','');
   var page=document.getElementById(pageId);
   if(!page) page=document.getElementById('page-not-found');
   document.body.classList.add('route-changing');
-  if(page){page.classList.add('active');window.scrollTo(0,0)}
+  if(page){
+    page.classList.add('active');
+    if(!options.preserveScroll)window.scrollTo(0,0);
+  }
   window.setTimeout(applyImageSlotBadges,80);
   window.setTimeout(function(){
     document.body.classList.remove('route-changing');
@@ -234,7 +245,13 @@ function handleHash(){
   var hash=window.location.hash||'#home';
   navigate(hash);
 }
-window.addEventListener('hashchange',handleHash);
+window.addEventListener('hashchange',function(){
+  if(suppressNextHashChange){
+    suppressNextHashChange=false;
+    return;
+  }
+  handleHash();
+});
 
 // ===== PRODUCT DATA & FILTERING =====
 var PAVING_SUPPORT_ASSETS={
@@ -1836,6 +1853,8 @@ function initCraftPage(){
 // ===== MUCHI JOURNAL =====
 var muchiInitialized=false;
 var muchiActiveCategory='all';
+var muchiReturnScrollY=0;
+var muchiReaderArticleId='';
 
 function escapeHTML(value){
   return String(value||'').replace(/[&<>"']/g,function(ch){
@@ -1853,6 +1872,19 @@ function getMuchiData(){
 
 function getMuchiSlug(article){
   return String(article.id||'').split('-')[0];
+}
+
+function getMuchiVolumeLabel(article){
+  return article.volume||((getMuchiSlug(article)||'').toUpperCase());
+}
+
+function getMuchiCategoryCounts(data){
+  var counts={};
+  (data.articles||[]).forEach(function(article){
+    var slug=getMuchiSlug(article);
+    counts[slug]=(counts[slug]||0)+1;
+  });
+  return counts;
 }
 
 function initJournalPage(hash){
@@ -1873,21 +1905,24 @@ function renderMuchiColumn(){
   if(!data.articles.length)return;
   renderMuchiFeatured(data);
   renderMuchiTabs(data);
-  renderMuchiGrid();
+  renderMuchiIssueList();
 }
 
 function renderMuchiFeatured(data){
   var featured=document.getElementById('muchiFeatured');
   if(!featured)return;
   var latest=data.articles[data.articles.length-1];
+  var issue=data.collection.currentIssue||latest.issue||{};
   featured.innerHTML=
-    '<button class="muchi-featured-card" type="button" data-muchi-id="'+escapeHTML(latest.id)+'">'+
-      '<img src="'+escapeHTML(latest.cover.path)+'" alt="'+escapeHTML(latest.cover.alt)+'">'+
-      '<span class="muchi-featured-copy">'+
-        '<span>'+escapeHTML(latest.label)+' / '+formatMuchiDate(latest.date)+'</span>'+
-        '<h3>'+escapeHTML(latest.title)+'</h3>'+
-        '<p>'+escapeHTML(latest.excerpt)+'</p>'+
-        '<em>READ CURRENT MONTH</em>'+
+    '<button class="muchi-mag-cover" type="button" data-muchi-id="'+escapeHTML(latest.id)+'">'+
+      '<span class="muchi-mag-visual"><img src="'+escapeHTML(latest.cover.path)+'" alt="'+escapeHTML(latest.cover.alt)+'"></span>'+
+      '<span class="muchi-mag-copy">'+
+        '<em>MUCHI JOURNAL</em>'+
+        '<strong>木痴</strong>'+
+        '<small>痴木堂木作月刊 · SINCE 2024</small>'+
+        '<b>'+escapeHTML(issue.display||latest.issue.display)+' / '+escapeHTML(issue.month||latest.issue.month)+'</b>'+
+        '<span>'+escapeHTML(latest.title)+'</span>'+
+        '<i>READ CURRENT ISSUE</i>'+
       '</span>'+
     '</button>';
 }
@@ -1895,9 +1930,10 @@ function renderMuchiFeatured(data){
 function renderMuchiTabs(data){
   var tabs=document.getElementById('muchiTabs');
   if(!tabs)return;
-  var html='<button type="button" class="active" data-muchi-cat="all">全部</button>';
+  var counts=getMuchiCategoryCounts(data);
+  var html='<button type="button" class="active" data-muchi-cat="all"><span>全刊</span><strong>目录</strong><em>'+data.articles.length+' 篇</em></button>';
   data.categories.forEach(function(cat){
-    html+='<button type="button" data-muchi-cat="'+escapeHTML(cat.slug)+'">'+escapeHTML(cat.name)+'</button>';
+    html+='<button type="button" data-muchi-cat="'+escapeHTML(cat.slug)+'"><span>'+escapeHTML(cat.volume||'卷')+'</span><strong>'+escapeHTML(cat.name)+'</strong><em>'+String(counts[cat.slug]||0)+' 篇</em></button>';
   });
   tabs.innerHTML=html;
   tabs.querySelectorAll('button').forEach(function(btn){
@@ -1905,12 +1941,12 @@ function renderMuchiTabs(data){
       muchiActiveCategory=this.getAttribute('data-muchi-cat');
       tabs.querySelectorAll('button').forEach(function(item){item.classList.remove('active')});
       this.classList.add('active');
-      renderMuchiGrid();
+      renderMuchiIssueList();
     });
   });
 }
 
-function renderMuchiGrid(){
+function renderMuchiIssueList(){
   var data=getMuchiData();
   var grid=document.getElementById('muchiGrid');
   var count=document.getElementById('muchiCount');
@@ -1918,17 +1954,23 @@ function renderMuchiGrid(){
   var articles=data.articles.slice().reverse().filter(function(article){
     return muchiActiveCategory==='all'||getMuchiSlug(article)===muchiActiveCategory;
   });
-  if(count)count.textContent=articles.length+' 篇文章';
+  if(count)count.textContent=articles.length+' 篇文章 · '+(muchiActiveCategory==='all'?'全刊目录':'分卷目录');
   grid.innerHTML=articles.map(function(article){
-    return '<button class="muchi-card" type="button" data-muchi-id="'+escapeHTML(article.id)+'">'+
-      '<span class="muchi-card-img"><img src="'+escapeHTML(article.cover.path)+'" alt="'+escapeHTML(article.cover.alt)+'" loading="lazy" decoding="async"></span>'+
-      '<span class="muchi-card-body">'+
-        '<em>'+escapeHTML(article.label)+' · '+formatMuchiDate(article.date)+'</em>'+
+    return '<button class="muchi-issue-row" type="button" data-muchi-id="'+escapeHTML(article.id)+'">'+
+      '<span class="muchi-issue-cover"><img src="'+escapeHTML(article.cover.path)+'" alt="'+escapeHTML(article.cover.alt)+'" loading="lazy" decoding="async"></span>'+
+      '<span class="muchi-issue-no">'+escapeHTML(article.issue.display)+'<small>'+escapeHTML(formatMuchiDate(article.date))+'</small></span>'+
+      '<span class="muchi-issue-copy">'+
+        '<em>'+escapeHTML(getMuchiVolumeLabel(article))+' · '+escapeHTML(article.category)+'</em>'+
         '<strong>'+escapeHTML(article.title)+'</strong>'+
         '<small>'+escapeHTML(article.excerpt)+'</small>'+
       '</span>'+
+      '<span class="muchi-issue-action">READ</span>'+
     '</button>';
   }).join('');
+}
+
+function renderMuchiGrid(){
+  renderMuchiIssueList();
 }
 
 function bindMuchiReader(){
@@ -1937,14 +1979,60 @@ function bindMuchiReader(){
   if(column){
     column.addEventListener('click',function(e){
       var card=e.target.closest('[data-muchi-id]');
-      if(card)navigate('#journal/muchi/'+card.getAttribute('data-muchi-id'));
+      if(card){
+        muchiReturnScrollY=window.scrollY||document.documentElement.scrollTop||0;
+        navigate('#journal/muchi/'+card.getAttribute('data-muchi-id'),{preserveScroll:true});
+      }
+    });
+  }
+  if(reader){
+    reader.addEventListener('click',function(e){
+      var jump=e.target.closest('[data-muchi-reader-id]');
+      if(jump)navigate('#journal/muchi/'+jump.getAttribute('data-muchi-reader-id'),{preserveScroll:true});
     });
   }
   document.querySelectorAll('[data-muchi-close]').forEach(function(el){
-    el.addEventListener('click',function(){navigate('#journal')});
+    el.addEventListener('click',function(){closeMuchiReader(true)});
   });
   document.addEventListener('keydown',function(e){
-    if(e.key==='Escape'&&reader&&reader.classList.contains('open'))navigate('#journal');
+    if(e.key==='Escape'&&reader&&reader.classList.contains('open'))closeMuchiReader(true);
+  });
+}
+
+function renderMuchiArticleBody(article){
+  var byParagraph={};
+  (article.inlineImages||[]).forEach(function(img){
+    var index=Number(img.afterParagraph||3);
+    if(!byParagraph[index])byParagraph[index]=[];
+    byParagraph[index].push(img);
+  });
+  var html='';
+  (article.body||[]).forEach(function(p,index){
+    var paragraphNo=index+1;
+    html+='<p>'+escapeHTML(p)+'</p>';
+    (byParagraph[paragraphNo]||[]).forEach(function(img){
+      html+='<figure class="muchi-inline-figure '+escapeHTML(img.layout||'wide')+'">'+
+        '<img src="'+escapeHTML(img.path)+'" alt="'+escapeHTML(img.alt)+'" loading="lazy" decoding="async">'+
+        '<figcaption>'+escapeHTML(img.caption)+'</figcaption>'+
+      '</figure>';
+    });
+  });
+  return html;
+}
+
+function renderMuchiReaderNav(article,data){
+  var nav=document.getElementById('muchiReaderNav');
+  if(!nav)return;
+  var list=data.articles||[];
+  var index=list.findIndex(function(item){return item.id===article.id});
+  var prev=list[index-1];
+  var next=list[index+1];
+  nav.innerHTML=
+    '<button type="button" data-muchi-close>返回目录</button>'+
+    (prev?'<button type="button" data-muchi-reader-id="'+escapeHTML(prev.id)+'"><span>上一篇</span><strong>'+escapeHTML(prev.title)+'</strong></button>':'<span></span>')+
+    (next?'<button type="button" data-muchi-reader-id="'+escapeHTML(next.id)+'"><span>下一篇</span><strong>'+escapeHTML(next.title)+'</strong></button>':'<span></span>');
+  nav.querySelectorAll('[data-muchi-close]').forEach(function(btn){
+    btn.addEventListener('click',function(){closeMuchiReader(true)});
   });
 }
 
@@ -1953,27 +2041,38 @@ function openMuchiArticle(id){
   var article=data.articles.find(function(item){return item.id===id});
   var reader=document.getElementById('muchiReader');
   if(!article||!reader)return;
+  muchiReaderArticleId=article.id;
   document.getElementById('muchiReaderImg').src=article.cover.path;
   document.getElementById('muchiReaderImg').alt=article.cover.alt;
-  document.getElementById('muchiReaderMeta').textContent=article.category+' · '+article.label+' · '+formatMuchiDate(article.date);
+  document.getElementById('muchiReaderIssue').textContent=article.issue.display+' · '+article.issue.month;
+  document.getElementById('muchiReaderMeta').textContent=article.issue.display+' · '+article.volume+' '+article.category+' · '+formatMuchiDate(article.date);
   document.getElementById('muchiReaderTitle').textContent=article.title;
   document.getElementById('muchiReaderExcerpt').textContent=article.excerpt;
-  document.getElementById('muchiReaderBody').innerHTML=article.body.map(function(p){
-    return '<p>'+escapeHTML(p)+'</p>';
-  }).join('');
+  document.getElementById('muchiReaderBody').innerHTML=renderMuchiArticleBody(article);
   document.getElementById('muchiReaderQuote').textContent=article.conclusion;
+  renderMuchiReaderNav(article,data);
   reader.classList.add('open');
   reader.setAttribute('aria-hidden','false');
   document.body.classList.add('muchi-reader-open');
+  var panel=reader.querySelector('.muchi-reader-panel');
+  if(panel)panel.scrollTop=0;
 }
 
 function closeMuchiReader(updateHash){
   var reader=document.getElementById('muchiReader');
   if(!reader)return;
+  if(updateHash){
+    navigate('#journal',{preserveScroll:true});
+    return;
+  }
+  var wasOpen=reader.classList.contains('open');
   reader.classList.remove('open');
   reader.setAttribute('aria-hidden','true');
   document.body.classList.remove('muchi-reader-open');
-  if(updateHash)window.location.hash='#journal';
+  muchiReaderArticleId='';
+  if(wasOpen&&muchiReturnScrollY){
+    window.setTimeout(function(){window.scrollTo(0,muchiReturnScrollY)},40);
+  }
 }
 
 // ===== INIT =====
