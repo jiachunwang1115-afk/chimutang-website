@@ -64,6 +64,20 @@ function updateCorporateCta(hash){
   });
 }
 
+function loadDeferredMedia(root){
+  if(!root) return;
+  root.querySelectorAll('img[data-route-src]').forEach(function(img){
+    if(!img.getAttribute('src')){
+      img.setAttribute('src',img.getAttribute('data-route-src'));
+    }
+  });
+  root.querySelectorAll('video[data-poster]').forEach(function(video){
+    if(!video.getAttribute('poster')){
+      video.setAttribute('poster',video.getAttribute('data-poster'));
+    }
+  });
+}
+
 function initCorporateCta(){
   var backTop=document.getElementById('backToTop');
   if(backTop&&!backTop.dataset.bound){
@@ -89,6 +103,7 @@ function showPage(hash,options){
   document.body.classList.add('route-changing');
   if(page){
     page.classList.add('active');
+    loadDeferredMedia(page);
     if(!options.preserveScroll)window.scrollTo(0,0);
   }
   window.setTimeout(applyImageSlotBadges,80);
@@ -187,6 +202,8 @@ function openBrandFilm(e){
   var fallback=document.getElementById('filmFallback');
   if(!modal||!opener||!video) return;
   if(fallback) fallback.classList.remove('visible');
+  var poster=video.getAttribute('data-poster')||opener.getAttribute('data-poster')||'';
+  if(poster&&!video.getAttribute('poster')) video.setAttribute('poster',poster);
   video.src=opener.getAttribute('data-video-src')||'';
   video.load();
   modal.classList.add('open');
@@ -330,8 +347,10 @@ var CASE_FILTER_DEFS=[
 ];
 
 var PRODUCTS=[], currentProd=null, COS_BASE='https://woodall-1307516706.cos.ap-guangzhou.myqcloud.com/';
-fetch('./products_clean.json').then(function(r){return r.json()}).then(function(data){
-  PRODUCTS=data.map(function(p){
+var productsLoadPromise=null;
+
+function mapProductData(data){
+  return data.map(function(p){
     function fixPath(path){
       if(!path)return'';
       if(path.indexOf('product-images-thumb/')===0)return'./'+path;
@@ -346,19 +365,40 @@ fetch('./products_clean.json').then(function(r){return r.json()}).then(function(
       img_e_hd:p.img_e?COS_BASE+'product-images/'+p.img_e.replace(/^.*[\\/]/,''):''
     };
   });
-  if(window.location.hash==='#products'){
-    currentProd=PRODUCTS[0]||null;
-    buildAllFilters();
-    buildProds();
-  }
-  if(window.location.hash==='#series'){
-    initSeriesPage();
-  }
-}).catch(function(e){
+}
+
+function showProductDataError(e){
   console.error('Product data load failed', e);
   var grid=document.getElementById("prodGrid");
   if(grid)grid.innerHTML='<div class="prod-empty"><span>LOAD FAILED</span><h3>产品数据暂时加载失败</h3><p>请刷新页面，或直接联系管家获取产品资料。</p><div class="page-cta"><a href="#contact" class="btn-primary">联系管家</a></div></div>';
-});
+}
+
+function ensureProductsLoaded(callback){
+  if(PRODUCTS.length){
+    if(callback) window.setTimeout(callback,0);
+    return Promise.resolve(PRODUCTS);
+  }
+  if(!productsLoadPromise){
+    productsLoadPromise=fetch('./products_clean.json')
+      .then(function(r){return r.json()})
+      .then(function(data){
+        PRODUCTS=mapProductData(data);
+        currentProd=currentProd||PRODUCTS[0]||null;
+        return PRODUCTS;
+      })
+      .catch(function(e){
+        productsLoadPromise=null;
+        showProductDataError(e);
+        return [];
+      });
+  }
+  if(callback){
+    productsLoadPromise.then(function(){
+      if(PRODUCTS.length) callback();
+    });
+  }
+  return productsLoadPromise;
+}
 var activeFilters={series:"全部",wood:"全部",board:"全部",surface:"全部",structure:"全部"};
 var PRODUCT_FILTER_LABELS={series:"系列",wood:"木种",board:"板材",surface:"表面",structure:"结构"};
 var productsInitialized=false;
@@ -415,29 +455,31 @@ function resetProductFiltersForSeries(series){
 }
 
 function goProductsBySeries(series){
-  closeDrawer();
-  resetProductFiltersForSeries(series);
-  navigate("#products");
-  setTimeout(function(){
-    buildAllFilters();
-    buildProds();
-    var header=document.querySelector(".prod-page-header");
-    if(header)header.scrollIntoView({behavior:"smooth",block:"start"});
-  },0);
+  ensureProductsLoaded(function(){
+    closeDrawer();
+    resetProductFiltersForSeries(series);
+    navigate("#products");
+    setTimeout(function(){
+      buildAllFilters();
+      buildProds();
+      var header=document.querySelector(".prod-page-header");
+      if(header)header.scrollIntoView({behavior:"smooth",block:"start"});
+    },0);
+  });
 }
 
 function goProductsByWood(wood){
-  closeDrawer();
-  activeFilters={series:"全部",wood:wood,board:"全部",surface:"全部",structure:"全部"};
-  navigate("#products");
-  setTimeout(function(){
-    if(PRODUCTS.length){
+  ensureProductsLoaded(function(){
+    closeDrawer();
+    activeFilters={series:"全部",wood:wood,board:"全部",surface:"全部",structure:"全部"};
+    navigate("#products");
+    setTimeout(function(){
       buildAllFilters();
       buildProds();
-    }
-    var header=document.querySelector(".prod-page-header");
-    if(header)header.scrollIntoView({behavior:"smooth",block:"start"});
-  },0);
+      var header=document.querySelector(".prod-page-header");
+      if(header)header.scrollIntoView({behavior:"smooth",block:"start"});
+    },0);
+  });
 }
 
 function goSeriesIntro(series){
@@ -626,18 +668,18 @@ function renderCaseGallery(){
 
 function applyProductFilterObject(filter){
   filter=filter||{};
-  activeFilters=resolveProductFilterObject(filter);
-  closeSpaceCase();
-  navigate("#products");
-  setTimeout(function(){
-    if(PRODUCTS.length){
+  ensureProductsLoaded(function(){
+    activeFilters=resolveProductFilterObject(filter);
+    closeSpaceCase();
+    navigate("#products");
+    setTimeout(function(){
       buildAllFilters();
       buildProds();
-    }
-    renderProductSpaceShortcuts();
-    var header=document.querySelector(".prod-page-header");
-    if(header)header.scrollIntoView({behavior:"smooth",block:"start"});
-  },0);
+      renderProductSpaceShortcuts();
+      var header=document.querySelector(".prod-page-header");
+      if(header)header.scrollIntoView({behavior:"smooth",block:"start"});
+    },0);
+  });
 }
 
 function getPavingSelection(){
@@ -1056,6 +1098,12 @@ function applyImageSlotBadges(){
 }
 
 function initProductsPage(){
+  if(!PRODUCTS.length){
+    ensureProductsLoaded(function(){
+      if(getBaseHash(window.location.hash||'#home')==='#products') initProductsPage();
+    });
+    return;
+  }
   if(productsInitialized){
     buildAllFilters();
     buildProds();
@@ -1679,6 +1727,11 @@ var seriesData={
 };
 
 function initSeriesPage(){
+  if(!PRODUCTS.length){
+    ensureProductsLoaded(function(){
+      if(getBaseHash(window.location.hash||'#home')==='#series') initSeriesPage();
+    });
+  }
   var tabs=document.getElementById('seriesTabs');
   tabs.innerHTML='';
   var keys=Object.keys(seriesData);
@@ -2082,7 +2135,10 @@ function closeMuchiReader(updateHash){
 }
 
 // ===== INIT =====
-document.addEventListener('DOMContentLoaded',function(){handleHash()});
+document.addEventListener('DOMContentLoaded',function(){
+  handleHash();
+  document.documentElement.removeAttribute('data-initial-route');
+});
 
 // ===== QUIET INTERACTIONS =====
 document.addEventListener('DOMContentLoaded',function(){
@@ -2110,6 +2166,8 @@ document.addEventListener('DOMContentLoaded',function(){
     function hydrateHeroVideo(){
       if(heroVideoHydrated) return;
       heroVideoHydrated=true;
+      var poster=heroVideo.getAttribute('data-poster');
+      if(poster&&!heroVideo.getAttribute('poster')) heroVideo.setAttribute('poster',poster);
       var src=heroVideo.getAttribute('data-src');
       if(src&&!heroVideo.getAttribute('src')){
         heroVideo.setAttribute('src',src);

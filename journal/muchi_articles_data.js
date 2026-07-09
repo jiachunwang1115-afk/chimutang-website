@@ -1821,8 +1821,8 @@ window.MUCHI_ARTICLES_DATA = {
       "excerpt": "中式木作把道法自然、中庸包容与结构秩序，藏进木料和榫卯之间。",
       "route": "#journal/muchi/muyu-04",
       "cover": {
-        "file": "muchi-muyu-04-cover-editorial-1.jpg",
-        "path": "journal/muchi-library/article-cover/muchi-muyu-04-cover-editorial-1.jpg",
+        "file": "muchi-muyu-04-cover.jpg",
+        "path": "journal/muchi-library/article-cover/muchi-muyu-04-cover.jpg",
         "alt": "中式木构厅堂梁柱窗棂与东方木作秩序",
         "idea": "quiet traditional Chinese timber hall, beams, columns, lattice windows and mortise-and-tenon order in natural side light",
         "keywords": "中式木韵, 古建筑藏在木料里的东方哲学",
@@ -1853,7 +1853,7 @@ window.MUCHI_ARTICLES_DATA = {
       "inlineImages": [
         {
           "id": "muyu-04-inline-01",
-          "path": "journal/muchi-library/article-inline/muchi-muyu-04-inline-editorial-1.jpg",
+          "path": "journal/muchi-library/article-inline/muchi-muyu-04-inline-01.jpg",
           "alt": "中式榫卯结构半插合细节与木作分寸",
           "caption": "榫卯不是把木头锁死，而是在咬合、留缝与受力之间，为木性保留伸缩的余地。",
           "afterParagraph": 3,

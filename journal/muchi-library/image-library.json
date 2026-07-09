@@ -1021,14 +1021,14 @@
         "text": "这篇文章不把中式木韵理解成一种复古装饰，而是把它还原成一套关于材料、秩序与分寸的观看方法：木头会呼吸、会伸缩，好的结构不是压住它，而是给它留出自然发生的位置。"
       },
       "cover": {
-        "path": "journal/muchi-library/article-cover/muchi-muyu-04-cover-editorial-1.jpg",
+        "path": "journal/muchi-library/article-cover/muchi-muyu-04-cover.jpg",
         "alt": "中式木构厅堂梁柱窗棂与东方木作秩序",
         "prompt": "Create a wide premium editorial cover image for the article '木语④：中式木韵｜古建筑藏在木料里的东方哲学'. Scene: quiet traditional Chinese timber hall, beams, columns, lattice windows and mortise-and-tenon order in natural side light. Use realistic premium editorial photography for a high-end Chinese woodcraft magazine. Natural light, restrained East Asian aesthetics, muted raw-wood palette, clean composition, real material texture. No text, no logo, no watermark, no labels, no obvious AI artifacts."
       },
       "inlineImages": [
         {
           "id": "muyu-04-inline-01",
-          "path": "journal/muchi-library/article-inline/muchi-muyu-04-inline-editorial-1.jpg",
+          "path": "journal/muchi-library/article-inline/muchi-muyu-04-inline-01.jpg",
           "alt": "中式榫卯结构半插合细节与木作分寸",
           "caption": "榫卯不是把木头锁死，而是在咬合、留缝与受力之间，为木性保留伸缩的余地。",
           "afterParagraph": 3,

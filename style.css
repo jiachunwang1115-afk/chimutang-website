@@ -29,6 +29,16 @@ a{text-decoration:none;color:inherit}
 /* ===== PAGE CONTAINERS ===== */
 .page{display:none;min-height:calc(100vh - 60px)}
 .page.active{display:block}
+html[data-initial-route="home"] #page-home,
+html[data-initial-route="products"] #page-products,
+html[data-initial-route="series"] #page-series,
+html[data-initial-route="craft"] #page-craft,
+html[data-initial-route="journal"] #page-journal,
+html[data-initial-route="cases"] #page-cases,
+html[data-initial-route="about"] #page-about,
+html[data-initial-route="service"] #page-service,
+html[data-initial-route="contact"] #page-contact,
+html[data-initial-route="not-found"] #page-not-found{display:block}
 .container{max-width:1200px;margin:0 auto;padding:0 20px}
 
 /* ===== FOOTER ===== */
@@ -1803,7 +1813,7 @@ html{font-family:var(--font-body)}
   content:'';
   width:54px;
   height:42px;
-  background:url("logo/logo.png") center/contain no-repeat;
+  background:url("logo/logo-ui.png") center/contain no-repeat;
   opacity:.82;
   filter:drop-shadow(0 8px 18px rgba(143,95,51,.1));
 }
@@ -1841,7 +1851,7 @@ html{font-family:var(--font-body)}
   display:block;
   width:66px;
   height:50px;
-  background:url("logo/logo.png") center/contain no-repeat;
+  background:url("logo/logo-ui.png") center/contain no-repeat;
   margin-bottom:18px;
   opacity:.88;
 }
@@ -2047,7 +2057,7 @@ html{font-family:var(--font-body)}
   top:24px;
   width:180px;
   height:130px;
-  background:url("logo/logo.png") center/contain no-repeat;
+  background:url("logo/logo-ui.png") center/contain no-repeat;
   opacity:.045;
   pointer-events:none;
 }
@@ -3435,7 +3445,7 @@ a:not(.nav-logo):not(.btn-primary):not(.btn-secondary):not(.btn):not(.nav-contac
   z-index:2;
   width:64px;
   height:48px;
-  background:url("logo/logo.png") center/contain no-repeat;
+  background:url("logo/logo-ui.png") center/contain no-repeat;
   filter:brightness(0) invert(1) drop-shadow(0 12px 28px rgba(0,0,0,.36));
   opacity:.94;
 }
@@ -4604,7 +4614,7 @@ html,body{overflow-x:hidden}
   width:72px;
   height:54px;
   margin:0 0 18px;
-  background:url("logo/logo.png") center/contain no-repeat;
+  background:url("logo/logo-ui.png") center/contain no-repeat;
   opacity:.96;
   filter:brightness(0) invert(1) drop-shadow(0 12px 28px rgba(0,0,0,.38));
 }
@@ -12152,5 +12162,176 @@ body{
   #page-service .phase-step-body p{
     font-size:15px!important;
     line-height:1.82!important;
+  }
+}
+
+/* ===== Final typography hierarchy guardrail ===== */
+@media(max-width:760px){
+  :root{
+    --ct-type-body-m:14px;
+    --ct-type-lead-m:15px;
+    --ct-type-h6-m:16px;
+    --ct-type-h5-m:17px;
+    --ct-type-h4-m:18px;
+    --ct-type-card-m:20px;
+    --ct-type-section-m:30px;
+    --ct-type-page-m:40px;
+    --ct-type-hero-m:38px;
+  }
+
+  body,
+  .page,
+  .page :where(p,li,dd,blockquote),
+  .page :where(.series-card-body p,.wood-family-card p,.wood-academy-copy p,.service-card-body,.service-list li,.phase-step-body p,.phase-card-body p,.journal-index-copy p,.home-journal-card p,.home-journal-lead p,.selection-command-copy p,.selection-command-steps em,.space-shortcut em,.contact-card p,.contact-info-item p,.contact-method p){
+    font-size:var(--ct-type-body-m)!important;
+    line-height:1.72!important;
+    font-weight:400!important;
+  }
+
+  #page-home .hero p,
+  #page-home .home-manifesto p,
+  .page :where(.page-header p,.prod-page-header p,.space-section-head p,.journal-intro p,.wood-academy-head p,.service-banner-text p,.contact-luxe-lead p){
+    font-size:var(--ct-type-lead-m)!important;
+    line-height:1.74!important;
+  }
+
+  .page :where(h6){
+    font-size:var(--ct-type-h6-m)!important;
+    line-height:1.45!important;
+    font-weight:680!important;
+  }
+
+  .page :where(h5,.phase-step-body h5),
+  #page-service .phase-step-body h5{
+    font-size:var(--ct-type-h5-m)!important;
+    line-height:1.44!important;
+    font-weight:720!important;
+  }
+
+  .page :where(h4,.phase-card-header h4,.team-member h4,.process-step h4,.value-item h4),
+  #page-about :where(h4,.v-title),
+  #page-contact h4{
+    font-size:var(--ct-type-h4-m)!important;
+    line-height:1.42!important;
+    font-weight:700!important;
+  }
+
+  .page :where(h3,.series-card-body h3,.service-card-header h3,.contact-card h3,.contact-method h3,.journal-index-copy h3,.home-journal-card h3,.wood-family-card h3,.wood-academy-copy h3,.selection-command-copy h3),
+  #page-craft h3,
+  #page-about h3,
+  #page-contact h3{
+    font-size:var(--ct-type-card-m)!important;
+    line-height:1.34!important;
+    font-weight:650!important;
+  }
+
+  #page-home .section-title:not(.page-header) h2,
+  #page-home .space-section-head h2,
+  #page-home .home-journal-lead h3,
+  #page-journal .journal-intro h2,
+  #page-journal .wood-academy-head h2,
+  #page-journal .journal-directory-title h3,
+  #page-products .space-section-head h2,
+  #page-cases .space-section-head h2,
+  #page-service .service-section-title h2,
+  .page-conversion h3{
+    font-size:var(--ct-type-section-m)!important;
+    line-height:1.18!important;
+    font-weight:540!important;
+  }
+
+  #page-home .slogan-line{
+    font-size:var(--ct-type-hero-m)!important;
+    line-height:1.16!important;
+  }
+
+  .page:not(#page-home) .page-header h2,
+  .prod-page-header h2,
+  .journal-cover-text h2,
+  #page-contact .page-header h2{
+    font-size:var(--ct-type-page-m)!important;
+    line-height:1.08!important;
+    font-weight:450!important;
+  }
+}
+
+@media(min-width:761px){
+  :root{
+    --ct-type-body-d:15px;
+    --ct-type-lead-d:16px;
+    --ct-type-h6-d:17px;
+    --ct-type-h5-d:18px;
+    --ct-type-h4-d:19px;
+    --ct-type-card-d:21px;
+    --ct-type-section-d:clamp(30px,2.1vw,38px);
+    --ct-type-page-d:clamp(48px,4vw,76px);
+  }
+
+  .page :where(p,li,dd,blockquote),
+  .page :where(.series-card-body p,.wood-family-card p,.wood-academy-copy p,.service-card-body,.service-list li,.phase-step-body p,.phase-card-body p,.journal-index-copy p,.home-journal-card p,.home-journal-lead p,.selection-command-copy p,.selection-command-steps em,.space-shortcut em,.contact-card p,.contact-info-item p,.contact-method p){
+    font-size:var(--ct-type-body-d)!important;
+    line-height:1.82!important;
+    font-weight:400!important;
+  }
+
+  #page-home .hero p,
+  #page-home .home-manifesto p,
+  .page :where(.page-header p,.prod-page-header p,.space-section-head p,.journal-intro p,.wood-academy-head p,.service-banner-text p,.contact-luxe-lead p){
+    font-size:var(--ct-type-lead-d)!important;
+    line-height:1.78!important;
+  }
+
+  .page :where(h6){
+    font-size:var(--ct-type-h6-d)!important;
+    line-height:1.45!important;
+    font-weight:680!important;
+  }
+
+  .page :where(h5,.phase-step-body h5),
+  #page-service .phase-step-body h5{
+    font-size:var(--ct-type-h5-d)!important;
+    line-height:1.46!important;
+    font-weight:720!important;
+  }
+
+  .page :where(h4,.phase-card-header h4,.team-member h4,.process-step h4,.value-item h4),
+  #page-about :where(h4,.v-title),
+  #page-contact h4{
+    font-size:var(--ct-type-h4-d)!important;
+    line-height:1.44!important;
+    font-weight:700!important;
+  }
+
+  .page :where(h3,.series-card-body h3,.service-card-header h3,.contact-card h3,.contact-method h3,.journal-index-copy h3,.home-journal-card h3,.wood-family-card h3,.wood-academy-copy h3,.selection-command-copy h3),
+  #page-craft h3,
+  #page-about h3,
+  #page-contact h3{
+    font-size:var(--ct-type-card-d)!important;
+    line-height:1.36!important;
+    font-weight:650!important;
+  }
+
+  #page-home .section-title:not(.page-header) h2,
+  #page-home .space-section-head h2,
+  #page-home .home-journal-lead h3,
+  #page-journal .journal-intro h2,
+  #page-journal .wood-academy-head h2,
+  #page-journal .journal-directory-title h3,
+  #page-products .space-section-head h2,
+  #page-cases .space-section-head h2,
+  #page-service .service-section-title h2,
+  .page-conversion h3{
+    font-size:var(--ct-type-section-d)!important;
+    line-height:1.18!important;
+    font-weight:540!important;
+  }
+
+  .page:not(#page-home) .page-header h2,
+  .prod-page-header h2,
+  .journal-cover-text h2,
+  #page-contact .page-header h2{
+    font-size:var(--ct-type-page-d)!important;
+    line-height:1.08!important;
+    font-weight:450!important;
   }
 }
