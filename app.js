@@ -1891,6 +1891,8 @@ document.addEventListener('DOMContentLoaded',function(){
   initProductFilterActions();
   initCorporateCta();
   initWoodAcademy();
+  initJournalDirectory();
+  initHomeJournalPreview();
   initPremiumInteractions();
   initImmersiveLuxe();
 });
@@ -2008,6 +2010,135 @@ function initWoodAcademy(){
       card.style.setProperty('--py',((e.clientY-rect.top)/rect.height*100).toFixed(1)+'%');
     });
   });
+}
+
+function initJournalDirectory(){
+  var root=document.querySelector('#page-journal .journal-topics');
+  if(!root||root.dataset.directoryReady==="true")return;
+  root.dataset.directoryReady="true";
+  root.classList.add('journal-directory');
+  root.setAttribute('aria-label','木作志杂志目录');
+
+  var filters=[
+    {id:"all",label:"全部",note:"以目录方式快速浏览木作志题材。"},
+    {id:"space",label:"空间",note:"按房间、光线和铺法阅读空间灵感。"},
+    {id:"material",label:"材料",note:"从木种、纹理、色阶理解产品选择。"},
+    {id:"craft",label:"工艺",note:"把表面、结构和安装逻辑拆成可读条目。"},
+    {id:"culture",label:"审美",note:"记录东方秩序、留白和器物关系。"},
+    {id:"care",label:"养护",note:"整理清洁、维护和长期使用方法。"}
+  ];
+
+  var items=[
+    {no:"01",category:"space",label:"SPACE",title:"光线先于木色",desc:"用采光判断浅木、中棕与深木的边界。",href:"#cases",img:"journal/space-floor.webp",alt:"木地板空间尺度与光线关系",cta:"看铺装参考"},
+    {no:"02",category:"material",label:"MATERIAL",title:"橡木为什么耐看",desc:"从纹理密度、稳定性和色差控制读懂橡木。",href:"#products",img:"journal/surface-wood-mosaic.webp",alt:"多种木材色泽与纹理拼接",cta:"进入产品"},
+    {no:"03",category:"origin",label:"ORIGIN",title:"从森林到家",desc:"选材、干燥、环保等级与交付之间的关系。",href:"#craft",img:"journal/home-hero-forest-door.webp",alt:"森林与原木进入家的过程",cta:"读工艺"},
+    {no:"04",category:"craft",label:"CRAFT",title:"表面触感档案",desc:"薄涂、染色、UV 与脚感如何共同决定质感。",href:"#craft",img:"journal/touch-wood.webp",alt:"木材表面工艺",cta:"看工艺"},
+    {no:"05",category:"space",label:"PAVING",title:"通铺长板的秩序",desc:"客餐厅、卧室与廊道如何减少地面切割。",href:"#cases",img:"journal/paving-reference/ref-living-light.webp",alt:"明亮客厅浅木地板铺装参考",cta:"看案例"},
+    {no:"06",category:"culture",label:"AESTHETIC",title:"东方留白与木纹",desc:"让地面成为空间的底色，而不是装饰噪音。",href:"#journal",img:"journal/culture-pine-painting.webp",alt:"东方松木画面与木作气质",cta:"继续阅读"},
+    {no:"07",category:"craft",label:"STRUCTURE",title:"结构剖面笔记",desc:"基材、锁扣、厚度和稳定性如何影响使用。",href:"#craft",img:"journal/craft-section-shelf.webp",alt:"木作结构剖面与层次",cta:"看技术"},
+    {no:"08",category:"care",label:"CARE",title:"木地板养护清单",desc:"清洁、补油、避水和局部修复的日常顺序。",href:"#service",img:"journal/paving-support/support-maintenance-kit.webp",alt:"木地板养护用品",cta:"看服务"},
+    {no:"09",category:"material",label:"COLOR",title:"深色木不显压的条件",desc:"用层高、光源和软装明度控制深色地面。",href:"#cases",img:"journal/paving-reference/ref-study-shadow.webp",alt:"书房深色木地板铺装参考",cta:"看深色参考"},
+    {no:"10",category:"culture",label:"OBJECT",title:"木与器物的距离",desc:"茶室、书房和会客厅里的木色留白法。",href:"#cases",img:"journal/paving-reference/ref-tea-room-dark.webp",alt:"暗场茶室木地板铺装参考",cta:"看茶室"},
+    {no:"11",category:"space",label:"ROOM",title:"卧室更适合轻呼吸",desc:"休息区的木色应降低视觉重量和纹理干扰。",href:"#cases",img:"journal/paving-reference/ref-bedroom-light.webp",alt:"浅木卧室地板铺装参考",cta:"看卧室"},
+    {no:"12",category:"craft",label:"DETAIL",title:"收边决定完成度",desc:"踢脚线、楼梯收口和门槛的细节语言。",href:"#service",img:"journal/paving-support/support-skirting-installed.webp",alt:"踢脚线安装效果",cta:"看安装"}
+  ];
+
+  var tabs=filters.map(function(filter){
+    return '<button type="button" class="journal-directory-tab" data-journal-filter="'+filter.id+'" aria-pressed="'+(filter.id==="all"?"true":"false")+'">'+escapeHtml(filter.label)+'</button>';
+  }).join("");
+  var cards=items.map(function(item){
+    return '<a class="journal-index-card" href="'+item.href+'" data-journal-category="'+item.category+'" data-journal-note="'+escapeHtml(item.desc)+'"><figure><img src="'+item.img+'" alt="'+escapeHtml(item.alt)+'" loading="lazy" decoding="async"></figure><div class="journal-index-copy"><span><b>'+item.no+'</b>'+escapeHtml(item.label)+'</span><h3>'+escapeHtml(item.title)+'</h3><p>'+escapeHtml(item.desc)+'</p><em>'+escapeHtml(item.cta)+'</em></div></a>';
+  }).join("");
+
+  root.innerHTML='<div class="journal-directory-head"><div class="journal-directory-title"><span>MAGAZINE INDEX</span><h3>按题材进入木作志</h3><p>像翻目录一样，从空间、材料、工艺、审美与养护进入阅读。</p></div><div class="journal-directory-tabs" role="group" aria-label="木作志题材筛选">'+tabs+'</div><div class="journal-directory-note"><strong id="journalDirectoryCount">'+items.length+'篇</strong><p id="journalDirectoryHint">以目录方式快速浏览木作志题材。</p></div></div><div class="journal-index-grid">'+cards+'</div>';
+
+  var buttons=root.querySelectorAll('[data-journal-filter]');
+  var topicCards=root.querySelectorAll('[data-journal-category]');
+  var count=root.querySelector('#journalDirectoryCount');
+  var hint=root.querySelector('#journalDirectoryHint');
+
+  function filterLabel(id){
+    for(var i=0;i<filters.length;i++){
+      if(filters[i].id===id)return filters[i];
+    }
+    return filters[0];
+  }
+
+  function setFilter(id){
+    var meta=filterLabel(id);
+    var visible=0;
+    buttons.forEach(function(btn){
+      var active=btn.getAttribute('data-journal-filter')===id;
+      btn.classList.toggle('active',active);
+      btn.setAttribute('aria-pressed',active?'true':'false');
+    });
+    topicCards.forEach(function(card){
+      var show=id==="all"||card.getAttribute('data-journal-category')===id;
+      card.hidden=!show;
+      card.classList.toggle('is-visible-topic',show);
+      if(show)visible++;
+    });
+    count.textContent=visible+'篇';
+    hint.textContent=meta.note;
+    root.dataset.activeFilter=id;
+  }
+
+  root.addEventListener('click',function(e){
+    var button=e.target.closest&&e.target.closest('[data-journal-filter]');
+    if(!button)return;
+    setFilter(button.getAttribute('data-journal-filter'));
+  });
+
+  root.addEventListener('mouseover',function(e){
+    var card=e.target.closest&&e.target.closest('[data-journal-category]');
+    if(card&&!card.hidden){
+      hint.textContent=card.getAttribute('data-journal-note')||hint.textContent;
+    }
+  });
+
+  root.addEventListener('focusin',function(e){
+    var card=e.target.closest&&e.target.closest('[data-journal-category]');
+    if(card&&!card.hidden){
+      hint.textContent=card.getAttribute('data-journal-note')||hint.textContent;
+    }
+  });
+
+  root.addEventListener('mouseleave',function(){
+    hint.textContent=filterLabel(root.dataset.activeFilter||"all").note;
+  });
+
+  setFilter("all");
+}
+
+function initHomeJournalPreview(){
+  var root=document.querySelector('#page-home .home-journal-directory');
+  if(!root||root.dataset.homeJournalReady==="true")return;
+  root.dataset.homeJournalReady="true";
+  var buttons=root.querySelectorAll('[data-home-journal-filter]');
+  var cards=root.querySelectorAll('[data-home-journal-category]');
+  if(!buttons.length||!cards.length)return;
+
+  function setFilter(id){
+    buttons.forEach(function(btn){
+      var active=btn.getAttribute('data-home-journal-filter')===id;
+      btn.classList.toggle('active',active);
+      btn.setAttribute('aria-pressed',active?'true':'false');
+    });
+    cards.forEach(function(card){
+      var show=id==="all"||card.getAttribute('data-home-journal-category')===id;
+      card.hidden=!show;
+      card.classList.toggle('is-visible-topic',show);
+    });
+    root.dataset.activeFilter=id;
+  }
+
+  root.addEventListener('click',function(e){
+    var button=e.target.closest&&e.target.closest('[data-home-journal-filter]');
+    if(!button)return;
+    setFilter(button.getAttribute('data-home-journal-filter'));
+  });
+
+  setFilter('all');
 }
 
 function initPremiumInteractions(){
