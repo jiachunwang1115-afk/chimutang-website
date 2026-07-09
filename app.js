@@ -896,11 +896,11 @@ var IMAGE_SLOT_MAP=[
   {id:"T07",route:"#craft",page:"工艺技术",selector:"#craftContent .craft-item:nth-child(6)",title:"工艺卡 06",asset:"media/motion-atelier-02.mp4"},
   {id:"T08",route:"#craft",page:"工艺技术",selector:"#craftContent .craft-item:nth-child(7)",title:"工艺卡 07",asset:"journal/wood-art.webp"},
   {id:"T09",route:"#craft",page:"工艺技术",selector:"#craftContent .craft-item:nth-child(8)",title:"工艺卡 08",asset:"journal/material-blue-floor.webp"},
-  {id:"J01",route:"#journal",page:"木作志",selector:"#page-journal .journal-cover",title:"木作志封面",asset:"journal/craft-oriental-card.webp"},
-  {id:"J02",route:"#journal",page:"木作志",selector:"#woodAcademy .wood-academy-media",title:"木材学堂主图",asset:"journal/craft-ring-section.webp"},
+  {id:"J01",route:"#journal",page:"木作志",selector:"#page-journal .journal-cover",title:"木作志封面",asset:"journal/craft-oriental-card-lite.webp"},
+  {id:"J02",route:"#journal",page:"木作志",selector:"#woodAcademy .wood-academy-media",title:"木材学堂主图",asset:"journal/craft-ring-section-lite.webp"},
   {id:"J03",route:"#journal",page:"木作志",selector:"#page-journal .journal-topic.large",title:"木作志卡片：空间灵感",asset:"journal/space-floor.webp"},
-  {id:"J04",route:"#journal",page:"木作志",selector:"#page-journal .journal-topic:nth-child(2)",title:"木作志卡片：木材百科",asset:"journal/surface-wood-mosaic.webp"},
-  {id:"J05",route:"#journal",page:"木作志",selector:"#page-journal .journal-topic:nth-child(3)",title:"木作志卡片：从森林到家",asset:"journal/home-hero-forest-door.webp"},
+  {id:"J04",route:"#journal",page:"木作志",selector:"#page-journal .journal-topic:nth-child(2)",title:"木作志卡片：木材百科",asset:"journal/surface-wood-mosaic-lite.webp"},
+  {id:"J05",route:"#journal",page:"木作志",selector:"#page-journal .journal-topic:nth-child(3)",title:"木作志卡片：从森林到家",asset:"journal/home-hero-forest-door-lite.webp"},
   {id:"J06",route:"#journal",page:"木作志",selector:"#page-journal .journal-topic:nth-child(4)",title:"木作志卡片：工艺手记",asset:"journal/touch-wood.webp"},
   {id:"J07",route:"#journal",page:"木作志",selector:"#page-journal .journal-topic:nth-child(5)",title:"木作志卡片：全屋木作系统",asset:"journal/system-section-house.webp"},
 {id:"C01",route:"#cases",page:"铺装参考库",selector:"#caseSpaceGallery [data-space-id='living-hero']",title:"铺装参考：木入客厅",asset:"journal/paving-reference/ref-living-hero.webp"},
@@ -1771,7 +1771,7 @@ function initCraftPage(){
     'journal/craft-parquet-system.webp','journal/craft-stone-board.webp','partners/ciranova.jpg','partners/sherwin.jpg',
     'partners/bona.png','media/motion-atelier-02.mp4','journal/wood-art.webp','journal/material-blue-floor.webp',
     'journal/craft-section-shelf.webp','journal/craft-face-grain.webp','journal/craft-floor-face.webp','journal/craft-night-plank.webp',
-    'journal/craft-oriental-card.webp','journal/craft-ring-section.webp','journal/craft-human-wood.webp','journal/craft-wood-portrait-art.webp'
+    'journal/craft-oriental-card-lite.webp','journal/craft-ring-section-lite.webp','journal/craft-human-wood.webp','journal/craft-wood-portrait-art.webp'
   ];
   var craftTags=['LOCK','COATING','COLOR','SURFACE','MATERIAL','STABILITY','JOINERY','ECO'];
   craftData.forEach(function(item,i){
@@ -1830,6 +1830,18 @@ document.addEventListener('DOMContentLoaded',function(){
         heroVideo.style.opacity='0';
       });
     }
+    var autoHydrateTimer=null;
+    function scheduleHeroHydration(delay){
+      if(heroVideoHydrated||autoHydrateTimer)return;
+      autoHydrateTimer=window.setTimeout(function(){
+        autoHydrateTimer=null;
+        if(document.hidden)return;
+        hydrateHeroVideo();
+      },delay);
+    }
+    function hydrateHeroVideoSoon(){
+      scheduleHeroHydration(700);
+    }
     if(reduceMotion||coarseMobile||saveData||slowNetwork){
       heroVideo.style.opacity=coarseMobile?'.22':'0';
     }else{
@@ -1847,11 +1859,17 @@ document.addEventListener('DOMContentLoaded',function(){
         if(document.hidden) heroVideo.pause();
         else if(heroVideoHydrated) heroVideo.play().catch(function(){});
       });
-      if('requestIdleCallback' in window){
-        requestIdleCallback(hydrateHeroVideo,{timeout:2600});
-      }else{
-        window.setTimeout(hydrateHeroVideo,1800);
-      }
+      var heroRoot=heroVideo.closest('.hero')||heroVideo;
+      heroRoot.addEventListener('pointerenter',hydrateHeroVideoSoon,{once:true,passive:true});
+      heroRoot.addEventListener('focusin',hydrateHeroVideoSoon,{once:true});
+      window.addEventListener('scroll',function(){scheduleHeroHydration(1800)},{once:true,passive:true});
+      window.addEventListener('load',function(){
+        if('requestIdleCallback' in window){
+          requestIdleCallback(function(){scheduleHeroHydration(9000)},{timeout:12000});
+        }else{
+          scheduleHeroHydration(12000);
+        }
+      },{once:true});
     }
   }
 
@@ -2030,8 +2048,8 @@ function initJournalDirectory(){
 
   var items=[
     {no:"01",category:"space",label:"SPACE",title:"光线先于木色",desc:"用采光判断浅木、中棕与深木的边界。",href:"#cases",img:"journal/space-floor.webp",alt:"木地板空间尺度与光线关系",cta:"看铺装参考"},
-    {no:"02",category:"material",label:"MATERIAL",title:"橡木为什么耐看",desc:"从纹理密度、稳定性和色差控制读懂橡木。",href:"#products",img:"journal/surface-wood-mosaic.webp",alt:"多种木材色泽与纹理拼接",cta:"进入产品"},
-    {no:"03",category:"origin",label:"ORIGIN",title:"从森林到家",desc:"选材、干燥、环保等级与交付之间的关系。",href:"#craft",img:"journal/home-hero-forest-door.webp",alt:"森林与原木进入家的过程",cta:"读工艺"},
+    {no:"02",category:"material",label:"MATERIAL",title:"橡木为什么耐看",desc:"从纹理密度、稳定性和色差控制读懂橡木。",href:"#products",img:"journal/surface-wood-mosaic-lite.webp",alt:"多种木材色泽与纹理拼接",cta:"进入产品"},
+    {no:"03",category:"origin",label:"ORIGIN",title:"从森林到家",desc:"选材、干燥、环保等级与交付之间的关系。",href:"#craft",img:"journal/home-hero-forest-door-lite.webp",alt:"森林与原木进入家的过程",cta:"读工艺"},
     {no:"04",category:"craft",label:"CRAFT",title:"表面触感档案",desc:"薄涂、染色、UV 与脚感如何共同决定质感。",href:"#craft",img:"journal/touch-wood.webp",alt:"木材表面工艺",cta:"看工艺"},
     {no:"05",category:"space",label:"PAVING",title:"通铺长板的秩序",desc:"客餐厅、卧室与廊道如何减少地面切割。",href:"#cases",img:"journal/paving-reference/ref-living-light.webp",alt:"明亮客厅浅木地板铺装参考",cta:"看案例"},
     {no:"06",category:"culture",label:"AESTHETIC",title:"东方留白与木纹",desc:"让地面成为空间的底色，而不是装饰噪音。",href:"#journal",img:"journal/culture-pine-painting.webp",alt:"东方松木画面与木作气质",cta:"继续阅读"},

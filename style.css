@@ -914,7 +914,7 @@ body{background:var(--paper);color:var(--ink);letter-spacing:0}
   color:transparent;
   background:
     linear-gradient(90deg,rgba(255,255,255,.28),rgba(255,255,255,0) 18%,rgba(255,255,255,.2) 36%,rgba(255,255,255,0) 58%),
-    url("journal/surface-wood-mosaic.webp") center 56%/cover,
+    url("journal/surface-wood-mosaic-lite.webp") center 56%/cover,
     linear-gradient(90deg,#5d3b22,#b28247);
   -webkit-background-clip:text;
   background-clip:text;
@@ -4546,7 +4546,7 @@ html,body{overflow-x:hidden}
 
 /* ===== Journal-style Visual Headers ===== */
 #page-products .page-header{
-  --page-head-img:url("journal/surface-wood-mosaic.webp");
+  --page-head-img:url("journal/surface-wood-mosaic-lite.webp");
   --page-head-position:center 48%;
 }
 #page-series .page-header{
@@ -4566,7 +4566,7 @@ html,body{overflow-x:hidden}
   --page-head-position:center 50%;
 }
 #page-contact .page-header{
-  --page-head-img:url("journal/home-hero-forest-door.webp");
+  --page-head-img:url("journal/home-hero-forest-door-lite.webp");
   --page-head-position:center 50%;
 }
 
@@ -5768,7 +5768,7 @@ body.has-scrolled .fixed-action-rail button{opacity:1}
 
 /* ===== Warm Editorial Inner Headers ===== */
 #page-products .page-header{
-  --page-head-img:url("journal/surface-wood-mosaic.webp");
+  --page-head-img:url("journal/surface-wood-mosaic-lite.webp");
   --page-head-position:center;
 }
 #page-series .page-header{
@@ -5784,7 +5784,7 @@ body.has-scrolled .fixed-action-rail button{opacity:1}
   --page-head-position:center 62%;
 }
 #page-journal .page-header{
-  --page-head-img:url("journal/craft-oriental-card.webp");
+  --page-head-img:url("journal/craft-oriental-card-lite.webp");
   --page-head-position:center 54%;
 }
 #page-service .page-header{
@@ -5792,7 +5792,7 @@ body.has-scrolled .fixed-action-rail button{opacity:1}
   --page-head-position:center 50%;
 }
 #page-contact .page-header{
-  --page-head-img:url("journal/home-hero-forest-door.webp");
+  --page-head-img:url("journal/home-hero-forest-door-lite.webp");
   --page-head-position:center 52%;
 }
 
@@ -7839,7 +7839,7 @@ body{background:linear-gradient(180deg,#fbf8f1 0%,#f2eee6 46%,#fbf8f1 100%)!impo
   min-height:calc(100svh - 84px)!important;
   background:
     linear-gradient(180deg,rgba(251,248,241,.96) 0%,rgba(251,248,241,.82) 48%,rgba(23,20,17,.08) 100%),
-    url("journal/home-hero-forest-door.webp") center bottom/cover no-repeat!important;
+    url("journal/home-hero-forest-door-lite.webp") center bottom/cover no-repeat!important;
   border-bottom:1px solid var(--luxe-line)!important;
 }
 
