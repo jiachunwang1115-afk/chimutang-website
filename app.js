@@ -414,6 +414,7 @@ var activeCaseFilters={
 var caseAdvancedOpen=false;
 var PAVING_SELECTION_STORAGE="woodallPavingSelection";
 var PRODUCT_SELECTION_STORAGE="woodallProductSelection";
+var productRenderToken=0;
 
 function countProductsBySeries(series){
   return PRODUCTS.filter(function(p){return p.series===series||p.series.indexOf(series)===0}).length;
@@ -1201,8 +1202,74 @@ function getFiltered(){
   return PRODUCTS.filter(function(p){return matchesProductFilters(p,activeFilters)});
 }
 
+function getProductRenderBatchSize(){
+  return window.matchMedia&&window.matchMedia("(max-width:640px)").matches?18:32;
+}
+
+function scheduleProductRender(callback){
+  if("requestIdleCallback" in window){
+    requestIdleCallback(callback,{timeout:180});
+  }else{
+    window.setTimeout(callback,16);
+  }
+}
+
+function createProductCard(p,index){
+  var card=document.createElement("div");
+  var selected=isProductSelected(p.code);
+  var active=currentProd&&currentProd.code===p.code;
+  var eager=index<8;
+  card.className="pcard action-card"+(active?" active":"")+(selected?" selected":"");
+  card.dataset.productCode=p.code;
+  card.setAttribute("role","button");
+  card.setAttribute("tabindex","0");
+  card.setAttribute("aria-label","查看产品 "+p.code+" "+p.wood+" 详情");
+  card.innerHTML='<img src="'+escapeHtml(p.img_b_thumb)+'" loading="'+(eager?"eager":"lazy")+'" fetchpriority="'+(eager?"high":"low")+'" decoding="async" alt="'+escapeHtml(p.code+' '+p.wood+' 木地板纹理')+'"><span class="pname">'+escapeHtml(p.code)+' · '+escapeHtml(p.wood)+'</span><button class="product-save-chip" type="button" data-product-save="'+escapeHtml(p.code)+'" aria-pressed="'+(selected?"true":"false")+'" aria-label="'+(selected?"已加入选材夹，点击移除":"加入选材夹")+'">'+renderProductSaveIcon(selected)+'</button>';
+  card.onclick=function(){selectProd(p)};
+  var saveBtn=card.querySelector("[data-product-save]");
+  if(saveBtn){
+    saveBtn.onclick=function(e){
+      e.preventDefault();
+      e.stopPropagation();
+      toggleProductSelection(p.code);
+    };
+  }
+  card.onpointerenter=function(){warmProductImages(p,1)};
+  card.onfocus=function(){warmProductImages(p,1)};
+  card.onkeydown=function(e){if(e.key==="Enter"||e.key===" "){e.preventDefault();selectProd(p)}};
+  return card;
+}
+
+function updateProductCardStates(){
+  document.querySelectorAll("#prodGrid .pcard").forEach(function(card){
+    var code=card.dataset.productCode;
+    var active=!!(currentProd&&currentProd.code===code);
+    var selected=isProductSelected(code);
+    card.classList.toggle("active",active);
+    card.classList.toggle("selected",selected);
+    var btn=card.querySelector("[data-product-save]");
+    if(btn)setProductSaveButton(btn,selected);
+  });
+}
+
+function appendProductCards(el,list,start,token){
+  if(token!==productRenderToken)return;
+  var batch=getProductRenderBatchSize();
+  var end=Math.min(start+batch,list.length);
+  var frag=document.createDocumentFragment();
+  for(var i=start;i<end;i++){
+    frag.appendChild(createProductCard(list[i],i));
+  }
+  el.appendChild(frag);
+  updateProductCardStates();
+  if(end<list.length){
+    scheduleProductRender(function(){appendProductCards(el,list,end,token)});
+  }
+}
+
 function buildProds(){
   var el=document.getElementById("prodGrid");el.innerHTML="";
+  productRenderToken++;
   updateFilterSummary();
   if(!PRODUCTS.length){
     document.getElementById("prodCount").textContent="正在加载产品";
@@ -1215,28 +1282,7 @@ function buildProds(){
     el.innerHTML='<div class="prod-empty"><span>NO RESULT</span><h3>没有找到匹配产品</h3><p>可以清除筛选重新浏览，或直接联系管家为您推荐合适系列。</p><div class="page-cta"><button type="button" class="btn-primary" onclick="clearProductFilters()">清除筛选</button><a href="#contact" class="btn-secondary">联系管家</a></div></div>';
     return;
   }
-  list.forEach(function(p){
-    var card=document.createElement("div");
-    var selected=isProductSelected(p.code);
-    card.className="pcard action-card"+(currentProd&&currentProd.code===p.code?" active":"")+(selected?" selected":"");
-    card.setAttribute("role","button");
-    card.setAttribute("tabindex","0");
-    card.setAttribute("aria-label","查看产品 "+p.code+" "+p.wood+" 详情");
-    card.innerHTML='<img src="'+p.img_b_thumb+'" loading="lazy" decoding="async" alt="'+p.code+' '+p.wood+' 木地板纹理"><span class="pname">'+p.code+' · '+p.wood+'</span><button class="product-save-chip" type="button" data-product-save="'+escapeHtml(p.code)+'" aria-pressed="'+(selected?"true":"false")+'" aria-label="'+(selected?"已加入选材夹，点击移除":"加入选材夹")+'">'+renderProductSaveIcon(selected)+'</button>';
-    card.onclick=function(){selectProd(p)};
-    var saveBtn=card.querySelector("[data-product-save]");
-    if(saveBtn){
-      saveBtn.onclick=function(e){
-        e.preventDefault();
-        e.stopPropagation();
-        toggleProductSelection(p.code);
-      };
-    }
-    card.onpointerenter=function(){warmProductImages(p,1)};
-    card.onfocus=function(){warmProductImages(p,1)};
-    card.onkeydown=function(e){if(e.key==="Enter"||e.key===" "){e.preventDefault();selectProd(p)}};
-    el.appendChild(card);
-  });
+  appendProductCards(el,list,0,productRenderToken);
   updatePavingSelectionUI();
 }
 
@@ -1385,7 +1431,7 @@ function initMobileFilterToggle(){
 
 function selectProd(p){
   currentProd=p;
-  buildProds();
+  updateProductCardStates();
   openDrawer(p);
 }
 
@@ -1422,7 +1468,7 @@ function drawerNavPrev(){
   if(!currentProd||list.length===0)return;
   var idx=-1;
   for(var i=0;i<list.length;i++){if(list[i].code===currentProd.code){idx=i;break;}}
-  if(idx>0){currentProd=list[idx-1];showProductInDrawer(currentProd);updateDrawerNav();}
+  if(idx>0){currentProd=list[idx-1];showProductInDrawer(currentProd);updateDrawerNav();updateProductCardStates();}
 }
 
 function drawerNavNext(){
@@ -1430,7 +1476,7 @@ function drawerNavNext(){
   if(!currentProd||list.length===0)return;
   var idx=-1;
   for(var i=0;i<list.length;i++){if(list[i].code===currentProd.code){idx=i;break;}}
-  if(idx<list.length-1){currentProd=list[idx+1];showProductInDrawer(currentProd);updateDrawerNav();}
+  if(idx<list.length-1){currentProd=list[idx+1];showProductInDrawer(currentProd);updateDrawerNav();updateProductCardStates();}
 }
 
 function updateDrawerNav(){
