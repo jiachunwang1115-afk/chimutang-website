@@ -1908,6 +1908,8 @@ var muchiInitialized=false;
 var muchiActiveCategory='all';
 var muchiReturnScrollY=0;
 var muchiReaderArticleId='';
+var muchiDataLoadPromise=null;
+var MUCHI_DATA_SRC='journal/muchi_articles_data.js?v=asset-fallback-2';
 
 function escapeHTML(value){
   return String(value||'').replace(/[&<>"']/g,function(ch){
@@ -1921,6 +1923,63 @@ function formatMuchiDate(date){
 
 function getMuchiData(){
   return window.MUCHI_ARTICLES_DATA||{collection:{},categories:[],articles:[]};
+}
+
+function setMuchiLoadingState(message,isError){
+  var featured=document.getElementById('muchiFeatured');
+  var tabs=document.getElementById('muchiTabs');
+  var grid=document.getElementById('muchiGrid');
+  var count=document.getElementById('muchiCount');
+  var text=message||'木作志加载中...';
+  if(featured&&!window.MUCHI_ARTICLES_DATA){
+    featured.innerHTML='<div class="muchi-loading'+(isError?' error':'')+'">'+escapeHTML(text)+'</div>';
+  }
+  if(tabs&&!window.MUCHI_ARTICLES_DATA) tabs.innerHTML='';
+  if(count&&!window.MUCHI_ARTICLES_DATA) count.textContent=isError?'暂时无法读取目录':'正在读取目录';
+  if(grid&&!window.MUCHI_ARTICLES_DATA){
+    grid.innerHTML='<div class="muchi-loading'+(isError?' error':'')+'">'+escapeHTML(text)+'</div>';
+  }
+}
+
+function ensureMuchiDataLoaded(callback){
+  if(window.MUCHI_ARTICLES_DATA){
+    if(callback)callback();
+    return;
+  }
+  setMuchiLoadingState('木作志加载中...');
+  if(!muchiDataLoadPromise){
+    muchiDataLoadPromise=new Promise(function(resolve,reject){
+      var existing=document.querySelector('script[data-muchi-data]');
+      if(existing){
+        if(existing.getAttribute('data-loaded')==='true'){
+          resolve();
+          return;
+        }
+        existing.parentNode.removeChild(existing);
+      }
+      var script=document.createElement('script');
+      script.src=MUCHI_DATA_SRC;
+      script.async=true;
+      script.defer=true;
+      script.setAttribute('data-muchi-data','true');
+      script.onload=function(){
+        script.setAttribute('data-loaded','true');
+        resolve();
+      };
+      script.onerror=function(){
+        if(script.parentNode)script.parentNode.removeChild(script);
+        reject(new Error('muchi data failed'));
+      };
+      document.body.appendChild(script);
+    }).catch(function(error){
+      muchiDataLoadPromise=null;
+      setMuchiLoadingState('木作志目录暂时加载失败，请刷新后重试。',true);
+      throw error;
+    });
+  }
+  muchiDataLoadPromise.then(function(){
+    if(callback)callback();
+  }).catch(function(){});
 }
 
 function getMuchiSlug(article){
@@ -1941,16 +2000,20 @@ function getMuchiCategoryCounts(data){
 }
 
 function initJournalPage(hash){
-  if(!muchiInitialized){
-    renderMuchiColumn();
-    bindMuchiReader();
-    muchiInitialized=true;
-  }
-  if(hash&&hash.indexOf('#journal/muchi/')===0){
-    openMuchiArticle(hash.replace('#journal/muchi/',''));
-  }else{
-    closeMuchiReader(false);
-  }
+  ensureMuchiDataLoaded(function(){
+    if(getBaseHash(window.location.hash||'#home')!=='#journal')return;
+    if(!muchiInitialized){
+      renderMuchiColumn();
+      bindMuchiReader();
+      muchiInitialized=true;
+    }
+    var targetHash=hash||window.location.hash||'#journal';
+    if(targetHash&&targetHash.indexOf('#journal/muchi/')===0){
+      openMuchiArticle(targetHash.replace('#journal/muchi/',''));
+    }else{
+      closeMuchiReader(false);
+    }
+  });
 }
 
 function renderMuchiColumn(){

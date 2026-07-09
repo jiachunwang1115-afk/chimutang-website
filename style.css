@@ -10580,6 +10580,25 @@ body{
   border-top:1px solid rgba(31,28,25,.14);
 }
 
+.muchi-loading{
+  min-height:clamp(120px,16vw,180px);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:28px;
+  border-bottom:1px solid rgba(31,28,25,.14);
+  background:rgba(255,253,248,.72);
+  color:rgba(87,52,28,.72)!important;
+  font-size:14px;
+  letter-spacing:.08em;
+  text-align:center;
+}
+
+.muchi-loading.error{
+  color:#7a3528!important;
+  background:rgba(255,247,241,.9);
+}
+
 .muchi-issue-row{
   display:grid;
   grid-template-columns:120px 150px minmax(0,1fr) 72px;
