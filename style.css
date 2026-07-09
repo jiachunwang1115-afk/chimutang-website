@@ -12727,3 +12727,50 @@ body{
   visibility:visible!important;
   transition-delay:0s!important;
 }
+
+/* ===== Offscreen render budget guard ===== */
+@supports (content-visibility:auto){
+  .pcard,
+  .space-card,
+  .space-feature-card,
+  .space-gallery-card,
+  .journal-index-card,
+  .muchi-issue-row,
+  .journal-topic,
+  .home-journal-card,
+  .series-card,
+  .wood-family-card,
+  .craft-item,
+  .detail-card,
+  .service-card,
+  .phase-card,
+  .contact-card,
+  .case-card{
+    content-visibility:auto;
+  }
+
+  .pcard{
+    contain-intrinsic-size:auto 280px;
+  }
+
+  .space-card,
+  .space-feature-card,
+  .space-gallery-card,
+  .journal-topic,
+  .journal-index-card,
+  .home-journal-card,
+  .muchi-issue-row{
+    contain-intrinsic-size:auto 430px;
+  }
+
+  .series-card,
+  .wood-family-card,
+  .craft-item,
+  .detail-card,
+  .service-card,
+  .phase-card,
+  .contact-card,
+  .case-card{
+    contain-intrinsic-size:auto 340px;
+  }
+}
