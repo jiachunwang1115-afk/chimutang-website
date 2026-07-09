@@ -1977,7 +1977,7 @@ var muchiActiveCategory='all';
 var muchiReturnScrollY=0;
 var muchiReaderArticleId='';
 var muchiDataLoadPromise=null;
-var MUCHI_DATA_SRC='journal/muchi_articles_data.min.js?v=asset-fallback-3';
+var MUCHI_DATA_SRC='journal/muchi_articles_data.min.js?v=muchi-editorial-all-1';
 
 function escapeHTML(value){
   return String(value||'').replace(/[&<>"']/g,function(ch){

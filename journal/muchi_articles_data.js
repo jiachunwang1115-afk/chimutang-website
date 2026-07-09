@@ -84,8 +84,8 @@ window.MUCHI_ARTICLES_DATA = {
       "excerpt": "从萌芽、成材到腐朽回归土壤，读懂一棵树的一生，才能真正读懂一块原木的来处。",
       "route": "#journal/muchi/benyuan-01",
       "cover": {
-        "file": "muchi-benyuan-01-cover.jpg",
-        "path": "journal/muchi-library/article-cover/muchi-benyuan-01-cover.jpg",
+        "file": "muchi-benyuan-01-cover-editorial-1.jpg",
+        "path": "journal/muchi-library/article-cover/muchi-benyuan-01-cover-editorial-1.jpg",
         "alt": "森林幼树与倒木共同呈现树木生命循环",
         "idea": "a quiet forest floor after rain with young saplings, mature trunks, fallen deadwood and visible rings, showing the full life cycle of a tree",
         "keywords": "从种子到枯木，一棵树完整的自然生长宿命",
@@ -116,7 +116,7 @@ window.MUCHI_ARTICLES_DATA = {
       "inlineImages": [
         {
           "id": "benyuan-01-inline-01",
-          "path": "journal/muchi-library/article-inline/muchi-benyuan-01-inline-01.jpg",
+          "path": "journal/muchi-library/article-inline/muchi-benyuan-01-inline-editorial-1.jpg",
           "alt": "树木年轮截面与萌芽枝叶的生命时间",
           "caption": "从萌芽到枯木，树的每一段生命都被年轮和材色悄悄记录。",
           "afterParagraph": 3,
@@ -140,8 +140,8 @@ window.MUCHI_ARTICLES_DATA = {
       "excerpt": "跳出手感软硬的误区，从阔叶乔木与针叶树的植物学分类，重新理解硬木与软木。",
       "route": "#journal/muchi/benyuan-02",
       "cover": {
-        "file": "muchi-benyuan-02-cover.jpg",
-        "path": "journal/muchi-library/article-cover/muchi-benyuan-02-cover.jpg",
+        "file": "muchi-benyuan-02-cover-editorial-1.jpg",
+        "path": "journal/muchi-library/article-cover/muchi-benyuan-02-cover-editorial-1.jpg",
         "alt": "阔叶木与针叶木样本并置的植物学比较",
         "idea": "botanical wood study table with broadleaf hardwood samples, conifer softwood samples, leaves and needles arranged in a precise editorial still life",
         "keywords": "硬木与软木，植物学层面的木材界定标准",
@@ -172,7 +172,7 @@ window.MUCHI_ARTICLES_DATA = {
       "inlineImages": [
         {
           "id": "benyuan-02-inline-01",
-          "path": "journal/muchi-library/article-inline/muchi-benyuan-02-inline-01.jpg",
+          "path": "journal/muchi-library/article-inline/muchi-benyuan-02-inline-editorial-1.jpg",
           "alt": "硬木软木横截面导管结构对比",
           "caption": "硬与软的背后，是阔叶与针叶两套生长结构的差异。",
           "afterParagraph": 3,
@@ -196,8 +196,8 @@ window.MUCHI_ARTICLES_DATA = {
       "excerpt": "木纹是一棵树的生长轨迹日记，气候、地形、外力与切面共同写下天然肌理。",
       "route": "#journal/muchi/benyuan-03",
       "cover": {
-        "file": "muchi-benyuan-03-cover.jpg",
-        "path": "journal/muchi-library/article-cover/muchi-benyuan-03-cover.jpg",
+        "file": "muchi-benyuan-03-cover-editorial-1.jpg",
+        "path": "journal/muchi-library/article-cover/muchi-benyuan-03-cover-editorial-1.jpg",
         "alt": "天然木纹样板呈现山水纹虎斑纹鸟眼纹",
         "idea": "premium wood veneer boards with mountain-like grain, tiger stripe figure and birdseye figure arranged like a quiet material archive",
         "keywords": "山水纹、虎斑纹、鸟眼纹, 天然木纹的自然形成原理",
@@ -227,7 +227,7 @@ window.MUCHI_ARTICLES_DATA = {
       "inlineImages": [
         {
           "id": "benyuan-03-inline-01",
-          "path": "journal/muchi-library/article-inline/muchi-benyuan-03-inline-01.jpg",
+          "path": "journal/muchi-library/article-inline/muchi-benyuan-03-inline-editorial-1.jpg",
           "alt": "特殊天然木纹的近景肌理",
           "caption": "特殊木纹来自自然生长的偏差，也成就了每一块木料的独本性。",
           "afterParagraph": 2,
@@ -251,8 +251,8 @@ window.MUCHI_ARTICLES_DATA = {
       "excerpt": "木疤不是简单缺陷，而是树木侧芽、伤口与自我愈合留下的生命印记。",
       "route": "#journal/muchi/benyuan-04",
       "cover": {
-        "file": "muchi-benyuan-04-cover.jpg",
-        "path": "journal/muchi-library/article-cover/muchi-benyuan-04-cover.jpg",
+        "file": "muchi-benyuan-04-cover-editorial-1.jpg",
+        "path": "journal/muchi-library/article-cover/muchi-benyuan-04-cover-editorial-1.jpg",
         "alt": "原木树疤与结节的自然修复痕迹",
         "idea": "close editorial photograph of a tree trunk with knots, healed scars and bark textures in natural forest light",
         "keywords": "木疤皆天造, 深度解析树木结疤的成因，活结与死结",
@@ -282,7 +282,7 @@ window.MUCHI_ARTICLES_DATA = {
       "inlineImages": [
         {
           "id": "benyuan-04-inline-01",
-          "path": "journal/muchi-library/article-inline/muchi-benyuan-04-inline-01.jpg",
+          "path": "journal/muchi-library/article-inline/muchi-benyuan-04-inline-editorial-1.jpg",
           "alt": "活结死结木板截面细节",
           "caption": "树疤记录了树木如何修复自己，也提示木作该如何判断风险与美感。",
           "afterParagraph": 2,
@@ -306,8 +306,8 @@ window.MUCHI_ARTICLES_DATA = {
       "excerpt": "含水率决定木头的湿胀干缩，也是变形、开裂、起翘背后的底层原因。",
       "route": "#journal/muchi/benyuan-05",
       "cover": {
-        "file": "muchi-benyuan-05-cover.jpg",
-        "path": "journal/muchi-library/article-cover/muchi-benyuan-05-cover.jpg",
+        "file": "muchi-benyuan-05-cover-editorial-1.jpg",
+        "path": "journal/muchi-library/article-cover/muchi-benyuan-05-cover-editorial-1.jpg",
         "alt": "木材含水率与空气湿度形成稳定关系",
         "idea": "wood drying room with stacked timber, soft misty side light, a hygrometer on the bench and subtle moisture in the air",
         "keywords": "木材含水率, 水汽如何决定一块原木的形态与稳定性",
@@ -337,7 +337,7 @@ window.MUCHI_ARTICLES_DATA = {
       "inlineImages": [
         {
           "id": "benyuan-05-inline-01",
-          "path": "journal/muchi-library/article-inline/muchi-benyuan-05-inline-01.jpg",
+          "path": "journal/muchi-library/article-inline/muchi-benyuan-05-inline-editorial-1.jpg",
           "alt": "木材端面水分与纤维方向细节",
           "caption": "水分进出木纤维的速度，决定了一块木料最终能否安静成形。",
           "afterParagraph": 2,
@@ -361,8 +361,8 @@ window.MUCHI_ARTICLES_DATA = {
       "excerpt": "一方水土养一木，产区气候、海拔、土壤与降水共同决定木材的先天底色。",
       "route": "#journal/muchi/benyuan-06",
       "cover": {
-        "file": "muchi-benyuan-06-cover.jpg",
-        "path": "journal/muchi-library/article-cover/muchi-benyuan-06-cover.jpg",
+        "file": "muchi-benyuan-06-cover-editorial-1.jpg",
+        "path": "journal/muchi-library/article-cover/muchi-benyuan-06-cover-editorial-1.jpg",
         "alt": "不同气候产区木材样本与年轮差异",
         "idea": "editorial map-like still life of timber samples from cold mountain, humid valley and dry plateau climates, with leaves, soil and ring sections",
         "keywords": "产区气候，如何决定木材先天本质特性",
@@ -393,7 +393,7 @@ window.MUCHI_ARTICLES_DATA = {
       "inlineImages": [
         {
           "id": "benyuan-06-inline-01",
-          "path": "journal/muchi-library/article-inline/muchi-benyuan-06-inline-01.jpg",
+          "path": "journal/muchi-library/article-inline/muchi-benyuan-06-inline-editorial-1.jpg",
           "alt": "气候差异形成不同年轮密度",
           "caption": "气候不是背景，而是木材出生时就带来的性格。",
           "afterParagraph": 3,
@@ -417,8 +417,8 @@ window.MUCHI_ARTICLES_DATA = {
       "excerpt": "温度同样会改变原木结构状态，长期冷热循环会积累内应力与形变风险。",
       "route": "#journal/muchi/benyuan-07",
       "cover": {
-        "file": "muchi-benyuan-07-cover.jpg",
-        "path": "journal/muchi-library/article-cover/muchi-benyuan-07-cover.jpg",
+        "file": "muchi-benyuan-07-cover-editorial-1.jpg",
+        "path": "journal/muchi-library/article-cover/muchi-benyuan-07-cover-editorial-1.jpg",
         "alt": "木板伸缩缝与温湿变化下的物理运动",
         "idea": "premium wood floor and loose planks in a calm studio, showing careful expansion gaps and seasonal light across the boards",
         "keywords": "原木物理特性, 热胀冷缩底层逻辑",
@@ -449,7 +449,7 @@ window.MUCHI_ARTICLES_DATA = {
       "inlineImages": [
         {
           "id": "benyuan-07-inline-01",
-          "path": "journal/muchi-library/article-inline/muchi-benyuan-07-inline-01.jpg",
+          "path": "journal/muchi-library/article-inline/muchi-benyuan-07-inline-editorial-1.jpg",
           "alt": "木材热胀冷缩伸缩缝细节",
           "caption": "木材会随温湿变化轻微运动，结构分寸正是为这种运动预留空间。",
           "afterParagraph": 3,
@@ -473,8 +473,8 @@ window.MUCHI_ARTICLES_DATA = {
       "excerpt": "树干从外到内层次分明，心材与边材在颜色、稳定性和使用场景上差异明显。",
       "route": "#journal/muchi/benyuan-08",
       "cover": {
-        "file": "muchi-benyuan-08-cover.jpg",
-        "path": "journal/muchi-library/article-cover/muchi-benyuan-08-cover.jpg",
+        "file": "muchi-benyuan-08-cover-editorial-1.jpg",
+        "path": "journal/muchi-library/article-cover/muchi-benyuan-08-cover-editorial-1.jpg",
         "alt": "树干心材边材颜色结构差异",
         "idea": "large clean tree trunk cross-section in a quiet studio, clearly showing dark heartwood and pale sapwood under soft natural light",
         "keywords": "心材VS边材, 树木躯干结构与属性差异",
@@ -505,7 +505,7 @@ window.MUCHI_ARTICLES_DATA = {
       "inlineImages": [
         {
           "id": "benyuan-08-inline-01",
-          "path": "journal/muchi-library/article-inline/muchi-benyuan-08-inline-01.jpg",
+          "path": "journal/muchi-library/article-inline/muchi-benyuan-08-inline-editorial-1.jpg",
           "alt": "心材边材分界线与导管结构",
           "caption": "心材与边材的分界，是树木把生长、输送与成熟分层保存的方式。",
           "afterParagraph": 3,
@@ -529,8 +529,8 @@ window.MUCHI_ARTICLES_DATA = {
       "excerpt": "从树种结构、导管、纹理与力学性能，区分阔叶木和针叶木的民用价值。",
       "route": "#journal/muchi/bianmu-01",
       "cover": {
-        "file": "muchi-bianmu-01-cover.jpg",
-        "path": "journal/muchi-library/article-cover/muchi-bianmu-01-cover.jpg",
+        "file": "muchi-bianmu-01-cover-editorial-1.jpg",
+        "path": "journal/muchi-library/article-cover/muchi-bianmu-01-cover-editorial-1.jpg",
         "alt": "阔叶木与针叶木材料档案桌面",
         "idea": "wood species archive table comparing broadleaf hardwood blocks and conifer softwood blocks with leaf and needle botanical cues",
         "keywords": "阔叶木VS针叶木, 两大主流民用木材底层属性区分",
@@ -561,7 +561,7 @@ window.MUCHI_ARTICLES_DATA = {
       "inlineImages": [
         {
           "id": "bianmu-01-inline-01",
-          "path": "journal/muchi-library/article-inline/muchi-bianmu-01-inline-01.jpg",
+          "path": "journal/muchi-library/article-inline/muchi-bianmu-01-inline-editorial-1.jpg",
           "alt": "阔叶木针叶木端面结构对比",
           "caption": "阔叶与针叶的植物差别，最终会落到纹理、密度和使用选择上。",
           "afterParagraph": 3,
@@ -585,8 +585,8 @@ window.MUCHI_ARTICLES_DATA = {
       "excerpt": "用材种特征建立识别能力，看懂黑胡桃、橡木、紫檀、香樟各自的纹理与气质。",
       "route": "#journal/muchi/bianmu-02",
       "cover": {
-        "file": "muchi-bianmu-02-cover.jpg",
-        "path": "journal/muchi-library/article-cover/muchi-bianmu-02-cover.jpg",
+        "file": "muchi-bianmu-02-cover-editorial-1.jpg",
+        "path": "journal/muchi-library/article-cover/muchi-bianmu-02-cover-editorial-1.jpg",
         "alt": "黑胡桃橡木紫檀香樟四类木材样本",
         "idea": "premium material still life of walnut, oak, rosewood and camphor wood samples arranged as a refined wood species archive",
         "keywords": "黑胡桃/橡木/紫檀/香樟, 热门名贵木材原生特征全解析",
@@ -618,7 +618,7 @@ window.MUCHI_ARTICLES_DATA = {
       "inlineImages": [
         {
           "id": "bianmu-02-inline-01",
-          "path": "journal/muchi-library/article-inline/muchi-bianmu-02-inline-01.jpg",
+          "path": "journal/muchi-library/article-inline/muchi-bianmu-02-inline-editorial-1.jpg",
           "alt": "名贵木材色泽纹理端面对比",
           "caption": "真正的辨木，是让色泽、纹理、油性与重量一起说话。",
           "afterParagraph": 3,
@@ -642,8 +642,8 @@ window.MUCHI_ARTICLES_DATA = {
       "excerpt": "天然原木与人工合成木料的差异，不只在外观，更在纤维结构和生命肌理。",
       "route": "#journal/muchi/bianmu-03",
       "cover": {
-        "file": "muchi-bianmu-03-cover.jpg",
-        "path": "journal/muchi-library/article-cover/muchi-bianmu-03-cover.jpg",
+        "file": "muchi-bianmu-03-cover-editorial-1.jpg",
+        "path": "journal/muchi-library/article-cover/muchi-bianmu-03-cover-editorial-1.jpg",
         "alt": "天然原木与人工合成木料结构对比",
         "idea": "editorial comparison of solid wood board, plywood, MDF and laminated engineered board, clean cross-sections on a neutral workbench",
         "keywords": "天然原木vs人工合成木料, 材质结构本质区别科普",
@@ -674,7 +674,7 @@ window.MUCHI_ARTICLES_DATA = {
       "inlineImages": [
         {
           "id": "bianmu-03-inline-01",
-          "path": "journal/muchi-library/article-inline/muchi-bianmu-03-inline-01.jpg",
+          "path": "journal/muchi-library/article-inline/muchi-bianmu-03-inline-editorial-1.jpg",
           "alt": "天然木纤维与合成板层结构细节",
           "caption": "天然与合成的差别，藏在剖面结构而不是表面纹样里。",
           "afterParagraph": 3,
@@ -698,8 +698,8 @@ window.MUCHI_ARTICLES_DATA = {
       "excerpt": "不同改性工艺改变木材含水率、耐候性、防腐性与颜色，也改变适用场景。",
       "route": "#journal/muchi/bianmu-04",
       "cover": {
-        "file": "muchi-bianmu-04-cover.jpg",
-        "path": "journal/muchi-library/article-cover/muchi-bianmu-04-cover.jpg",
+        "file": "muchi-bianmu-04-cover-editorial-1.jpg",
+        "path": "journal/muchi-library/article-cover/muchi-bianmu-04-cover-editorial-1.jpg",
         "alt": "碳化木防腐木烘干木三类改性木材",
         "idea": "three modified wood samples on a workshop bench: charred black timber, treated outdoor wood, kiln-dried pale board, premium editorial lighting",
         "keywords": "碳化木、防腐木、烘干木, 工艺改性对木材属性的改变",
@@ -730,7 +730,7 @@ window.MUCHI_ARTICLES_DATA = {
       "inlineImages": [
         {
           "id": "bianmu-04-inline-01",
-          "path": "journal/muchi-library/article-inline/muchi-bianmu-04-inline-01.jpg",
+          "path": "journal/muchi-library/article-inline/muchi-bianmu-04-inline-editorial-1.jpg",
           "alt": "木材碳化防腐烘干工艺截面对比",
           "caption": "工艺改性的意义，是把木材推向更明确的使用场景。",
           "afterParagraph": 3,
@@ -754,8 +754,8 @@ window.MUCHI_ARTICLES_DATA = {
       "excerpt": "木香来自树脂、挥发性物质和材种成分，是木材识别中容易被忽略的线索。",
       "route": "#journal/muchi/bianmu-05",
       "cover": {
-        "file": "muchi-bianmu-05-cover.jpg",
-        "path": "journal/muchi-library/article-cover/muchi-bianmu-05-cover.jpg",
+        "file": "muchi-bianmu-05-cover-editorial-1.jpg",
+        "path": "journal/muchi-library/article-cover/muchi-bianmu-05-cover-editorial-1.jpg",
         "alt": "香樟雪松等带香木材与刨花静物",
         "idea": "quiet still life of aromatic wood shavings, camphor and cedar blocks, small glass cloche lifting scent in soft daylight",
         "keywords": "木材气味从何而来？各类原木独有香气的物质成因",
@@ -786,7 +786,7 @@ window.MUCHI_ARTICLES_DATA = {
       "inlineImages": [
         {
           "id": "bianmu-05-inline-01",
-          "path": "journal/muchi-library/article-inline/muchi-bianmu-05-inline-01.jpg",
+          "path": "journal/muchi-library/article-inline/muchi-bianmu-05-inline-editorial-1.jpg",
           "alt": "带香原木刨花与树脂细节",
           "caption": "木香来自可挥发的树脂与油性物质，是木材身份的一部分。",
           "afterParagraph": 3,
@@ -810,8 +810,8 @@ window.MUCHI_ARTICLES_DATA = {
       "excerpt": "密度影响重量、硬度、稳定性和触感，是理解木性的核心物理指标之一。",
       "route": "#journal/muchi/bianmu-06",
       "cover": {
-        "file": "muchi-bianmu-06-cover.jpg",
-        "path": "journal/muchi-library/article-cover/muchi-bianmu-06-cover.jpg",
+        "file": "muchi-bianmu-06-cover-editorial-1.jpg",
+        "path": "journal/muchi-library/article-cover/muchi-bianmu-06-cover-editorial-1.jpg",
         "alt": "不同密度木材样本与天平比较",
         "idea": "premium studio still life with dense dark wood and light pale wood blocks on a balance scale, emphasizing weight and hardness",
         "keywords": "木材密度详解, 为什么不同木头轻重、硬度差距巨大？",
@@ -842,7 +842,7 @@ window.MUCHI_ARTICLES_DATA = {
       "inlineImages": [
         {
           "id": "bianmu-06-inline-01",
-          "path": "journal/muchi-library/article-inline/muchi-bianmu-06-inline-01.jpg",
+          "path": "journal/muchi-library/article-inline/muchi-bianmu-06-inline-editorial-1.jpg",
           "alt": "轻重木材端面与密度差异",
           "caption": "同样体积下的轻重差异，来自木纤维排列与细胞空隙的不同。",
           "afterParagraph": 3,
@@ -866,8 +866,8 @@ window.MUCHI_ARTICLES_DATA = {
       "excerpt": "从树干到板材，剖切方式决定纹理呈现，也影响后续稳定性和用材效率。",
       "route": "#journal/muchi/gongfa-01",
       "cover": {
-        "file": "muchi-gongfa-01-cover.jpg",
-        "path": "journal/muchi-library/article-cover/muchi-gongfa-01-cover.jpg",
+        "file": "muchi-gongfa-01-cover-editorial-1.jpg",
+        "path": "journal/muchi-library/article-cover/muchi-gongfa-01-cover-editorial-1.jpg",
         "alt": "原木剖切工艺与板材纹理走向",
         "idea": "sawmill editorial scene with a large log, clean cut slabs, visible growth rings and grain direction, calm natural industrial light",
         "keywords": "原木采伐与树干剖切, 树干拆解基础工艺与物理逻辑",
@@ -898,7 +898,7 @@ window.MUCHI_ARTICLES_DATA = {
       "inlineImages": [
         {
           "id": "gongfa-01-inline-01",
-          "path": "journal/muchi-library/article-inline/muchi-gongfa-01-inline-01.jpg",
+          "path": "journal/muchi-library/article-inline/muchi-gongfa-01-inline-editorial-1.jpg",
           "alt": "径切弦切板材纹理对比",
           "caption": "树干被怎样剖开，会决定木板之后的纹理、稳定和表情。",
           "afterParagraph": 3,
@@ -922,8 +922,8 @@ window.MUCHI_ARTICLES_DATA = {
       "excerpt": "自然阴干与人工窑干各有逻辑，真正关键是让木材含水率适配使用环境。",
       "route": "#journal/muchi/gongfa-02",
       "cover": {
-        "file": "muchi-gongfa-02-cover.jpg",
-        "path": "journal/muchi-library/article-cover/muchi-gongfa-02-cover.jpg",
+        "file": "muchi-gongfa-02-cover-editorial-1.jpg",
+        "path": "journal/muchi-library/article-cover/muchi-gongfa-02-cover-editorial-1.jpg",
         "alt": "自然阴干木料与人工窑干空间对比",
         "idea": "split editorial composition feel: timber stacked in airy shaded yard and warm kiln drying chamber, no text, natural documentary style",
         "keywords": "自然阴干VS人工窑干, 两大木材脱水烘干工艺深度对比",
@@ -954,7 +954,7 @@ window.MUCHI_ARTICLES_DATA = {
       "inlineImages": [
         {
           "id": "gongfa-02-inline-01",
-          "path": "journal/muchi-library/article-inline/muchi-gongfa-02-inline-01.jpg",
+          "path": "journal/muchi-library/article-inline/muchi-gongfa-02-inline-editorial-1.jpg",
           "alt": "木材堆垛阴干与窑干含水控制细节",
           "caption": "脱水不是把水赶走，而是让木材以可控速度接近稳定。",
           "afterParagraph": 3,
@@ -978,8 +978,8 @@ window.MUCHI_ARTICLES_DATA = {
       "excerpt": "削片、砂磨与抛光决定表层触感，让木材从粗胚进入可触摸的生活状态。",
       "route": "#journal/muchi/gongfa-03",
       "cover": {
-        "file": "muchi-gongfa-03-cover.jpg",
-        "path": "journal/muchi-library/article-cover/muchi-gongfa-03-cover.jpg",
+        "file": "muchi-gongfa-03-cover-editorial-1.jpg",
+        "path": "journal/muchi-library/article-cover/muchi-gongfa-03-cover-editorial-1.jpg",
         "alt": "木料砂磨抛光工序与表面肌理",
         "idea": "craft workshop table with hand plane shavings, sanding blocks, polished wooden board and soft raking light revealing surface texture",
         "keywords": "木料精细化加工：削片、砂磨、抛光, 表层肌理加工原理",
@@ -1010,7 +1010,7 @@ window.MUCHI_ARTICLES_DATA = {
       "inlineImages": [
         {
           "id": "gongfa-03-inline-01",
-          "path": "journal/muchi-library/article-inline/muchi-gongfa-03-inline-01.jpg",
+          "path": "journal/muchi-library/article-inline/muchi-gongfa-03-inline-editorial-1.jpg",
           "alt": "砂磨前后木板表面肌理变化",
           "caption": "表层加工让木材从粗粝进入可触摸、可居住的状态。",
           "afterParagraph": 3,
@@ -1034,8 +1034,8 @@ window.MUCHI_ARTICLES_DATA = {
       "excerpt": "榫卯不是复古符号，而是顺应木性、包容伸缩、平衡结构的东方工法。",
       "route": "#journal/muchi/gongfa-04",
       "cover": {
-        "file": "muchi-gongfa-04-cover.jpg",
-        "path": "journal/muchi-library/article-cover/muchi-gongfa-04-cover.jpg",
+        "file": "muchi-gongfa-04-cover-editorial-1.jpg",
+        "path": "journal/muchi-library/article-cover/muchi-gongfa-04-cover-editorial-1.jpg",
         "alt": "传统榫卯结构受力与结构美学",
         "idea": "traditional Chinese joinery assembly on a quiet bench, interlocking beams and columns, visible mortise and tenon shoulders, premium craft photography",
         "keywords": "传统古法木工, 榫卯结构受力原理与结构美学",
@@ -1066,7 +1066,7 @@ window.MUCHI_ARTICLES_DATA = {
       "inlineImages": [
         {
           "id": "gongfa-04-inline-01",
-          "path": "journal/muchi-library/article-inline/muchi-gongfa-04-inline-01.jpg",
+          "path": "journal/muchi-library/article-inline/muchi-gongfa-04-inline-editorial-1.jpg",
           "alt": "榫卯咬合受力细节",
           "caption": "榫卯的结构美，来自木件之间彼此承托的受力秩序。",
           "afterParagraph": 3,
@@ -1090,8 +1090,8 @@ window.MUCHI_ARTICLES_DATA = {
       "excerpt": "现代改性工艺通过温度、化学与结构处理，重塑木材的稳定性与耐候性。",
       "route": "#journal/muchi/gongfa-05",
       "cover": {
-        "file": "muchi-gongfa-05-cover.jpg",
-        "path": "journal/muchi-library/article-cover/muchi-gongfa-05-cover.jpg",
+        "file": "muchi-gongfa-05-cover-editorial-1.jpg",
+        "path": "journal/muchi-library/article-cover/muchi-gongfa-05-cover-editorial-1.jpg",
         "alt": "熏蒸碳化浸胶改性木材实验工艺",
         "idea": "modern wood treatment studio with steamed timber, dark thermally modified boards and resin-treated sample blocks arranged editorially",
         "keywords": "现代改性工艺：熏蒸、碳化、浸胶如何重塑木材属性",
@@ -1122,7 +1122,7 @@ window.MUCHI_ARTICLES_DATA = {
       "inlineImages": [
         {
           "id": "gongfa-05-inline-01",
-          "path": "journal/muchi-library/article-inline/muchi-gongfa-05-inline-01.jpg",
+          "path": "journal/muchi-library/article-inline/muchi-gongfa-05-inline-editorial-1.jpg",
           "alt": "改性木材颜色与结构变化细节",
           "caption": "现代改性工艺把耐候、稳定与颜色变化写入木材内部。",
           "afterParagraph": 3,
@@ -1146,8 +1146,8 @@ window.MUCHI_ARTICLES_DATA = {
       "excerpt": "整板、拼板、指接板背后是稳定性、成本、纹理连续性与使用场景的取舍。",
       "route": "#journal/muchi/gongfa-06",
       "cover": {
-        "file": "muchi-gongfa-06-cover.jpg",
-        "path": "journal/muchi-library/article-cover/muchi-gongfa-06-cover.jpg",
+        "file": "muchi-gongfa-06-cover-editorial-1.jpg",
+        "path": "journal/muchi-library/article-cover/muchi-gongfa-06-cover-editorial-1.jpg",
         "alt": "整板拼板指接板三种木料拼接方式",
         "idea": "three wood panel types arranged in a premium studio: single slab, edge-glued panel and finger-jointed board, clean cross-section visibility",
         "keywords": "木料拼接工艺对比：整板、拼板、指接板工艺原理",
@@ -1179,7 +1179,7 @@ window.MUCHI_ARTICLES_DATA = {
       "inlineImages": [
         {
           "id": "gongfa-06-inline-01",
-          "path": "journal/muchi-library/article-inline/muchi-gongfa-06-inline-01.jpg",
+          "path": "journal/muchi-library/article-inline/muchi-gongfa-06-inline-editorial-1.jpg",
           "alt": "指接板榫齿与拼板胶缝细节",
           "caption": "拼接方式决定了板材如何分担尺寸、稳定与视觉连续性。",
           "afterParagraph": 3,
@@ -1203,8 +1203,8 @@ window.MUCHI_ARTICLES_DATA = {
       "excerpt": "古建筑木结构的智慧，来自承重、防腐、通风与顺应环境的长期实践。",
       "route": "#journal/muchi/qijing-01",
       "cover": {
-        "file": "muchi-qijing-01-cover.jpg",
-        "path": "journal/muchi-library/article-cover/muchi-qijing-01-cover.jpg",
+        "file": "muchi-qijing-01-cover-editorial-1.jpg",
+        "path": "journal/muchi-library/article-cover/muchi-qijing-01-cover-editorial-1.jpg",
         "alt": "古建筑木结构梁柱承重与防腐场景",
         "idea": "traditional timber architecture under eaves, visible beams and columns, raised stone bases preventing moisture, calm architectural photography",
         "keywords": "古建筑木结构, 承重、防腐场景适配底层逻辑",
@@ -1235,7 +1235,7 @@ window.MUCHI_ARTICLES_DATA = {
       "inlineImages": [
         {
           "id": "qijing-01-inline-01",
-          "path": "journal/muchi-library/article-inline/muchi-qijing-01-inline-01.jpg",
+          "path": "journal/muchi-library/article-inline/muchi-qijing-01-inline-editorial-1.jpg",
           "alt": "木柱石础防潮与承重节点",
           "caption": "古建筑的木柱常借石础隔离潮气，也把承重关系清晰落地。",
           "afterParagraph": 3,
@@ -1259,8 +1259,8 @@ window.MUCHI_ARTICLES_DATA = {
       "excerpt": "地板与家具对木材的稳定性、耐磨性、观感和触感要求并不相同。",
       "route": "#journal/muchi/qijing-02",
       "cover": {
-        "file": "muchi-qijing-02-cover.jpg",
-        "path": "journal/muchi-library/article-cover/muchi-qijing-02-cover.jpg",
+        "file": "muchi-qijing-02-cover-editorial-1.jpg",
+        "path": "journal/muchi-library/article-cover/muchi-qijing-02-cover-editorial-1.jpg",
         "alt": "室内木地板与家具用材场景区分",
         "idea": "refined living interior with natural wood floor and solid wood furniture samples, material boards arranged by use case in soft daylight",
         "keywords": "人居室内空间, 用材分类：适配地板VS适配家具的木种甄别",
@@ -1291,7 +1291,7 @@ window.MUCHI_ARTICLES_DATA = {
       "inlineImages": [
         {
           "id": "qijing-02-inline-01",
-          "path": "journal/muchi-library/article-inline/muchi-qijing-02-inline-01.jpg",
+          "path": "journal/muchi-library/article-inline/muchi-qijing-02-inline-editorial-1.jpg",
           "alt": "地板木种与家具木种样板比较",
           "caption": "地板与家具面对的磨耗、触感和结构要求，并不相同。",
           "afterParagraph": 3,
@@ -1315,8 +1315,8 @@ window.MUCHI_ARTICLES_DATA = {
       "excerpt": "吊顶、踢脚线与背景墙看似辅助，却决定空间木作的整体秩序与完成度。",
       "route": "#journal/muchi/qijing-03",
       "cover": {
-        "file": "muchi-qijing-03-cover.jpg",
-        "path": "journal/muchi-library/article-cover/muchi-qijing-03-cover.jpg",
+        "file": "muchi-qijing-03-cover-editorial-1.jpg",
+        "path": "journal/muchi-library/article-cover/muchi-qijing-03-cover-editorial-1.jpg",
         "alt": "室内吊顶踢脚线背景墙木构件一体化",
         "idea": "minimal interior showing wood ceiling detail, skirting board and wood feature wall aligned with a calm floor, premium architectural photography",
         "keywords": "室内软装木构件, 吊顶、踢脚线、背景墙专属适配木材",
@@ -1348,7 +1348,7 @@ window.MUCHI_ARTICLES_DATA = {
       "inlineImages": [
         {
           "id": "qijing-03-inline-01",
-          "path": "journal/muchi-library/article-inline/muchi-qijing-03-inline-01.jpg",
+          "path": "journal/muchi-library/article-inline/muchi-qijing-03-inline-editorial-1.jpg",
           "alt": "踢脚线背景墙木材收口细节",
           "caption": "软装木构件的高级感，常出现在墙地交接和边界收口处。",
           "afterParagraph": 3,
@@ -1372,8 +1372,8 @@ window.MUCHI_ARTICLES_DATA = {
       "excerpt": "不同生活场景需要不同木性，选材要回到日常使用、触感、耐久与养护。",
       "route": "#journal/muchi/qijing-04",
       "cover": {
-        "file": "muchi-qijing-04-cover.jpg",
-        "path": "journal/muchi-library/article-cover/muchi-qijing-04-cover.jpg",
+        "file": "muchi-qijing-04-cover-editorial-1.jpg",
+        "path": "journal/muchi-library/article-cover/muchi-qijing-04-cover-editorial-1.jpg",
         "alt": "全屋木器与木地板选材关系",
         "idea": "warm refined home interior with wood floor, dining table, cabinet and door panels in balanced tones, natural light and lived-in calm",
         "keywords": "日常生活场景，全屋家居木器木材选型逻辑",
@@ -1404,7 +1404,7 @@ window.MUCHI_ARTICLES_DATA = {
       "inlineImages": [
         {
           "id": "qijing-04-inline-01",
-          "path": "journal/muchi-library/article-inline/muchi-qijing-04-inline-01.jpg",
+          "path": "journal/muchi-library/article-inline/muchi-qijing-04-inline-editorial-1.jpg",
           "alt": "家居木器不同部位木材样本",
           "caption": "日常木器的选材，应跟随使用频率、触摸方式和空间气质一起判断。",
           "afterParagraph": 3,
@@ -1428,8 +1428,8 @@ window.MUCHI_ARTICLES_DATA = {
       "excerpt": "雕刻用材既看纹理，也看密度、韧性与下刀反馈，不能只追求名贵。",
       "route": "#journal/muchi/qijing-05",
       "cover": {
-        "file": "muchi-qijing-05-cover.jpg",
-        "path": "journal/muchi-library/article-cover/muchi-qijing-05-cover.jpg",
+        "file": "muchi-qijing-05-cover-editorial-1.jpg",
+        "path": "journal/muchi-library/article-cover/muchi-qijing-05-cover-editorial-1.jpg",
         "alt": "艺术雕刻用木与雕刻刀痕细节",
         "idea": "quiet carving studio with partially carved wooden relief, chisels, dense fine-grain wood block and soft side light",
         "keywords": "艺术雕刻用材, 纹理与密度选材标准",
@@ -1460,7 +1460,7 @@ window.MUCHI_ARTICLES_DATA = {
       "inlineImages": [
         {
           "id": "qijing-05-inline-01",
-          "path": "journal/muchi-library/article-inline/muchi-qijing-05-inline-01.jpg",
+          "path": "journal/muchi-library/article-inline/muchi-qijing-05-inline-editorial-1.jpg",
           "alt": "细密木纹承载雕刻刀痕",
           "caption": "雕刻木材的关键，是让密度支撑细节，让纹理不打断刀路。",
           "afterParagraph": 3,
@@ -1484,8 +1484,8 @@ window.MUCHI_ARTICLES_DATA = {
       "excerpt": "户外用木面对雨水、紫外线与温差，耐候性和养护优先级高于单纯材种价格。",
       "route": "#journal/muchi/qijing-06",
       "cover": {
-        "file": "muchi-qijing-06-cover.jpg",
-        "path": "journal/muchi-library/article-cover/muchi-qijing-06-cover.jpg",
+        "file": "muchi-qijing-06-cover-editorial-1.jpg",
+        "path": "journal/muchi-library/article-cover/muchi-qijing-06-cover-editorial-1.jpg",
         "alt": "户外露台栈道庭院木结构耐候场景",
         "idea": "elegant outdoor wood deck and garden walkway after light rain, visible drainage gaps, durable timber texture, calm landscape photography",
         "keywords": "户外景观用材, 露台、栈道、庭院木结构选材逻辑",
@@ -1516,7 +1516,7 @@ window.MUCHI_ARTICLES_DATA = {
       "inlineImages": [
         {
           "id": "qijing-06-inline-01",
-          "path": "journal/muchi-library/article-inline/muchi-qijing-06-inline-01.jpg",
+          "path": "journal/muchi-library/article-inline/muchi-qijing-06-inline-editorial-1.jpg",
           "alt": "户外木地板排水缝与耐候细节",
           "caption": "户外用木的美感，必须和排水、耐候、通风一起成立。",
           "afterParagraph": 3,
@@ -1540,8 +1540,8 @@ window.MUCHI_ARTICLES_DATA = {
       "excerpt": "潮湿地区用木的核心，是控制水汽交换，从选材、施工到通风防潮共同平衡。",
       "route": "#journal/muchi/qijing-07",
       "cover": {
-        "file": "muchi-qijing-07-cover.jpg",
-        "path": "journal/muchi-library/article-cover/muchi-qijing-07-cover.jpg",
+        "file": "muchi-qijing-07-cover-editorial-1.jpg",
+        "path": "journal/muchi-library/article-cover/muchi-qijing-07-cover-editorial-1.jpg",
         "alt": "南方潮湿居家环境中的防潮木作",
         "idea": "southern humid home interior after rain, wood floor near open window, subtle moisture in the air, raised furniture feet and calm ventilation",
         "keywords": "潮湿地域居家用木, 南方回南天防潮选木全攻略",
@@ -1572,7 +1572,7 @@ window.MUCHI_ARTICLES_DATA = {
       "inlineImages": [
         {
           "id": "qijing-07-inline-01",
-          "path": "journal/muchi-library/article-inline/muchi-qijing-07-inline-01.jpg",
+          "path": "journal/muchi-library/article-inline/muchi-qijing-07-inline-editorial-1.jpg",
           "alt": "潮湿环境木地板通风防潮细节",
           "caption": "潮湿地区选木，要让含水、通风和收口共同参与稳定。",
           "afterParagraph": 3,
@@ -1596,8 +1596,8 @@ window.MUCHI_ARTICLES_DATA = {
       "excerpt": "地暖是对木材稳定性要求极高的工况，选材、含水率与安装工艺必须同时成立。",
       "route": "#journal/muchi/qijing-08",
       "cover": {
-        "file": "muchi-qijing-08-cover.jpg",
-        "path": "journal/muchi-library/article-cover/muchi-qijing-08-cover.jpg",
+        "file": "muchi-qijing-08-cover-editorial-1.jpg",
+        "path": "journal/muchi-library/article-cover/muchi-qijing-08-cover-editorial-1.jpg",
         "alt": "地暖环境中稳定木地板与温热光线",
         "idea": "refined interior wood floor with subtle underfloor heating glow implied by warm light, stable planks and expansion details, premium photography",
         "keywords": "地暖环境原木用材, 高温烘烤下的高稳定木料甄别",
@@ -1629,7 +1629,7 @@ window.MUCHI_ARTICLES_DATA = {
       "inlineImages": [
         {
           "id": "qijing-08-inline-01",
-          "path": "journal/muchi-library/article-inline/muchi-qijing-08-inline-01.jpg",
+          "path": "journal/muchi-library/article-inline/muchi-qijing-08-inline-editorial-1.jpg",
           "alt": "地暖木地板结构层与伸缩控制",
           "caption": "地暖用木的稳定性，来自含水率、结构层与伸缩空间的共同控制。",
           "afterParagraph": 3,
@@ -1653,8 +1653,8 @@ window.MUCHI_ARTICLES_DATA = {
       "excerpt": "原木的温润触感、自然肌理和草木气息，让它成为最贴合人居心境的材料。",
       "route": "#journal/muchi/muyu-01",
       "cover": {
-        "file": "muchi-muyu-01-cover.jpg",
-        "path": "journal/muchi-library/article-cover/muchi-muyu-01-cover.jpg",
+        "file": "muchi-muyu-01-cover-editorial-1.jpg",
+        "path": "journal/muchi-library/article-cover/muchi-muyu-01-cover-editorial-1.jpg",
         "alt": "温润原木空间与人居心境",
         "idea": "quiet sunlit room with natural wood floor, low table and warm tactile wood surfaces, serene human-scale atmosphere without people",
         "keywords": "木有温度，材无寒凉, 为什么原木最适配人居心境",
@@ -1685,7 +1685,7 @@ window.MUCHI_ARTICLES_DATA = {
       "inlineImages": [
         {
           "id": "muyu-01-inline-01",
-          "path": "journal/muchi-library/article-inline/muchi-muyu-01-inline-01.jpg",
+          "path": "journal/muchi-library/article-inline/muchi-muyu-01-inline-editorial-1.jpg",
           "alt": "手触原木表面的温润肌理",
           "caption": "原木的温度感，来自肌理、色泽和日常触摸建立的心理亲近。",
           "afterParagraph": 3,
@@ -1709,8 +1709,8 @@ window.MUCHI_ARTICLES_DATA = {
       "excerpt": "真正高级的原木审美，是留白、克制和顺势而为，而不是繁复堆砌。",
       "route": "#journal/muchi/muyu-02",
       "cover": {
-        "file": "muchi-muyu-02-cover.jpg",
-        "path": "journal/muchi-library/article-cover/muchi-muyu-02-cover.jpg",
+        "file": "muchi-muyu-02-cover-editorial-1.jpg",
+        "path": "journal/muchi-library/article-cover/muchi-muyu-02-cover-editorial-1.jpg",
         "alt": "极简原木空间留白与自然纹理",
         "idea": "minimal East Asian wood interior with large blank wall, simple wood floor, low furniture and one shaft of natural light, restrained composition",
         "keywords": "极简原木美学, 少雕琢，顺本源的东方审美",
@@ -1741,7 +1741,7 @@ window.MUCHI_ARTICLES_DATA = {
       "inlineImages": [
         {
           "id": "muyu-02-inline-01",
-          "path": "journal/muchi-library/article-inline/muchi-muyu-02-inline-01.jpg",
+          "path": "journal/muchi-library/article-inline/muchi-muyu-02-inline-editorial-1.jpg",
           "alt": "极简原木家具与留白构图",
           "caption": "少雕琢的重点不是寡淡，而是把注意力还给木材本身。",
           "afterParagraph": 3,
@@ -1765,8 +1765,8 @@ window.MUCHI_ARTICLES_DATA = {
       "excerpt": "木器之美不止在新，而在被人手、时间与日常慢慢养出的温润包浆。",
       "route": "#journal/muchi/muyu-03",
       "cover": {
-        "file": "muchi-muyu-03-cover.jpg",
-        "path": "journal/muchi-library/article-cover/muchi-muyu-03-cover.jpg",
+        "file": "muchi-muyu-03-cover-editorial-1.jpg",
+        "path": "journal/muchi-library/article-cover/muchi-muyu-03-cover-editorial-1.jpg",
         "alt": "岁月包浆木器与使用痕迹",
         "idea": "aged wooden vessel and hand-polished table surface with patina, quiet study light, traces of long-term use and warm depth",
         "keywords": "器物包浆, 岁月沉淀，木头与人的双向滋养",
@@ -1797,7 +1797,7 @@ window.MUCHI_ARTICLES_DATA = {
       "inlineImages": [
         {
           "id": "muyu-03-inline-01",
-          "path": "journal/muchi-library/article-inline/muchi-muyu-03-inline-01.jpg",
+          "path": "journal/muchi-library/article-inline/muchi-muyu-03-inline-editorial-1.jpg",
           "alt": "木器包浆光泽与边角磨痕",
           "caption": "包浆不是装饰效果，而是人与木长久相处后留下的光泽。",
           "afterParagraph": 3,
@@ -1821,8 +1821,8 @@ window.MUCHI_ARTICLES_DATA = {
       "excerpt": "中式木作把道法自然、中庸包容与结构秩序，藏进木料和榫卯之间。",
       "route": "#journal/muchi/muyu-04",
       "cover": {
-        "file": "muchi-muyu-04-cover.jpg",
-        "path": "journal/muchi-library/article-cover/muchi-muyu-04-cover.jpg",
+        "file": "muchi-muyu-04-cover-editorial-1.jpg",
+        "path": "journal/muchi-library/article-cover/muchi-muyu-04-cover-editorial-1.jpg",
         "alt": "中式木构厅堂梁柱窗棂与东方木作秩序",
         "idea": "quiet traditional Chinese timber hall, beams, columns, lattice windows and mortise-and-tenon order in natural side light",
         "keywords": "中式木韵, 古建筑藏在木料里的东方哲学",
@@ -1853,7 +1853,7 @@ window.MUCHI_ARTICLES_DATA = {
       "inlineImages": [
         {
           "id": "muyu-04-inline-01",
-          "path": "journal/muchi-library/article-inline/muchi-muyu-04-inline-01.jpg",
+          "path": "journal/muchi-library/article-inline/muchi-muyu-04-inline-editorial-1.jpg",
           "alt": "中式榫卯结构半插合细节与木作分寸",
           "caption": "榫卯不是把木头锁死，而是在咬合、留缝与受力之间，为木性保留伸缩的余地。",
           "afterParagraph": 3,
@@ -1877,8 +1877,8 @@ window.MUCHI_ARTICLES_DATA = {
       "excerpt": "现代简约和传统木作没有高下之分，关键是找到适配生活与本心的木韵。",
       "route": "#journal/muchi/muyu-05",
       "cover": {
-        "file": "muchi-muyu-05-cover.jpg",
-        "path": "journal/muchi-library/article-cover/muchi-muyu-05-cover.jpg",
+        "file": "muchi-muyu-05-cover-editorial-1.jpg",
+        "path": "journal/muchi-library/article-cover/muchi-muyu-05-cover-editorial-1.jpg",
         "alt": "现代极简空间与传统木作元素平衡",
         "idea": "refined modern interior with clean lines and one traditional wood joinery screen or cabinet element, balanced old and new wood aesthetics",
         "keywords": "现代审美vs传统木作, 两种木韵美学的取舍平衡",
@@ -1910,7 +1910,7 @@ window.MUCHI_ARTICLES_DATA = {
       "inlineImages": [
         {
           "id": "muyu-05-inline-01",
-          "path": "journal/muchi-library/article-inline/muchi-muyu-05-inline-01.jpg",
+          "path": "journal/muchi-library/article-inline/muchi-muyu-05-inline-editorial-1.jpg",
           "alt": "现代木作与传统榫卯细节并置",
           "caption": "现代与传统的平衡，常发生在比例、收口和木纹表达的取舍里。",
           "afterParagraph": 3,
@@ -1934,8 +1934,8 @@ window.MUCHI_ARTICLES_DATA = {
       "excerpt": "所谓木痴，不是痴迷名贵，而是敬畏草木生命，善待每一块天然良木。",
       "route": "#journal/muchi/duanzha-01",
       "cover": {
-        "file": "muchi-duanzha-01-cover.jpg",
-        "path": "journal/muchi-library/article-cover/muchi-duanzha-01-cover.jpg",
+        "file": "muchi-duanzha-01-cover-editorial-1.jpg",
+        "path": "journal/muchi-library/article-cover/muchi-duanzha-01-cover-editorial-1.jpg",
         "alt": "木作人案头原木与手稿的本心",
         "idea": "quiet woodworker's desk with a raw wood block, notebook, pencil, small branch and warm morning light, reflective editorial mood",
         "keywords": "何为木痴, 我与草木相伴的本心",
@@ -1966,7 +1966,7 @@ window.MUCHI_ARTICLES_DATA = {
       "inlineImages": [
         {
           "id": "duanzha-01-inline-01",
-          "path": "journal/muchi-library/article-inline/muchi-duanzha-01-inline-01.jpg",
+          "path": "journal/muchi-library/article-inline/muchi-duanzha-01-inline-editorial-1.jpg",
           "alt": "草木与木料样本构成木痴初心",
           "caption": "木痴的起点，是愿意把草木当作时间与生活的同行者。",
           "afterParagraph": 3,
@@ -1990,8 +1990,8 @@ window.MUCHI_ARTICLES_DATA = {
       "excerpt": "天然原木的活结、色差与微瑕，不是失败，而是自然真实存在过的证据。",
       "route": "#journal/muchi/duanzha-02",
       "cover": {
-        "file": "muchi-duanzha-02-cover.jpg",
-        "path": "journal/muchi-library/article-cover/muchi-duanzha-02-cover.jpg",
+        "file": "muchi-duanzha-02-cover-editorial-1.jpg",
+        "path": "journal/muchi-library/article-cover/muchi-duanzha-02-cover-editorial-1.jpg",
         "alt": "带天然缺憾的原木板材与温柔光线",
         "idea": "beautiful solid wood slab with knots, mineral streaks and color variation, photographed as precious natural imperfection in soft light",
         "keywords": "良木无完美, 接纳原木的天然缺憾",
@@ -2022,7 +2022,7 @@ window.MUCHI_ARTICLES_DATA = {
       "inlineImages": [
         {
           "id": "duanzha-02-inline-01",
-          "path": "journal/muchi-library/article-inline/muchi-duanzha-02-inline-01.jpg",
+          "path": "journal/muchi-library/article-inline/muchi-duanzha-02-inline-editorial-1.jpg",
           "alt": "原木结疤色差与自然缺憾细节",
           "caption": "原木的缺憾不是失败，而是自然生长留下的真实证据。",
           "afterParagraph": 3,
@@ -2046,8 +2046,8 @@ window.MUCHI_ARTICLES_DATA = {
       "excerpt": "惜木，方可用木。真正懂木的人，会把每一块天然良木放到合适的位置。",
       "route": "#journal/muchi/duanzha-03",
       "cover": {
-        "file": "muchi-duanzha-03-cover.jpg",
-        "path": "journal/muchi-library/article-cover/muchi-duanzha-03-cover.jpg",
+        "file": "muchi-duanzha-03-cover-editorial-1.jpg",
+        "path": "journal/muchi-library/article-cover/muchi-duanzha-03-cover-editorial-1.jpg",
         "alt": "惜木善用的木料分类与再利用",
         "idea": "wood workshop with carefully sorted offcuts, usable boards and small pieces saved for future work, respectful and orderly",
         "keywords": "敬畏自然，惜木善用, 用材之人的底层初心",
@@ -2078,7 +2078,7 @@ window.MUCHI_ARTICLES_DATA = {
       "inlineImages": [
         {
           "id": "duanzha-03-inline-01",
-          "path": "journal/muchi-library/article-inline/muchi-duanzha-03-inline-01.jpg",
+          "path": "journal/muchi-library/article-inline/muchi-duanzha-03-inline-editorial-1.jpg",
           "alt": "木料边角料再利用与分类细节",
           "caption": "惜木不是舍不得用，而是让每一块材料都去到合适的位置。",
           "afterParagraph": 3,
@@ -2102,8 +2102,8 @@ window.MUCHI_ARTICLES_DATA = {
       "excerpt": "从树木本源到人居空间，木头连接山林与生活，也照见人心的安静与顺势。",
       "route": "#journal/muchi/duanzha-04",
       "cover": {
-        "file": "muchi-duanzha-04-cover.jpg",
-        "path": "journal/muchi-library/article-cover/muchi-duanzha-04-cover.jpg",
+        "file": "muchi-duanzha-04-cover-editorial-1.jpg",
+        "path": "journal/muchi-library/article-cover/muchi-duanzha-04-cover-editorial-1.jpg",
         "alt": "山林原木与人居木作之间的时间过渡",
         "idea": "poetic transition from forest timber to a quiet wood interior, raw log, finished floor plank and soft daylight, contemplative finale",
         "keywords": "终章, 一木一浮生，专栏结语",
@@ -2135,7 +2135,7 @@ window.MUCHI_ARTICLES_DATA = {
       "inlineImages": [
         {
           "id": "duanzha-04-inline-01",
-          "path": "journal/muchi-library/article-inline/muchi-duanzha-04-inline-01.jpg",
+          "path": "journal/muchi-library/article-inline/muchi-duanzha-04-inline-editorial-1.jpg",
           "alt": "一块木从山林到人居的终章意象",
           "caption": "一木一浮生，是从山林到人居，也从材料回到人的生活。",
           "afterParagraph": 3,
@@ -2149,4 +2149,4 @@ window.MUCHI_ARTICLES_DATA = {
       }
     }
   ]
-};
+}
