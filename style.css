@@ -11764,3 +11764,149 @@ body{
         line-height:1.35!important;
     }
 }
+
+/* ===== Muchi editorial magazine refinement ===== */
+#muchiReader{
+  --muchi-reader-measure:min(760px,calc(100vw - 48px));
+  --muchi-reader-wide:min(1040px,calc(100vw - 48px));
+}
+
+.muchi-reader-cover-copy{
+  width:var(--muchi-reader-measure)!important;
+  padding:clamp(104px,16vh,156px) 0 clamp(58px,9vh,92px)!important;
+}
+
+.muchi-reader-cover::after{
+  background:linear-gradient(180deg,rgba(0,0,0,.14),rgba(0,0,0,.32) 38%,rgba(0,0,0,.78))!important;
+}
+
+.muchi-reader-cover-copy h2{
+  max-width:var(--muchi-reader-measure)!important;
+  font-size:clamp(36px,4.85vw,66px)!important;
+  line-height:1.14!important;
+  text-wrap:balance;
+  overflow-wrap:anywhere;
+  margin:18px 0 22px!important;
+}
+
+.muchi-reader-excerpt{
+  max-width:var(--muchi-reader-measure)!important;
+  padding-top:18px!important;
+  border-top:1px solid rgba(255,255,255,.34)!important;
+}
+
+.muchi-reader-content{
+  width:var(--muchi-reader-measure)!important;
+  padding:clamp(56px,8vw,86px) 0 clamp(76px,10vw,118px)!important;
+}
+
+.muchi-reader-body{
+  max-width:none!important;
+  margin:0!important;
+}
+
+.muchi-reader-body p:first-of-type{
+  font-size:18.5px!important;
+  line-height:2.08!important;
+}
+
+.muchi-reader-body p:first-of-type::first-letter{
+  float:left;
+  padding:12px 12px 0 0;
+  font-family:"Times New Roman",serif;
+  font-size:5.25em;
+  line-height:.72;
+  color:var(--brand);
+}
+
+.muchi-editor-note{
+  display:grid;
+  grid-template-columns:104px 1fr;
+  gap:24px;
+  margin:36px 0 48px;
+  padding:24px 0;
+  border-top:1px solid rgba(31,28,25,.16);
+  border-bottom:1px solid rgba(31,28,25,.16);
+}
+
+.muchi-editor-note span{
+  font-size:11px;
+  line-height:1.6;
+  letter-spacing:.22em;
+  color:var(--brand);
+}
+
+.muchi-editor-note strong{
+  font-size:15px;
+  line-height:2;
+  font-weight:400;
+  color:rgba(31,28,25,.78);
+}
+
+.muchi-inline-figure{
+  width:100%!important;
+  margin:50px 0 54px!important;
+  transform:none!important;
+}
+
+.muchi-inline-figure img{
+  aspect-ratio:3/2!important;
+  border:0!important;
+  box-shadow:0 18px 46px rgba(31,28,25,.12);
+}
+
+.muchi-inline-figure figcaption{
+  max-width:620px;
+  margin-top:14px!important;
+  padding-left:16px!important;
+  font-size:12px!important;
+  letter-spacing:.02em;
+}
+
+.muchi-reader-quote{
+  max-width:var(--muchi-reader-measure)!important;
+  margin:58px 0 0!important;
+}
+
+.muchi-reader-nav{
+  width:var(--muchi-reader-wide)!important;
+  max-width:var(--muchi-reader-wide)!important;
+  margin-left:50%!important;
+  transform:translateX(-50%);
+}
+
+@media(max-width:760px){
+  #muchiReader{
+    --muchi-reader-measure:calc(100vw - 36px);
+    --muchi-reader-wide:calc(100vw - 36px);
+  }
+
+  .muchi-reader-cover-copy{
+    padding:92px 0 46px!important;
+  }
+
+  .muchi-reader-cover-copy h2{
+    font-size:32px!important;
+    line-height:1.2!important;
+  }
+
+  .muchi-reader-body p:first-of-type{
+    font-size:16px!important;
+  }
+
+  .muchi-reader-body p:first-of-type::first-letter{
+    font-size:4.4em;
+    padding:10px 10px 0 0;
+  }
+
+  .muchi-editor-note{
+    grid-template-columns:1fr;
+    gap:10px;
+    margin:28px 0 38px;
+  }
+
+  .muchi-reader-nav{
+    margin-left:0!important;
+    transform:none!important;
+  }
+}

@@ -2010,6 +2010,12 @@ function renderMuchiArticleBody(article){
   (article.body||[]).forEach(function(p,index){
     var paragraphNo=index+1;
     html+='<p>'+escapeHTML(p)+'</p>';
+    if(paragraphNo===1&&article.editorNote){
+      html+='<aside class="muchi-editor-note">'+
+        '<span>'+escapeHTML(article.editorNote.label||'编辑手记')+'</span>'+
+        '<strong>'+escapeHTML(article.editorNote.text||'')+'</strong>'+
+      '</aside>';
+    }
     (byParagraph[paragraphNo]||[]).forEach(function(img){
       html+='<figure class="muchi-inline-figure '+escapeHTML(img.layout||'wide')+'">'+
         '<img src="'+escapeHTML(img.path)+'" alt="'+escapeHTML(img.alt)+'" loading="lazy" decoding="async">'+

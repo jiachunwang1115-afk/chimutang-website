@@ -1697,15 +1697,15 @@
       "excerpt": "中式木作把道法自然、中庸包容与结构秩序，藏进木料和榫卯之间。",
       "route": "#journal/muchi/muyu-04",
       "cover": {
-        "file": "muchi-muyu-04-cover.jpg",
-        "path": "journal/muchi-library/article-cover/muchi-muyu-04-cover.jpg",
-        "alt": "中式木作古建筑东方木韵",
-        "idea": "中式木构、窗棂、梁柱或茶室木作，文化感稳重。",
-        "keywords": "中式木韵, 古建筑, 木窗, 榫卯, 东方哲学",
+        "file": "muchi-muyu-04-cover-editorial-1.jpg",
+        "path": "journal/muchi-library/article-cover/muchi-muyu-04-cover-editorial-1.jpg",
+        "alt": "中式木构厅堂梁柱窗棂与东方木作秩序",
+        "idea": "中式木构厅堂，梁柱、窗棂与榫卯节点在自然光里形成稳定秩序。",
+        "keywords": "中式木构, 梁柱, 窗棂, 榫卯秩序, 道法自然, 中庸包容",
         "sourceSuggestion": "实拍优先",
-        "promptZh": "为痴木堂「木痴」专栏文章《木语④：中式木韵｜古建筑藏在木料里的东方哲学》制作一张高级木作杂志感封面图。画面主题：中式木构、窗棂、梁柱或茶室木作，文化感稳重。。关键词：中式木韵, 古建筑, 木窗, 榫卯, 东方哲学。风格要求：真实摄影感，自然光，低饱和原木色，克制东方审美，画面干净，有高级木材品牌气质；不要文字，不要logo，不要夸张商业广告感，不要廉价科普插画，不要明显AI痕迹。",
-        "promptEn": "Create a premium editorial cover image for a Chinese woodcraft journal article titled \"木语④：中式木韵｜古建筑藏在木料里的东方哲学\". Scene direction: 中式木构、窗棂、梁柱或茶室木作，文化感稳重。 Keywords: 中式木韵, 古建筑, 木窗, 榫卯, 东方哲学. Use a realistic photography style, natural light, muted wood tones, restrained East Asian aesthetics, clean composition, premium wood material brand feeling. No text, no logo, no cheap infographic style, no exaggerated advertising look, no obvious AI artifacts.",
-        "prompt": "Create a realistic premium woodcraft magazine wide magazine cover for the article '木语④：中式木韵｜古建筑藏在木料里的东方哲学'. Theme keywords: 木器静物、东方书房、留白、时间感、文化意象. Use natural light, muted wood tones, restrained East Asian aesthetics, clean composition, real material texture, no text, no logo, no watermark, no infographic labels, no obvious AI artifacts."
+        "promptZh": "为《木语④：中式木韵｜古建筑藏在木料里的东方哲学》制作杂志封面。画面是安静的中式木构厅堂，梁柱、窗棂、榫卯节点在自然侧光中形成秩序感；要能承载“道法自然、中庸包容、结构分寸”的文章主题。真实摄影感，高端木作杂志，自然光，低饱和原木色，不要文字、logo、水印、人物、现代家具。",
+        "promptEn": "Premium realistic editorial cover for an article about Chinese timber architecture and Eastern philosophy in wood joinery: quiet traditional Chinese timber hall, beams, columns, lattice windows and mortise-and-tenon order in natural side light. It should express harmony with nature, moderation, tolerance and structural balance. No text, logo, watermark, people or modern furniture.",
+        "prompt": "Premium realistic editorial cover for an article about Chinese timber architecture and Eastern philosophy in wood joinery: quiet traditional Chinese timber hall, beams, columns, lattice windows and mortise-and-tenon order in natural side light. It should express harmony with nature, moderation, tolerance and structural balance. No text, logo, watermark, people or modern furniture."
       },
       "body": [
         "纵观千年中式木构建筑与古典木器，古人用木，从来不止实用用材，而是把儒家中庸、道法自然的东方哲学，藏进每一块原木、每一组榫卯结构之中。中式木作，本质是有形木料承载无形东方文脉。",
@@ -1729,14 +1729,18 @@
       "inlineImages": [
         {
           "id": "muyu-04-inline-01",
-          "path": "journal/muchi-library/article-inline/muchi-muyu-04-inline-01.jpg",
-          "alt": "木语④：中式木韵｜古建筑藏在木料里的东方哲学 木作杂志文中插图",
-          "caption": "静物、留白与木纹共同形成东方木作的安静气质。",
+          "path": "journal/muchi-library/article-inline/muchi-muyu-04-inline-editorial-1.jpg",
+          "alt": "中式榫卯结构半插合细节与木作分寸",
+          "caption": "榫卯不是把木头锁死，而是在咬合、留缝与受力之间，为木性保留伸缩的余地。",
           "afterParagraph": 3,
           "layout": "wide",
-          "prompt": "Create a realistic premium woodcraft magazine in-article editorial figure for the article '木语④：中式木韵｜古建筑藏在木料里的东方哲学'. Theme keywords: 木器静物、东方书房、留白、时间感、文化意象. Use natural light, muted wood tones, restrained East Asian aesthetics, clean composition, real material texture, no text, no logo, no watermark, no infographic labels, no obvious AI artifacts."
+          "prompt": "Premium realistic in-article editorial photo for an article about Chinese woodworking philosophy: close-up of a mortise-and-tenon joint half inserted on a quiet workbench, visible wood grain direction, small expansion gaps, hand-planed surfaces, mallet and marking gauge nearby. It should illustrate balance, tolerance, wood movement and structural order. No text, logo, people, labels or power tools."
         }
-      ]
+      ],
+      "editorNote": {
+        "label": "编辑手记",
+        "text": "这篇文章不把中式木韵理解成一种复古装饰，而是把它还原成一套关于材料、秩序与分寸的观看方法：木头会呼吸、会伸缩，好的结构不是压住它，而是给它留出自然发生的位置。"
+      }
     },
     {
       "id": "muyu-05",
