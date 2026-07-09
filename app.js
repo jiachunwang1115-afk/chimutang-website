@@ -438,7 +438,7 @@ function getProductSeriesValue(series){
   var exact=PRODUCTS.find(function(p){return p.series===series});
   if(exact)return series;
   var matched=PRODUCTS.find(function(p){return p.series&&p.series.indexOf(series)===0});
-  return matched?matched.series:series;
+  return matched?matched.series:"全部";
 }
 
 function getDisplayFilterLabel(group,value){
@@ -1727,22 +1727,18 @@ var seriesData={
 };
 
 function initSeriesPage(){
-  if(!PRODUCTS.length){
-    ensureProductsLoaded(function(){
-      if(getBaseHash(window.location.hash||'#home')==='#series') initSeriesPage();
-    });
-  }
   var tabs=document.getElementById('seriesTabs');
   tabs.innerHTML='';
   var keys=Object.keys(seriesData);
+  var productsReady=PRODUCTS.length>0;
   var initial=(pendingSeriesKey&&seriesData[pendingSeriesKey])?pendingSeriesKey:(activeSeriesKey&&seriesData[activeSeriesKey]?activeSeriesKey:keys[0]);
   keys.forEach(function(k,i){
     var btn=document.createElement('button');
     var index=i+1<10?'0'+(i+1):String(i+1);
-    var count=countProductsBySeries(k);
+    var count=productsReady?countProductsBySeries(k):0;
     btn.className='series-tab'+(k===initial?' active':'');
     btn.setAttribute('data-index',index);
-    btn.innerHTML='<span>'+k+'</span><small>'+(count?'在售产品':'系列档案')+'</small>';
+    btn.innerHTML='<span>'+k+'</span><small>'+(productsReady?(count?'在售产品':'系列档案'):'系列档案')+'</small>';
     btn.onclick=function(){switchSeries(k)};
     tabs.appendChild(btn);
   });
@@ -1760,19 +1756,20 @@ function switchSeries(key){
 
 function renderSeriesContent(key){
   var d=seriesData[key];
-  var count=countProductsBySeries(key);
-  var hasProducts=count>0;
-  var sideCount=hasProducts?count:'档案';
-  var sideLabel=hasProducts?'在售产品':'定制咨询';
-  var productText=hasProducts?'查看本系列产品':'查看在售产品';
-  var productSeries=hasProducts?key:'全部';
+  var productsReady=PRODUCTS.length>0;
+  var count=productsReady?countProductsBySeries(key):0;
+  var hasProducts=productsReady&&count>0;
+  var sideCount=productsReady?(hasProducts?count:'档案'):'选品';
+  var sideLabel=productsReady?(hasProducts?'在售产品':'定制咨询'):'产品中心';
+  var productText=productsReady?(hasProducts?'查看本系列产品':'查看在售产品'):'查看相关产品';
+  var productSeries=key;
   var contactText=hasProducts?'预约系列咨询':'预约定制咨询';
   var html='<div class="series-content active">';
   html+='<div class="series-hero">'
     +'<div class="series-hero-kicker">WOOD ALL SERIES</div>'
     +'<div class="series-hero-grid">'
     +'<div class="series-hero-copy"><h2>'+key+'</h2><p class="series-tagline"><strong>'+d.tagline+'</strong></p><p class="series-desc">'+d.hero+'</p></div>'
-    +'<div class="series-hero-side '+(hasProducts?'':'is-archive')+'"><span>'+sideCount+'</span><em>'+sideLabel+'</em><button class="series-link-products" type="button" data-series="'+productSeries+'">'+productText+'</button><button class="series-link-contact" type="button">'+contactText+'</button></div>'
+    +'<div class="series-hero-side '+(productsReady&&!hasProducts?'is-archive':'')+'"><span>'+sideCount+'</span><em>'+sideLabel+'</em><button class="series-link-products" type="button" data-series="'+productSeries+'">'+productText+'</button><button class="series-link-contact" type="button">'+contactText+'</button></div>'
     +'</div></div>';
   html+='<div class="series-grid-detail">';
   d.features.forEach(function(f){
