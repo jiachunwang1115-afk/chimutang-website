@@ -13,15 +13,25 @@ var MOBILE_NAV_META={
   '#not-found':{eyebrow:'WOOD ALL',title:'未找到页面'}
 };
 
+function getBaseHash(hash){
+  if(hash&&hash.indexOf('#journal/muchi/')===0)return'#journal';
+  return hash;
+}
+
 function navigate(hash){
-  if(ROUTES.indexOf(hash)<0) hash='#not-found';
+  var baseHash=getBaseHash(hash);
+  if(ROUTES.indexOf(baseHash)<0){
+    hash='#not-found';
+    baseHash='#not-found';
+  }
   window.location.hash=hash;
-  updateNav(hash);
-  updateCorporateCta(hash);
-  showPage(hash);
-  if(hash==='#products') initProductsPage();
-  if(hash==='#series') initSeriesPage();
-  if(hash==='#craft') initCraftPage();
+  updateNav(baseHash);
+  updateCorporateCta(baseHash);
+  showPage(baseHash);
+  if(baseHash==='#products') initProductsPage();
+  if(baseHash==='#series') initSeriesPage();
+  if(baseHash==='#craft') initCraftPage();
+  if(baseHash==='#journal') initJournalPage(hash);
 }
 
 function updateNav(hash){
@@ -487,6 +497,38 @@ function renderSpaceMedia(item, className){
   return '<img class="'+cls+'" src="'+escapeHtml(item.src)+'" alt="'+escapeHtml(item.alt)+'" loading="lazy" decoding="async">';
 }
 
+function renderCaseSaveIcon(selected){
+  var label=selected?"已加入选材夹":"加入选材夹";
+  return '<svg class="case-save-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 5h2.3l2.1 10.4h8.8l1.8-7.2H7.2"></path><path d="M9.2 19.1h.1"></path><path d="M16.8 19.1h.1"></path></svg><span class="case-save-text">'+label+'</span>';
+}
+
+function setCaseSaveButton(btn, selected){
+  btn.classList.toggle("selected",selected);
+  btn.setAttribute("aria-pressed",selected?"true":"false");
+  btn.setAttribute("aria-label",selected?"已加入选材夹，点击移除":"加入选材夹");
+  if(btn.classList.contains("case-save-chip")){
+    btn.innerHTML=renderCaseSaveIcon(selected);
+  }else{
+    btn.textContent=selected?"已入库":"入库";
+  }
+}
+
+function renderProductSaveIcon(selected){
+  var label=selected?"已加入选材夹":"加入选材夹";
+  return '<svg class="product-save-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 5h2.3l2.1 10.4h8.8l1.8-7.2H7.2"></path><path d="M9.2 19.1h.1"></path><path d="M16.8 19.1h.1"></path></svg><span class="product-save-text">'+label+'</span>';
+}
+
+function setProductSaveButton(btn, selected){
+  btn.classList.toggle("selected",selected);
+  btn.setAttribute("aria-pressed",selected?"true":"false");
+  btn.setAttribute("aria-label",selected?"已加入选材夹，点击移除":"加入选材夹");
+  if(btn.classList.contains("product-save-chip")){
+    btn.innerHTML=renderProductSaveIcon(selected);
+  }else{
+    btn.textContent=selected?"已入库":"入库";
+  }
+}
+
 function playSpaceVideos(scope){
   var root=scope||document;
   var reduceMotion=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -558,9 +600,11 @@ function renderCaseGallery(){
   }
   el.innerHTML=list.map(function(item,index){
     var large=index===0&&getCaseSelectedFilters().length===0?" large":"";
-    return '<article class="space-gallery-card action-card'+large+'" role="button" tabindex="0" data-space-id="'+item.id+'" aria-label="打开'+escapeHtml(item.title)+'铺装参考">'+renderSpaceMedia(item,'space-media')+'<span class="space-image-shade"></span><span class="space-logo-mark" aria-hidden="true"></span><button class="case-save-chip" type="button" data-case-save="'+escapeHtml(item.id)+'" aria-pressed="'+(isPavingSelected(item.id)?"true":"false")+'">'+(isPavingSelected(item.id)?"已入库":"入库")+'</button><div class="space-gallery-copy"><span>'+escapeHtml(item.roomType)+' · '+escapeHtml(item.colorTone)+' · '+escapeHtml(item.pattern)+'</span><h3>'+escapeHtml(item.title)+'</h3><p>'+escapeHtml(item.summary)+'</p><em>入境查看 / 同色产品</em></div></article>';
+    var selected=isPavingSelected(item.id);
+    return '<article class="space-gallery-card action-card'+large+'" role="button" tabindex="0" data-space-id="'+item.id+'" aria-label="打开'+escapeHtml(item.title)+'铺装参考">'+renderSpaceMedia(item,'space-media')+'<span class="space-image-shade"></span><span class="space-logo-mark" aria-hidden="true"></span><button class="case-save-chip" type="button" data-case-save="'+escapeHtml(item.id)+'" aria-pressed="'+(selected?"true":"false")+'" aria-label="'+(selected?"已加入选材夹，点击移除":"加入选材夹")+'">'+renderCaseSaveIcon(selected)+'</button><div class="space-gallery-copy"><span>'+escapeHtml(item.roomType)+' · '+escapeHtml(item.colorTone)+' · '+escapeHtml(item.pattern)+'</span><h3>'+escapeHtml(item.title)+'</h3><p>'+escapeHtml(item.summary)+'</p><em>入境查看 / 同色产品</em></div></article>';
   }).join("");
   playSpaceVideos(el);
+  updatePavingSelectionUI();
 }
 
 function applyProductFilterObject(filter){
@@ -693,17 +737,13 @@ function updatePavingSelectionUI(){
   if(count)count.textContent=String(getSelectionCount());
   document.querySelectorAll("[data-case-save]").forEach(function(btn){
     var selected=isPavingSelected(btn.getAttribute("data-case-save"));
-    btn.classList.toggle("selected",selected);
-    btn.setAttribute("aria-pressed",selected?"true":"false");
-    btn.textContent=selected?"已入库":"入库";
+    setCaseSaveButton(btn,selected);
   });
   document.querySelectorAll("[data-product-save]").forEach(function(btn){
     var selected=isProductSelected(btn.getAttribute("data-product-save"));
-    btn.classList.toggle("selected",selected);
     var card=btn.closest(".pcard");
     if(card)card.classList.toggle("selected",selected);
-    btn.setAttribute("aria-pressed",selected?"true":"false");
-    btn.textContent=selected?"已入库":"入库";
+    setProductSaveButton(btn,selected);
   });
 }
 
@@ -1112,11 +1152,12 @@ function buildProds(){
   }
   list.forEach(function(p){
     var card=document.createElement("div");
-    card.className="pcard action-card"+(currentProd&&currentProd.code===p.code?" active":"")+(isProductSelected(p.code)?" selected":"");
+    var selected=isProductSelected(p.code);
+    card.className="pcard action-card"+(currentProd&&currentProd.code===p.code?" active":"")+(selected?" selected":"");
     card.setAttribute("role","button");
     card.setAttribute("tabindex","0");
     card.setAttribute("aria-label","查看产品 "+p.code+" "+p.wood+" 详情");
-    card.innerHTML='<img src="'+p.img_b_thumb+'" loading="lazy" decoding="async" alt="'+p.code+' '+p.wood+' 木地板纹理"><span class="pname">'+p.code+' · '+p.wood+'</span><button class="product-save-chip" type="button" data-product-save="'+escapeHtml(p.code)+'" aria-pressed="'+(isProductSelected(p.code)?"true":"false")+'">'+(isProductSelected(p.code)?"已入库":"入库")+'</button>';
+    card.innerHTML='<img src="'+p.img_b_thumb+'" loading="lazy" decoding="async" alt="'+p.code+' '+p.wood+' 木地板纹理"><span class="pname">'+p.code+' · '+p.wood+'</span><button class="product-save-chip" type="button" data-product-save="'+escapeHtml(p.code)+'" aria-pressed="'+(selected?"true":"false")+'" aria-label="'+(selected?"已加入选材夹，点击移除":"加入选材夹")+'">'+renderProductSaveIcon(selected)+'</button>';
     card.onclick=function(){selectProd(p)};
     var saveBtn=card.querySelector("[data-product-save]");
     if(saveBtn){
@@ -1792,6 +1833,149 @@ function initCraftPage(){
   document.getElementById('craftContent').innerHTML=html;
 }
 
+// ===== MUCHI JOURNAL =====
+var muchiInitialized=false;
+var muchiActiveCategory='all';
+
+function escapeHTML(value){
+  return String(value||'').replace(/[&<>"']/g,function(ch){
+    return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch];
+  });
+}
+
+function formatMuchiDate(date){
+  return String(date||'').replace(/-/g,'.');
+}
+
+function getMuchiData(){
+  return window.MUCHI_ARTICLES_DATA||{collection:{},categories:[],articles:[]};
+}
+
+function getMuchiSlug(article){
+  return String(article.id||'').split('-')[0];
+}
+
+function initJournalPage(hash){
+  if(!muchiInitialized){
+    renderMuchiColumn();
+    bindMuchiReader();
+    muchiInitialized=true;
+  }
+  if(hash&&hash.indexOf('#journal/muchi/')===0){
+    openMuchiArticle(hash.replace('#journal/muchi/',''));
+  }else{
+    closeMuchiReader(false);
+  }
+}
+
+function renderMuchiColumn(){
+  var data=getMuchiData();
+  if(!data.articles.length)return;
+  renderMuchiFeatured(data);
+  renderMuchiTabs(data);
+  renderMuchiGrid();
+}
+
+function renderMuchiFeatured(data){
+  var featured=document.getElementById('muchiFeatured');
+  if(!featured)return;
+  var latest=data.articles[data.articles.length-1];
+  featured.innerHTML=
+    '<button class="muchi-featured-card" type="button" data-muchi-id="'+escapeHTML(latest.id)+'">'+
+      '<img src="'+escapeHTML(latest.cover.path)+'" alt="'+escapeHTML(latest.cover.alt)+'">'+
+      '<span class="muchi-featured-copy">'+
+        '<span>'+escapeHTML(latest.label)+' / '+formatMuchiDate(latest.date)+'</span>'+
+        '<h3>'+escapeHTML(latest.title)+'</h3>'+
+        '<p>'+escapeHTML(latest.excerpt)+'</p>'+
+        '<em>READ CURRENT MONTH</em>'+
+      '</span>'+
+    '</button>';
+}
+
+function renderMuchiTabs(data){
+  var tabs=document.getElementById('muchiTabs');
+  if(!tabs)return;
+  var html='<button type="button" class="active" data-muchi-cat="all">全部</button>';
+  data.categories.forEach(function(cat){
+    html+='<button type="button" data-muchi-cat="'+escapeHTML(cat.slug)+'">'+escapeHTML(cat.name)+'</button>';
+  });
+  tabs.innerHTML=html;
+  tabs.querySelectorAll('button').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      muchiActiveCategory=this.getAttribute('data-muchi-cat');
+      tabs.querySelectorAll('button').forEach(function(item){item.classList.remove('active')});
+      this.classList.add('active');
+      renderMuchiGrid();
+    });
+  });
+}
+
+function renderMuchiGrid(){
+  var data=getMuchiData();
+  var grid=document.getElementById('muchiGrid');
+  var count=document.getElementById('muchiCount');
+  if(!grid)return;
+  var articles=data.articles.slice().reverse().filter(function(article){
+    return muchiActiveCategory==='all'||getMuchiSlug(article)===muchiActiveCategory;
+  });
+  if(count)count.textContent=articles.length+' 篇文章';
+  grid.innerHTML=articles.map(function(article){
+    return '<button class="muchi-card" type="button" data-muchi-id="'+escapeHTML(article.id)+'">'+
+      '<span class="muchi-card-img"><img src="'+escapeHTML(article.cover.path)+'" alt="'+escapeHTML(article.cover.alt)+'" loading="lazy" decoding="async"></span>'+
+      '<span class="muchi-card-body">'+
+        '<em>'+escapeHTML(article.label)+' · '+formatMuchiDate(article.date)+'</em>'+
+        '<strong>'+escapeHTML(article.title)+'</strong>'+
+        '<small>'+escapeHTML(article.excerpt)+'</small>'+
+      '</span>'+
+    '</button>';
+  }).join('');
+}
+
+function bindMuchiReader(){
+  var column=document.getElementById('muchiColumn');
+  var reader=document.getElementById('muchiReader');
+  if(column){
+    column.addEventListener('click',function(e){
+      var card=e.target.closest('[data-muchi-id]');
+      if(card)navigate('#journal/muchi/'+card.getAttribute('data-muchi-id'));
+    });
+  }
+  document.querySelectorAll('[data-muchi-close]').forEach(function(el){
+    el.addEventListener('click',function(){navigate('#journal')});
+  });
+  document.addEventListener('keydown',function(e){
+    if(e.key==='Escape'&&reader&&reader.classList.contains('open'))navigate('#journal');
+  });
+}
+
+function openMuchiArticle(id){
+  var data=getMuchiData();
+  var article=data.articles.find(function(item){return item.id===id});
+  var reader=document.getElementById('muchiReader');
+  if(!article||!reader)return;
+  document.getElementById('muchiReaderImg').src=article.cover.path;
+  document.getElementById('muchiReaderImg').alt=article.cover.alt;
+  document.getElementById('muchiReaderMeta').textContent=article.category+' · '+article.label+' · '+formatMuchiDate(article.date);
+  document.getElementById('muchiReaderTitle').textContent=article.title;
+  document.getElementById('muchiReaderExcerpt').textContent=article.excerpt;
+  document.getElementById('muchiReaderBody').innerHTML=article.body.map(function(p){
+    return '<p>'+escapeHTML(p)+'</p>';
+  }).join('');
+  document.getElementById('muchiReaderQuote').textContent=article.conclusion;
+  reader.classList.add('open');
+  reader.setAttribute('aria-hidden','false');
+  document.body.classList.add('muchi-reader-open');
+}
+
+function closeMuchiReader(updateHash){
+  var reader=document.getElementById('muchiReader');
+  if(!reader)return;
+  reader.classList.remove('open');
+  reader.setAttribute('aria-hidden','true');
+  document.body.classList.remove('muchi-reader-open');
+  if(updateHash)window.location.hash='#journal';
+}
+
 // ===== INIT =====
 document.addEventListener('DOMContentLoaded',function(){handleHash()});
 
@@ -1888,7 +2072,7 @@ document.addEventListener('DOMContentLoaded',function(){
     });
   }
 
-  var revealItems=document.querySelectorAll('.stats,.home-capabilities,.brand-film-section,.motion-atelier,.space-showcase-section,.section,.prod-page-header,.product-experience-bar,.space-product-guide,.prod-filters,.wood-academy,.journal-intro,.journal-topics,.journal-plan,.case-space-hero,.case-space-toolbar,.space-gallery,.space-case-cta');
+  var revealItems=document.querySelectorAll('.stats,.home-capabilities,.brand-film-section,.motion-atelier,.space-showcase-section,.section,.prod-page-header,.product-experience-bar,.space-product-guide,.prod-filters,.wood-academy,.journal-intro,.journal-topics,.journal-plan,.muchi-column,.muchi-home-cta,.case-space-hero,.case-space-toolbar,.space-gallery,.space-case-cta');
   if('IntersectionObserver' in window){
     var observer=new IntersectionObserver(function(entries){
       entries.forEach(function(entry){
