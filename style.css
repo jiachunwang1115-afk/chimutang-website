@@ -14979,3 +14979,72 @@ textarea{
     margin:0!important;
   }
 }
+
+/* ===== Homepage hero contrast correction ===== */
+#page-home .hero-copy{
+  position:relative!important;
+  isolation:isolate!important;
+  padding:clamp(22px,3vw,38px) clamp(22px,4vw,48px) clamp(20px,3vw,32px)!important;
+}
+
+#page-home .hero-copy::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  z-index:-1;
+  background:linear-gradient(90deg,rgba(248,245,238,.82),rgba(248,245,238,.46) 76%,rgba(248,245,238,.14));
+  border:1px solid rgba(74,46,27,.14);
+  backdrop-filter:blur(2px);
+}
+
+#page-home .hero-kicker{
+  color:#56321d!important;
+  text-shadow:none!important;
+}
+
+#page-home .hero-slogan,
+#page-home .slogan-line,
+#page-home .hero-slogan .brand-name{
+  color:#482916!important;
+  text-shadow:0 1px 0 rgba(255,250,244,.74)!important;
+}
+
+#page-home .slogan-line:first-of-type{color:#60402a!important;}
+
+#page-home .hero-brand-motto,
+#page-home .hero p{
+  color:#5a3822!important;
+  font-weight:500!important;
+  text-shadow:0 1px 0 rgba(255,250,244,.84)!important;
+}
+
+#page-home .hero-trust{
+  width:min(100%,660px)!important;
+  margin-top:30px!important;
+  padding:7px 10px!important;
+  gap:8px!important;
+  border:1px solid rgba(74,46,27,.18)!important;
+  background:rgba(248,245,238,.76)!important;
+  backdrop-filter:blur(10px)!important;
+}
+
+#page-home .hero-trust span{
+  flex:1 1 0!important;
+  padding:9px 12px!important;
+  border-right:1px solid rgba(74,46,27,.16)!important;
+  color:#56321d!important;
+  font-size:13px!important;
+  font-weight:600!important;
+  text-shadow:none!important;
+}
+
+#page-home .hero-trust span:first-child{padding-left:12px!important;}
+#page-home .hero-trust span:last-child{border-right:0!important;}
+
+@media (max-width:760px){
+  #page-home .hero-copy{padding:20px 16px!important;}
+  #page-home .hero-copy::before{background:rgba(248,245,238,.82)!important;}
+  #page-home .hero-trust{display:grid!important;grid-template-columns:1fr!important;gap:0!important;padding:0!important;}
+  #page-home .hero-trust span{border-right:0!important;border-bottom:1px solid rgba(74,46,27,.14)!important;padding:10px 12px!important;}
+  #page-home .hero-trust span:last-child{border-bottom:0!important;}
+}
