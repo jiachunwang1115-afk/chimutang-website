@@ -14530,3 +14530,121 @@ body #page-products .product-swatch-wall .swatch-tone.active{
   #page-journal .muchi-issue-copy strong{font-size:17px!important}
   #page-journal .muchi-issue-copy small{font-size:12px!important}
 }
+
+/* Readability audit refinement: light surfaces and small brand text */
+:root{
+  --brand-text:#85572f;
+  --brand-text-strong:#70451f;
+}
+
+/* The current issue panel uses a light editorial surface, so it must not
+   inherit the former dark-cover white type. */
+#page-journal .muchi-mag-copy{
+  color:#211b17!important;
+}
+
+#page-journal .muchi-mag-copy strong,
+#page-journal .muchi-mag-copy span{
+  color:#211b17!important;
+  text-shadow:none!important;
+}
+
+#page-journal .muchi-mag-copy small{
+  color:rgba(33,27,23,.68)!important;
+}
+
+#page-journal .muchi-mag-copy b{
+  color:var(--brand-text-strong)!important;
+  border-color:rgba(112,69,31,.28)!important;
+  background:rgba(255,255,255,.34)!important;
+}
+
+#page-journal .muchi-mag-copy em,
+#page-journal .muchi-mag-copy i,
+#page-journal .muchi-path-head span,
+#page-journal .muchi-subhead span,
+#page-journal .muchi-pick-copy em,
+#page-journal .muchi-question-card span,
+#page-journal .muchi-volume-copy em,
+#page-journal .muchi-pick-copy i,
+#page-journal .muchi-question-card em,
+#page-journal .muchi-volume-copy i,
+#page-journal .muchi-issue-no,
+#page-journal .muchi-issue-copy em,
+#page-journal .muchi-tabs button span,
+#page-journal .muchi-tabs button em{
+  color:var(--brand-text)!important;
+}
+
+#page-journal .muchi-mag-copy i{
+  width:max-content!important;
+  padding-bottom:5px!important;
+  border-bottom:1px solid rgba(133,87,47,.42)!important;
+}
+
+/* Service phases and process markers remain distinct at small sizes. */
+#page-service .phase-card-header .service-num{
+  color:#fff!important;
+  border-color:rgba(255,255,255,.34)!important;
+  text-shadow:0 1px 2px rgba(31,28,25,.22)!important;
+}
+
+#page-service .phase-card:first-child .phase-card-header .service-num{
+  background:#7f512d!important;
+}
+
+#page-service .phase-step-num{
+  color:var(--brand-text-strong)!important;
+  background:#f0e4d4!important;
+  border:1px solid rgba(112,69,31,.2)!important;
+}
+
+#page-service .service-card-header .service-num{
+  color:var(--brand-text-strong)!important;
+  background:#f0e4d4!important;
+  border-color:rgba(112,69,31,.2)!important;
+}
+
+#page-service .service-card-body .tag{
+  color:#fff!important;
+  background:#7f512d!important;
+}
+
+#page-service .check-icon{
+  color:var(--brand-text-strong)!important;
+}
+
+/* Brand brown is kept unchanged for logos and large colour fields; text uses
+   the deeper companion tone for stronger contrast on white and paper. */
+#page-contact .contact-val,
+#page-contact .cstep-arrow,
+#page-about .label,
+#page-about .role,
+#page-about .d-dir{
+  color:var(--brand-text-strong)!important;
+}
+
+#page-contact .cstep-num,
+#page-about .team-avatar,
+#page-about .coop-num{
+  color:#fff!important;
+  background:#7f512d!important;
+}
+
+#page-about .about-contact .btn-secondary{
+  color:#211b17!important;
+  background:#fffaf2!important;
+  border-color:#fffaf2!important;
+}
+
+#page-about .about-contact .btn-secondary:hover{
+  color:#fffaf2!important;
+  background:#211b17!important;
+  border-color:#211b17!important;
+}
+
+@media(max-width:760px){
+  #page-journal .muchi-mag-copy{
+    min-height:340px!important;
+  }
+}
