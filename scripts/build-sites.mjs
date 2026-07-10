@@ -1,4 +1,4 @@
-import { cp, mkdir, rm, writeFile } from "node:fs/promises";
+import { cp, mkdir, readFile, rm, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -14,32 +14,13 @@ const rootFiles = [
   "_headers",
 ];
 
-const assetDirs = [
-  "logo",
-  "media",
-  "partners",
-  "product-assets",
-  "product-images-thumb",
-  "journal",
+const runtimeFiles = [
+  ...rootFiles,
+  "journal/muchi_articles_data.min.js",
 ];
 
-function normalize(relativePath) {
-  return relativePath.split(path.sep).join("/");
-}
-
-function shouldCopy(src) {
-  const rel = normalize(path.relative(root, src));
-  if (!rel) return true;
-  if (rel.startsWith(".git/") || rel === ".git") return false;
-  if (rel.startsWith(".vercel/") || rel === ".vercel") return false;
-  if (rel.startsWith("dist/") || rel === "dist") return false;
-  if (rel.startsWith("node_modules/") || rel === "node_modules") return false;
-  if (rel.startsWith("media/motion-atelier-") && path.extname(rel).toLowerCase() === ".mp4") return false;
-  if (rel.startsWith("journal/") && path.extname(rel).toLowerCase() === ".png") return false;
-  if (rel.startsWith("product-assets/swatch-wall/_")) return false;
-  if (rel.startsWith("product-assets/swatch-wall/") && path.extname(rel).toLowerCase() === ".png") return false;
-  return true;
-}
+const assetPattern = /(?:logo|media|partners|product-assets|product-images-thumb|journal)\/[^"'()\s<>?]+?\.(?:webp|jpg|jpeg|png|gif|svg|mp4)/gi;
+const optionalAssets = /^media\/motion-atelier-\d{2}\.mp4$/i;
 
 const workerSource = String.raw`
 const MIME_TYPES = {
@@ -133,17 +114,31 @@ export default {
 await rm(dist, { recursive: true, force: true });
 await mkdir(path.join(dist, "server"), { recursive: true });
 
-for (const file of rootFiles) {
-  await cp(path.join(root, file), path.join(dist, file));
+for (const file of runtimeFiles) {
+  const destination = path.join(dist, file);
+  await mkdir(path.dirname(destination), { recursive: true });
+  await cp(path.join(root, file), destination);
 }
 
-for (const dir of assetDirs) {
-  await cp(path.join(root, dir), path.join(dist, dir), {
-    recursive: true,
-    filter: shouldCopy,
-  });
+const runtimeText = (
+  await Promise.all(runtimeFiles.map((file) => readFile(path.join(root, file), "utf8")))
+).join("\n");
+const assetPaths = [...new Set(runtimeText.match(assetPattern) || [])].sort();
+
+let copiedAssets = 0;
+for (const asset of assetPaths) {
+  if (optionalAssets.test(asset)) continue;
+  const source = path.join(root, asset);
+  const destination = path.join(dist, asset);
+  try {
+    await mkdir(path.dirname(destination), { recursive: true });
+    await cp(source, destination);
+    copiedAssets += 1;
+  } catch (error) {
+    throw error;
+  }
 }
 
 await writeFile(path.join(dist, "server", "index.js"), `${workerSource.trim()}\n`, "utf8");
 
-console.log("Sites build ready: dist/server/index.js and static assets generated.");
+console.log(`Sites build ready with ${copiedAssets} referenced assets.`);
