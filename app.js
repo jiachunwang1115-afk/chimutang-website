@@ -349,7 +349,7 @@ var SPACE_MEDIA=[
   paving({id:"hall-open",src:"journal/paving-reference/ref-hall-open.webp",alt:"开敞玄关客厅浅木地板铺装参考",headline:"入户开阔",subline:"浅木展厅",roomType:"玄关",colorTone:"浅木",styleTag:"现代极简",pattern:"宽板",mood:"明亮",wood:"白蜡木",series:"悦系列",summary:"开敞入户适合浅木宽板。它能让玄关与客厅自然衔接，减少空间转换时的突兀。",detailPoints:["空间观感：入户明亮，视线舒展。","木色建议：浅木或白蜡木更显开阔。","铺法建议：宽板减少入口接缝。"],support:["oakLight","section"],productFilter:{series:"悦系列",wood:"白蜡木"},featured:false}),
   paving({id:"stairs-open",src:"journal/paving-reference/ref-stairs-open.webp",alt:"楼梯与客厅木地板铺装参考",headline:"楼梯成景",subline:"上下同序",roomType:"楼梯",colorTone:"原木",styleTag:"东方静奢",pattern:"木作一体",mood:"明亮",wood:"欧橡",series:"森系列",summary:"楼梯不是附属空间。踏步、地面与扶手色阶统一，才能让上下层关系自然连成一体。",detailPoints:["空间观感：楼梯成为空间主体。","木色建议：原木色适合上下层连贯。","铺法建议：踏步收口需与地板系统一起定。"],support:["nosing","section"],productFilter:{series:"森系列",wood:"欧橡"},featured:false}),
   paving({id:"stairs-silent",src:"journal/paving-reference/ref-stairs-silent.webp",alt:"楼梯过道浅木地板铺装参考",headline:"梯间留白",subline:"转折见净",roomType:"楼梯",colorTone:"浅木",styleTag:"现代极简",pattern:"通铺长板",mood:"明亮",wood:"橡木",series:"悦系列",summary:"楼梯转角容易显乱。浅木色配白墙能降低压迫，让上下层转换更轻。",detailPoints:["空间观感：清爽、轻盈，适合小楼梯间。","木色建议：浅橡木减少转角压迫感。","铺法建议：转角处预先规划收边。"],support:["oakLight","nosing"],productFilter:{series:"悦系列",wood:"橡木"},featured:false}),
-  paving({id:"gallery-library",src:"journal/paving-reference/ref-gallery-library.webp",alt:"展厅木地板与书墙空间参考",headline:"展厅藏木",subline:"材料入库",roomType:"展厅",colorTone:"中棕",styleTag:"商业雅奢",pattern:"宽板",mood:"沉静",wood:"橡木",series:"境系列",summary:"展厅需要让材料被看见。中棕地面能承接样板、书墙和灯光，让客户更快建立材质判断。",detailPoints:["空间观感：专业、稳重，适合材料展厅。","木色建议：中棕色不抢展陈。","铺法建议：宽板更能展示纹理尺度。"],support:["oakBrown","section"],productFilter:{series:"境系列",wood:"橡木"},featured:false}),
+  paving({id:"gallery-library",src:"journal/paving-reference/ref-gallery-library.webp",alt:"展厅木地板与书墙空间参考",headline:"展厅藏木",subline:"材料成景",roomType:"展厅",colorTone:"中棕",styleTag:"商业雅奢",pattern:"宽板",mood:"沉静",wood:"橡木",series:"境系列",summary:"展厅需要让材料被看见。中棕地面能承接样板、书墙和灯光，更容易建立清晰的材质判断。",detailPoints:["空间观感：专业、稳重，适合材料展厅。","木色建议：中棕色不抢展陈。","铺法建议：宽板更能展示纹理尺度。"],support:["oakBrown","section"],productFilter:{series:"境系列",wood:"橡木"},featured:false}),
   paving({id:"showroom-wide",src:"journal/paving-reference/ref-showroom-wide.webp",alt:"展厅大面积木地板铺装参考",headline:"展厅尺度",subline:"一木成场",roomType:"展厅",colorTone:"中棕",styleTag:"商业雅奢",pattern:"通铺长板",mood:"暗场",wood:"胡桃木",series:"森系列",summary:"大面积展厅最怕材料零散。中棕通铺能把灯光、人流和展示系统统摄在同一秩序里。",detailPoints:["空间观感：尺度清楚，场域稳定。","木色建议：中棕或暖棕适合展陈空间。","铺法建议：长向通铺，强调场地纵深。"],support:["warm","maintenance"],productFilter:{series:"森系列",wood:"胡桃木"},featured:false}),
   paving({id:"atelier-commercial",src:"journal/paving-reference/ref-atelier-commercial.webp",alt:"商业木作展厅铺装参考",headline:"商空有骨",subline:"以木立面",roomType:"商业空间",colorTone:"深胡桃",styleTag:"商业雅奢",pattern:"木作一体",mood:"暗场",wood:"黑胡桃",series:"墨系列",summary:"商业空间需要识别度。深木色地面与木作墙面同场时，品牌气质更稳，也更有记忆点。",detailPoints:["空间观感：稳、重、有品牌识别。","木色建议：深木色适合高端商业与会所。","铺法建议：墙地一体时控制色阶，避免压暗。"],support:["deep","section"],productFilter:{series:"墨系列",wood:"黑胡桃"},featured:false}),
   paving({id:"lounge-gray",src:"journal/paving-reference/ref-lounge-gray.webp",alt:"烟熏灰休闲空间地板铺装参考",headline:"灰调会客",subline:"冷静有度",roomType:"商业空间",colorTone:"烟熏灰",styleTag:"意式沉稳",pattern:"宽板",mood:"沉静",wood:"橡木",series:"墨系列",summary:"烟熏灰适合现代会所、办公会客和低饱和软装。它比深棕更冷静，也更适合金属与石材。",detailPoints:["空间观感：冷静、现代、适合商业会客。","木色建议：烟熏灰橡木适合低饱和空间。","铺法建议：宽板减少拼接感，质感更完整。"],support:["smoke","oil"],productFilter:{series:"墨系列",wood:"橡木"},featured:false}),
@@ -405,7 +405,7 @@ function mapProductData(data){
 function showProductDataError(e){
   console.error('Product data load failed', e);
   var grid=document.getElementById("prodGrid");
-  if(grid)grid.innerHTML='<div class="prod-empty"><span>LOAD FAILED</span><h3>产品数据暂时加载失败</h3><p>请刷新页面，或直接联系管家获取产品资料。</p><div class="page-cta"><a href="#contact" class="btn-primary">联系管家</a></div></div>';
+  if(grid)grid.innerHTML='<div class="prod-empty"><span>LOAD FAILED</span><h3>产品资料暂时没有加载完成</h3><p>请重新加载，或直接联系顾问获取产品资料。</p><div class="page-cta"><a href="#contact" class="btn-primary">联系顾问</a></div></div>';
 }
 
 function ensureProductsLoaded(callback){
@@ -746,7 +746,7 @@ function renderProductSwatchWall(){
     return '<button type="button" class="swatch-card" data-swatch-code="'+escapeHtml(item.code)+'" data-swatch-card-tone="'+escapeHtml(item.tone)+'" style="--chip:'+escapeHtml(item.accent)+'" aria-label="查看 '+escapeHtml(item.code)+' 纹理贴图"><img src="'+escapeHtml(item.mapCard||item.swatch)+'" alt="'+escapeHtml(item.code+' '+item.tone+' 木地板纹理贴图')+'" loading="lazy" decoding="async"><span>'+escapeHtml(item.tone)+'</span><strong>'+escapeHtml(item.code)+'</strong><em>'+escapeHtml(getDisplayFilterLabel("series",item.product.series))+'</em></button>';
   }).join("");
   var lead=items[0];
-  root.innerHTML='<div class="swatch-wall-copy"><span>PRODUCT TEXTURE MAP</span><h3>先看真实贴图，再选产品。</h3><p>第一批 '+items.length+' 款样品优先使用产品图库里的真实纹理贴图，用来比较木色、纹理、板缝与尺度。缺少纯贴图的款式暂不混入，后续单独补图。</p><div class="swatch-tone-row" role="group" aria-label="按木色筛选样品">'+toneButtons+'</div><small data-swatch-count>'+items.length+' 款样品</small></div><div class="swatch-wall-stage"><figure><img data-swatch-preview src="'+escapeHtml(lead.map||lead.mapCard||lead.swatch)+'" alt="产品纹理贴图预览" loading="lazy" decoding="async"></figure><div class="swatch-wall-stage-copy"><span data-swatch-preview-meta>'+escapeHtml(getDisplayFilterLabel("series",lead.product.series)+" · "+lead.tone+" · "+lead.product.board)+'</span><h4 data-swatch-preview-title>'+escapeHtml(lead.code)+'</h4><p data-swatch-preview-copy>'+escapeHtml(lead.product.wood+" · "+lead.product.surface+" · "+lead.note)+'</p><button type="button" data-swatch-open="'+escapeHtml(lead.code)+'">查看此款</button></div></div><div class="swatch-board" aria-label="互动产品纹理贴图墙">'+cards+'</div>';
+  root.innerHTML='<div class="swatch-wall-copy"><span>PRODUCT TEXTURE MAP</span><h3>从真实纹理里，找到喜欢的木色。</h3><p>比较木色、纹理走向、板缝与铺装尺度，再查看对应产品的木种、结构和规格。</p><div class="swatch-tone-row" role="group" aria-label="按木色筛选样品">'+toneButtons+'</div><small data-swatch-count>'+items.length+' 款可比较样品</small></div><div class="swatch-wall-stage"><figure><img data-swatch-preview src="'+escapeHtml(lead.map||lead.mapCard||lead.swatch)+'" alt="产品纹理贴图预览" loading="lazy" decoding="async"></figure><div class="swatch-wall-stage-copy"><span data-swatch-preview-meta>'+escapeHtml(getDisplayFilterLabel("series",lead.product.series)+" · "+lead.tone+" · "+lead.product.board)+'</span><h4 data-swatch-preview-title>'+escapeHtml(lead.code)+'</h4><p data-swatch-preview-copy>'+escapeHtml(lead.product.wood+" · "+lead.product.surface+" · "+lead.note)+'</p><button type="button" data-swatch-open="'+escapeHtml(lead.code)+'">查看产品详情</button></div></div><div class="swatch-board" aria-label="产品纹理贴图对比">'+cards+'</div>';
   root.addEventListener("click",function(e){
     var toneBtn=e.target.closest&&e.target.closest("[data-swatch-tone]");
     if(toneBtn){
@@ -896,7 +896,7 @@ function setCaseSaveButton(btn, selected){
   if(btn.classList.contains("case-save-chip")){
     btn.innerHTML=renderCaseSaveIcon(selected);
   }else{
-    btn.textContent=selected?"已入库":"入库";
+    btn.textContent=selected?"已加入":"加入选材夹";
   }
 }
 
@@ -912,7 +912,7 @@ function setProductSaveButton(btn, selected){
   if(btn.classList.contains("product-save-chip")){
     btn.innerHTML=renderProductSaveIcon(selected);
   }else{
-    btn.textContent=selected?"已入库":"入库";
+    btn.textContent=selected?"已加入":"加入选材夹";
   }
 }
 
@@ -933,9 +933,9 @@ function renderHomeSpaces(){
   if(!feature||!grid)return;
   var list=getFeaturedSpaceMedia();
   var lead=list[0];
-  feature.innerHTML='<button class="space-feature-card action-card" type="button" data-space-id="'+lead.id+'" aria-label="查看'+escapeHtml(lead.title)+'">'+renderSpaceMedia(lead,'space-media')+'<span class="space-image-shade"></span><span class="space-logo-mark" aria-hidden="true"></span><div class="space-feature-copy"><span>'+escapeHtml(lead.roomType)+' / '+escapeHtml(lead.colorTone)+' / '+escapeHtml(lead.pattern)+'</span><h3>'+escapeHtml(lead.title)+'</h3><p>'+escapeHtml(lead.summary)+'</p><em>入境查看</em></div></button>';
+  feature.innerHTML='<button class="space-feature-card action-card" type="button" data-space-id="'+lead.id+'" aria-label="查看'+escapeHtml(lead.title)+'搭配建议">'+renderSpaceMedia(lead,'space-media')+'<span class="space-image-shade"></span><span class="space-logo-mark" aria-hidden="true"></span><div class="space-feature-copy"><span>'+escapeHtml(lead.roomType)+' / '+escapeHtml(lead.colorTone)+' / '+escapeHtml(lead.pattern)+'</span><h3>'+escapeHtml(lead.title)+'</h3><p>'+escapeHtml(lead.summary)+'</p><em>查看搭配建议</em></div></button>';
   grid.innerHTML=list.slice(1,8).map(function(item){
-    return '<button class="space-card action-card" type="button" data-space-id="'+item.id+'" aria-label="查看'+escapeHtml(item.title)+'">'+renderSpaceMedia(item,'space-media')+'<span class="space-image-shade"></span><div class="space-card-copy"><span>'+escapeHtml(item.roomType)+' · '+escapeHtml(item.colorTone)+'</span><strong>'+escapeHtml(item.title)+'</strong><em>入境查看</em></div></button>';
+    return '<button class="space-card action-card" type="button" data-space-id="'+item.id+'" aria-label="查看'+escapeHtml(item.title)+'搭配建议">'+renderSpaceMedia(item,'space-media')+'<span class="space-image-shade"></span><div class="space-card-copy"><span>'+escapeHtml(item.roomType)+' · '+escapeHtml(item.colorTone)+'</span><strong>'+escapeHtml(item.title)+'</strong><em>查看搭配建议</em></div></button>';
   }).join("");
   playSpaceVideos(document.getElementById("homeSpaceSection"));
 }
@@ -988,7 +988,7 @@ function renderCaseGallery(){
   el.innerHTML=list.map(function(item,index){
     var large=index===0&&getCaseSelectedFilters().length===0?" large":"";
     var selected=isPavingSelected(item.id);
-    return '<article class="space-gallery-card action-card'+large+'" role="button" tabindex="0" data-space-id="'+item.id+'" aria-label="打开'+escapeHtml(item.title)+'铺装参考">'+renderSpaceMedia(item,'space-media')+'<span class="space-image-shade"></span><span class="space-logo-mark" aria-hidden="true"></span><button class="case-save-chip" type="button" data-case-save="'+escapeHtml(item.id)+'" aria-pressed="'+(selected?"true":"false")+'" aria-label="'+(selected?"已加入选材夹，点击移除":"加入选材夹")+'">'+renderCaseSaveIcon(selected)+'</button><div class="space-gallery-copy"><span>'+escapeHtml(item.roomType)+' · '+escapeHtml(item.colorTone)+' · '+escapeHtml(item.pattern)+'</span><h3>'+escapeHtml(item.title)+'</h3><p>'+escapeHtml(item.summary)+'</p><em>入境查看 / 同色产品</em></div></article>';
+    return '<article class="space-gallery-card action-card'+large+'" role="button" tabindex="0" data-space-id="'+item.id+'" aria-label="查看'+escapeHtml(item.title)+'搭配建议">'+renderSpaceMedia(item,'space-media')+'<span class="space-image-shade"></span><span class="space-logo-mark" aria-hidden="true"></span><button class="case-save-chip" type="button" data-case-save="'+escapeHtml(item.id)+'" aria-pressed="'+(selected?"true":"false")+'" aria-label="'+(selected?"已加入选材夹，点击移除":"加入选材夹")+'">'+renderCaseSaveIcon(selected)+'</button><div class="space-gallery-copy"><span>'+escapeHtml(item.roomType)+' · '+escapeHtml(item.colorTone)+' · '+escapeHtml(item.pattern)+'</span><h3>'+escapeHtml(item.title)+'</h3><p>'+escapeHtml(item.summary)+'</p><em>查看搭配建议</em></div></article>';
   }).join("");
   playSpaceVideos(el);
   updatePavingSelectionUI();
@@ -1191,7 +1191,7 @@ function openSpaceCase(id){
   var commentary=getPavingCaseCommentary(item).map(function(note){
     return '<article><span>'+escapeHtml(note.label)+'</span><strong>'+escapeHtml(note.title)+'</strong><p>'+escapeHtml(note.text)+'</p></article>';
   }).join("");
-  copy.innerHTML='<span>PAVING ATLAS / '+escapeHtml(item.roomType)+'</span><h3>'+escapeHtml(item.title)+'</h3><strong class="space-case-subline">'+escapeHtml(item.subline)+'</strong><p>'+escapeHtml(item.summary)+'</p><div class="space-case-tags"><span>'+escapeHtml(item.colorTone)+'</span><span>'+escapeHtml(item.styleTag)+'</span><span>'+escapeHtml(item.pattern)+'</span><span>'+escapeHtml(item.mood)+'</span></div><dl><div><dt>推荐木种</dt><dd>'+escapeHtml(item.wood)+'</dd></div><div><dt>适配系列</dt><dd>'+escapeHtml(item.series)+'</dd></div></dl><div class="space-case-commentary">'+commentary+'</div><ul class="space-case-detail">'+details+'</ul><div class="page-cta"><button class="btn-primary" type="button" data-case-products="'+item.id+'">看相关产品</button><button class="btn-secondary" type="button" data-case-save="'+item.id+'">'+(isPavingSelected(item.id)?"已入库":"入库")+'</button><a class="btn-secondary" href="#contact">预约咨询</a></div>';
+  copy.innerHTML='<span>PAVING ATLAS / '+escapeHtml(item.roomType)+'</span><h3>'+escapeHtml(item.title)+'</h3><strong class="space-case-subline">'+escapeHtml(item.subline)+'</strong><p>'+escapeHtml(item.summary)+'</p><div class="space-case-tags"><span>'+escapeHtml(item.colorTone)+'</span><span>'+escapeHtml(item.styleTag)+'</span><span>'+escapeHtml(item.pattern)+'</span><span>'+escapeHtml(item.mood)+'</span></div><dl><div><dt>推荐木种</dt><dd>'+escapeHtml(item.wood)+'</dd></div><div><dt>适配系列</dt><dd>'+escapeHtml(item.series)+'</dd></div></dl><div class="space-case-commentary">'+commentary+'</div><ul class="space-case-detail">'+details+'</ul><p class="space-case-disclaimer">空间与铺装效果仅作参考，实际颜色与纹理请以产品样板为准。</p><div class="page-cta"><button class="btn-primary" type="button" data-case-products="'+item.id+'">查看相关产品</button><button class="btn-secondary" type="button" data-case-save="'+item.id+'">'+(isPavingSelected(item.id)?"已加入":"加入选材夹")+'</button><a class="btn-secondary" href="#contact">咨询这套搭配</a></div>';
   modal.classList.add("open");
   modal.setAttribute("aria-hidden","false");
   document.body.classList.add("space-case-open");
@@ -2036,74 +2036,76 @@ function showProductInDrawer(p){
     +'<div class="drawer-card"><div class="val">'+p.spec+'</div><div class="lbl">规格</div></div>'
     +'</div>'
     +'<div class="drawer-actions">'
-    +'<button class="secondary product-selection-action" type="button" data-product-save="'+escapeHtml(p.code)+'">'+(isProductSelected(p.code)?"已入库":"入库")+'</button>'
-    +'<a href="#contact" onclick="closeDrawer()">预约选材 '+p.code+'</a>'
+    +'<button class="secondary product-selection-action" type="button" data-product-save="'+escapeHtml(p.code)+'">'+(isProductSelected(p.code)?"已加入":"加入选材夹")+'</button>'
+    +'<a href="#contact" onclick="closeDrawer()">咨询这款产品 '+p.code+'</a>'
     +'<a class="secondary" href="#series" onclick="goSeriesIntro(\''+p.series+'\');return false;">看'+getIntroSeriesKey(p.series)+'</a>'
     +'<a class="secondary" href="#service" onclick="closeDrawer()">量尺安装</a>'
     +'</div>';
 }
 
 // ===== SERIES DATA =====
+
+// Customer-facing series summaries. Detailed performance claims stay out of the
+// public description until the corresponding product documentation is confirmed.
 var seriesData={
   "境系列":{
-    tagline:"高品质流量款 · 打破「低价=低质」的认知误区",
-    hero:"境系列从产品原料、生产过程、产品验收三大环节实施标准化管控，采用德国豪迈高速开槽设备、意大利水性涂装工艺，全自动化生产线是该系列立足市场且优于同类产品的核心优势。",
+    tagline:"清爽克制，适合日常住宅的大面积通铺",
+    hero:"境系列以自然木色、清晰纹理与低光泽表面为主，适合希望空间干净、耐看，又便于搭配家具的家庭。",
     features:[
-      {title:"无缝拼接技术",text:"采用比利时尤林林（Valinge）锁扣专利，拼装高低误差不超过0.02mm，实现「无缝地板」效果。"},
-      {title:"环保性能",text:"胶水、涂料均为无醛添加级别，碳排放量仅为0.01-0.05mg/m²，达到F4星环保标准。"},
-      {title:"工艺技术",text:"德国豪迈高速开槽设备、意大利水性涂装工艺、全自动化生产线。"},
-      {title:"零度薄涂工艺",text:"0-1度哑光+薄涂多层+半透显纹，主打「见木不见漆」的原生质感。光泽度≤1°，总涂层厚度30-60μm。"},
-      {title:"材料品质",text:"主要采用俄罗斯全桦基材、阿尔卑斯山橡木等优质木材。"},
-      {title:"产品矩阵",text:"涵盖纯三层、全桦多层，打造一色多形的丰富产品组合，面向设计师和追求个性化定制的消费群体。"}
+      {title:"适合谁",text:"偏好现代简约、自然风或浅暖木色，希望全屋视觉连贯的家庭。"},
+      {title:"视觉气质",text:"明亮、克制、纹理自然，不会过度抢占墙面与家具的注意力。"},
+      {title:"核心工艺",text:"锁扣结构与低光泽薄涂，重点平衡拼缝、触感和天然木纹表现。"},
+      {title:"使用建议",text:"先根据采光选择浅木或暖原木，再核对结构、规格和地暖条件。"}
     ]
   },
   "森系列":{
-    tagline:"国际联名款 · 全维度领先，赋能设计与体验",
-    hero:"森系列的核心竞争力源自国际顶尖工艺背书，依托色彩工艺双巨头加持，与比利时禧拉挪佤（Ciranova）、瑞典博纳（Bona）达成战略合作；牵手美国宣伟（Sherwin-Williams），实现涂装体系精益求精。",
+    tagline:"颜色层次丰富，适合重视质感与细节的空间",
+    hero:"森系列更强调木色研发与表面层次，适合设计师项目、大宅和希望地面具有细腻变化的空间。",
     features:[
-      {title:"通体化染工艺（Ciranova）",text:"通过化学染料渗透到木材的导管和纤维内部，实现颜色均匀、与木材纹理深度融合的效果，不易出现色差、褪色，保留木材天然触感。"},
-      {title:"宣伟UV漆（Sherwin-Williams）",text:"VOC极低（高端线<1g/L），零甲醛、净味设计。耐擦洗2万次+，漆膜硬度≥1H，远超行业HB标准。薄涂多层工艺，通透显纹，呈现肤感/哑光高级质感。"},
-      {title:"专属色彩研发（Bona）",text:"联合瑞典博纳成立专属色彩研发部，依托博纳在木材色彩调配的百年经验，色彩选择更丰富、适配场景更广泛。"},
-      {title:"结构稳定性（Dynea+Valinge）",text:"与芬兰太尔合作优化层间粘合工艺，联合瑞典威林格持续研发先进锁扣结构，有效避免潮湿、地暖环境下的变形问题。"}
+      {title:"适合谁",text:"对颜色、触感和整体搭配有明确要求，希望在自然木纹中增加设计层次。"},
+      {title:"视觉气质",text:"木色更丰富，纹理与涂装相互衬托，适合低饱和软装和精细照明。"},
+      {title:"核心工艺",text:"围绕着色、涂装与表面保护建立组合工艺，具体配置以产品型号为准。"},
+      {title:"使用建议",text:"建议结合现场光源与实物样板判断，避免只凭屏幕颜色确定产品。"}
     ]
   },
   "悦系列":{
-    tagline:"意式简奢高端款 · 国内唯一将氮气工艺应用于木地板的系列",
-    hero:"悦系列核心优势兼备原创设计、顶尖氮气工艺、N+1表面处理工艺，严选优质原料，恪守环保安全标准，同时提供全流程定制服务。表现力+功能性双重突破，区别于市场流通产品。",
+    tagline:"低光泽与细腻触感，适合简洁而精致的空间",
+    hero:"悦系列强调柔和反光与细腻表面，适合现代住宅、主卧和需要安静视觉感受的空间。",
     features:[
-      {title:"172纳米氮气工艺",text:"源自德国IOT公司的UV固化「黑科技」，广泛应用于汽车、航空等高端领域。在氮气隔绝氧气环境下，利用172纳米准分子光照射UV涂料引发固化。光泽度低至3以下，表面硬度达4H以上，耐污抗指纹。"},
-      {title:"N+1表面处理",text:"国内唯一应用于木地板的创新工艺。通过人工工具刻意处理+无氧浮装工艺组合，先塑造丰富肌理，再优化触感与视觉效果，实现超哑光、超润滑的肌肤触感。"},
-      {title:"意式上色系统",text:"采用意大利沃兰塔纳米色浆技术+传统手工上色工艺，色牢度极强，不易黄变褪色。可实现烟熏、化变等多样化自然视觉效果。"}
+      {title:"适合谁",text:"喜欢简洁线条、柔和触感和低反光地面，希望空间轻盈但不单薄。"},
+      {title:"视觉气质",text:"表面光泽克制，木纹在自然光和灯光下保持柔和层次。"},
+      {title:"核心工艺",text:"通过表面处理与固化工艺调整触感、反光和日常清洁表现。"},
+      {title:"使用建议",text:"卧室和客餐厅可优先比较浅暖木；深色产品需结合面积与采光判断。"}
     ]
   },
   "墨系列":{
-    tagline:"现代深色系 · 稳重大宅质感",
-    hero:"墨系列面向偏好深色木纹、沉稳空间和现代轻奢风格的用户，强调视觉秩序、空间压舱感与高级灰、石材、金属等材质的搭配能力。",
+    tagline:"沉稳深木，为大尺度空间建立视觉重心",
+    hero:"墨系列以深胡桃、深灰木与暖棕色为主，适合书房、会客厅和面积较大的沉静空间。",
     features:[
-      {title:"空间适配",text:"适合大平层、别墅、书房、会所与展厅等需要稳重气质的场景。"},
-      {title:"色彩表达",text:"以深色、灰调、暖棕调为主，弱化浮夸纹理，强化整体空间的安定感。"},
-      {title:"选型建议",text:"建议结合采光、墙面色彩和家具材质选择，深色产品更适合光线充足或面积较大的空间。"}
+      {title:"适合谁",text:"偏好深色木纹、金属、皮革或石材搭配，希望空间更稳、更有包裹感。"},
+      {title:"视觉气质",text:"深色收束视线，增强家具和灯光层次，整体氛围安静而克制。"},
+      {title:"核心工艺",text:"重点控制深色表面的纹理可见度、色调稳定与触感表现。"},
+      {title:"使用建议",text:"更适合采光充足或面积较大的房间，选材时需要同步核对墙面与家具明度。"}
     ]
   },
   "匠系列":{
-    tagline:"全屋一体化定制 · 工艺精湛+设计美学+空间一体化",
-    hero:"匠系列传承意大利家居设计与工艺基因，聚焦中高端消费群体，以工艺领先性为核心支撑，打造一体化、高品质的家居空间解决方案。打破传统家居品类割裂，满足品质、美学与实用性的双重追求。",
+    tagline:"面向整屋木作与特殊节点的项目定制",
+    hero:"匠系列用于地板、墙面、木门或柜体需要统一木色和细节语言的项目，方案需结合现场尺寸与设计图纸确认。",
     features:[
-      {title:"全域同纹同色一体化",text:"依托高精度数控雕刻设备+手工雕刻双重工艺，实现地板、墙面、木门、柜体等多品类产品的纹路与颜色完全统一，打破传统家居品类间的视觉割裂。"},
-      {title:"专利隐藏式榫卯结构",text:"无需胶黏剂辅助连接。抗拉力是传统钉接的1.8倍，抗剪切力达传统工艺的2.3倍，单组榫卯连接可承受500公斤以上拉力。针对性改善高端木种自然收缩开裂问题。"},
-      {title:"意大利MDV饰面技术",text:"源自意大利的高端饰面技术，通过多维纹理还原与表面处理，让木材肌理更细腻、触感更舒适，同时增强表面耐磨性与抗污性。"},
-      {title:"高端木种",text:"精选缅甸柚木、北美胡桃木、东南亚白柚木、沙比利、相思木等稀缺木种，实木表板厚度≥3.0mm。"}
+      {title:"适合项目",text:"大宅、样板间、商业空间及需要整屋木作协调的设计项目。"},
+      {title:"视觉方向",text:"统一木色、纹理和收边关系，减少不同木作之间的视觉割裂。"},
+      {title:"方案重点",text:"确认材种、饰面、节点结构、现场尺寸与各品类之间的衔接方式。"},
+      {title:"咨询方式",text:"提供项目类型、面积、设计阶段和参考图，由项目顾问准备对应资料。"}
     ]
   },
   "璞系列":{
-    tagline:"高端原木与红木地板 · 30年原木深耕 · 15年地暖地板技术",
-    hero:"璞系列专研高端原木与红木地板，核心优势集中在珍稀木种、稳定工艺、地暖适配、环保健康与美学设计。痴木堂在浙江南浔和广东中山设有原木地板工厂。",
+    tagline:"面向珍稀木种与大规格原木的专项定制",
+    hero:"璞系列关注天然木材本身的色泽、纹理和尺度，适合对材种、规格与空间表达有明确要求的项目。",
     features:[
-      {title:"珍稀木种",text:"全球直采FSC认证原木，优选200年以上活树芯材。非洲花梨（刺猬紫檀）、落腺豆（第九种红木）、巴拉圭紫檀等红木级产品，兼具收藏与增值潜力。"},
-      {title:"108道全流程工序",text:"含12次片检、12次除尘、9底3面涂漆，逐片检测含水率。引进德国/日本ABB含水率测试仪，严控品质。"},
-      {title:"抗变形专项技术",text:"长城抗变形技术（背栅工型结构）+燕尾榫卯技术（切断横向纤维）+双榫锁扣+四季调节锁扣，四重保障解决大材板变形难题。"},
-      {title:"德国坚弗油漆",text:"纳米级改良树脂，兼顾弹性与硬度，透底性好。不遮盖木材天然纹理，提升木纹通透感与光泽度，环保指标符合国标与欧盟标准。"},
-      {title:"恒温烘干与养生",text:"30天自然养生+42.8℃恒温活性烘干，避免高温破坏木纤维，保障木材尺寸稳定。"}
+      {title:"适合项目",text:"重视天然材料表现的大宅、会所、收藏空间与个性化设计项目。"},
+      {title:"视觉方向",text:"保留天然木纹、色差与材料厚度，让地面呈现更完整的原木尺度。"},
+      {title:"方案重点",text:"根据实际木种、批次、尺寸和安装环境确定结构与铺装方式。"},
+      {title:"咨询方式",text:"珍稀木种与大规格产品以实物样板、库存批次和专项方案为准。"}
     ]
   }
 };
@@ -2170,82 +2172,32 @@ function renderSeriesContent(key){
 }
 
 // ===== CRAFT DATA =====
+
 var craftData=[
-  {title:"Valinge 锁扣技术（境系列/森系列）",items:[
-    "采用比利时尤林林（Valinge）或瑞典威林格（Valinge）锁扣专利，拼装高低误差不超过0.02mm，实现「无缝地板」拼接效果。",
-    "安装便捷精准、拼接缝隙更小，既保障地面美观度，又增强使用过程中的稳固性，适配不同户型的安装需求。"
+  {title:"地板是否稳定",items:[
+    "稳定性同时受到木种、结构、含水状态、锁扣和安装环境影响，不能只看单一参数。",
+    "选材时需要说明所在城市、是否地暖和空间用途，再结合具体产品结构判断。",
+    "安装前的地面条件、伸缩空间与现场湿度，同样会影响长期使用表现。"
   ]},
-  {title:"零度薄涂工艺（境系列）",items:[
-    "光泽度≤1°（60°角测量），呈现极致哑光肤感，无反光、无塑料感。",
-    "总涂层厚度控制在30-60μm，底漆2-3遍、面漆1-2遍，每层极薄（约5-15μm），保留木材天然触感。",
-    "半透效果：介于清漆（全透）与实色漆（全遮）之间，用纳米色浆轻着色，均匀色差又不遮盖木纹导管。"
+  {title:"表面触感如何形成",items:[
+    "薄涂、拉丝、手刮和不同固化方式，会改变木纹清晰度、反光程度与脚感。",
+    "喜欢自然触感，可优先比较低光泽、显纹理的表面；重视清洁便利，则需同步关注表面保护。",
+    "屏幕无法准确还原触感和光泽，最终应以实物样板为准。"
   ]},
-  {title:"通体化染工艺 · Ciranova（森系列）",items:[
-    "通过化学染料渗透到木材的导管和纤维内部，实现颜色均匀、与木材纹理深度融合的效果。",
-    "与传统表面染色的区别：传统染色多停留在木材表层，颜色附着力和自然度相对较弱；通体化染不易出现色差、褪色，且能保留木材天然的触感。",
-    "化变处理工艺：通过活化剂、化变水剂等与木材单宁酸发生氧化反应，实现自然老化效果，让纹理更立体、颜色更自然。活化剂产品采用有机天然成分，比常规氨水化变更绿色环保。"
+  {title:"如何理解天然色差",items:[
+    "天然木材会因生长部位、纹理和批次形成色差，这是材料特性的一部分。",
+    "着色与涂装可以调整整体色调，但不会让每块木材完全一致。",
+    "安装前通过样板核对和试铺排序，可以让深浅变化更自然。"
   ]},
-  {title:"宣伟 UV 漆 · Sherwin-Williams（森系列）",items:[
-    "全球最大涂料制造商，赋予地板丝缎柔光的高级质感，漆膜硬度≥1H，远超行业HB标准。",
-    "环保性：VOC极低（高端线<1g/L），零甲醛、净味设计，通过多项国际环保认证。",
-    "耐用性：耐擦洗2万次+，具备抗紫外、防霉、抗裂性能，保色时长可达5-10年。",
-    "薄涂多层工艺（总涂层厚度50-80μm），通透显纹，呈现肤感/哑光高级质感。",
-    "快干技术，重涂间隔短，漆底合一，可反复拆装，适配多样安装场景。"
+  {title:"是否适合地暖",items:[
+    "地暖适配需要结合产品结构、安装方式、地面含水状态和运行温度综合判断。",
+    "有地暖时，应在咨询与量尺阶段主动说明，并核对对应型号的安装要求。",
+    "首次运行与季节切换应按项目说明逐步调整温度，避免环境快速变化。"
   ]},
-  {title:"Bona 色彩研发（森系列）",items:[
-    "瑞典博纳（Bona）是全球木地板涂装与养护领军品牌，百年木材色彩调配经验。",
-    "痴木堂联合博纳成立专属色彩研发部，色彩选择更丰富、适配场景更广泛。",
-    "借助博纳在环保涂装的技术优势，进一步提升产品环保等级，甲醛释放量远低于国标。"
-  ]},
-  {title:"172 纳米氮气工艺（悦系列）",items:[
-    "工艺起源：源自德国IOT公司UV固化「黑科技」，广泛应用于汽车、航空等高端领域，后创新适配木地板表面处理。",
-    "核心原理：在氮气隔绝氧气环境下（氧气浓度<100ppm），利用172纳米准分子光照射UV涂料引发固化。",
-    "超哑光+肤感：涂层形成均匀细微褶皱纹理，光泽度低至3以下，接近零反光；触感细腻亲肤。",
-    "表面硬度达4H以上：172nm准分子表面固化+高压汞灯全固化双重处理，涂层交联密度高。",
-    "耐污抗指纹：氮气低温固化让涂层结构致密，搭配氟硅改性成分，表面张力极低，水渍油渍不易附着。",
-    "环保性：氮气惰性环境+低温紫外光固化，无涂料分解挥发；对光引发剂依赖度低，减少残留与VOC释放。",
-    "工艺步骤：涂料涂布→395nm LED预固化→172nm准分子氮气固化→高压汞灯全固化。"
-  ]},
-  {title:"N+1 表面处理工艺（悦系列）",items:[
-    "国内唯一应用于木地板的创新工艺，通过人工工具刻意处理+无氧浮装工艺组合。",
-    "肌理塑造：人工使用刮刀、喷砂、拉丝、雕刻等工具对木材表面进行刻意处理，呈现细腻或粗犷的纹理。",
-    "质感优化：结合172纳米无氧浮装工艺，最终实现超哑光、超润滑的肌肤触感。"
-  ]},
-  {title:"意式上色系统 · 纳米色浆+手工（悦系列）",items:[
-    "采用意大利沃兰塔先进纳米色浆技术，结合传统手工上色工艺，秉承「不烟熏、不化变」理念。",
-    "色牢度极强，颜色稳定，不易黄变、不易褪色。",
-    "高色彩饱和度，搭配纳米色浆技术，营造高端视觉享受。",
-    "可实现烟熏、化变等多样化自然视觉效果，适配不同设计需求。"
-  ]},
-  {title:"全域同纹同色一体化（匠系列）",items:[
-    "依托高精度数控雕刻设备+手工雕刻双重工艺，在实木基材上精准雕刻复杂纹理，充分还原木材天然肌理。",
-    "核心优势：实现地板、墙面、木门、柜体等多品类产品的纹路与颜色完全统一，打破传统家居品类间的视觉割裂。",
-    "兼容现代极简、新中式等多种风格，支持个性化造型定制，适配别墅、大平层、精品酒店等场景。"
-  ]},
-  {title:"专利隐藏式榫卯结构（匠系列）",items:[
-    "采用专利隐藏式设计，通过榫卯结构精准咬合，无需胶黏剂辅助连接。",
-    "实验验证：抗拉力是传统钉接的1.8倍；抗剪切力达传统工艺的2.3倍；单组榫卯可承受500公斤以上拉力。",
-    "核心作用：针对性改善高端木种自然收缩开裂、各向异性脱层等物理缺陷；适配地暖、潮湿等复杂环境。"
-  ]},
-  {title:"长城抗变形技术（璞系列）",items:[
-    "技术原理：背栅呈工型结构，切断木材横向纤维，释放横向变形应力；深型凹槽设计，通风透气，防止水汽积聚。",
-    "核心价值：减少形变，提升稳定性，保障地板耐用性，保持居室干爽，优化人居体验。"
-  ]},
-  {title:"燕尾榫卯技术（璞系列）",items:[
-    "针对超长超宽大材板设计，切断横向纤维结构，释放内部变形应力。",
-    "配合双榫锁扣+四季调节锁扣，四重抗变形保障。四季调节锁扣可根据木材「湿胀干缩」特性，调节不同季节、气候、地域导致的变形量。"
-  ]},
-  {title:"108道全流程工序（璞系列）",items:[
-    "核心环节：12次片检（严控瑕疵）、12次除尘（保障涂层附着力）、9底3面涂漆（强化防护与质感）。",
-    "30天自然养生+42.8℃恒温活性烘干，避免高温破坏木纤维。",
-    "德国坚弗环保耐磨漆：纳米级改良树脂，无异味，兼顾弹性与硬度，透底性好，易清洁，耐磨耐撞。",
-    "九级控温技术：根据木种、产地、使用区域差异，精准调控木材含水率，做到「因材而控、因地而控」。"
-  ]},
-  {title:"进口全桦基材（全系列通用）",items:[
-    "除部分引流产品外，多层系列产品均采用俄罗斯进口全桦基材，是中高端多层板材的标杆选择。",
-    "极致稳定性：吸膨率仅为国标普通板材的1/5，经72小时水煮测试无分层；含水率控制精准（8±1%），适配南北方不同气候环境。",
-    "卓越物理性能：硬度与静曲强度比普通国产基材高15%以上，静曲强度≥34MPa，弹性模量≥6000MPa；密度达680±20kg/m³。",
-    "环保与美学：环保等级达ENF级，甲醛释放量≤0.015mg/m³；材质白净细腻，层次分明，保留天然山形纹与矿物线。"
+  {title:"环保信息怎么看",items:[
+    "优先核对具体产品及批次对应的检测资料，不以系列宣传代替产品依据。",
+    "除了检测指标，也应关注胶黏、涂装、安装辅材和现场通风条件。",
+    "如需项目报审或设计资料，可联系顾问索取对应型号的可用文件。"
   ]}
 ];
 
@@ -2290,7 +2242,7 @@ var muchiListExpanded=false;
 var muchiReturnScrollY=0;
 var muchiReaderArticleId='';
 var muchiDataLoadPromise=null;
-var MUCHI_DATA_SRC='journal/muchi_articles_data.min.js?v=journal-clarity-1';
+var MUCHI_DATA_SRC='journal/muchi_articles_data.min.js?v=content-journey-3';
 
 var MUCHI_PROBLEM_GUIDES=[
   {id:'starter',tag:'FIRST READ',title:'新读者先看',desc:'用三篇文章建立木材、工艺与空间的基本判断。'},
@@ -2309,6 +2261,22 @@ function escapeHTML(value){
 
 function formatMuchiDate(date){
   return String(date||'').replace(/-/g,'.');
+}
+
+function getMuchiDisplayTitle(article){
+  var display={
+    kicker:article.kicker||'',
+    title:article.displayTitle||article.title||'',
+    subtitle:article.displaySubtitle||'',
+    lines:Array.isArray(article.titleLines)?article.titleLines.filter(Boolean):[]
+  };
+  if(article.id==='duanzha-04'){
+    display.kicker='短札④ · 终章';
+    display.title='一木一浮生';
+    display.subtitle='木痴专栏结语';
+    display.lines=['一木一浮生'];
+  }
+  return display;
 }
 
 function getMuchiData(){
@@ -2731,9 +2699,9 @@ function getMuchiTriptychCopy(article){
     }
   };
   return map[getMuchiSlug(article)]||{
-    title:'读木成章',
-    lead:'从材料、工艺与空间关系里，建立更清晰的选材判断。',
-    points:['材料','工艺','空间']
+    title:'章节图谱',
+    lead:'将文章里的木材知识转成可观察的视觉线索，帮助你更稳地判断材料。',
+    points:['看材性','看空间','看工艺']
   };
 }
 
@@ -2839,9 +2807,19 @@ function openMuchiArticle(id){
   muchiReaderArticleId=article.id;
   document.getElementById('muchiReaderImg').src=article.cover.path;
   document.getElementById('muchiReaderImg').alt=article.cover.alt;
+  var displayTitle=getMuchiDisplayTitle(article);
   document.getElementById('muchiReaderIssue').textContent=article.issue.display+' · '+article.issue.month;
-  document.getElementById('muchiReaderMeta').textContent=article.issue.display+' · '+article.volume+' '+article.category+' · '+formatMuchiDate(article.date);
-  document.getElementById('muchiReaderTitle').textContent=article.title;
+  document.getElementById('muchiReaderMeta').textContent=article.issue.display+' · '+article.volume+' · '+(displayTitle.kicker||article.category)+' · '+formatMuchiDate(article.date);
+  var readerTitle=document.getElementById('muchiReaderTitle');
+  readerTitle.setAttribute('aria-label',article.title);
+  if(displayTitle.lines.length){
+    readerTitle.innerHTML=displayTitle.lines.map(function(line){return '<span class="title-line">'+escapeHTML(line)+'</span>'}).join('');
+  }else{
+    readerTitle.textContent=displayTitle.title;
+  }
+  var readerSubtitle=document.getElementById('muchiReaderSubtitle');
+  readerSubtitle.textContent=displayTitle.subtitle;
+  readerSubtitle.hidden=!displayTitle.subtitle;
   document.getElementById('muchiReaderExcerpt').textContent=article.excerpt;
   document.getElementById('muchiReaderBody').innerHTML=renderMuchiArticleBody(article);
   document.getElementById('muchiReaderQuote').textContent=article.conclusion;

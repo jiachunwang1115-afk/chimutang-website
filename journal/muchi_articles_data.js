@@ -1830,6 +1830,10 @@ window.MUCHI_ARTICLES_DATA = {
       "category": "短札",
       "label": "NOTES",
       "title": "短札④：终章｜一木一浮生，专栏结语",
+      "kicker": "短札④ · 终章",
+      "displayTitle": "一木一浮生",
+      "displaySubtitle": "木痴专栏结语",
+      "titleLines": ["一木一浮生"],
       "excerpt": "从树木本源到人居空间，木头连接山林与生活，也照见人心的安静与顺势。",
       "route": "#journal/muchi/duanzha-04",
       "cover": {
