@@ -8,9 +8,7 @@ const dist = path.join(root, "dist");
 
 const rootFiles = [
   "index.html",
-  "style.css",
   "style.min.css",
-  "app.js",
   "app.min.js",
   "products_clean.json",
   "_headers",
@@ -36,6 +34,7 @@ function shouldCopy(src) {
   if (rel.startsWith(".vercel/") || rel === ".vercel") return false;
   if (rel.startsWith("dist/") || rel === "dist") return false;
   if (rel.startsWith("node_modules/") || rel === "node_modules") return false;
+  if (rel.startsWith("media/motion-atelier-") && path.extname(rel).toLowerCase() === ".mp4") return false;
   if (rel.startsWith("journal/") && path.extname(rel).toLowerCase() === ".png") return false;
   if (rel.startsWith("product-assets/swatch-wall/_")) return false;
   if (rel.startsWith("product-assets/swatch-wall/") && path.extname(rel).toLowerCase() === ".png") return false;
