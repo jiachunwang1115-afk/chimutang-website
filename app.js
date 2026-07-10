@@ -1324,12 +1324,12 @@ var IMAGE_SLOT_MAP=[
   {id:"T08",route:"#craft",page:"工艺技术",selector:"#craftContent .craft-item:nth-child(7)",title:"工艺卡 07",asset:"journal/wood-art.webp"},
   {id:"T09",route:"#craft",page:"工艺技术",selector:"#craftContent .craft-item:nth-child(8)",title:"工艺卡 08",asset:"journal/material-blue-floor.webp"},
   {id:"J01",route:"#journal",page:"痴木志",selector:"#page-journal .journal-cover",title:"痴木志封面",asset:"journal/craft-oriental-card-lite.webp"},
-  {id:"J02",route:"#journal",page:"痴木志",selector:"#woodAcademy .wood-academy-media",title:"痴木志木作美学档案主图",asset:"journal/craft-ring-section-lite.webp"},
-  {id:"J03",route:"#journal",page:"痴木志",selector:"#page-journal .journal-topic.large",title:"痴木志栏目：空间灵感",asset:"journal/space-floor.webp"},
-  {id:"J04",route:"#journal",page:"痴木志",selector:"#page-journal .journal-topic:nth-child(2)",title:"痴木志栏目：木材百科",asset:"journal/surface-wood-mosaic-lite.webp"},
-  {id:"J05",route:"#journal",page:"痴木志",selector:"#page-journal .journal-topic:nth-child(3)",title:"痴木志栏目：从森林到家",asset:"journal/home-hero-forest-door-lite.webp"},
-  {id:"J06",route:"#journal",page:"痴木志",selector:"#page-journal .journal-topic:nth-child(4)",title:"痴木志栏目：工艺手记",asset:"journal/touch-wood.webp"},
-  {id:"J07",route:"#journal",page:"痴木志",selector:"#page-journal .journal-topic:nth-child(5)",title:"痴木志栏目：全屋木作系统",asset:"journal/system-section-house.webp"},
+  {id:"J02",route:"#journal",page:"痴木志",selector:"#muchiEditorPicks .muchi-pick-card:nth-child(1)",title:"痴木志主编推荐：首图",asset:"journal/craft-ring-section-lite.webp"},
+  {id:"J03",route:"#journal",page:"痴木志",selector:"#muchiEditorPicks .muchi-pick-card:nth-child(2)",title:"痴木志主编推荐：次图",asset:"journal/space-floor.webp"},
+  {id:"J04",route:"#journal",page:"痴木志",selector:"#muchiEditorPicks .muchi-pick-card:nth-child(3)",title:"痴木志主编推荐：三图",asset:"journal/surface-wood-mosaic-lite.webp"},
+  {id:"J05",route:"#journal",page:"痴木志",selector:"#muchiQuestionGrid .muchi-question-card:nth-child(1)",title:"痴木志问题阅读入口",asset:"journal/home-hero-forest-door-lite.webp"},
+  {id:"J06",route:"#journal",page:"痴木志",selector:"#muchiVolumeGrid .muchi-volume-card:nth-child(1)",title:"痴木志六卷目录入口",asset:"journal/touch-wood.webp"},
+  {id:"J07",route:"#journal",page:"痴木志",selector:"#muchiFeatured .muchi-mag-cover",title:"痴木志本月文章入口",asset:"journal/system-section-house.webp"},
 {id:"C01",route:"#cases",page:"铺装参考库",selector:"#caseSpaceGallery [data-space-id='living-hero']",title:"铺装参考：木入客厅",asset:"journal/paving-reference/ref-living-hero.webp"},
   {id:"C02",route:"#cases",page:"铺装参考库",selector:"#caseSpaceGallery [data-space-id='living-light']",title:"铺装参考：光下原木",asset:"journal/paving-reference/ref-living-light.webp"},
   {id:"C03",route:"#cases",page:"铺装参考库",selector:"#caseSpaceGallery [data-space-id='living-dark-lounge']",title:"铺装参考：深厅有序",asset:"journal/paving-reference/ref-living-dark-lounge.webp"},
@@ -2285,10 +2285,21 @@ function initCraftPage(){
 // ===== MUCHI JOURNAL =====
 var muchiInitialized=false;
 var muchiActiveCategory='all';
+var muchiActiveProblem='all';
+var muchiListExpanded=false;
 var muchiReturnScrollY=0;
 var muchiReaderArticleId='';
 var muchiDataLoadPromise=null;
-var MUCHI_DATA_SRC='journal/muchi_articles_data.min.js?v=muchi-triptych-1';
+var MUCHI_DATA_SRC='journal/muchi_articles_data.min.js?v=journal-clarity-1';
+
+var MUCHI_PROBLEM_GUIDES=[
+  {id:'starter',tag:'FIRST READ',title:'新读者先看',desc:'用三篇文章建立木材、工艺与空间的基本判断。'},
+  {id:'wood',tag:'WOOD',title:'如何选木种',desc:'看色泽、纹理、硬度与空间气质。'},
+  {id:'stability',tag:'STABILITY',title:'稳定与地暖',desc:'读含水率、伸缩、结构与施工预留。'},
+  {id:'craft',tag:'CRAFT',title:'工艺与表面',desc:'理解锁扣、涂装、触感和耐用性。'},
+  {id:'space',tag:'SPACE',title:'空间搭配',desc:'从客厅、卧室、茶室与家具关系读木色。'},
+  {id:'aesthetic',tag:'AESTHETIC',title:'东方木韵',desc:'读木作的克制、留白与文化气质。'}
+];
 
 function escapeHTML(value){
   return String(value||'').replace(/[&<>"']/g,function(ch){
@@ -2378,6 +2389,83 @@ function getMuchiCategoryCounts(data){
   return counts;
 }
 
+function getMuchiCategory(data,slug){
+  return (data.categories||[]).find(function(cat){return cat.slug===slug})||null;
+}
+
+function getMuchiProblemGuide(id){
+  return MUCHI_PROBLEM_GUIDES.find(function(item){return item.id===id})||null;
+}
+
+function getMuchiProblemLabel(id){
+  var guide=getMuchiProblemGuide(id);
+  return guide?guide.title:'全部文章';
+}
+
+function muchiArticleText(article){
+  return [article.title,article.excerpt,article.category,article.label,(article.body||[]).join(' ')].join(' ');
+}
+
+function muchiTextIncludes(text,words){
+  return words.some(function(word){return text.indexOf(word)>-1});
+}
+
+function matchesMuchiProblem(article,id){
+  if(!id||id==='all')return true;
+  var text=muchiArticleText(article);
+  var slug=getMuchiSlug(article);
+  if(id==='starter')return ['benyuan-01','bianmu-01','qijing-01'].indexOf(article.id)>-1||(['benyuan','bianmu','qijing'].indexOf(slug)>-1&&Number(article.index||99)<=2);
+  if(id==='wood')return article.category==='辨木'||muchiTextIncludes(text,['木种','硬木','软木','木纹','纹理','橡木','白蜡','胡桃','柚木','栎木']);
+  if(id==='stability')return muchiTextIncludes(text,['含水率','热胀冷缩','稳定','地暖','潮湿','变形','开缝','伸缩','水汽']);
+  if(id==='craft')return article.category==='工法'||muchiTextIncludes(text,['工法','涂装','锁扣','拼接','榫卯','表面','耐磨','施工','养护']);
+  if(id==='space')return article.category==='栖境'||muchiTextIncludes(text,['空间','客厅','卧室','茶室','家具','地板','居住','家']);
+  if(id==='aesthetic')return article.category==='木语'||article.category==='短札'||muchiTextIncludes(text,['审美','传统','现代','东方','自然','留白','文化','时间']);
+  return true;
+}
+
+function getMuchiFilteredArticles(data){
+  return (data.articles||[]).slice().reverse().filter(function(article){
+    if(muchiActiveCategory!=='all'&&getMuchiSlug(article)!==muchiActiveCategory)return false;
+    if(muchiActiveProblem!=='all'&&!matchesMuchiProblem(article,muchiActiveProblem))return false;
+    return true;
+  });
+}
+
+function getMuchiArticleById(data,id){
+  return (data.articles||[]).find(function(item){return item.id===id})||null;
+}
+
+function getMuchiShortText(text,limit){
+  text=String(text||'').trim();
+  limit=limit||72;
+  return text.length>limit?text.slice(0,limit-1)+'…':text;
+}
+
+function getMuchiCardTitle(title){
+  return String(title||'').replace(/^.*?：/,'');
+}
+
+function updateMuchiFilterState(){
+  document.querySelectorAll('[data-muchi-cat]').forEach(function(btn){
+    btn.classList.toggle('active',btn.getAttribute('data-muchi-cat')===muchiActiveCategory&&muchiActiveProblem==='all');
+  });
+  document.querySelectorAll('[data-muchi-problem]').forEach(function(btn){
+    btn.classList.toggle('active',btn.getAttribute('data-muchi-problem')===muchiActiveProblem);
+  });
+  document.querySelectorAll('[data-muchi-volume]').forEach(function(btn){
+    btn.classList.toggle('active',btn.getAttribute('data-muchi-volume')===muchiActiveCategory&&muchiActiveProblem==='all');
+  });
+}
+
+function scrollMuchiListIntoView(){
+  var target=document.getElementById('muchiColumn');
+  if(!target)return;
+  var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  window.setTimeout(function(){
+    target.scrollIntoView({behavior:reduce?'auto':'smooth',block:'start'});
+  },40);
+}
+
 function initJournalPage(hash){
   ensureMuchiDataLoaded(function(){
     if(getBaseHash(window.location.hash||'#home')!=='#journal')return;
@@ -2386,7 +2474,7 @@ function initJournalPage(hash){
       bindMuchiReader();
       muchiInitialized=true;
     }
-    var targetHash=hash||window.location.hash||'#journal';
+    var targetHash=window.location.hash||hash||'#journal';
     if(targetHash&&targetHash.indexOf('#journal/muchi/')===0){
       openMuchiArticle(targetHash.replace('#journal/muchi/',''));
     }else{
@@ -2398,9 +2486,69 @@ function initJournalPage(hash){
 function renderMuchiColumn(){
   var data=getMuchiData();
   if(!data.articles.length)return;
+  renderMuchiEntryBoard(data);
   renderMuchiFeatured(data);
   renderMuchiTabs(data);
   renderMuchiIssueList();
+}
+
+function renderMuchiEntryBoard(data){
+  renderMuchiEditorPicks(data);
+  renderMuchiQuestionGrid(data);
+  renderMuchiVolumeGrid(data);
+}
+
+function renderMuchiEditorPicks(data){
+  var wrap=document.getElementById('muchiEditorPicks');
+  if(!wrap)return;
+  var fallback=data.articles.slice(-3).reverse();
+  var picks=['benyuan-05','bianmu-01','qijing-01'].map(function(id){return getMuchiArticleById(data,id)}).filter(Boolean);
+  if(picks.length<3)picks=fallback;
+  wrap.innerHTML=picks.slice(0,3).map(function(article,index){
+    return '<button class="muchi-pick-card '+(index===0?'large':'')+'" type="button" data-muchi-id="'+escapeHTML(article.id)+'">'+
+      '<span class="muchi-pick-img"><img src="'+escapeHTML(article.cover.path)+'" alt="'+escapeHTML(article.cover.alt||article.title)+'" loading="lazy" decoding="async"></span>'+
+      '<span class="muchi-pick-copy">'+
+        '<em>'+(index===0?'本月先读':'推荐阅读')+'</em>'+
+        '<strong>'+escapeHTML(getMuchiCardTitle(article.title))+'</strong>'+
+        '<small>'+escapeHTML(getMuchiShortText(article.excerpt,78))+'</small>'+
+        '<i>阅读正文</i>'+
+      '</span>'+
+    '</button>';
+  }).join('');
+}
+
+function renderMuchiQuestionGrid(data){
+  var grid=document.getElementById('muchiQuestionGrid');
+  if(!grid)return;
+  grid.innerHTML=MUCHI_PROBLEM_GUIDES.map(function(guide){
+    var count=(data.articles||[]).filter(function(article){return matchesMuchiProblem(article,guide.id)}).length;
+    return '<button class="muchi-question-card" type="button" data-muchi-problem="'+escapeHTML(guide.id)+'">'+
+      '<span>'+escapeHTML(guide.tag)+'</span>'+
+      '<strong>'+escapeHTML(guide.title)+'</strong>'+
+      '<small>'+escapeHTML(guide.desc)+'</small>'+
+      '<em>'+String(count)+' 篇</em>'+
+    '</button>';
+  }).join('');
+  updateMuchiFilterState();
+}
+
+function renderMuchiVolumeGrid(data){
+  var grid=document.getElementById('muchiVolumeGrid');
+  if(!grid)return;
+  var counts=getMuchiCategoryCounts(data);
+  grid.innerHTML=(data.categories||[]).map(function(cat){
+    var img=cat.triptych&&cat.triptych.path?cat.triptych.path:'';
+    return '<button class="muchi-volume-card" type="button" data-muchi-volume="'+escapeHTML(cat.slug)+'">'+
+      (img?'<span class="muchi-volume-img"><img src="'+escapeHTML(img)+'" alt="" loading="lazy" decoding="async"></span>':'')+
+      '<span class="muchi-volume-copy">'+
+        '<em>'+escapeHTML(cat.label||'VOLUME')+'</em>'+
+        '<strong>'+escapeHTML(cat.volumeTitle||cat.name)+'</strong>'+
+        '<small>'+escapeHTML(cat.description||'')+'</small>'+
+        '<i>'+String(counts[cat.slug]||0)+' 篇</i>'+
+      '</span>'+
+    '</button>';
+  }).join('');
+  updateMuchiFilterState();
 }
 
 function renderMuchiFeatured(data){
@@ -2410,14 +2558,14 @@ function renderMuchiFeatured(data){
   var issue=data.collection.currentIssue||latest.issue||{};
   featured.innerHTML=
     '<button class="muchi-mag-cover" type="button" data-muchi-id="'+escapeHTML(latest.id)+'">'+
-      '<span class="muchi-mag-visual"><img src="'+escapeHTML(latest.cover.path)+'" alt="'+escapeHTML(latest.cover.alt)+'"></span>'+
+      '<span class="muchi-mag-visual"><img src="'+escapeHTML(latest.cover.path)+'" alt="'+escapeHTML(latest.cover.alt)+'" loading="lazy" decoding="async"></span>'+
       '<span class="muchi-mag-copy">'+
-        '<em>MUCHI JOURNAL</em>'+
-        '<strong>木痴</strong>'+
+        '<em>CURRENT ISSUE</em>'+
+        '<strong>本月一篇</strong>'+
         '<small>痴木堂木作月刊 · SINCE 2024</small>'+
         '<b>'+escapeHTML(issue.display||latest.issue.display)+' / '+escapeHTML(issue.month||latest.issue.month)+'</b>'+
         '<span>'+escapeHTML(latest.title)+'</span>'+
-        '<i>READ CURRENT ISSUE</i>'+
+        '<i>进入本月正文</i>'+
       '</span>'+
     '</button>';
 }
@@ -2426,43 +2574,56 @@ function renderMuchiTabs(data){
   var tabs=document.getElementById('muchiTabs');
   if(!tabs)return;
   var counts=getMuchiCategoryCounts(data);
-  var html='<button type="button" class="active" data-muchi-cat="all"><span>全刊</span><strong>目录</strong><em>'+data.articles.length+' 篇</em></button>';
+  var html='<button type="button" data-muchi-cat="all"><span>全刊</span><strong>全部</strong><em>'+data.articles.length+' 篇</em></button>';
   data.categories.forEach(function(cat){
-    var thumb=cat.triptych&&cat.triptych.path?'<i class="muchi-tab-thumb"><img src="'+escapeHTML(cat.triptych.path)+'" alt="" loading="lazy" decoding="async"></i>':'';
-    html+='<button type="button" data-muchi-cat="'+escapeHTML(cat.slug)+'">'+thumb+'<span>'+escapeHTML(cat.volume||'卷')+'</span><strong>'+escapeHTML(cat.name)+'</strong><em>'+String(counts[cat.slug]||0)+' 篇</em></button>';
+    html+='<button type="button" data-muchi-cat="'+escapeHTML(cat.slug)+'"><span>'+escapeHTML(cat.volume||'卷')+'</span><strong>'+escapeHTML(cat.name)+'</strong><em>'+String(counts[cat.slug]||0)+' 篇</em></button>';
   });
   tabs.innerHTML=html;
-  tabs.querySelectorAll('button').forEach(function(btn){
-    btn.addEventListener('click',function(){
-      muchiActiveCategory=this.getAttribute('data-muchi-cat');
-      tabs.querySelectorAll('button').forEach(function(item){item.classList.remove('active')});
-      this.classList.add('active');
-      renderMuchiIssueList();
-    });
-  });
+  updateMuchiFilterState();
 }
 
 function renderMuchiIssueList(){
   var data=getMuchiData();
   var grid=document.getElementById('muchiGrid');
   var count=document.getElementById('muchiCount');
+  var listMore=document.getElementById('muchiListMore');
   if(!grid)return;
-  var articles=data.articles.slice().reverse().filter(function(article){
-    return muchiActiveCategory==='all'||getMuchiSlug(article)===muchiActiveCategory;
-  });
-  if(count)count.textContent=articles.length+' 篇文章 · '+(muchiActiveCategory==='all'?'全刊目录':'分卷目录');
-  grid.innerHTML=articles.map(function(article){
-    return '<button class="muchi-issue-row" type="button" data-muchi-id="'+escapeHTML(article.id)+'">'+
-      '<span class="muchi-issue-cover"><img src="'+escapeHTML(article.cover.path)+'" alt="'+escapeHTML(article.cover.alt)+'" loading="lazy" decoding="async"></span>'+
-      '<span class="muchi-issue-no">'+escapeHTML(article.issue.display)+'<small>'+escapeHTML(formatMuchiDate(article.date))+'</small></span>'+
-      '<span class="muchi-issue-copy">'+
-        '<em>'+escapeHTML(getMuchiVolumeLabel(article))+' · '+escapeHTML(article.category)+'</em>'+
-        '<strong>'+escapeHTML(article.title)+'</strong>'+
-        '<small>'+escapeHTML(article.excerpt)+'</small>'+
-      '</span>'+
-      '<span class="muchi-issue-action">READ</span>'+
-    '</button>';
-  }).join('');
+  var articles=getMuchiFilteredArticles(data);
+  var filtered=muchiActiveCategory!=='all'||muchiActiveProblem!=='all';
+  var visible=(!filtered&&!muchiListExpanded)?articles.slice(0,8):articles;
+  var title='最新文章';
+  if(muchiActiveProblem!=='all')title=getMuchiProblemLabel(muchiActiveProblem);
+  if(muchiActiveCategory!=='all'){
+    var cat=getMuchiCategory(data,muchiActiveCategory);
+    title=cat?(cat.volumeTitle||cat.name):'分卷目录';
+  }
+  if(count)count.textContent=visible.length+' / '+articles.length+' 篇 · '+title;
+  if(!articles.length){
+    grid.innerHTML='<div class="muchi-empty"><strong>暂无对应文章</strong><span>可切换问题或查看全刊目录。</span></div>';
+  }else{
+    grid.innerHTML=visible.map(function(article){
+      return '<button class="muchi-issue-row" type="button" data-muchi-id="'+escapeHTML(article.id)+'">'+
+        '<span class="muchi-issue-cover"><img src="'+escapeHTML(article.cover.path)+'" alt="'+escapeHTML(article.cover.alt)+'" loading="lazy" decoding="async"></span>'+
+        '<span class="muchi-issue-no">'+escapeHTML(article.issue.display)+'<small>'+escapeHTML(formatMuchiDate(article.date))+'</small></span>'+
+        '<span class="muchi-issue-copy">'+
+          '<em>'+escapeHTML(getMuchiVolumeLabel(article))+' · '+escapeHTML(article.category)+'</em>'+
+          '<strong>'+escapeHTML(getMuchiCardTitle(article.title))+'</strong>'+
+          '<small>'+escapeHTML(getMuchiShortText(article.excerpt,92))+'</small>'+
+        '</span>'+
+        '<span class="muchi-issue-action">阅读</span>'+
+      '</button>';
+    }).join('');
+  }
+  if(listMore){
+    if(!filtered&&!muchiListExpanded&&articles.length>visible.length){
+      listMore.innerHTML='<button type="button" data-muchi-expand>展开全部 '+String(articles.length)+' 篇</button>';
+    }else if(filtered){
+      listMore.innerHTML='<button type="button" data-muchi-clear>回到全刊最新</button>';
+    }else{
+      listMore.innerHTML='';
+    }
+  }
+  updateMuchiFilterState();
 }
 
 function renderMuchiGrid(){
@@ -2470,10 +2631,51 @@ function renderMuchiGrid(){
 }
 
 function bindMuchiReader(){
-  var column=document.getElementById('muchiColumn');
+  var page=document.getElementById('page-journal');
   var reader=document.getElementById('muchiReader');
-  if(column){
-    column.addEventListener('click',function(e){
+  if(page){
+    page.addEventListener('click',function(e){
+      var expand=e.target.closest('[data-muchi-expand]');
+      if(expand){
+        muchiListExpanded=true;
+        renderMuchiIssueList();
+        return;
+      }
+      var clear=e.target.closest('[data-muchi-clear]');
+      if(clear){
+        muchiActiveCategory='all';
+        muchiActiveProblem='all';
+        muchiListExpanded=false;
+        renderMuchiIssueList();
+        scrollMuchiListIntoView();
+        return;
+      }
+      var problem=e.target.closest('[data-muchi-problem]');
+      if(problem){
+        muchiActiveProblem=problem.getAttribute('data-muchi-problem')||'all';
+        muchiActiveCategory='all';
+        muchiListExpanded=false;
+        renderMuchiIssueList();
+        scrollMuchiListIntoView();
+        return;
+      }
+      var volume=e.target.closest('[data-muchi-volume]');
+      if(volume){
+        muchiActiveCategory=volume.getAttribute('data-muchi-volume')||'all';
+        muchiActiveProblem='all';
+        muchiListExpanded=false;
+        renderMuchiIssueList();
+        scrollMuchiListIntoView();
+        return;
+      }
+      var cat=e.target.closest('[data-muchi-cat]');
+      if(cat){
+        muchiActiveCategory=cat.getAttribute('data-muchi-cat')||'all';
+        muchiActiveProblem='all';
+        muchiListExpanded=false;
+        renderMuchiIssueList();
+        return;
+      }
       var card=e.target.closest('[data-muchi-id]');
       if(card){
         muchiReturnScrollY=window.scrollY||document.documentElement.scrollTop||0;
@@ -2498,40 +2700,40 @@ function bindMuchiReader(){
 function getMuchiTriptychCopy(article){
   var map={
     benyuan:{
-      title:'本源图谱',
-      lead:'把树木的一生、年轮、水汽与材性放在一起看，选材时先懂木从何来。',
-      points:['看生长时间','看水汽与年轮','看稳定性的根']
+      title:'先看来处',
+      lead:'从年轮、含水与生长痕迹，读懂木材稳定的底层原因。',
+      points:['生长','结构','归土']
     },
     bianmu:{
-      title:'辨木图谱',
-      lead:'从木种、密度、纹理与气味入手，辨清材性差异，再谈空间适配。',
-      points:['辨树种边界','辨色泽与肌理','辨日常耐用性']
+      title:'辨其木性',
+      lead:'木色、密度、纹理与气味，决定一块木进入空间的气质。',
+      points:['木色','纹理','适配']
     },
     gongfa:{
-      title:'工法图谱',
-      lead:'一块木材进入家之前，要经过取材、干燥、加工与结构判断。',
-      points:['看取材方式','看干燥加工','看结构稳定']
+      title:'工艺成器',
+      lead:'锁扣、涂装、拼接与打磨，让木材从自然材料成为可用之材。',
+      points:['加工','表面','稳定']
     },
     qijing:{
-      title:'栖境图谱',
-      lead:'空间不同，木材承担的任务也不同；地面、墙面、家具与气候都要一起考虑。',
-      points:['看空间条件','看光线湿度','看脚感与维护']
+      title:'入境成家',
+      lead:'采光、尺度、动线与软装，共同决定木地板的铺装方向。',
+      points:['光线','尺度','秩序']
     },
     muyu:{
-      title:'木语图谱',
-      lead:'木材不仅是材料，也是光、器物、时间与生活秩序之间的柔和媒介。',
-      points:['看留白气韵','看器物包浆','看时间的温度']
+      title:'木有其韵',
+      lead:'高级感不在堆叠，而在留白、比例与日久可感的温润。',
+      points:['留白','比例','时间']
     },
     duanzha:{
-      title:'短札图谱',
-      lead:'以短篇回应人与木的关系：不求完美，重在惜木、善用与长久陪伴。',
-      points:['看自然本色','看天然缺憾','看人与木的相处']
+      title:'惜木知止',
+      lead:'理解天然木材的边界，才会真正善待每一寸纹理。',
+      points:['敬畏','缺憾','长久']
     }
   };
   return map[getMuchiSlug(article)]||{
-    title:'章节图谱',
-    lead:'将文章里的木材知识转成可观察的视觉线索，帮助客户更稳地判断材料。',
-    points:['看材性','看空间','看工艺']
+    title:'读木成章',
+    lead:'从材料、工艺与空间关系里，建立更清晰的选材判断。',
+    points:['材料','工艺','空间']
   };
 }
 
