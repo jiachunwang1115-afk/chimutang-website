@@ -382,12 +382,22 @@ function mapProductData(data){
       if(path.indexOf('product-images/')===0)return path.replace('product-images/','./product-images-thumb/');
       return path;
     }
+    var swatchSample=getProductSwatchSample(p.code);
+    var mapReady=!!(swatchSample&&PRODUCT_SWATCH_MAP_READY[p.code]);
     return {
       code:p.code,wood:p.wood,board:p.board,surface:p.surface,structure:p.structure,spec:p.spec,thickness:p.thickness,width:p.width,length:p.length,base:p.base,grade:p.grade,series:p.series,
       img_b_thumb:fixPath(p.img_b),
       img_e_thumb:fixPath(p.img_e),
       img_b_hd:p.img_b?COS_BASE+'product-images/'+p.img_b.replace(/^.*[\\/]/,''):'',
-      img_e_hd:p.img_e?COS_BASE+'product-images/'+p.img_e.replace(/^.*[\\/]/,''):''
+      img_e_hd:p.img_e?COS_BASE+'product-images/'+p.img_e.replace(/^.*[\\/]/,''):'',
+      swatch_thumb:swatchSample?swatchSample.swatch:'',
+      texture_thumb:swatchSample?swatchSample.texture:'',
+      scene_thumb:swatchSample?swatchSample.scene:'',
+      map_thumb:mapReady?'product-assets/swatch-wall/'+p.code+'-map-card.webp':'',
+      map_full:mapReady?'product-assets/swatch-wall/'+p.code+'-map.webp':'',
+      tone:swatchSample?swatchSample.tone:'',
+      swatch_note:swatchSample?swatchSample.note:'',
+      swatch_accent:swatchSample?swatchSample.accent:''
     };
   });
 }
@@ -440,6 +450,91 @@ var caseAdvancedOpen=false;
 var PAVING_SELECTION_STORAGE="woodallPavingSelection";
 var PRODUCT_SELECTION_STORAGE="woodallProductSelection";
 var productRenderToken=0;
+var productSwatchWallReady=false;
+var PRODUCT_SWATCH_SAMPLES=[
+  {code:"A9-B701",tone:"浅木",note:"浅白蜡木 / 中独幅",swatch:"product-assets/swatch-wall/A9-B701-swatch.webp",texture:"product-assets/swatch-wall/A9-B701-texture.webp",scene:"product-assets/swatch-wall/A9-B701-scene.webp",accent:"#b39c83"},
+  {code:"A9-X301",tone:"原木",note:"橡木 / 鱼骨拼",swatch:"product-assets/swatch-wall/A9-X301-swatch.webp",texture:"product-assets/swatch-wall/A9-X301-texture.webp",scene:"product-assets/swatch-wall/A9-X301-scene.webp",accent:"#ac9a7e"},
+  {code:"A9-H501",tone:"深胡桃",note:"黑胡桃 / 人字拼",swatch:"product-assets/swatch-wall/A9-H501-swatch.webp",texture:"product-assets/swatch-wall/A9-H501-texture.webp",scene:"product-assets/swatch-wall/A9-H501-scene.webp",accent:"#5e4e42"},
+  {code:"A3-B805",tone:"灰浅木",note:"欧洲梣木 / 大独幅",swatch:"product-assets/swatch-wall/A3-B805-swatch.webp",texture:"product-assets/swatch-wall/A3-B805-texture.webp",scene:"product-assets/swatch-wall/A3-B805-scene.webp",accent:"#87806f"},
+  {code:"Q9-X503",tone:"浅木",note:"橡木 / 人字拼",swatch:"product-assets/swatch-wall/Q9-X503-swatch.webp",texture:"product-assets/swatch-wall/Q9-X503-texture.webp",scene:"product-assets/swatch-wall/Q9-X503-scene.webp",accent:"#75644a"},
+  {code:"Q9-H501",tone:"深胡桃",note:"黑胡桃 / 人字拼",swatch:"product-assets/swatch-wall/Q9-H501-swatch.webp",texture:"product-assets/swatch-wall/Q9-H501-texture.webp",scene:"product-assets/swatch-wall/Q9-H501-scene.webp",accent:"#554538"},
+  {code:"Q3-X802",tone:"暖原木",note:"橡木 / 大独幅",swatch:"product-assets/swatch-wall/Q3-X802-swatch.webp",texture:"product-assets/swatch-wall/Q3-X802-texture.webp",scene:"product-assets/swatch-wall/Q3-X802-scene.webp",accent:"#7a6453"},
+  {code:"M9-B701",tone:"烟熏灰",note:"白蜡木 / 墨系列",swatch:"product-assets/swatch-wall/M9-B701-swatch.webp",texture:"product-assets/swatch-wall/M9-B701-texture.webp",scene:"product-assets/swatch-wall/M9-B701-scene.webp",accent:"#875e46"},
+  {code:"M9-B710",tone:"深灰木",note:"白蜡木 / 墨系列",swatch:"product-assets/swatch-wall/M9-B710-swatch.webp",texture:"product-assets/swatch-wall/M9-B710-texture.webp",scene:"product-assets/swatch-wall/M9-B710-scene.webp",accent:"#8a8786"},
+  {code:"B9-B704",tone:"暖浅木",note:"白蜡木 / 中独幅",swatch:"product-assets/swatch-wall/B9-B704-swatch.webp",texture:"product-assets/swatch-wall/B9-B704-texture.webp",scene:"product-assets/swatch-wall/B9-B704-scene.webp",accent:"#9d8e77"},
+  {code:"B9-B705",tone:"中棕",note:"白蜡木 / 中独幅",swatch:"product-assets/swatch-wall/B9-B705-swatch.webp",texture:"product-assets/swatch-wall/B9-B705-texture.webp",scene:"product-assets/swatch-wall/B9-B705-scene.webp",accent:"#c3ab80"},
+  {code:"B3-X809",tone:"自然橡木",note:"欧橡 / 大独幅",swatch:"product-assets/swatch-wall/B3-X809-swatch.webp",texture:"product-assets/swatch-wall/B3-X809-texture.webp",scene:"product-assets/swatch-wall/B3-X809-scene.webp",accent:"#a99072"}
+];
+var PRODUCT_SWATCH_MAP_READY={
+  "A9-B701":true,
+  "A3-B805":true,
+  "Q9-H501":true,
+  "Q3-X802":true,
+  "B9-B704":true,
+  "B9-B705":true,
+  "B3-X809":true
+};
+
+var PRODUCT_SWATCH_SECOND_BATCH=[
+  {code:"A3-B806",tone:"\u6df1\u7070\u6728",note:"\u5e73\u9762\u7eb9\u7406\u8d34\u56fe",swatch:"product-assets/swatch-wall/A3-B806-map-chip.webp",texture:"product-assets/swatch-wall/A3-B806-map-card.webp",scene:"",accent:"#4f483f"},
+  {code:"A3-B807",tone:"\u6df1\u7070\u6728",note:"\u5e73\u9762\u7eb9\u7406\u8d34\u56fe",swatch:"product-assets/swatch-wall/A3-B807-map-chip.webp",texture:"product-assets/swatch-wall/A3-B807-map-card.webp",scene:"",accent:"#3f372d"},
+  {code:"A3-B808",tone:"\u7070\u6d45\u6728",note:"\u5e73\u9762\u7eb9\u7406\u8d34\u56fe",swatch:"product-assets/swatch-wall/A3-B808-map-chip.webp",texture:"product-assets/swatch-wall/A3-B808-map-card.webp",scene:"",accent:"#82765e"},
+  {code:"A3-B810",tone:"\u7070\u6d45\u6728",note:"\u5e73\u9762\u7eb9\u7406\u8d34\u56fe",swatch:"product-assets/swatch-wall/A3-B810-map-chip.webp",texture:"product-assets/swatch-wall/A3-B810-map-card.webp",scene:"",accent:"#5c5546"},
+  {code:"A9-B501",tone:"\u6d45\u6728",note:"\u5e73\u9762\u7eb9\u7406\u8d34\u56fe",swatch:"product-assets/swatch-wall/A9-B501-map-chip.webp",texture:"product-assets/swatch-wall/A9-B501-map-card.webp",scene:"",accent:"#c5a985"},
+  {code:"A9-B503",tone:"\u6d45\u6728",note:"\u5e73\u9762\u7eb9\u7406\u8d34\u56fe",swatch:"product-assets/swatch-wall/A9-B503-map-chip.webp",texture:"product-assets/swatch-wall/A9-B503-map-card.webp",scene:"",accent:"#ac9274"},
+  {code:"A9-B506",tone:"\u4e2d\u68d5",note:"\u5e73\u9762\u7eb9\u7406\u8d34\u56fe",swatch:"product-assets/swatch-wall/A9-B506-map-chip.webp",texture:"product-assets/swatch-wall/A9-B506-map-card.webp",scene:"",accent:"#896d56"},
+  {code:"A9-B507",tone:"\u6696\u6d45\u6728",note:"\u5e73\u9762\u7eb9\u7406\u8d34\u56fe",swatch:"product-assets/swatch-wall/A9-B507-map-chip.webp",texture:"product-assets/swatch-wall/A9-B507-map-card.webp",scene:"",accent:"#bea27f"},
+  {code:"A9-B508",tone:"\u4e2d\u68d5",note:"\u5e73\u9762\u7eb9\u7406\u8d34\u56fe",swatch:"product-assets/swatch-wall/A9-B508-map-chip.webp",texture:"product-assets/swatch-wall/A9-B508-map-card.webp",scene:"",accent:"#a08b6b"},
+  {code:"A9-B703",tone:"\u6696\u6d45\u6728",note:"\u5e73\u9762\u7eb9\u7406\u8d34\u56fe",swatch:"product-assets/swatch-wall/A9-B703-map-chip.webp",texture:"product-assets/swatch-wall/A9-B703-map-card.webp",scene:"",accent:"#b8a595"},
+  {code:"A9-B704",tone:"\u6696\u539f\u6728",note:"\u5e73\u9762\u7eb9\u7406\u8d34\u56fe",swatch:"product-assets/swatch-wall/A9-B704-map-chip.webp",texture:"product-assets/swatch-wall/A9-B704-map-card.webp",scene:"",accent:"#a08c7f"},
+  {code:"A9-B705",tone:"\u7070\u6d45\u6728",note:"\u5e73\u9762\u7eb9\u7406\u8d34\u56fe",swatch:"product-assets/swatch-wall/A9-B705-map-chip.webp",texture:"product-assets/swatch-wall/A9-B705-map-card.webp",scene:"",accent:"#a09696"},
+  {code:"A9-B706",tone:"\u6696\u539f\u6728",note:"\u5e73\u9762\u7eb9\u7406\u8d34\u56fe",swatch:"product-assets/swatch-wall/A9-B706-map-chip.webp",texture:"product-assets/swatch-wall/A9-B706-map-card.webp",scene:"",accent:"#84736e"},
+  {code:"A9-B707",tone:"\u6df1\u80e1\u6843",note:"\u5e73\u9762\u7eb9\u7406\u8d34\u56fe",swatch:"product-assets/swatch-wall/A9-B707-map-chip.webp",texture:"product-assets/swatch-wall/A9-B707-map-card.webp",scene:"",accent:"#74625a"},
+  {code:"A9-B708",tone:"\u6696\u6d45\u6728",note:"\u5e73\u9762\u7eb9\u7406\u8d34\u56fe",swatch:"product-assets/swatch-wall/A9-B708-map-chip.webp",texture:"product-assets/swatch-wall/A9-B708-map-card.webp",scene:"",accent:"#b89c83"},
+  {code:"A9-B709",tone:"\u7070\u6d45\u6728",note:"\u5e73\u9762\u7eb9\u7406\u8d34\u56fe",swatch:"product-assets/swatch-wall/A9-B709-map-chip.webp",texture:"product-assets/swatch-wall/A9-B709-map-card.webp",scene:"",accent:"#858175"},
+  {code:"A9-B710",tone:"\u7070\u6d45\u6728",note:"\u5e73\u9762\u7eb9\u7406\u8d34\u56fe",swatch:"product-assets/swatch-wall/A9-B710-map-chip.webp",texture:"product-assets/swatch-wall/A9-B710-map-card.webp",scene:"",accent:"#8b7f6a"}
+];
+
+PRODUCT_SWATCH_SECOND_BATCH.forEach(function(sample){
+  PRODUCT_SWATCH_SAMPLES.push(sample);
+  PRODUCT_SWATCH_MAP_READY[sample.code]=true;
+});
+
+PRODUCT_SWATCH_MAP_READY["M9-B701"]=true;
+
+var PRODUCT_SWATCH_THIRD_BATCH=[
+  {code:"A9-X507",tone:"\u6696\u539f\u6728",note:"\u4eba\u5b57\u7eb9\u7406\u8d34\u56fe",swatch:"product-assets/swatch-wall/A9-X507-map-chip.webp",texture:"product-assets/swatch-wall/A9-X507-map-card.webp",scene:"",accent:"#715a44"},
+  {code:"A9-X508",tone:"\u6df1\u7070\u6728",note:"\u4eba\u5b57\u7eb9\u7406\u8d34\u56fe",swatch:"product-assets/swatch-wall/A9-X508-map-chip.webp",texture:"product-assets/swatch-wall/A9-X508-map-card.webp",scene:"",accent:"#393837"},
+  {code:"Q3-H801",tone:"\u4e2d\u68d5",note:"\u5e73\u9762\u7eb9\u7406\u8d34\u56fe",swatch:"product-assets/swatch-wall/Q3-H801-map-chip.webp",texture:"product-assets/swatch-wall/Q3-H801-map-card.webp",scene:"",accent:"#aa8166"},
+  {code:"Q3-X501",tone:"\u6d45\u6728",note:"\u4eba\u5b57\u7eb9\u7406\u8d34\u56fe",swatch:"product-assets/swatch-wall/Q3-X501-map-chip.webp",texture:"product-assets/swatch-wall/Q3-X501-map-card.webp",scene:"",accent:"#c4aa85"},
+  {code:"Q3-X502",tone:"\u6df1\u7070\u6728",note:"\u4eba\u5b57\u7eb9\u7406\u8d34\u56fe",swatch:"product-assets/swatch-wall/Q3-X502-map-chip.webp",texture:"product-assets/swatch-wall/Q3-X502-map-card.webp",scene:"",accent:"#585852"},
+  {code:"Q3-X503",tone:"\u7070\u6d45\u6728",note:"\u4eba\u5b57\u7eb9\u7406\u8d34\u56fe",swatch:"product-assets/swatch-wall/Q3-X503-map-chip.webp",texture:"product-assets/swatch-wall/Q3-X503-map-card.webp",scene:"",accent:"#877b6a"},
+  {code:"Q3-X504",tone:"\u6696\u6d45\u6728",note:"\u4eba\u5b57\u7eb9\u7406\u8d34\u56fe",swatch:"product-assets/swatch-wall/Q3-X504-map-chip.webp",texture:"product-assets/swatch-wall/Q3-X504-map-card.webp",scene:"",accent:"#ac8965"},
+  {code:"Q3-X505",tone:"\u6df1\u7070\u6728",note:"\u5e73\u9762\u7eb9\u7406\u8d34\u56fe",swatch:"product-assets/swatch-wall/Q3-X505-map-chip.webp",texture:"product-assets/swatch-wall/Q3-X505-map-card.webp",scene:"",accent:"#363a3d"},
+  {code:"Q3-X801",tone:"\u7070\u6d45\u6728",note:"\u5e73\u9762\u7eb9\u7406\u8d34\u56fe",swatch:"product-assets/swatch-wall/Q3-X801-map-chip.webp",texture:"product-assets/swatch-wall/Q3-X801-map-card.webp",scene:"",accent:"#ae9f8a"},
+  {code:"Q3-X803",tone:"\u4e2d\u68d5",note:"\u5e73\u9762\u7eb9\u7406\u8d34\u56fe",swatch:"product-assets/swatch-wall/Q3-X803-map-chip.webp",texture:"product-assets/swatch-wall/Q3-X803-map-card.webp",scene:"",accent:"#88664e"},
+  {code:"Q3-X804",tone:"\u6df1\u80e1\u6843",note:"\u5e73\u9762\u7eb9\u7406\u8d34\u56fe",swatch:"product-assets/swatch-wall/Q3-X804-map-chip.webp",texture:"product-assets/swatch-wall/Q3-X804-map-card.webp",scene:"",accent:"#57493e"},
+  {code:"Q9-H301",tone:"\u4e2d\u68d5",note:"\u4eba\u5b57\u7eb9\u7406\u8d34\u56fe",swatch:"product-assets/swatch-wall/Q9-H301-map-chip.webp",texture:"product-assets/swatch-wall/Q9-H301-map-card.webp",scene:"",accent:"#775240"},
+  {code:"Q9-H504",tone:"\u4e2d\u68d5",note:"\u5e73\u9762\u7eb9\u7406\u8d34\u56fe",swatch:"product-assets/swatch-wall/Q9-H504-map-chip.webp",texture:"product-assets/swatch-wall/Q9-H504-map-card.webp",scene:"",accent:"#926444"},
+  {code:"Q9-H801",tone:"\u6df1\u80e1\u6843",note:"\u5e73\u9762\u7eb9\u7406\u8d34\u56fe",swatch:"product-assets/swatch-wall/Q9-H801-map-chip.webp",texture:"product-assets/swatch-wall/Q9-H801-map-card.webp",scene:"",accent:"#462a1b"},
+  {code:"Q9-X801",tone:"\u6696\u539f\u6728",note:"\u5e73\u9762\u7eb9\u7406\u8d34\u56fe",swatch:"product-assets/swatch-wall/Q9-X801-map-chip.webp",texture:"product-assets/swatch-wall/Q9-X801-map-card.webp",scene:"",accent:"#7f6752"},
+  {code:"Q9-X803",tone:"\u4e2d\u68d5",note:"\u5e73\u9762\u7eb9\u7406\u8d34\u56fe",swatch:"product-assets/swatch-wall/Q9-X803-map-chip.webp",texture:"product-assets/swatch-wall/Q9-X803-map-card.webp",scene:"",accent:"#8b7a6c"},
+  {code:"Q9-X804",tone:"\u4e2d\u68d5",note:"\u5e73\u9762\u7eb9\u7406\u8d34\u56fe",swatch:"product-assets/swatch-wall/Q9-X804-map-chip.webp",texture:"product-assets/swatch-wall/Q9-X804-map-card.webp",scene:"",accent:"#765d4b"},
+  {code:"Q9-X809",tone:"\u6df1\u7070\u6728",note:"\u5e73\u9762\u7eb9\u7406\u8d34\u56fe",swatch:"product-assets/swatch-wall/Q9-X809-map-chip.webp",texture:"product-assets/swatch-wall/Q9-X809-map-card.webp",scene:"",accent:"#52514d"},
+  {code:"Q9-X818",tone:"\u6696\u6d45\u6728",note:"\u5e73\u9762\u7eb9\u7406\u8d34\u56fe",swatch:"product-assets/swatch-wall/Q9-X818-map-chip.webp",texture:"product-assets/swatch-wall/Q9-X818-map-card.webp",scene:"",accent:"#b1875f"}
+];
+
+PRODUCT_SWATCH_THIRD_BATCH.forEach(function(sample){
+  PRODUCT_SWATCH_SAMPLES.push(sample);
+  PRODUCT_SWATCH_MAP_READY[sample.code]=true;
+});
+
+function getProductSwatchSample(code){
+  for(var i=0;i<PRODUCT_SWATCH_SAMPLES.length;i++){
+    if(PRODUCT_SWATCH_SAMPLES[i].code===code)return PRODUCT_SWATCH_SAMPLES[i];
+  }
+  return null;
+}
 
 function countProductsBySeries(series){
   return PRODUCTS.filter(function(p){return p.series===series||p.series.indexOf(series)===0}).length;
@@ -470,6 +565,213 @@ function getProductSeriesValue(series){
 function getDisplayFilterLabel(group,value){
   if(group==="series"&&value!=="全部")return value.replace(/[（(].*?[）)]/g,"");
   return value;
+}
+
+function findProductByCode(code){
+  for(var i=0;i<PRODUCTS.length;i++){
+    if(PRODUCTS[i].code===code)return PRODUCTS[i];
+  }
+  return null;
+}
+
+function getSwatchWallItems(){
+  return PRODUCT_SWATCH_SAMPLES.map(function(sample){
+    var product=findProductByCode(sample.code);
+    if(!product||!product.map_thumb)return null;
+    return {
+      code:sample.code,
+      tone:sample.tone,
+      note:sample.note,
+      accent:sample.accent,
+      swatch:sample.swatch,
+      texture:sample.texture,
+      scene:sample.scene,
+      map:product.map_full,
+      mapCard:product.map_thumb,
+      product:product
+    };
+  }).filter(Boolean);
+}
+
+function getSwatchWallItem(code){
+  var items=getSwatchWallItems();
+  for(var i=0;i<items.length;i++){
+    if(items[i].code===code)return items[i];
+  }
+  return items[0]||null;
+}
+
+function getSwatchTones(items){
+  var seen={all:true},tones=["all"];
+  items.forEach(function(item){
+    if(item.tone&&!seen[item.tone]){
+      seen[item.tone]=true;
+      tones.push(item.tone);
+    }
+  });
+  return tones;
+}
+
+function updateSwatchWallPreview(code){
+  var root=document.getElementById("productSwatchWall");
+  var item=getSwatchWallItem(code);
+  if(!root||!item)return;
+  var preview=root.querySelector("[data-swatch-preview]");
+  var title=root.querySelector("[data-swatch-preview-title]");
+  var meta=root.querySelector("[data-swatch-preview-meta]");
+  var copy=root.querySelector("[data-swatch-preview-copy]");
+  var open=root.querySelector("[data-swatch-open]");
+  root.style.setProperty("--swatch-accent",item.accent||"#b28247");
+  root.dataset.activeCode=item.code;
+  root.querySelectorAll("[data-swatch-code]").forEach(function(card){
+    card.classList.toggle("active",card.getAttribute("data-swatch-code")===item.code);
+  });
+  if(preview)preview.setAttribute("src",item.map||item.mapCard||item.swatch);
+  if(title)title.textContent=item.code;
+  if(meta)meta.textContent=getDisplayFilterLabel("series",item.product.series)+" · "+item.tone+" · "+item.product.board;
+  if(copy)copy.textContent=item.product.wood+" · "+item.product.surface+" · "+item.note;
+  if(open)open.setAttribute("data-swatch-open",item.code);
+}
+
+function setSwatchToneFilter(tone){
+  var root=document.getElementById("productSwatchWall");
+  if(!root)return;
+  var visible=0;
+  root.querySelectorAll("[data-swatch-tone]").forEach(function(btn){
+    var active=btn.getAttribute("data-swatch-tone")===tone;
+    btn.classList.toggle("active",active);
+    btn.setAttribute("aria-pressed",active?"true":"false");
+  });
+  root.querySelectorAll("[data-swatch-code]").forEach(function(card){
+    var show=tone==="all"||card.getAttribute("data-swatch-card-tone")===tone;
+    card.hidden=!show;
+    if(show)visible++;
+  });
+  var count=root.querySelector("[data-swatch-count]");
+  if(count)count.textContent=visible+" 款样品";
+}
+
+function setSwatchToneGroupFilter(tones,label){
+  var root=document.getElementById("productSwatchWall");
+  if(!root)return;
+  var toneList=(tones||[]).filter(Boolean);
+  var visible=0,firstCode="";
+  root.querySelectorAll("[data-swatch-tone]").forEach(function(btn){
+    btn.classList.remove("active");
+    btn.setAttribute("aria-pressed","false");
+  });
+  root.querySelectorAll("[data-swatch-code]").forEach(function(card){
+    var show=!toneList.length||toneList.indexOf(card.getAttribute("data-swatch-card-tone"))>=0;
+    card.hidden=!show;
+    if(show){
+      visible++;
+      if(!firstCode)firstCode=card.getAttribute("data-swatch-code");
+    }
+  });
+  var count=root.querySelector("[data-swatch-count]");
+  if(count)count.textContent=(label?label+" / ":"")+visible+" 款样品";
+  if(firstCode)updateSwatchWallPreview(firstCode);
+}
+
+function bindProductChoiceGuide(){
+  var root=document.getElementById("productChoiceGuide");
+  if(!root||root.dataset.bound==="true")return;
+  root.dataset.bound="true";
+  root.addEventListener("click",function(e){
+    var card=e.target.closest&&e.target.closest("[data-choice-label]");
+    if(!card)return;
+    root.querySelectorAll("[data-choice-label]").forEach(function(item){
+      item.classList.toggle("active",item===card);
+    });
+    var toneString=card.getAttribute("data-choice-tones")||"";
+    var board=card.getAttribute("data-choice-board")||"";
+    var label=card.getAttribute("data-choice-label")||"";
+    if(toneString){
+      setSwatchToneGroupFilter(toneString.split(",").map(function(t){return t.trim()}),label);
+      var wall=document.getElementById("productSwatchWall");
+      if(wall)wall.scrollIntoView({behavior:"smooth",block:"start"});
+      return;
+    }
+    if(board){
+      activeFilters.board=board;
+      activeFilters.series=activeFilters.series||"全部";
+      activeFilters.wood=activeFilters.wood||"全部";
+      activeFilters.surface=activeFilters.surface||"全部";
+      activeFilters.structure=activeFilters.structure||"全部";
+      buildAllFilters();
+      buildProds();
+      var grid=document.getElementById("prodGrid");
+      if(grid)grid.scrollIntoView({behavior:"smooth",block:"start"});
+    }
+  });
+}
+
+function selectProductFromSwatch(code,openDetail){
+  var product=findProductByCode(code);
+  if(!product)return;
+  currentProd=product;
+  resetProductFiltersForSeries(product.series);
+  buildAllFilters();
+  buildProds();
+  updateSwatchWallPreview(code);
+  if(openDetail){
+    openDrawer(product);
+    return;
+  }
+  window.setTimeout(function(){
+    var grid=document.getElementById("prodGrid");
+    if(grid)grid.scrollIntoView({behavior:"smooth",block:"start"});
+  },80);
+}
+
+function renderProductSwatchWall(){
+  var root=document.getElementById("productSwatchWall");
+  if(!root||!PRODUCTS.length)return;
+  var items=getSwatchWallItems();
+  if(!items.length){
+    root.hidden=true;
+    return;
+  }
+  root.hidden=false;
+  if(productSwatchWallReady){
+    updateSwatchWallPreview(root.dataset.activeCode||items[0].code);
+    return;
+  }
+  productSwatchWallReady=true;
+  var tones=getSwatchTones(items);
+  var toneButtons=tones.map(function(tone){
+    return '<button type="button" class="swatch-tone'+(tone==="all"?" active":"")+'" data-swatch-tone="'+escapeHtml(tone)+'" aria-pressed="'+(tone==="all"?"true":"false")+'">'+(tone==="all"?"全部色卡":escapeHtml(tone))+'</button>';
+  }).join("");
+  var cards=items.map(function(item){
+    return '<button type="button" class="swatch-card" data-swatch-code="'+escapeHtml(item.code)+'" data-swatch-card-tone="'+escapeHtml(item.tone)+'" style="--chip:'+escapeHtml(item.accent)+'" aria-label="查看 '+escapeHtml(item.code)+' 纹理贴图"><img src="'+escapeHtml(item.mapCard||item.swatch)+'" alt="'+escapeHtml(item.code+' '+item.tone+' 木地板纹理贴图')+'" loading="lazy" decoding="async"><span>'+escapeHtml(item.tone)+'</span><strong>'+escapeHtml(item.code)+'</strong><em>'+escapeHtml(getDisplayFilterLabel("series",item.product.series))+'</em></button>';
+  }).join("");
+  var lead=items[0];
+  root.innerHTML='<div class="swatch-wall-copy"><span>PRODUCT TEXTURE MAP</span><h3>先看真实贴图，再选产品。</h3><p>第一批 '+items.length+' 款样品优先使用产品图库里的真实纹理贴图，用来比较木色、纹理、板缝与尺度。缺少纯贴图的款式暂不混入，后续单独补图。</p><div class="swatch-tone-row" role="group" aria-label="按木色筛选样品">'+toneButtons+'</div><small data-swatch-count>'+items.length+' 款样品</small></div><div class="swatch-wall-stage"><figure><img data-swatch-preview src="'+escapeHtml(lead.map||lead.mapCard||lead.swatch)+'" alt="产品纹理贴图预览" loading="lazy" decoding="async"></figure><div class="swatch-wall-stage-copy"><span data-swatch-preview-meta>'+escapeHtml(getDisplayFilterLabel("series",lead.product.series)+" · "+lead.tone+" · "+lead.product.board)+'</span><h4 data-swatch-preview-title>'+escapeHtml(lead.code)+'</h4><p data-swatch-preview-copy>'+escapeHtml(lead.product.wood+" · "+lead.product.surface+" · "+lead.note)+'</p><button type="button" data-swatch-open="'+escapeHtml(lead.code)+'">查看此款</button></div></div><div class="swatch-board" aria-label="互动产品纹理贴图墙">'+cards+'</div>';
+  root.addEventListener("click",function(e){
+    var toneBtn=e.target.closest&&e.target.closest("[data-swatch-tone]");
+    if(toneBtn){
+      setSwatchToneFilter(toneBtn.getAttribute("data-swatch-tone"));
+      return;
+    }
+    var openBtn=e.target.closest&&e.target.closest("[data-swatch-open]");
+    if(openBtn){
+      selectProductFromSwatch(openBtn.getAttribute("data-swatch-open"),true);
+      return;
+    }
+    var card=e.target.closest&&e.target.closest("[data-swatch-code]");
+    if(card){
+      selectProductFromSwatch(card.getAttribute("data-swatch-code"),false);
+    }
+  });
+  root.addEventListener("mouseover",function(e){
+    var card=e.target.closest&&e.target.closest("[data-swatch-code]");
+    if(card&&!card.hidden)updateSwatchWallPreview(card.getAttribute("data-swatch-code"));
+  });
+  root.addEventListener("focusin",function(e){
+    var card=e.target.closest&&e.target.closest("[data-swatch-code]");
+    if(card&&!card.hidden)updateSwatchWallPreview(card.getAttribute("data-swatch-code"));
+  });
+  updateSwatchWallPreview(lead.code);
 }
 
 function resetProductFiltersForSeries(series){
@@ -1131,12 +1433,16 @@ function initProductsPage(){
     return;
   }
   if(productsInitialized){
+    renderProductSwatchWall();
+    bindProductChoiceGuide();
     buildAllFilters();
     buildProds();
     return;
   }
   productsInitialized=true;
   currentProd=PRODUCTS[0];
+  renderProductSwatchWall();
+  bindProductChoiceGuide();
   buildAllFilters();
   buildProds();
 }
@@ -1244,12 +1550,15 @@ function createProductCard(p,index){
   var selected=isProductSelected(p.code);
   var active=currentProd&&currentProd.code===p.code;
   var eager=index<8;
-  card.className="pcard action-card"+(active?" active":"")+(selected?" selected":"");
+  var imageSrc=p.map_thumb||p.img_b_thumb||p.img_e_thumb||p.swatch_thumb;
+  var imageMarkup=imageSrc?'<img src="'+escapeHtml(imageSrc)+'" loading="'+(eager?"eager":"lazy")+'" fetchpriority="'+(eager?"high":"low")+'" decoding="async" alt="'+escapeHtml(p.code+' '+p.wood+' 木地板纹理')+'">':'<span class="product-card-image-placeholder" aria-hidden="true"></span>';
+  var swatchMarkup=p.map_thumb?'<span class="product-card-swatchbar"><i style="--swatch-color:'+escapeHtml(p.swatch_accent||"#b28247")+'"></i><b>'+escapeHtml(p.tone||"木色")+'</b><em>纹理贴图</em></span>':'';
+  card.className="pcard action-card"+(p.map_thumb?" has-swatch-assets":"")+(active?" active":"")+(selected?" selected":"");
   card.dataset.productCode=p.code;
   card.setAttribute("role","button");
   card.setAttribute("tabindex","0");
   card.setAttribute("aria-label","查看产品 "+p.code+" "+p.wood+" 详情");
-  card.innerHTML='<img src="'+escapeHtml(p.img_b_thumb)+'" loading="'+(eager?"eager":"lazy")+'" fetchpriority="'+(eager?"high":"low")+'" decoding="async" alt="'+escapeHtml(p.code+' '+p.wood+' 木地板纹理')+'"><span class="pname">'+escapeHtml(p.code)+' · '+escapeHtml(p.wood)+'</span><button class="product-save-chip" type="button" data-product-save="'+escapeHtml(p.code)+'" aria-pressed="'+(selected?"true":"false")+'" aria-label="'+(selected?"已加入选材夹，点击移除":"加入选材夹")+'">'+renderProductSaveIcon(selected)+'</button>';
+  card.innerHTML=imageMarkup+swatchMarkup+'<span class="pname">'+escapeHtml(p.code)+' · '+escapeHtml(p.wood)+'</span><button class="product-save-chip" type="button" data-product-save="'+escapeHtml(p.code)+'" aria-pressed="'+(selected?"true":"false")+'" aria-label="'+(selected?"已加入选材夹，点击移除":"加入选材夹")+'">'+renderProductSaveIcon(selected)+'</button>';
   card.onclick=function(){selectProd(p)};
   var saveBtn=card.querySelector("[data-product-save]");
   if(saveBtn){
@@ -1551,7 +1860,7 @@ function unbindDrawerSwipe(){
 
 function getProductSceneSources(p){
   var sources=[];
-  [p.img_e_thumb,p.img_b_thumb,p.img_e_hd,p.img_b_hd].forEach(function(src){
+  [p.map_full,p.map_thumb,p.scene_thumb,p.texture_thumb,p.swatch_thumb,p.img_e_thumb,p.img_b_thumb,p.img_e_hd,p.img_b_hd].forEach(function(src){
     if(src&&sources.indexOf(src)<0)sources.push(src);
   });
   return sources;
@@ -1713,7 +2022,9 @@ function showProductInDrawer(p){
 
   // Info panel
   var info=document.getElementById('drawerInfoPanel');
+  var drawerVisuals=p.map_thumb?'<div class="drawer-product-visuals"><figure><img src="'+escapeHtml(p.map_thumb)+'" alt="'+escapeHtml(p.code+' 纹理贴图')+'" loading="lazy" decoding="async"><figcaption>贴图</figcaption></figure><figure><img src="'+escapeHtml(p.texture_thumb||p.map_thumb)+'" alt="'+escapeHtml(p.code+' 纹理细节')+'" loading="lazy" decoding="async"><figcaption>纹理</figcaption></figure><figure><img src="'+escapeHtml(p.scene_thumb||p.texture_thumb||p.map_thumb)+'" alt="'+escapeHtml(p.code+' 场景图')+'" loading="lazy" decoding="async"><figcaption>场景</figcaption></figure></div>':'';
   info.innerHTML='<h3>'+p.code+'</h3><div class="d-meta">'+p.wood+' · '+p.surface+'</div>'
+    +drawerVisuals
     +'<div class="drawer-cards">'
     +'<div class="drawer-card"><div class="val">'+p.wood+'</div><div class="lbl">木种</div></div>'
     +'<div class="drawer-card"><div class="val">'+p.board+'</div><div class="lbl">板材</div></div>'

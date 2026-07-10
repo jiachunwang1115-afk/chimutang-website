@@ -1,1 +1,4 @@
 .vercel
+product-assets/swatch-wall/_*
+product-assets/swatch-wall/manifest.json
+product-assets/swatch-wall/*-flat.webp
