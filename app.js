@@ -5,7 +5,7 @@ var MOBILE_NAV_META={
   '#products':{eyebrow:'PRODUCT CENTER',title:'产品中心'},
   '#series':{eyebrow:'SERIES ARCHIVE',title:'系列介绍'},
   '#craft':{eyebrow:'CRAFT ARCHIVE',title:'工艺技术'},
-  '#journal':{eyebrow:'WOOD ALL JOURNAL',title:'木作志'},
+  '#journal':{eyebrow:'CHIMU JOURNAL',title:'痴木志'},
   '#cases':{eyebrow:'PAVING ATLAS',title:'铺装参考库'},
   '#about':{eyebrow:'BRAND STORY',title:'品牌故事'},
   '#service':{eyebrow:'SERVICE',title:'服务支持'},
@@ -1021,13 +1021,13 @@ var IMAGE_SLOT_MAP=[
   {id:"T07",route:"#craft",page:"工艺技术",selector:"#craftContent .craft-item:nth-child(6)",title:"工艺卡 06",asset:"media/motion-atelier-02.mp4"},
   {id:"T08",route:"#craft",page:"工艺技术",selector:"#craftContent .craft-item:nth-child(7)",title:"工艺卡 07",asset:"journal/wood-art.webp"},
   {id:"T09",route:"#craft",page:"工艺技术",selector:"#craftContent .craft-item:nth-child(8)",title:"工艺卡 08",asset:"journal/material-blue-floor.webp"},
-  {id:"J01",route:"#journal",page:"木作志",selector:"#page-journal .journal-cover",title:"木作志封面",asset:"journal/craft-oriental-card-lite.webp"},
-  {id:"J02",route:"#journal",page:"木作志",selector:"#woodAcademy .wood-academy-media",title:"木材学堂主图",asset:"journal/craft-ring-section-lite.webp"},
-  {id:"J03",route:"#journal",page:"木作志",selector:"#page-journal .journal-topic.large",title:"木作志卡片：空间灵感",asset:"journal/space-floor.webp"},
-  {id:"J04",route:"#journal",page:"木作志",selector:"#page-journal .journal-topic:nth-child(2)",title:"木作志卡片：木材百科",asset:"journal/surface-wood-mosaic-lite.webp"},
-  {id:"J05",route:"#journal",page:"木作志",selector:"#page-journal .journal-topic:nth-child(3)",title:"木作志卡片：从森林到家",asset:"journal/home-hero-forest-door-lite.webp"},
-  {id:"J06",route:"#journal",page:"木作志",selector:"#page-journal .journal-topic:nth-child(4)",title:"木作志卡片：工艺手记",asset:"journal/touch-wood.webp"},
-  {id:"J07",route:"#journal",page:"木作志",selector:"#page-journal .journal-topic:nth-child(5)",title:"木作志卡片：全屋木作系统",asset:"journal/system-section-house.webp"},
+  {id:"J01",route:"#journal",page:"痴木志",selector:"#page-journal .journal-cover",title:"痴木志封面",asset:"journal/craft-oriental-card-lite.webp"},
+  {id:"J02",route:"#journal",page:"痴木志",selector:"#woodAcademy .wood-academy-media",title:"痴木志木作美学档案主图",asset:"journal/craft-ring-section-lite.webp"},
+  {id:"J03",route:"#journal",page:"痴木志",selector:"#page-journal .journal-topic.large",title:"痴木志卡片：空间灵感",asset:"journal/space-floor.webp"},
+  {id:"J04",route:"#journal",page:"痴木志",selector:"#page-journal .journal-topic:nth-child(2)",title:"痴木志卡片：木材百科",asset:"journal/surface-wood-mosaic-lite.webp"},
+  {id:"J05",route:"#journal",page:"痴木志",selector:"#page-journal .journal-topic:nth-child(3)",title:"痴木志卡片：从森林到家",asset:"journal/home-hero-forest-door-lite.webp"},
+  {id:"J06",route:"#journal",page:"痴木志",selector:"#page-journal .journal-topic:nth-child(4)",title:"痴木志卡片：工艺手记",asset:"journal/touch-wood.webp"},
+  {id:"J07",route:"#journal",page:"痴木志",selector:"#page-journal .journal-topic:nth-child(5)",title:"痴木志卡片：全屋木作系统",asset:"journal/system-section-house.webp"},
 {id:"C01",route:"#cases",page:"铺装参考库",selector:"#caseSpaceGallery [data-space-id='living-hero']",title:"铺装参考：木入客厅",asset:"journal/paving-reference/ref-living-hero.webp"},
   {id:"C02",route:"#cases",page:"铺装参考库",selector:"#caseSpaceGallery [data-space-id='living-light']",title:"铺装参考：光下原木",asset:"journal/paving-reference/ref-living-light.webp"},
   {id:"C03",route:"#cases",page:"铺装参考库",selector:"#caseSpaceGallery [data-space-id='living-dark-lounge']",title:"铺装参考：深厅有序",asset:"journal/paving-reference/ref-living-dark-lounge.webp"},
@@ -1998,7 +1998,7 @@ function setMuchiLoadingState(message,isError){
   var tabs=document.getElementById('muchiTabs');
   var grid=document.getElementById('muchiGrid');
   var count=document.getElementById('muchiCount');
-  var text=message||'木作志加载中...';
+  var text=message||'痴木志加载中...';
   if(featured&&!window.MUCHI_ARTICLES_DATA){
     featured.innerHTML='<div class="muchi-loading'+(isError?' error':'')+'">'+escapeHTML(text)+'</div>';
   }
@@ -2014,7 +2014,7 @@ function ensureMuchiDataLoaded(callback){
     if(callback)callback();
     return;
   }
-  setMuchiLoadingState('木作志加载中...');
+  setMuchiLoadingState('痴木志加载中...');
   if(!muchiDataLoadPromise){
     muchiDataLoadPromise=new Promise(function(resolve,reject){
       var existing=document.querySelector('script[data-muchi-data]');
@@ -2041,7 +2041,7 @@ function ensureMuchiDataLoaded(callback){
       document.body.appendChild(script);
     }).catch(function(error){
       muchiDataLoadPromise=null;
-      setMuchiLoadingState('木作志目录暂时加载失败，请刷新后重试。',true);
+      setMuchiLoadingState('痴木志目录暂时加载失败，请刷新后重试。',true);
       throw error;
     });
   }
@@ -2514,10 +2514,10 @@ function initJournalDirectory(){
   if(!root||root.dataset.directoryReady==="true")return;
   root.dataset.directoryReady="true";
   root.classList.add('journal-directory');
-  root.setAttribute('aria-label','木作志杂志目录');
+  root.setAttribute('aria-label','痴木志选题目录');
 
   var filters=[
-    {id:"all",label:"全部",note:"以目录方式快速浏览木作志题材。"},
+    {id:"all",label:"全部",note:"以目录方式快速浏览痴木志题目。"},
     {id:"space",label:"空间",note:"按房间、光线和铺法阅读空间灵感。"},
     {id:"material",label:"材料",note:"从木种、纹理、色阶理解产品选择。"},
     {id:"craft",label:"工艺",note:"把表面、结构和安装逻辑拆成可读条目。"},
@@ -2547,7 +2547,7 @@ function initJournalDirectory(){
     return '<a class="journal-index-card" href="'+item.href+'" data-journal-category="'+item.category+'" data-journal-note="'+escapeHtml(item.desc)+'"><figure><img src="'+item.img+'" alt="'+escapeHtml(item.alt)+'" loading="lazy" decoding="async"></figure><div class="journal-index-copy"><span><b>'+item.no+'</b>'+escapeHtml(item.label)+'</span><h3>'+escapeHtml(item.title)+'</h3><p>'+escapeHtml(item.desc)+'</p><em>'+escapeHtml(item.cta)+'</em></div></a>';
   }).join("");
 
-  root.innerHTML='<div class="journal-directory-head"><div class="journal-directory-title"><span>MAGAZINE INDEX</span><h3>按题材进入木作志</h3><p>像翻目录一样，从空间、材料、工艺、审美与养护进入阅读。</p></div><div class="journal-directory-tabs" role="group" aria-label="木作志题材筛选">'+tabs+'</div><div class="journal-directory-note"><strong id="journalDirectoryCount">'+items.length+'篇</strong><p id="journalDirectoryHint">以目录方式快速浏览木作志题材。</p></div></div><div class="journal-index-grid">'+cards+'</div>';
+  root.innerHTML='<div class="journal-directory-head"><div class="journal-directory-title"><span>CHIMU INDEX</span><h3>按题目进入痴木志</h3><p>木作美学档案与选题目录合并在这里，从空间、材料、工艺、审美与养护进入阅读。</p></div><div class="journal-directory-tabs" role="group" aria-label="痴木志题目筛选">'+tabs+'</div><div class="journal-directory-note"><strong id="journalDirectoryCount">'+items.length+'篇</strong><p id="journalDirectoryHint">以目录方式快速浏览痴木志题目。</p></div></div><div class="journal-index-grid">'+cards+'</div>';
 
   var buttons=root.querySelectorAll('[data-journal-filter]');
   var topicCards=root.querySelectorAll('[data-journal-category]');
