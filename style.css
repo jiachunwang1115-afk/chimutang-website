@@ -5790,6 +5790,195 @@ body.has-scrolled .fixed-action-rail button{opacity:1}
   --page-head-position:center 54%;
 }
 
+/* Muchi chapter atlas refinement */
+.muchi-tabs button .muchi-tab-thumb{
+  display:block;
+  width:100%;
+  aspect-ratio:5/2;
+  margin-bottom:6px;
+  overflow:hidden;
+  border:1px solid rgba(31,28,25,.1);
+  background:#eee8dc;
+}
+
+.muchi-tabs button .muchi-tab-thumb img{
+  width:100%;
+  height:100%;
+  display:block;
+  object-fit:cover;
+  filter:saturate(.9) contrast(.98);
+  transition:transform .65s cubic-bezier(.2,.7,.2,1),filter .65s ease;
+}
+
+.muchi-tabs button:hover .muchi-tab-thumb img,
+.muchi-tabs button.active .muchi-tab-thumb img{
+  transform:scale(1.05);
+  filter:saturate(1.02) contrast(1.02);
+}
+
+.muchi-triptych{
+  width:min(1040px,calc(100vw - 44px));
+  margin:52px 50% 58px;
+  transform:translateX(-50%);
+  display:grid;
+  grid-template-columns:minmax(230px,.34fr) minmax(0,1fr);
+  gap:0;
+  border:1px solid rgba(31,28,25,.14);
+  background:linear-gradient(135deg,#fffdf8,#f1ebe0);
+  box-shadow:0 20px 60px rgba(54,36,20,.08);
+}
+
+.muchi-triptych-copy{
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  gap:18px;
+  padding:34px;
+  border-right:1px solid rgba(31,28,25,.12);
+}
+
+.muchi-triptych-copy em{
+  font-style:normal;
+  font-size:11px;
+  letter-spacing:.18em;
+  color:var(--brand);
+}
+
+.muchi-triptych-copy strong{
+  display:block;
+  font-size:clamp(24px,3vw,34px);
+  line-height:1.18;
+  font-weight:500;
+  color:var(--ink);
+}
+
+.muchi-triptych-copy p{
+  margin:0!important;
+  font-size:14px!important;
+  line-height:1.9!important;
+  color:rgba(31,28,25,.68)!important;
+}
+
+.muchi-triptych-visual{
+  position:relative;
+  min-height:280px;
+  overflow:hidden;
+  background:#e7dfd2;
+}
+
+.muchi-triptych-visual img{
+  width:100%;
+  height:100%;
+  min-height:280px;
+  display:block;
+  object-fit:cover;
+}
+
+.muchi-triptych figcaption{
+  grid-column:1 / -1;
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  border-top:1px solid rgba(31,28,25,.12);
+  background:rgba(255,255,255,.64);
+}
+
+.muchi-triptych figcaption span{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  min-height:58px;
+  padding:14px 22px;
+  border-right:1px solid rgba(31,28,25,.1);
+  font-size:13px;
+  line-height:1.5;
+  color:rgba(31,28,25,.72);
+}
+
+.muchi-triptych figcaption span:last-child{
+  border-right:0;
+}
+
+.muchi-triptych figcaption em{
+  font-style:normal;
+  font-size:11px;
+  letter-spacing:.12em;
+  color:var(--brand);
+}
+
+.muchi-selection-note{
+  width:min(760px,calc(100vw - 44px));
+  margin:0 auto 38px;
+  padding:20px 24px;
+  display:grid;
+  grid-template-columns:120px minmax(0,1fr);
+  gap:22px;
+  align-items:start;
+  border-top:1px solid rgba(31,28,25,.14);
+  border-bottom:1px solid rgba(31,28,25,.14);
+  background:rgba(255,253,248,.58);
+}
+
+.muchi-selection-note span{
+  font-size:11px;
+  letter-spacing:.16em;
+  color:var(--brand);
+}
+
+.muchi-selection-note p{
+  margin:0!important;
+  font-size:14px!important;
+  line-height:1.9!important;
+  color:rgba(31,28,25,.72)!important;
+}
+
+@media(max-width:980px){
+  .muchi-tabs button .muchi-tab-thumb{
+    aspect-ratio:7/2.6;
+  }
+
+  .muchi-triptych{
+    grid-template-columns:1fr;
+    width:calc(100vw - 36px);
+    margin:42px 50% 46px;
+  }
+
+  .muchi-triptych-copy{
+    padding:24px;
+    border-right:0;
+    border-bottom:1px solid rgba(31,28,25,.12);
+  }
+
+  .muchi-triptych-visual,
+  .muchi-triptych-visual img{
+    min-height:0;
+  }
+
+  .muchi-triptych-visual img{
+    aspect-ratio:3/2;
+  }
+
+  .muchi-triptych figcaption{
+    grid-template-columns:1fr;
+  }
+
+  .muchi-triptych figcaption span{
+    min-height:46px;
+    border-right:0;
+    border-bottom:1px solid rgba(31,28,25,.1);
+  }
+
+  .muchi-triptych figcaption span:last-child{
+    border-bottom:0;
+  }
+
+  .muchi-selection-note{
+    width:calc(100vw - 36px);
+    grid-template-columns:1fr;
+    gap:10px;
+    padding:18px;
+  }
+}
+
 /* Muchi column */
 .muchi-home-cta{
   display:grid;

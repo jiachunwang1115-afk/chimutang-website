@@ -1977,7 +1977,7 @@ var muchiActiveCategory='all';
 var muchiReturnScrollY=0;
 var muchiReaderArticleId='';
 var muchiDataLoadPromise=null;
-var MUCHI_DATA_SRC='journal/muchi_articles_data.min.js?v=muchi-editorial-all-1';
+var MUCHI_DATA_SRC='journal/muchi_articles_data.min.js?v=muchi-triptych-1';
 
 function escapeHTML(value){
   return String(value||'').replace(/[&<>"']/g,function(ch){
@@ -2117,7 +2117,8 @@ function renderMuchiTabs(data){
   var counts=getMuchiCategoryCounts(data);
   var html='<button type="button" class="active" data-muchi-cat="all"><span>全刊</span><strong>目录</strong><em>'+data.articles.length+' 篇</em></button>';
   data.categories.forEach(function(cat){
-    html+='<button type="button" data-muchi-cat="'+escapeHTML(cat.slug)+'"><span>'+escapeHTML(cat.volume||'卷')+'</span><strong>'+escapeHTML(cat.name)+'</strong><em>'+String(counts[cat.slug]||0)+' 篇</em></button>';
+    var thumb=cat.triptych&&cat.triptych.path?'<i class="muchi-tab-thumb"><img src="'+escapeHTML(cat.triptych.path)+'" alt="" loading="lazy" decoding="async"></i>':'';
+    html+='<button type="button" data-muchi-cat="'+escapeHTML(cat.slug)+'">'+thumb+'<span>'+escapeHTML(cat.volume||'卷')+'</span><strong>'+escapeHTML(cat.name)+'</strong><em>'+String(counts[cat.slug]||0)+' 篇</em></button>';
   });
   tabs.innerHTML=html;
   tabs.querySelectorAll('button').forEach(function(btn){
@@ -2183,6 +2184,92 @@ function bindMuchiReader(){
   });
 }
 
+function getMuchiTriptychCopy(article){
+  var map={
+    benyuan:{
+      title:'本源图谱',
+      lead:'把树木的一生、年轮、水汽与材性放在一起看，选材时先懂木从何来。',
+      points:['看生长时间','看水汽与年轮','看稳定性的根']
+    },
+    bianmu:{
+      title:'辨木图谱',
+      lead:'从木种、密度、纹理与气味入手，辨清材性差异，再谈空间适配。',
+      points:['辨树种边界','辨色泽与肌理','辨日常耐用性']
+    },
+    gongfa:{
+      title:'工法图谱',
+      lead:'一块木材进入家之前，要经过取材、干燥、加工与结构判断。',
+      points:['看取材方式','看干燥加工','看结构稳定']
+    },
+    qijing:{
+      title:'栖境图谱',
+      lead:'空间不同，木材承担的任务也不同；地面、墙面、家具与气候都要一起考虑。',
+      points:['看空间条件','看光线湿度','看脚感与维护']
+    },
+    muyu:{
+      title:'木语图谱',
+      lead:'木材不仅是材料，也是光、器物、时间与生活秩序之间的柔和媒介。',
+      points:['看留白气韵','看器物包浆','看时间的温度']
+    },
+    duanzha:{
+      title:'短札图谱',
+      lead:'以短篇回应人与木的关系：不求完美，重在惜木、善用与长久陪伴。',
+      points:['看自然本色','看天然缺憾','看人与木的相处']
+    }
+  };
+  return map[getMuchiSlug(article)]||{
+    title:'章节图谱',
+    lead:'将文章里的木材知识转成可观察的视觉线索，帮助客户更稳地判断材料。',
+    points:['看材性','看空间','看工艺']
+  };
+}
+
+function renderMuchiTriptych(article){
+  if(!article.triptych||!article.triptych.path)return'';
+  var copy=getMuchiTriptychCopy(article);
+  var points=(copy.points||[]).map(function(point,index){
+    return '<span><em>0'+String(index+1)+'</em>'+escapeHTML(point)+'</span>';
+  }).join('');
+  return '<figure class="muchi-triptych">'+
+    '<div class="muchi-triptych-copy">'+
+      '<em>CHAPTER ATLAS</em>'+
+      '<strong>'+escapeHTML(copy.title)+'</strong>'+
+      '<p>'+escapeHTML(copy.lead)+'</p>'+
+    '</div>'+
+    '<div class="muchi-triptych-visual">'+
+      '<img src="'+escapeHTML(article.triptych.path)+'" alt="'+escapeHTML(article.title)+'章节图谱" loading="lazy" decoding="async">'+
+    '</div>'+
+    '<figcaption>'+points+'</figcaption>'+
+  '</figure>';
+}
+
+function getMuchiSelectionNote(article){
+  var title=article.title||'';
+  if(title.indexOf('含水率')>-1)return'选地板时，不只看木色，也要看含水率控制。含水率稳定，后期起拱、开缝和变形风险才会更低。';
+  if(title.indexOf('热胀冷缩')>-1)return'大面积通铺、地暖或南方潮湿环境，应优先看结构稳定性、伸缩缝预留和安装方案。';
+  if(title.indexOf('地暖')>-1)return'地暖空间先看材料稳定、基材结构和安装系统，再决定木种与表面工艺。';
+  if(title.indexOf('潮湿')>-1)return'潮湿地域用木，关键不在“绝对防水”，而在稳定结构、通风条件与日常维护。';
+  if(title.indexOf('地板VS家具')>-1)return'地板承受踩踏、清洁与温湿变化，选材标准应比家具更重视稳定性和耐磨维护。';
+  if(title.indexOf('黑胡桃')>-1||title.indexOf('橡木')>-1)return'木种没有绝对高低，适合的木色、硬度、纹理密度与空间气质，才是选材的核心。';
+  if(title.indexOf('榫卯')>-1||title.indexOf('拼接')>-1)return'看工艺，最终要回到结构是否稳定、接缝是否干净，以及长期使用后是否容易维护。';
+  var map={
+    benyuan:'先理解木材的自然属性，再做产品选择；稳定性、纹理和色差，都来自树木生长本身。',
+    bianmu:'辨木不是背木种名，而是把木色、密度、纹理、气味和维护成本放在同一张判断表里。',
+    gongfa:'工艺决定木材如何进入日常生活。好的加工，应让天然质感更稳定，而不是遮盖木性。',
+    qijing:'空间条件决定用木方向。采光、湿度、地暖、动线和软装色彩，都应一起考虑。',
+    muyu:'原木的高级感不靠堆砌，靠比例、留白、光线和长期触摸后的温润变化。',
+    duanzha:'天然木材有个性，也有边界。理解它的不完美，才能更长久地与它相处。'
+  };
+  return map[getMuchiSlug(article)]||'看完文章后，可以带着空间条件、木色偏好和维护习惯，再回到产品中心做筛选。';
+}
+
+function renderMuchiSelectionNote(article){
+  return '<aside class="muchi-selection-note">'+
+    '<span>选材小注</span>'+
+    '<p>'+escapeHTML(getMuchiSelectionNote(article))+'</p>'+
+  '</aside>';
+}
+
 function renderMuchiArticleBody(article){
   var byParagraph={};
   (article.inlineImages||[]).forEach(function(img){
@@ -2191,6 +2278,7 @@ function renderMuchiArticleBody(article){
     byParagraph[index].push(img);
   });
   var html='';
+  var triptychAfter=article.triptych?Number(article.triptych.afterParagraph||2):0;
   (article.body||[]).forEach(function(p,index){
     var paragraphNo=index+1;
     html+='<p>'+escapeHTML(p)+'</p>';
@@ -2199,6 +2287,10 @@ function renderMuchiArticleBody(article){
         '<span>'+escapeHTML(article.editorNote.label||'编辑手记')+'</span>'+
         '<strong>'+escapeHTML(article.editorNote.text||'')+'</strong>'+
       '</aside>';
+    }
+    if(paragraphNo===triptychAfter){
+      html+=renderMuchiTriptych(article);
+      html+=renderMuchiSelectionNote(article);
     }
     (byParagraph[paragraphNo]||[]).forEach(function(img){
       html+='<figure class="muchi-inline-figure '+escapeHTML(img.layout||'wide')+'">'+

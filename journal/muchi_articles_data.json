@@ -3,7 +3,7 @@
     "name": "木痴专栏",
     "subtitle": "从一棵树，到一方人居",
     "description": "自2024年起，痴木堂每月记录一篇关于树木、原木、工艺、空间与生活美学的长期观察。",
-    "generatedAt": "2026-07-09",
+    "generatedAt": "2026-07-10",
     "articleCount": 37,
     "imageBasePath": "journal/muchi-library/article-cover/",
     "format": "brand magazine",
@@ -14,7 +14,8 @@
       "theme": "一木一浮生"
     },
     "magazineTitle": "木痴",
-    "magazineSubtitle": "痴木堂木作月刊"
+    "magazineSubtitle": "痴木堂木作月刊",
+    "visualSystem": "chapter triptych"
   },
   "categories": [
     {
@@ -24,7 +25,10 @@
       "description": "树木与原木底层自然科普",
       "volume": "卷一",
       "volumeTitle": "卷一 本源",
-      "keywords": "森林、年轮、含水率、树疤、自然生长、木材结构"
+      "keywords": "森林、年轮、含水率、树疤、自然生长、木材结构",
+      "triptych": {
+        "path": "journal/muchi-library/column-triptych/muchi-column-benyuan-triptych.jpg"
+      }
     },
     {
       "slug": "bianmu",
@@ -33,7 +37,10 @@
       "description": "木材品类与肌理科普",
       "volume": "卷二",
       "volumeTitle": "卷二 辨木",
-      "keywords": "木种样板、横截面对比、木纹肌理、材性差异"
+      "keywords": "木种样板、横截面对比、木纹肌理、材性差异",
+      "triptych": {
+        "path": "journal/muchi-library/column-triptych/muchi-column-bianmu-triptych.jpg"
+      }
     },
     {
       "slug": "gongfa",
@@ -42,7 +49,10 @@
       "description": "木材传统与现代加工工艺",
       "volume": "卷三",
       "volumeTitle": "卷三 工法",
-      "keywords": "手工、工具、打磨、涂装、拼接、稳定结构"
+      "keywords": "手工、工具、打磨、涂装、拼接、稳定结构",
+      "triptych": {
+        "path": "journal/muchi-library/column-triptych/muchi-column-gongfa-triptych.jpg"
+      }
     },
     {
       "slug": "qijing",
@@ -51,7 +61,10 @@
       "description": "木材全场景空间应用",
       "volume": "卷四",
       "volumeTitle": "卷四 栖境",
-      "keywords": "木地板空间、光线、墙地一体、楼梯、全屋木作"
+      "keywords": "木地板空间、光线、墙地一体、楼梯、全屋木作",
+      "triptych": {
+        "path": "journal/muchi-library/column-triptych/muchi-column-qijing-triptych.jpg"
+      }
     },
     {
       "slug": "muyu",
@@ -60,7 +73,10 @@
       "description": "原木美学与人文哲思",
       "volume": "卷五",
       "volumeTitle": "卷五 木语",
-      "keywords": "木器静物、东方书房、留白、时间感、文化意象"
+      "keywords": "木器静物、东方书房、留白、时间感、文化意象",
+      "triptych": {
+        "path": "journal/muchi-library/column-triptych/muchi-column-muyu-triptych.jpg"
+      }
     },
     {
       "slug": "duanzha",
@@ -69,7 +85,10 @@
       "description": "短篇感悟随笔",
       "volume": "卷六",
       "volumeTitle": "卷六 短札",
-      "keywords": "人与木、惜木、缺憾、自然敬畏、专栏终章"
+      "keywords": "人与木、惜木、缺憾、自然敬畏、专栏终章",
+      "triptych": {
+        "path": "journal/muchi-library/column-triptych/muchi-column-duanzha-triptych.jpg"
+      }
     }
   ],
   "articles": [
@@ -86,13 +105,7 @@
       "cover": {
         "file": "muchi-benyuan-01-cover-editorial-1.jpg",
         "path": "journal/muchi-library/article-cover/muchi-benyuan-01-cover-editorial-1.jpg",
-        "alt": "森林幼树与倒木共同呈现树木生命循环",
-        "idea": "a quiet forest floor after rain with young saplings, mature trunks, fallen deadwood and visible rings, showing the full life cycle of a tree",
-        "keywords": "从种子到枯木，一棵树完整的自然生长宿命",
-        "sourceSuggestion": "实拍/生成均可",
-        "promptZh": "为「木痴」杂志文章《本源①：从种子到枯木，一棵树完整的自然生长宿命》制作一张封面图。画面主题：a quiet forest floor after rain with young saplings, mature trunks, fallen deadwood and visible rings, showing the full life cycle of a tree。真实摄影感，高端木作杂志，自然光，低饱和原木色，克制东方审美；不要文字、logo、水印、人物和廉价科普插画。",
-        "promptEn": "Create a wide premium editorial cover image for the article '本源①：从种子到枯木，一棵树完整的自然生长宿命'. Scene: a quiet forest floor after rain with young saplings, mature trunks, fallen deadwood and visible rings, showing the full life cycle of a tree. Use realistic premium editorial photography for a high-end Chinese woodcraft magazine. Natural light, restrained East Asian aesthetics, muted raw-wood palette, clean composition, real material texture. No text, no logo, no watermark, no labels, no obvious AI artifacts.",
-        "prompt": "Create a wide premium editorial cover image for the article '本源①：从种子到枯木，一棵树完整的自然生长宿命'. Scene: a quiet forest floor after rain with young saplings, mature trunks, fallen deadwood and visible rings, showing the full life cycle of a tree. Use realistic premium editorial photography for a high-end Chinese woodcraft magazine. Natural light, restrained East Asian aesthetics, muted raw-wood palette, clean composition, real material texture. No text, no logo, no watermark, no labels, no obvious AI artifacts."
+        "alt": "森林幼树与倒木共同呈现树木生命循环"
       },
       "body": [
         "半生沉迷观木、研木，我始终觉得：想要读懂一块木头，先要读懂一棵树的一生。",
@@ -102,11 +115,6 @@
         "长期品鉴木料我始终认为，我们追捧原木、偏爱温润质朴的木质感，从来不是单纯偏爱木材外观，本质是敬畏这一段跨越数十年甚至上百年的自然生命周期。很多人把木头定义为冰冷的建筑或装饰材料，但在我眼里，每一块成型原木都是有生命、有履历的自然载体，承载着一棵树毕生的生长、抗争与沉淀。"
       ],
       "conclusion": "草木有灵，木承天命。每一块来之不易的原木，都承载一棵树穷尽一生的生长修行，这也是我始终痴迷于木，敬畏原木本源的根本原因。",
-      "source": {
-        "docxFile": "「木痴」科普专栏 全栏目正文定稿（1000字_篇 完整版） (2).docx",
-        "sourceSection": "一、【本源】树木与原木底层自然科普（全8篇正文·已全部千字校准）",
-        "paragraphCount": 5
-      },
       "issue": {
         "number": 1,
         "display": "VOL.01",
@@ -120,13 +128,16 @@
           "alt": "树木年轮截面与萌芽枝叶的生命时间",
           "caption": "从萌芽到枯木，树的每一段生命都被年轮和材色悄悄记录。",
           "afterParagraph": 3,
-          "layout": "wide",
-          "prompt": "Create a 3:2 premium in-article editorial image for the article '本源①：从种子到枯木，一棵树完整的自然生长宿命'. Scene: close-up of a clean cut log cross-section with annual rings beside a small sprouting seedling and fragments of aged bark on the forest floor. Use realistic premium editorial photography for a high-end Chinese woodcraft magazine. Natural light, restrained East Asian aesthetics, muted raw-wood palette, clean composition, real material texture. No text, no logo, no watermark, no labels, no obvious AI artifacts."
+          "layout": "wide"
         }
       ],
       "editorNote": {
         "label": "编辑手记",
         "text": "这一篇是整套专栏的开端：我们不急着谈木材成品，而先把一棵树放回它自己的生命时间里。种子、年轮、枯木，都在提醒人们，木作真正的质感来自漫长生长，而不是短暂加工。"
+      },
+      "triptych": {
+        "path": "journal/muchi-library/chapter-triptych/muchi-benyuan-01-triptych.jpg",
+        "afterParagraph": 2
       }
     },
     {
@@ -142,13 +153,7 @@
       "cover": {
         "file": "muchi-benyuan-02-cover-editorial-1.jpg",
         "path": "journal/muchi-library/article-cover/muchi-benyuan-02-cover-editorial-1.jpg",
-        "alt": "阔叶木与针叶木样本并置的植物学比较",
-        "idea": "botanical wood study table with broadleaf hardwood samples, conifer softwood samples, leaves and needles arranged in a precise editorial still life",
-        "keywords": "硬木与软木，植物学层面的木材界定标准",
-        "sourceSuggestion": "实拍优先",
-        "promptZh": "为「木痴」杂志文章《本源②：硬木与软木，植物学层面的木材界定标准》制作一张封面图。画面主题：botanical wood study table with broadleaf hardwood samples, conifer softwood samples, leaves and needles arranged in a precise editorial still life。真实摄影感，高端木作杂志，自然光，低饱和原木色，克制东方审美；不要文字、logo、水印、人物和廉价科普插画。",
-        "promptEn": "Create a wide premium editorial cover image for the article '本源②：硬木与软木，植物学层面的木材界定标准'. Scene: botanical wood study table with broadleaf hardwood samples, conifer softwood samples, leaves and needles arranged in a precise editorial still life. Use realistic premium editorial photography for a high-end Chinese woodcraft magazine. Natural light, restrained East Asian aesthetics, muted raw-wood palette, clean composition, real material texture. No text, no logo, no watermark, no labels, no obvious AI artifacts.",
-        "prompt": "Create a wide premium editorial cover image for the article '本源②：硬木与软木，植物学层面的木材界定标准'. Scene: botanical wood study table with broadleaf hardwood samples, conifer softwood samples, leaves and needles arranged in a precise editorial still life. Use realistic premium editorial photography for a high-end Chinese woodcraft magazine. Natural light, restrained East Asian aesthetics, muted raw-wood palette, clean composition, real material texture. No text, no logo, no watermark, no labels, no obvious AI artifacts."
+        "alt": "阔叶木与针叶木样本并置的植物学比较"
       },
       "body": [
         "日常品鉴木料，大众最常用的判断方式，就是用触摸手感、轻重软硬区分硬木和软木，这也是圈内最普遍的认知误区。深耕木料品鉴与原木研究多年，我带大家从正统植物学底层逻辑，理清木材最标准的分类依据，跳出主观感官判断的思维误区。",
@@ -158,11 +163,6 @@
         "两类木材历经自然演化形成不同物理属性，本身没有高低优劣之分。硬木适配做高端家具、饰面用材、艺术雕刻；软木适配做基础结构基材、户外垫层用材，二者只是适配场景不同。读懂软硬木底层界定逻辑，是入门品鉴木料、研究木性的第一步。抛开感官表象深究本质，也是我多年研木、品木始终坚守的底层原则。"
       ],
       "conclusion": "木无优劣，物性不同。划分木材从不是评判好坏，而是读懂自然赋予每类草木独有的先天属性。",
-      "source": {
-        "docxFile": "「木痴」科普专栏 全栏目正文定稿（1000字_篇 完整版） (2).docx",
-        "sourceSection": "一、【本源】树木与原木底层自然科普（全8篇正文·已全部千字校准）",
-        "paragraphCount": 5
-      },
       "issue": {
         "number": 2,
         "display": "VOL.02",
@@ -176,13 +176,16 @@
           "alt": "硬木软木横截面导管结构对比",
           "caption": "硬与软的背后，是阔叶与针叶两套生长结构的差异。",
           "afterParagraph": 3,
-          "layout": "wide",
-          "prompt": "Create a 3:2 premium in-article editorial image for the article '本源②：硬木与软木，植物学层面的木材界定标准'. Scene: macro editorial photograph of hardwood and softwood end-grain blocks side by side, showing pores, growth rings and different cellular structures. Use realistic premium editorial photography for a high-end Chinese woodcraft magazine. Natural light, restrained East Asian aesthetics, muted raw-wood palette, clean composition, real material texture. No text, no logo, no watermark, no labels, no obvious AI artifacts."
+          "layout": "wide"
         }
       ],
       "editorNote": {
         "label": "编辑手记",
         "text": "硬木与软木不是手感上的粗略判断，而是植物学谱系留下的差异。把两类木材放在同一束光下观察，才能看见导管、针叶结构与材性之间的真实关系。"
+      },
+      "triptych": {
+        "path": "journal/muchi-library/chapter-triptych/muchi-benyuan-02-triptych.jpg",
+        "afterParagraph": 2
       }
     },
     {
@@ -198,13 +201,7 @@
       "cover": {
         "file": "muchi-benyuan-03-cover-editorial-1.jpg",
         "path": "journal/muchi-library/article-cover/muchi-benyuan-03-cover-editorial-1.jpg",
-        "alt": "天然木纹样板呈现山水纹虎斑纹鸟眼纹",
-        "idea": "premium wood veneer boards with mountain-like grain, tiger stripe figure and birdseye figure arranged like a quiet material archive",
-        "keywords": "山水纹、虎斑纹、鸟眼纹, 天然木纹的自然形成原理",
-        "sourceSuggestion": "实拍优先",
-        "promptZh": "为「木痴」杂志文章《本源③：山水纹、虎斑纹、鸟眼纹｜天然木纹的自然形成原理》制作一张封面图。画面主题：premium wood veneer boards with mountain-like grain, tiger stripe figure and birdseye figure arranged like a quiet material archive。真实摄影感，高端木作杂志，自然光，低饱和原木色，克制东方审美；不要文字、logo、水印、人物和廉价科普插画。",
-        "promptEn": "Create a wide premium editorial cover image for the article '本源③：山水纹、虎斑纹、鸟眼纹｜天然木纹的自然形成原理'. Scene: premium wood veneer boards with mountain-like grain, tiger stripe figure and birdseye figure arranged like a quiet material archive. Use realistic premium editorial photography for a high-end Chinese woodcraft magazine. Natural light, restrained East Asian aesthetics, muted raw-wood palette, clean composition, real material texture. No text, no logo, no watermark, no labels, no obvious AI artifacts.",
-        "prompt": "Create a wide premium editorial cover image for the article '本源③：山水纹、虎斑纹、鸟眼纹｜天然木纹的自然形成原理'. Scene: premium wood veneer boards with mountain-like grain, tiger stripe figure and birdseye figure arranged like a quiet material archive. Use realistic premium editorial photography for a high-end Chinese woodcraft magazine. Natural light, restrained East Asian aesthetics, muted raw-wood palette, clean composition, real material texture. No text, no logo, no watermark, no labels, no obvious AI artifacts."
+        "alt": "天然木纹样板呈现山水纹虎斑纹鸟眼纹"
       },
       "body": [
         "接触原木多年，我深知大多数人痴迷天然原木，究其根本都是沉迷木材独一无二、不可复刻的天然纹理。经常有人问我，千姿百态的木纹究竟如何自然生成，为什么自然界不存在两块纹理完全一致的原木木料。",
@@ -213,11 +210,6 @@
         "所有高品质天然木纹全部随机自然生成，人工工艺、机器印刷只能复刻外观形态，无法还原天然木纹的纤维肌理与深浅层次感。一块木料的纹理疏密、线条走向、色块明暗，完整记录了这棵树数十年的生长环境、外力干扰与生存状态。这也是天然原木，相比工业化人造板材不可替代的自然美学核心价值。"
       ],
       "conclusion": "一纹一风景，一木一浮生。木纹是大自然落笔的画作，这也是我痴迷原木肌理，偏爱天然木料的浪漫所在。",
-      "source": {
-        "docxFile": "「木痴」科普专栏 全栏目正文定稿（1000字_篇 完整版） (2).docx",
-        "sourceSection": "一、【本源】树木与原木底层自然科普（全8篇正文·已全部千字校准）",
-        "paragraphCount": 4
-      },
       "issue": {
         "number": 3,
         "display": "VOL.03",
@@ -231,13 +223,16 @@
           "alt": "特殊天然木纹的近景肌理",
           "caption": "特殊木纹来自自然生长的偏差，也成就了每一块木料的独本性。",
           "afterParagraph": 2,
-          "layout": "wide",
-          "prompt": "Create a 3:2 premium in-article editorial image for the article '本源③：山水纹、虎斑纹、鸟眼纹｜天然木纹的自然形成原理'. Scene: macro photograph of figured wood grain with birdseye dots, rippled tiger stripe and flowing landscape-like lines under raking light. Use realistic premium editorial photography for a high-end Chinese woodcraft magazine. Natural light, restrained East Asian aesthetics, muted raw-wood palette, clean composition, real material texture. No text, no logo, no watermark, no labels, no obvious AI artifacts."
+          "layout": "wide"
         }
       ],
       "editorNote": {
         "label": "编辑手记",
         "text": "山水纹、虎斑纹、鸟眼纹不是装饰花样，而是树木在压力、矿物、节疤和异常生长中留下的偶然秩序。漂亮木纹的第一层价值，是它不可复制。"
+      },
+      "triptych": {
+        "path": "journal/muchi-library/chapter-triptych/muchi-benyuan-03-triptych.jpg",
+        "afterParagraph": 2
       }
     },
     {
@@ -253,13 +248,7 @@
       "cover": {
         "file": "muchi-benyuan-04-cover-editorial-1.jpg",
         "path": "journal/muchi-library/article-cover/muchi-benyuan-04-cover-editorial-1.jpg",
-        "alt": "原木树疤与结节的自然修复痕迹",
-        "idea": "close editorial photograph of a tree trunk with knots, healed scars and bark textures in natural forest light",
-        "keywords": "木疤皆天造, 深度解析树木结疤的成因，活结与死结",
-        "sourceSuggestion": "实拍优先",
-        "promptZh": "为「木痴」杂志文章《本源④：木疤皆天造｜深度解析树木结疤的成因，活结与死结》制作一张封面图。画面主题：close editorial photograph of a tree trunk with knots, healed scars and bark textures in natural forest light。真实摄影感，高端木作杂志，自然光，低饱和原木色，克制东方审美；不要文字、logo、水印、人物和廉价科普插画。",
-        "promptEn": "Create a wide premium editorial cover image for the article '本源④：木疤皆天造｜深度解析树木结疤的成因，活结与死结'. Scene: close editorial photograph of a tree trunk with knots, healed scars and bark textures in natural forest light. Use realistic premium editorial photography for a high-end Chinese woodcraft magazine. Natural light, restrained East Asian aesthetics, muted raw-wood palette, clean composition, real material texture. No text, no logo, no watermark, no labels, no obvious AI artifacts.",
-        "prompt": "Create a wide premium editorial cover image for the article '本源④：木疤皆天造｜深度解析树木结疤的成因，活结与死结'. Scene: close editorial photograph of a tree trunk with knots, healed scars and bark textures in natural forest light. Use realistic premium editorial photography for a high-end Chinese woodcraft magazine. Natural light, restrained East Asian aesthetics, muted raw-wood palette, clean composition, real material texture. No text, no logo, no watermark, no labels, no obvious AI artifacts."
+        "alt": "原木树疤与结节的自然修复痕迹"
       },
       "body": [
         "接触木料多年，我发现很多人排斥木结疤，认为树疤是木头的缺陷。但在我看来，树疤是树木成长留下的印记，是木头独一无二的成长勋章。",
@@ -268,11 +257,6 @@
         "自然界没有一块无瑕疵的天然原木，结疤是树木对抗野外极端环境、存续生长的见证。市面上零结疤的精品木料，只是选材阶段刻意规避了树干结节集中区域，并非树木本身没有生长缺陷。行业内大多追求板面干净无疤的规整木料，但在我的审美体系里，均匀分布的天然活结，消解了工业板材的冰冷刻板，赋予木头独有的自然烟火气。"
       ],
       "conclusion": "人有缺憾，木有结疤。不完美的天然肌理，才是原木最真实、最有温度的自然本色。",
-      "source": {
-        "docxFile": "「木痴」科普专栏 全栏目正文定稿（1000字_篇 完整版） (2).docx",
-        "sourceSection": "一、【本源】树木与原木底层自然科普（全8篇正文·已全部千字校准）",
-        "paragraphCount": 4
-      },
       "issue": {
         "number": 4,
         "display": "VOL.04",
@@ -286,13 +270,16 @@
           "alt": "活结死结木板截面细节",
           "caption": "树疤记录了树木如何修复自己，也提示木作该如何判断风险与美感。",
           "afterParagraph": 2,
-          "layout": "wide",
-          "prompt": "Create a 3:2 premium in-article editorial image for the article '本源④：木疤皆天造｜深度解析树木结疤的成因，活结与死结'. Scene: wood boards on a craft table showing one tight live knot and one dark dead knot, with clean cross-section details and natural shadows. Use realistic premium editorial photography for a high-end Chinese woodcraft magazine. Natural light, restrained East Asian aesthetics, muted raw-wood palette, clean composition, real material texture. No text, no logo, no watermark, no labels, no obvious AI artifacts."
+          "layout": "wide"
         }
       ],
       "editorNote": {
         "label": "编辑手记",
         "text": "树疤常被误认为缺陷，但它本质上是树木自我修复留下的伤口档案。活结与死结的差别，决定了它在木作中是风险、记忆，还是可以被保留的表情。"
+      },
+      "triptych": {
+        "path": "journal/muchi-library/chapter-triptych/muchi-benyuan-04-triptych.jpg",
+        "afterParagraph": 2
       }
     },
     {
@@ -308,13 +295,7 @@
       "cover": {
         "file": "muchi-benyuan-05-cover-editorial-1.jpg",
         "path": "journal/muchi-library/article-cover/muchi-benyuan-05-cover-editorial-1.jpg",
-        "alt": "木材含水率与空气湿度形成稳定关系",
-        "idea": "wood drying room with stacked timber, soft misty side light, a hygrometer on the bench and subtle moisture in the air",
-        "keywords": "木材含水率, 水汽如何决定一块原木的形态与稳定性",
-        "sourceSuggestion": "生成/实拍均可",
-        "promptZh": "为「木痴」杂志文章《本源⑤：木材含水率｜水汽如何决定一块原木的形态与稳定性》制作一张封面图。画面主题：wood drying room with stacked timber, soft misty side light, a hygrometer on the bench and subtle moisture in the air。真实摄影感，高端木作杂志，自然光，低饱和原木色，克制东方审美；不要文字、logo、水印、人物和廉价科普插画。",
-        "promptEn": "Create a wide premium editorial cover image for the article '本源⑤：木材含水率｜水汽如何决定一块原木的形态与稳定性'. Scene: wood drying room with stacked timber, soft misty side light, a hygrometer on the bench and subtle moisture in the air. Use realistic premium editorial photography for a high-end Chinese woodcraft magazine. Natural light, restrained East Asian aesthetics, muted raw-wood palette, clean composition, real material texture. No text, no logo, no watermark, no labels, no obvious AI artifacts.",
-        "prompt": "Create a wide premium editorial cover image for the article '本源⑤：木材含水率｜水汽如何决定一块原木的形态与稳定性'. Scene: wood drying room with stacked timber, soft misty side light, a hygrometer on the bench and subtle moisture in the air. Use realistic premium editorial photography for a high-end Chinese woodcraft magazine. Natural light, restrained East Asian aesthetics, muted raw-wood palette, clean composition, real material texture. No text, no logo, no watermark, no labels, no obvious AI artifacts."
+        "alt": "木材含水率与空气湿度形成稳定关系"
       },
       "body": [
         "长期观察各类原木、经手数百套原木器物我发现：绝大多数木头变形、开裂、起翘、拼接崩缝问题，根源都不在于木种材质优劣，而在于容易被忽略的木材含水率。把控含水率，是研木、用木最基础也最重要的底层逻辑。",
@@ -323,11 +304,6 @@
         "行业内不存在完全不变形的天然原木，水汽交换是木头的固有物理属性。后期烘干、碳化工艺只能把含水率校准到适配使用场景的区间，只能优化木性，不能彻底消除湿胀干缩。我们选材、用料、养护木器，本质都是平衡木料含水率与空间环境湿度，让木头和周边环境达成水汽稳态。"
       ],
       "conclusion": "木随天气变，形由水汽生。顺应木性、把控水分，是善待、用好一块天然原木的第一准则。",
-      "source": {
-        "docxFile": "「木痴」科普专栏 全栏目正文定稿（1000字_篇 完整版） (2).docx",
-        "sourceSection": "一、【本源】树木与原木底层自然科普（全8篇正文·已全部千字校准）",
-        "paragraphCount": 4
-      },
       "issue": {
         "number": 5,
         "display": "VOL.05",
@@ -341,13 +317,16 @@
           "alt": "木材端面水分与纤维方向细节",
           "caption": "水分进出木纤维的速度，决定了一块木料最终能否安静成形。",
           "afterParagraph": 2,
-          "layout": "wide",
-          "prompt": "Create a 3:2 premium in-article editorial image for the article '本源⑤：木材含水率｜水汽如何决定一块原木的形态与稳定性'. Scene: macro editorial photo of timber end grain with tiny moisture beads and fiber channels, beside a simple moisture meter probe. Use realistic premium editorial photography for a high-end Chinese woodcraft magazine. Natural light, restrained East Asian aesthetics, muted raw-wood palette, clean composition, real material texture. No text, no logo, no watermark, no labels, no obvious AI artifacts."
+          "layout": "wide"
         }
       ],
       "editorNote": {
         "label": "编辑手记",
         "text": "含水率是木材稳定性的暗线。肉眼看到的是翘曲、收缩、开裂，真正发生的是水汽在纤维、导管与空气之间不断寻找平衡。"
+      },
+      "triptych": {
+        "path": "journal/muchi-library/chapter-triptych/muchi-benyuan-05-triptych.jpg",
+        "afterParagraph": 2
       }
     },
     {
@@ -363,13 +342,7 @@
       "cover": {
         "file": "muchi-benyuan-06-cover-editorial-1.jpg",
         "path": "journal/muchi-library/article-cover/muchi-benyuan-06-cover-editorial-1.jpg",
-        "alt": "不同气候产区木材样本与年轮差异",
-        "idea": "editorial map-like still life of timber samples from cold mountain, humid valley and dry plateau climates, with leaves, soil and ring sections",
-        "keywords": "产区气候，如何决定木材先天本质特性",
-        "sourceSuggestion": "实拍/生成均可",
-        "promptZh": "为「木痴」杂志文章《本源⑥：产区气候，如何决定木材先天本质特性》制作一张封面图。画面主题：editorial map-like still life of timber samples from cold mountain, humid valley and dry plateau climates, with leaves, soil and ring sections。真实摄影感，高端木作杂志，自然光，低饱和原木色，克制东方审美；不要文字、logo、水印、人物和廉价科普插画。",
-        "promptEn": "Create a wide premium editorial cover image for the article '本源⑥：产区气候，如何决定木材先天本质特性'. Scene: editorial map-like still life of timber samples from cold mountain, humid valley and dry plateau climates, with leaves, soil and ring sections. Use realistic premium editorial photography for a high-end Chinese woodcraft magazine. Natural light, restrained East Asian aesthetics, muted raw-wood palette, clean composition, real material texture. No text, no logo, no watermark, no labels, no obvious AI artifacts.",
-        "prompt": "Create a wide premium editorial cover image for the article '本源⑥：产区气候，如何决定木材先天本质特性'. Scene: editorial map-like still life of timber samples from cold mountain, humid valley and dry plateau climates, with leaves, soil and ring sections. Use realistic premium editorial photography for a high-end Chinese woodcraft magazine. Natural light, restrained East Asian aesthetics, muted raw-wood palette, clean composition, real material texture. No text, no logo, no watermark, no labels, no obvious AI artifacts."
+        "alt": "不同气候产区木材样本与年轮差异"
       },
       "body": [
         "常年跨产区甄选原料木料，我经常发现一个行业现象：同一款木材品类，不同产地的原料品相、稳定性、纹理、抗腐性能天差地别。深耕木料行业多年我总结出一条核心规律：一方水土养一木，产区气候与地形，直接决定木材先天本质底色。",
@@ -379,11 +352,6 @@
         "资深研木者选材，必先看产区产地。读懂一棵树的生长水土，就能预判一块木头的后天使用上限。顺应木性，从源头甄选良木，是品木用料的首要步骤。"
       ],
       "conclusion": "万物源于水土，良木生于山川。产区沉淀木之本性，环境造就木之格局。",
-      "source": {
-        "docxFile": "「木痴」科普专栏 全栏目正文定稿（1000字_篇 完整版） (2).docx",
-        "sourceSection": "一、【本源】树木与原木底层自然科普（全8篇正文·已全部千字校准）",
-        "paragraphCount": 5
-      },
       "issue": {
         "number": 6,
         "display": "VOL.06",
@@ -397,13 +365,16 @@
           "alt": "气候差异形成不同年轮密度",
           "caption": "气候不是背景，而是木材出生时就带来的性格。",
           "afterParagraph": 3,
-          "layout": "wide",
-          "prompt": "Create a 3:2 premium in-article editorial image for the article '本源⑥：产区气候，如何决定木材先天本质特性'. Scene: three log cross-sections with visibly different ring spacing, arranged with stones, moss and dry soil as climate cues. Use realistic premium editorial photography for a high-end Chinese woodcraft magazine. Natural light, restrained East Asian aesthetics, muted raw-wood palette, clean composition, real material texture. No text, no logo, no watermark, no labels, no obvious AI artifacts."
+          "layout": "wide"
         }
       ],
       "editorNote": {
         "label": "编辑手记",
         "text": "同一种树，在不同产区会长出不同的脾性。寒暖、雨量、海拔与土壤把气候写进年轮，也把密度、色泽和稳定性写进木材深处。"
+      },
+      "triptych": {
+        "path": "journal/muchi-library/chapter-triptych/muchi-benyuan-06-triptych.jpg",
+        "afterParagraph": 2
       }
     },
     {
@@ -419,13 +390,7 @@
       "cover": {
         "file": "muchi-benyuan-07-cover-editorial-1.jpg",
         "path": "journal/muchi-library/article-cover/muchi-benyuan-07-cover-editorial-1.jpg",
-        "alt": "木板伸缩缝与温湿变化下的物理运动",
-        "idea": "premium wood floor and loose planks in a calm studio, showing careful expansion gaps and seasonal light across the boards",
-        "keywords": "原木物理特性, 热胀冷缩底层逻辑",
-        "sourceSuggestion": "生成更适合",
-        "promptZh": "为「木痴」杂志文章《本源⑦：原木物理特性｜热胀冷缩底层逻辑》制作一张封面图。画面主题：premium wood floor and loose planks in a calm studio, showing careful expansion gaps and seasonal light across the boards。真实摄影感，高端木作杂志，自然光，低饱和原木色，克制东方审美；不要文字、logo、水印、人物和廉价科普插画。",
-        "promptEn": "Create a wide premium editorial cover image for the article '本源⑦：原木物理特性｜热胀冷缩底层逻辑'. Scene: premium wood floor and loose planks in a calm studio, showing careful expansion gaps and seasonal light across the boards. Use realistic premium editorial photography for a high-end Chinese woodcraft magazine. Natural light, restrained East Asian aesthetics, muted raw-wood palette, clean composition, real material texture. No text, no logo, no watermark, no labels, no obvious AI artifacts.",
-        "prompt": "Create a wide premium editorial cover image for the article '本源⑦：原木物理特性｜热胀冷缩底层逻辑'. Scene: premium wood floor and loose planks in a calm studio, showing careful expansion gaps and seasonal light across the boards. Use realistic premium editorial photography for a high-end Chinese woodcraft magazine. Natural light, restrained East Asian aesthetics, muted raw-wood palette, clean composition, real material texture. No text, no logo, no watermark, no labels, no obvious AI artifacts."
+        "alt": "木板伸缩缝与温湿变化下的物理运动"
       },
       "body": [
         "接触大量落地原木构件与家具器物后，我总结出原木最核心的两大物理天性：湿胀干缩与热胀冷缩。多数人熟知水汽带来的木料形变，却忽略环境温度，同样会持续改变原木形态与结构状态。",
@@ -435,11 +400,6 @@
         "温度形变是木头不可规避的天然物理属性，不能人为消除，只能通过选材、工艺、场景适配规避风险。尊重木头与生俱来的物理天性，不强求原木脱离自然规律，是我多年研木坚守的本心。"
       ],
       "conclusion": "木有天性，顺之方安。熟知原木物理本性，才能敬畏木料、用好木料。",
-      "source": {
-        "docxFile": "「木痴」科普专栏 全栏目正文定稿（1000字_篇 完整版） (2).docx",
-        "sourceSection": "一、【本源】树木与原木底层自然科普（全8篇正文·已全部千字校准）",
-        "paragraphCount": 5
-      },
       "issue": {
         "number": 7,
         "display": "VOL.07",
@@ -453,13 +413,16 @@
           "alt": "木材热胀冷缩伸缩缝细节",
           "caption": "木材会随温湿变化轻微运动，结构分寸正是为这种运动预留空间。",
           "afterParagraph": 3,
-          "layout": "wide",
-          "prompt": "Create a 3:2 premium in-article editorial image for the article '本源⑦：原木物理特性｜热胀冷缩底层逻辑'. Scene: close-up of two wooden boards with a deliberate expansion gap, small spacer and raking light showing grain direction. Use realistic premium editorial photography for a high-end Chinese woodcraft magazine. Natural light, restrained East Asian aesthetics, muted raw-wood palette, clean composition, real material texture. No text, no logo, no watermark, no labels, no obvious AI artifacts."
+          "layout": "wide"
         }
       ],
       "editorNote": {
         "label": "编辑手记",
         "text": "热胀冷缩不是木材的毛病，而是天然材料继续呼吸的方式。好的木作设计，不是消灭这种运动，而是预先为它留出伸缩的位置。"
+      },
+      "triptych": {
+        "path": "journal/muchi-library/chapter-triptych/muchi-benyuan-07-triptych.jpg",
+        "afterParagraph": 2
       }
     },
     {
@@ -475,13 +438,7 @@
       "cover": {
         "file": "muchi-benyuan-08-cover-editorial-1.jpg",
         "path": "journal/muchi-library/article-cover/muchi-benyuan-08-cover-editorial-1.jpg",
-        "alt": "树干心材边材颜色结构差异",
-        "idea": "large clean tree trunk cross-section in a quiet studio, clearly showing dark heartwood and pale sapwood under soft natural light",
-        "keywords": "心材VS边材, 树木躯干结构与属性差异",
-        "sourceSuggestion": "实拍优先",
-        "promptZh": "为「木痴」杂志文章《本源⑧：心材VS边材｜树木躯干结构与属性差异》制作一张封面图。画面主题：large clean tree trunk cross-section in a quiet studio, clearly showing dark heartwood and pale sapwood under soft natural light。真实摄影感，高端木作杂志，自然光，低饱和原木色，克制东方审美；不要文字、logo、水印、人物和廉价科普插画。",
-        "promptEn": "Create a wide premium editorial cover image for the article '本源⑧：心材VS边材｜树木躯干结构与属性差异'. Scene: large clean tree trunk cross-section in a quiet studio, clearly showing dark heartwood and pale sapwood under soft natural light. Use realistic premium editorial photography for a high-end Chinese woodcraft magazine. Natural light, restrained East Asian aesthetics, muted raw-wood palette, clean composition, real material texture. No text, no logo, no watermark, no labels, no obvious AI artifacts.",
-        "prompt": "Create a wide premium editorial cover image for the article '本源⑧：心材VS边材｜树木躯干结构与属性差异'. Scene: large clean tree trunk cross-section in a quiet studio, clearly showing dark heartwood and pale sapwood under soft natural light. Use realistic premium editorial photography for a high-end Chinese woodcraft magazine. Natural light, restrained East Asian aesthetics, muted raw-wood palette, clean composition, real material texture. No text, no logo, no watermark, no labels, no obvious AI artifacts."
+        "alt": "树干心材边材颜色结构差异"
       },
       "body": [
         "观察原木横截面不难发现，树干从外到内层次分明，分为树皮、边材、心材三大结构圈层。很多人选材不懂区分，笼统使用整树干木料，实际上心材与边材的材质、稳定性、颜值、使用寿命差距悬殊，是原木选材的核心知识点。",
@@ -491,11 +448,6 @@
         "看透树干圈层结构，分清心材与边材，是个人品鉴选木最基础的入门能力。"
       ],
       "conclusion": "外为浮木，内为良材。树干圈层之别，藏着木料优劣的底层密码。",
-      "source": {
-        "docxFile": "「木痴」科普专栏 全栏目正文定稿（1000字_篇 完整版） (2).docx",
-        "sourceSection": "一、【本源】树木与原木底层自然科普（全8篇正文·已全部千字校准）",
-        "paragraphCount": 5
-      },
       "issue": {
         "number": 8,
         "display": "VOL.08",
@@ -509,13 +461,16 @@
           "alt": "心材边材分界线与导管结构",
           "caption": "心材与边材的分界，是树木把生长、输送与成熟分层保存的方式。",
           "afterParagraph": 3,
-          "layout": "wide",
-          "prompt": "Create a 3:2 premium in-article editorial image for the article '本源⑧：心材VS边材｜树木躯干结构与属性差异'. Scene: macro end-grain photograph highlighting the boundary between heartwood and sapwood, with visible ring lines and color transition. Use realistic premium editorial photography for a high-end Chinese woodcraft magazine. Natural light, restrained East Asian aesthetics, muted raw-wood palette, clean composition, real material texture. No text, no logo, no watermark, no labels, no obvious AI artifacts."
+          "layout": "wide"
         }
       ],
       "editorNote": {
         "label": "编辑手记",
         "text": "心材与边材，是树干内部两种不同的时间层。一个承担成熟与稳定，一个保留输送与生长；理解它们，才理解木材为什么有内外之别。"
+      },
+      "triptych": {
+        "path": "journal/muchi-library/chapter-triptych/muchi-benyuan-08-triptych.jpg",
+        "afterParagraph": 2
       }
     },
     {
@@ -531,13 +486,7 @@
       "cover": {
         "file": "muchi-bianmu-01-cover-editorial-1.jpg",
         "path": "journal/muchi-library/article-cover/muchi-bianmu-01-cover-editorial-1.jpg",
-        "alt": "阔叶木与针叶木材料档案桌面",
-        "idea": "wood species archive table comparing broadleaf hardwood blocks and conifer softwood blocks with leaf and needle botanical cues",
-        "keywords": "阔叶木VS针叶木, 两大主流民用木材底层属性区分",
-        "sourceSuggestion": "实拍优先",
-        "promptZh": "为「木痴」杂志文章《辨木①：阔叶木VS针叶木｜两大主流民用木材底层属性区分》制作一张封面图。画面主题：wood species archive table comparing broadleaf hardwood blocks and conifer softwood blocks with leaf and needle botanical cues。真实摄影感，高端木作杂志，自然光，低饱和原木色，克制东方审美；不要文字、logo、水印、人物和廉价科普插画。",
-        "promptEn": "Create a wide premium editorial cover image for the article '辨木①：阔叶木VS针叶木｜两大主流民用木材底层属性区分'. Scene: wood species archive table comparing broadleaf hardwood blocks and conifer softwood blocks with leaf and needle botanical cues. Use realistic premium editorial photography for a high-end Chinese woodcraft magazine. Natural light, restrained East Asian aesthetics, muted raw-wood palette, clean composition, real material texture. No text, no logo, no watermark, no labels, no obvious AI artifacts.",
-        "prompt": "Create a wide premium editorial cover image for the article '辨木①：阔叶木VS针叶木｜两大主流民用木材底层属性区分'. Scene: wood species archive table comparing broadleaf hardwood blocks and conifer softwood blocks with leaf and needle botanical cues. Use realistic premium editorial photography for a high-end Chinese woodcraft magazine. Natural light, restrained East Asian aesthetics, muted raw-wood palette, clean composition, real material texture. No text, no logo, no watermark, no labels, no obvious AI artifacts."
+        "alt": "阔叶木与针叶木材料档案桌面"
       },
       "body": [
         "行业选材品鉴，最简单也最核心的分类逻辑，就是把全部民用原木划分为阔叶木与针叶木两大体系。抛开晦涩学术定义，结合多年原料甄选实操，我通俗拆解两类木材的底层区别与适配场景。",
@@ -547,11 +496,6 @@
         "日常品鉴木料，不用复杂仪器，通过纹理细腻程度、木料自重、表面硬度就能快速区分两大品类。两类木材只是自然演化适配不同生存场景，属性各有长短，不存在品类高低贵贱。理性区分材种属性，按需选材，是中立品木的核心心态。"
       ],
       "conclusion": "材分两类，各司其用。辨木先辨品类，选木先配场景。",
-      "source": {
-        "docxFile": "「木痴」科普专栏 全栏目正文定稿（1000字_篇 完整版） (2).docx",
-        "sourceSection": "二、【辨木】木材品类与肌理科普（全6篇 千字定稿）",
-        "paragraphCount": 5
-      },
       "issue": {
         "number": 9,
         "display": "VOL.09",
@@ -565,13 +509,16 @@
           "alt": "阔叶木针叶木端面结构对比",
           "caption": "阔叶与针叶的植物差别，最终会落到纹理、密度和使用选择上。",
           "afterParagraph": 3,
-          "layout": "wide",
-          "prompt": "Create a 3:2 premium in-article editorial image for the article '辨木①：阔叶木VS针叶木｜两大主流民用木材底层属性区分'. Scene: macro side-by-side comparison of broadleaf hardwood pore structure and conifer softwood ring structure on end-grain samples. Use realistic premium editorial photography for a high-end Chinese woodcraft magazine. Natural light, restrained East Asian aesthetics, muted raw-wood palette, clean composition, real material texture. No text, no logo, no watermark, no labels, no obvious AI artifacts."
+          "layout": "wide"
         }
       ],
       "editorNote": {
         "label": "编辑手记",
         "text": "辨木的第一步，是把阔叶木与针叶木放回植物来源。两类材料的差异不只在硬度，更在导管、树脂、纹理方向与使用场景。"
+      },
+      "triptych": {
+        "path": "journal/muchi-library/chapter-triptych/muchi-bianmu-01-triptych.jpg",
+        "afterParagraph": 2
       }
     },
     {
@@ -587,13 +534,7 @@
       "cover": {
         "file": "muchi-bianmu-02-cover-editorial-1.jpg",
         "path": "journal/muchi-library/article-cover/muchi-bianmu-02-cover-editorial-1.jpg",
-        "alt": "黑胡桃橡木紫檀香樟四类木材样本",
-        "idea": "premium material still life of walnut, oak, rosewood and camphor wood samples arranged as a refined wood species archive",
-        "keywords": "黑胡桃/橡木/紫檀/香樟, 热门名贵木材原生特征全解析",
-        "sourceSuggestion": "实拍/生成均可",
-        "promptZh": "为「木痴」杂志文章《辨木②：黑胡桃/橡木/紫檀/香樟｜热门名贵木材原生特征全解析》制作一张封面图。画面主题：premium material still life of walnut, oak, rosewood and camphor wood samples arranged as a refined wood species archive。真实摄影感，高端木作杂志，自然光，低饱和原木色，克制东方审美；不要文字、logo、水印、人物和廉价科普插画。",
-        "promptEn": "Create a wide premium editorial cover image for the article '辨木②：黑胡桃/橡木/紫檀/香樟｜热门名贵木材原生特征全解析'. Scene: premium material still life of walnut, oak, rosewood and camphor wood samples arranged as a refined wood species archive. Use realistic premium editorial photography for a high-end Chinese woodcraft magazine. Natural light, restrained East Asian aesthetics, muted raw-wood palette, clean composition, real material texture. No text, no logo, no watermark, no labels, no obvious AI artifacts.",
-        "prompt": "Create a wide premium editorial cover image for the article '辨木②：黑胡桃/橡木/紫檀/香樟｜热门名贵木材原生特征全解析'. Scene: premium material still life of walnut, oak, rosewood and camphor wood samples arranged as a refined wood species archive. Use realistic premium editorial photography for a high-end Chinese woodcraft magazine. Natural light, restrained East Asian aesthetics, muted raw-wood palette, clean composition, real material texture. No text, no logo, no watermark, no labels, no obvious AI artifacts."
+        "alt": "黑胡桃橡木紫檀香樟四类木材样本"
       },
       "body": [
         "日常接触最多、流通度最高的四大热门名贵民用木材：北美黑胡桃、红白橡木、小叶紫檀、香樟木，覆盖家装、家具、文玩收藏全场景。经手无数木料样本，我从原生外观、纹理、木性、气味四个维度，中立解析四类高端木材核心特征。",
@@ -604,11 +545,6 @@
         "四类名贵木材各有特色，按需匹配场景即可，盲目追捧名贵材种，反而浪费木材天然特性。"
       ],
       "conclusion": "良木各有风骨，取舍全凭适配。不盲从名贵标签，方懂品木真谛。",
-      "source": {
-        "docxFile": "「木痴」科普专栏 全栏目正文定稿（1000字_篇 完整版） (2).docx",
-        "sourceSection": "二、【辨木】木材品类与肌理科普（全6篇 千字定稿）",
-        "paragraphCount": 6
-      },
       "issue": {
         "number": 10,
         "display": "VOL.10",
@@ -622,13 +558,16 @@
           "alt": "名贵木材色泽纹理端面对比",
           "caption": "真正的辨木，是让色泽、纹理、油性与重量一起说话。",
           "afterParagraph": 3,
-          "layout": "wide",
-          "prompt": "Create a 3:2 premium in-article editorial image for the article '辨木②：黑胡桃/橡木/紫檀/香樟｜热门名贵木材原生特征全解析'. Scene: close-up comparison of four labeled-free wood blocks with distinct colors and grains: dark walnut, pale oak, deep red rosewood and warm camphor. Use realistic premium editorial photography for a high-end Chinese woodcraft magazine. Natural light, restrained East Asian aesthetics, muted raw-wood palette, clean composition, real material texture. No text, no logo, no watermark, no labels, no obvious AI artifacts."
+          "layout": "wide"
         }
       ],
       "editorNote": {
         "label": "编辑手记",
         "text": "名贵木材真正值得辨认的，不是名字带来的想象，而是色泽、气味、油性、纹理和重量共同构成的材料身份。"
+      },
+      "triptych": {
+        "path": "journal/muchi-library/chapter-triptych/muchi-bianmu-02-triptych.jpg",
+        "afterParagraph": 2
       }
     },
     {
@@ -644,13 +583,7 @@
       "cover": {
         "file": "muchi-bianmu-03-cover-editorial-1.jpg",
         "path": "journal/muchi-library/article-cover/muchi-bianmu-03-cover-editorial-1.jpg",
-        "alt": "天然原木与人工合成木料结构对比",
-        "idea": "editorial comparison of solid wood board, plywood, MDF and laminated engineered board, clean cross-sections on a neutral workbench",
-        "keywords": "天然原木vs人工合成木料, 材质结构本质区别科普",
-        "sourceSuggestion": "实拍优先",
-        "promptZh": "为「木痴」杂志文章《辨木③：天然原木vs人工合成木料｜材质结构本质区别科普》制作一张封面图。画面主题：editorial comparison of solid wood board, plywood, MDF and laminated engineered board, clean cross-sections on a neutral workbench。真实摄影感，高端木作杂志，自然光，低饱和原木色，克制东方审美；不要文字、logo、水印、人物和廉价科普插画。",
-        "promptEn": "Create a wide premium editorial cover image for the article '辨木③：天然原木vs人工合成木料｜材质结构本质区别科普'. Scene: editorial comparison of solid wood board, plywood, MDF and laminated engineered board, clean cross-sections on a neutral workbench. Use realistic premium editorial photography for a high-end Chinese woodcraft magazine. Natural light, restrained East Asian aesthetics, muted raw-wood palette, clean composition, real material texture. No text, no logo, no watermark, no labels, no obvious AI artifacts.",
-        "prompt": "Create a wide premium editorial cover image for the article '辨木③：天然原木vs人工合成木料｜材质结构本质区别科普'. Scene: editorial comparison of solid wood board, plywood, MDF and laminated engineered board, clean cross-sections on a neutral workbench. Use realistic premium editorial photography for a high-end Chinese woodcraft magazine. Natural light, restrained East Asian aesthetics, muted raw-wood palette, clean composition, real material texture. No text, no logo, no watermark, no labels, no obvious AI artifacts."
+        "alt": "天然原木与人工合成木料结构对比"
       },
       "body": [
         "很多人选材容易混淆天然原木与人工合成木料，只通过外观木纹分辨好坏。长期深耕用材领域，我从材质本源结构、物理属性、使用寿命、环境适配四个维度，讲清二者不可逾越的本质区别。",
@@ -660,11 +593,6 @@
         "二者没有绝对好坏，适配场景不同：长期自住外露饰面优先天然原木；隐蔽基层、临时工装工程优先合成木料。理性区分材质，不盲目吹捧也不刻意排斥，是中立辨木的基本素养。"
       ],
       "conclusion": "工业造形制木，自然孕育良木。取舍在需求，本心辨方圆。",
-      "source": {
-        "docxFile": "「木痴」科普专栏 全栏目正文定稿（1000字_篇 完整版） (2).docx",
-        "sourceSection": "二、【辨木】木材品类与肌理科普（全6篇 千字定稿）",
-        "paragraphCount": 5
-      },
       "issue": {
         "number": 11,
         "display": "VOL.11",
@@ -678,13 +606,16 @@
           "alt": "天然木纤维与合成板层结构细节",
           "caption": "天然与合成的差别，藏在剖面结构而不是表面纹样里。",
           "afterParagraph": 3,
-          "layout": "wide",
-          "prompt": "Create a 3:2 premium in-article editorial image for the article '辨木③：天然原木vs人工合成木料｜材质结构本质区别科普'. Scene: macro photograph showing solid wood grain next to plywood layers and compressed fiberboard texture in one careful composition. Use realistic premium editorial photography for a high-end Chinese woodcraft magazine. Natural light, restrained East Asian aesthetics, muted raw-wood palette, clean composition, real material texture. No text, no logo, no watermark, no labels, no obvious AI artifacts."
+          "layout": "wide"
         }
       ],
       "editorNote": {
         "label": "编辑手记",
         "text": "天然原木与合成木料的区别，不在表面是否像木，而在结构是否仍然保留生长逻辑。剖开以后，答案往往比表皮更诚实。"
+      },
+      "triptych": {
+        "path": "journal/muchi-library/chapter-triptych/muchi-bianmu-03-triptych.jpg",
+        "afterParagraph": 2
       }
     },
     {
@@ -700,13 +631,7 @@
       "cover": {
         "file": "muchi-bianmu-04-cover-editorial-1.jpg",
         "path": "journal/muchi-library/article-cover/muchi-bianmu-04-cover-editorial-1.jpg",
-        "alt": "碳化木防腐木烘干木三类改性木材",
-        "idea": "three modified wood samples on a workshop bench: charred black timber, treated outdoor wood, kiln-dried pale board, premium editorial lighting",
-        "keywords": "碳化木、防腐木、烘干木, 工艺改性对木材属性的改变",
-        "sourceSuggestion": "生成/实拍均可",
-        "promptZh": "为「木痴」杂志文章《辨木④：碳化木、防腐木、烘干木｜工艺改性对木材属性的改变》制作一张封面图。画面主题：three modified wood samples on a workshop bench: charred black timber, treated outdoor wood, kiln-dried pale board, premium editorial lighting。真实摄影感，高端木作杂志，自然光，低饱和原木色，克制东方审美；不要文字、logo、水印、人物和廉价科普插画。",
-        "promptEn": "Create a wide premium editorial cover image for the article '辨木④：碳化木、防腐木、烘干木｜工艺改性对木材属性的改变'. Scene: three modified wood samples on a workshop bench: charred black timber, treated outdoor wood, kiln-dried pale board, premium editorial lighting. Use realistic premium editorial photography for a high-end Chinese woodcraft magazine. Natural light, restrained East Asian aesthetics, muted raw-wood palette, clean composition, real material texture. No text, no logo, no watermark, no labels, no obvious AI artifacts.",
-        "prompt": "Create a wide premium editorial cover image for the article '辨木④：碳化木、防腐木、烘干木｜工艺改性对木材属性的改变'. Scene: three modified wood samples on a workshop bench: charred black timber, treated outdoor wood, kiln-dried pale board, premium editorial lighting. Use realistic premium editorial photography for a high-end Chinese woodcraft magazine. Natural light, restrained East Asian aesthetics, muted raw-wood palette, clean composition, real material texture. No text, no logo, no watermark, no labels, no obvious AI artifacts."
+        "alt": "碳化木防腐木烘干木三类改性木材"
       },
       "body": [
         "天然原木存在天生短板：易开裂、易霉变、虫蛀、防潮性差。行业主流通过物理、化学工艺改性优化原木属性，市面上流通的碳化木、防腐木、烘干木，全部是原生木料深加工改性产物。我通俗拆解三类改性木材的工艺原理与属性变化。",
@@ -716,11 +641,6 @@
         "所有工艺只能优化木性短板，无法逆转木材先天底色；后天工艺弥补先天缺陷，顺应木性加工，是现代木作的底层逻辑。"
       ],
       "conclusion": "工艺修木之短，自然成木之本。后天雕琢，皆为成全天然良木。",
-      "source": {
-        "docxFile": "「木痴」科普专栏 全栏目正文定稿（1000字_篇 完整版） (2).docx",
-        "sourceSection": "二、【辨木】木材品类与肌理科普（全6篇 千字定稿）",
-        "paragraphCount": 5
-      },
       "issue": {
         "number": 12,
         "display": "VOL.12",
@@ -734,13 +654,16 @@
           "alt": "木材碳化防腐烘干工艺截面对比",
           "caption": "工艺改性的意义，是把木材推向更明确的使用场景。",
           "afterParagraph": 3,
-          "layout": "wide",
-          "prompt": "Create a 3:2 premium in-article editorial image for the article '辨木④：碳化木、防腐木、烘干木｜工艺改性对木材属性的改变'. Scene: close-up of charred surface, treated greenish outdoor timber and kiln-dried end grain arranged as a process comparison. Use realistic premium editorial photography for a high-end Chinese woodcraft magazine. Natural light, restrained East Asian aesthetics, muted raw-wood palette, clean composition, real material texture. No text, no logo, no watermark, no labels, no obvious AI artifacts."
+          "layout": "wide"
         }
       ],
       "editorNote": {
         "label": "编辑手记",
         "text": "碳化、防腐、烘干都是对木性的再塑造。工艺会改变颜色、含水、耐候与稳定，但每一次改性也都意味着取舍。"
+      },
+      "triptych": {
+        "path": "journal/muchi-library/chapter-triptych/muchi-bianmu-04-triptych.jpg",
+        "afterParagraph": 2
       }
     },
     {
@@ -756,13 +679,7 @@
       "cover": {
         "file": "muchi-bianmu-05-cover-editorial-1.jpg",
         "path": "journal/muchi-library/article-cover/muchi-bianmu-05-cover-editorial-1.jpg",
-        "alt": "香樟雪松等带香木材与刨花静物",
-        "idea": "quiet still life of aromatic wood shavings, camphor and cedar blocks, small glass cloche lifting scent in soft daylight",
-        "keywords": "木材气味从何而来？各类原木独有香气的物质成因",
-        "sourceSuggestion": "生成更适合",
-        "promptZh": "为「木痴」杂志文章《辨木⑤：木材气味从何而来？各类原木独有香气的物质成因》制作一张封面图。画面主题：quiet still life of aromatic wood shavings, camphor and cedar blocks, small glass cloche lifting scent in soft daylight。真实摄影感，高端木作杂志，自然光，低饱和原木色，克制东方审美；不要文字、logo、水印、人物和廉价科普插画。",
-        "promptEn": "Create a wide premium editorial cover image for the article '辨木⑤：木材气味从何而来？各类原木独有香气的物质成因'. Scene: quiet still life of aromatic wood shavings, camphor and cedar blocks, small glass cloche lifting scent in soft daylight. Use realistic premium editorial photography for a high-end Chinese woodcraft magazine. Natural light, restrained East Asian aesthetics, muted raw-wood palette, clean composition, real material texture. No text, no logo, no watermark, no labels, no obvious AI artifacts.",
-        "prompt": "Create a wide premium editorial cover image for the article '辨木⑤：木材气味从何而来？各类原木独有香气的物质成因'. Scene: quiet still life of aromatic wood shavings, camphor and cedar blocks, small glass cloche lifting scent in soft daylight. Use realistic premium editorial photography for a high-end Chinese woodcraft magazine. Natural light, restrained East Asian aesthetics, muted raw-wood palette, clean composition, real material texture. No text, no logo, no watermark, no labels, no obvious AI artifacts."
+        "alt": "香樟雪松等带香木材与刨花静物"
       },
       "body": [
         "品鉴木料，气味是最直观、最独特的识别维度。每一类天然原木都有专属独有气味，无任何两类木材香气完全一致；多年品木闻香，我讲清原木香气的物质本源与分类特征。",
@@ -772,11 +689,6 @@
         "天然木香无化学危害，部分名贵木质香气具备舒缓情绪的附加价值；这也是原木器物相比工业建材，最治愈的隐性优势。闻香辨木，也是我日常快速甄别材种的常用方法。"
       ],
       "conclusion": "一木一香，一香一韵。草木留香，是自然馈赠最温柔的印记。",
-      "source": {
-        "docxFile": "「木痴」科普专栏 全栏目正文定稿（1000字_篇 完整版） (2).docx",
-        "sourceSection": "二、【辨木】木材品类与肌理科普（全6篇 千字定稿）",
-        "paragraphCount": 5
-      },
       "issue": {
         "number": 13,
         "display": "VOL.13",
@@ -790,13 +702,16 @@
           "alt": "带香原木刨花与树脂细节",
           "caption": "木香来自可挥发的树脂与油性物质，是木材身份的一部分。",
           "afterParagraph": 3,
-          "layout": "wide",
-          "prompt": "Create a 3:2 premium in-article editorial image for the article '辨木⑤：木材气味从何而来？各类原木独有香气的物质成因'. Scene: macro editorial photo of fresh wood shavings, resin streaks and aromatic timber blocks on handmade paper. Use realistic premium editorial photography for a high-end Chinese woodcraft magazine. Natural light, restrained East Asian aesthetics, muted raw-wood palette, clean composition, real material texture. No text, no logo, no watermark, no labels, no obvious AI artifacts."
+          "layout": "wide"
         }
       ],
       "editorNote": {
         "label": "编辑手记",
         "text": "木材气味不是玄学，它来自挥发性物质、树脂、油脂和细胞结构。香气是木材辨识中最隐微的一项感官证据。"
+      },
+      "triptych": {
+        "path": "journal/muchi-library/chapter-triptych/muchi-bianmu-05-triptych.jpg",
+        "afterParagraph": 2
       }
     },
     {
@@ -812,13 +727,7 @@
       "cover": {
         "file": "muchi-bianmu-06-cover-editorial-1.jpg",
         "path": "journal/muchi-library/article-cover/muchi-bianmu-06-cover-editorial-1.jpg",
-        "alt": "不同密度木材样本与天平比较",
-        "idea": "premium studio still life with dense dark wood and light pale wood blocks on a balance scale, emphasizing weight and hardness",
-        "keywords": "木材密度详解, 为什么不同木头轻重、硬度差距巨大？",
-        "sourceSuggestion": "实拍/生成均可",
-        "promptZh": "为「木痴」杂志文章《辨木⑥：木材密度详解｜为什么不同木头轻重、硬度差距巨大？》制作一张封面图。画面主题：premium studio still life with dense dark wood and light pale wood blocks on a balance scale, emphasizing weight and hardness。真实摄影感，高端木作杂志，自然光，低饱和原木色，克制东方审美；不要文字、logo、水印、人物和廉价科普插画。",
-        "promptEn": "Create a wide premium editorial cover image for the article '辨木⑥：木材密度详解｜为什么不同木头轻重、硬度差距巨大？'. Scene: premium studio still life with dense dark wood and light pale wood blocks on a balance scale, emphasizing weight and hardness. Use realistic premium editorial photography for a high-end Chinese woodcraft magazine. Natural light, restrained East Asian aesthetics, muted raw-wood palette, clean composition, real material texture. No text, no logo, no watermark, no labels, no obvious AI artifacts.",
-        "prompt": "Create a wide premium editorial cover image for the article '辨木⑥：木材密度详解｜为什么不同木头轻重、硬度差距巨大？'. Scene: premium studio still life with dense dark wood and light pale wood blocks on a balance scale, emphasizing weight and hardness. Use realistic premium editorial photography for a high-end Chinese woodcraft magazine. Natural light, restrained East Asian aesthetics, muted raw-wood palette, clean composition, real material texture. No text, no logo, no watermark, no labels, no obvious AI artifacts."
+        "alt": "不同密度木材样本与天平比较"
       },
       "body": [
         "上手掂量木料，最直观的感受就是轻重、硬度差距悬殊。底层根源就是木材密度，密度也是决定木材用途、品相、稳定性的核心物理指标。",
@@ -828,11 +737,6 @@
         "长期上手品鉴就能总结规律：密度决定木性边界，环境决定用木边界。读懂木材密度，就读懂了木料大部分物理性能。"
       ],
       "conclusion": "轻重藏物性，疏密见木心。顺应木之禀赋，方得木料妙用。",
-      "source": {
-        "docxFile": "「木痴」科普专栏 全栏目正文定稿（1000字_篇 完整版） (2).docx",
-        "sourceSection": "二、【辨木】木材品类与肌理科普（全6篇 千字定稿）",
-        "paragraphCount": 5
-      },
       "issue": {
         "number": 14,
         "display": "VOL.14",
@@ -846,13 +750,16 @@
           "alt": "轻重木材端面与密度差异",
           "caption": "同样体积下的轻重差异，来自木纤维排列与细胞空隙的不同。",
           "afterParagraph": 3,
-          "layout": "wide",
-          "prompt": "Create a 3:2 premium in-article editorial image for the article '辨木⑥：木材密度详解｜为什么不同木头轻重、硬度差距巨大？'. Scene: close-up of two same-size wood cubes, one dense and dark, one light and porous, beside a subtle scale and end-grain view. Use realistic premium editorial photography for a high-end Chinese woodcraft magazine. Natural light, restrained East Asian aesthetics, muted raw-wood palette, clean composition, real material texture. No text, no logo, no watermark, no labels, no obvious AI artifacts."
+          "layout": "wide"
         }
       ],
       "editorNote": {
         "label": "编辑手记",
         "text": "密度决定重量，也牵动硬度、耐磨与加工手感。把轻木与重木放在秤上，材料的性格就从抽象参数变成可感知的事实。"
+      },
+      "triptych": {
+        "path": "journal/muchi-library/chapter-triptych/muchi-bianmu-06-triptych.jpg",
+        "afterParagraph": 2
       }
     },
     {
@@ -868,13 +775,7 @@
       "cover": {
         "file": "muchi-gongfa-01-cover-editorial-1.jpg",
         "path": "journal/muchi-library/article-cover/muchi-gongfa-01-cover-editorial-1.jpg",
-        "alt": "原木剖切工艺与板材纹理走向",
-        "idea": "sawmill editorial scene with a large log, clean cut slabs, visible growth rings and grain direction, calm natural industrial light",
-        "keywords": "原木采伐与树干剖切, 树干拆解基础工艺与物理逻辑",
-        "sourceSuggestion": "实拍优先",
-        "promptZh": "为「木痴」杂志文章《工法①：原木采伐与树干剖切｜树干拆解基础工艺与物理逻辑》制作一张封面图。画面主题：sawmill editorial scene with a large log, clean cut slabs, visible growth rings and grain direction, calm natural industrial light。真实摄影感，高端木作杂志，自然光，低饱和原木色，克制东方审美；不要文字、logo、水印、人物和廉价科普插画。",
-        "promptEn": "Create a wide premium editorial cover image for the article '工法①：原木采伐与树干剖切｜树干拆解基础工艺与物理逻辑'. Scene: sawmill editorial scene with a large log, clean cut slabs, visible growth rings and grain direction, calm natural industrial light. Use realistic premium editorial photography for a high-end Chinese woodcraft magazine. Natural light, restrained East Asian aesthetics, muted raw-wood palette, clean composition, real material texture. No text, no logo, no watermark, no labels, no obvious AI artifacts.",
-        "prompt": "Create a wide premium editorial cover image for the article '工法①：原木采伐与树干剖切｜树干拆解基础工艺与物理逻辑'. Scene: sawmill editorial scene with a large log, clean cut slabs, visible growth rings and grain direction, calm natural industrial light. Use realistic premium editorial photography for a high-end Chinese woodcraft magazine. Natural light, restrained East Asian aesthetics, muted raw-wood palette, clean composition, real material texture. No text, no logo, no watermark, no labels, no obvious AI artifacts."
+        "alt": "原木剖切工艺与板材纹理走向"
       },
       "body": [
         "一块天然原木从深山树木变成可用板材，第一步就是规范采伐与科学剖切。很多人忽略前期加工逻辑，实际上剖切方式，直接决定后期整块板材的变形概率与板面纹理品相。",
@@ -884,11 +785,6 @@
         "前期采伐剖切的工艺取舍，直接锁定一块板材的后期使用上限。好木料七分靠本源，三分靠前期加工取舍。"
       ],
       "conclusion": "工法顺木性，雕琢不逆天。所有精良木作，始于顺势而为之初加工。",
-      "source": {
-        "docxFile": "「木痴」科普专栏 全栏目正文定稿（1000字_篇 完整版） (2).docx",
-        "sourceSection": "三、【工法】木材传统+现代加工工艺科普（全6篇 千字定稿）",
-        "paragraphCount": 5
-      },
       "issue": {
         "number": 15,
         "display": "VOL.15",
@@ -902,13 +798,16 @@
           "alt": "径切弦切板材纹理对比",
           "caption": "树干被怎样剖开，会决定木板之后的纹理、稳定和表情。",
           "afterParagraph": 3,
-          "layout": "wide",
-          "prompt": "Create a 3:2 premium in-article editorial image for the article '工法①：原木采伐与树干剖切｜树干拆解基础工艺与物理逻辑'. Scene: close-up of radial cut and tangential cut boards from the same log, showing different grain patterns and ring orientation. Use realistic premium editorial photography for a high-end Chinese woodcraft magazine. Natural light, restrained East Asian aesthetics, muted raw-wood palette, clean composition, real material texture. No text, no logo, no watermark, no labels, no obvious AI artifacts."
+          "layout": "wide"
         }
       ],
       "editorNote": {
         "label": "编辑手记",
         "text": "采伐与剖切是木作的第一道决定。树干如何被打开，直接决定纹理走向、稳定性和最终能否成为一块好板。"
+      },
+      "triptych": {
+        "path": "journal/muchi-library/chapter-triptych/muchi-gongfa-01-triptych.jpg",
+        "afterParagraph": 2
       }
     },
     {
@@ -924,13 +823,7 @@
       "cover": {
         "file": "muchi-gongfa-02-cover-editorial-1.jpg",
         "path": "journal/muchi-library/article-cover/muchi-gongfa-02-cover-editorial-1.jpg",
-        "alt": "自然阴干木料与人工窑干空间对比",
-        "idea": "split editorial composition feel: timber stacked in airy shaded yard and warm kiln drying chamber, no text, natural documentary style",
-        "keywords": "自然阴干VS人工窑干, 两大木材脱水烘干工艺深度对比",
-        "sourceSuggestion": "实拍/生成均可",
-        "promptZh": "为「木痴」杂志文章《工法②：自然阴干VS人工窑干｜两大木材脱水烘干工艺深度对比》制作一张封面图。画面主题：split editorial composition feel: timber stacked in airy shaded yard and warm kiln drying chamber, no text, natural documentary style。真实摄影感，高端木作杂志，自然光，低饱和原木色，克制东方审美；不要文字、logo、水印、人物和廉价科普插画。",
-        "promptEn": "Create a wide premium editorial cover image for the article '工法②：自然阴干VS人工窑干｜两大木材脱水烘干工艺深度对比'. Scene: split editorial composition feel: timber stacked in airy shaded yard and warm kiln drying chamber, no text, natural documentary style. Use realistic premium editorial photography for a high-end Chinese woodcraft magazine. Natural light, restrained East Asian aesthetics, muted raw-wood palette, clean composition, real material texture. No text, no logo, no watermark, no labels, no obvious AI artifacts.",
-        "prompt": "Create a wide premium editorial cover image for the article '工法②：自然阴干VS人工窑干｜两大木材脱水烘干工艺深度对比'. Scene: split editorial composition feel: timber stacked in airy shaded yard and warm kiln drying chamber, no text, natural documentary style. Use realistic premium editorial photography for a high-end Chinese woodcraft magazine. Natural light, restrained East Asian aesthetics, muted raw-wood palette, clean composition, real material texture. No text, no logo, no watermark, no labels, no obvious AI artifacts."
+        "alt": "自然阴干木料与人工窑干空间对比"
       },
       "body": [
         "木材干燥是原木加工最核心的中转工序，干燥工艺直接决定成品木性稳定性。目前行业只有两大主流脱水工艺：自然阴干、人工窑干，多年对接加工厂我对比两类工艺优劣与适配场景。",
@@ -940,11 +833,6 @@
         "干燥没有最优方案，只有最适配方案；慢工出温润良木，快工造标准用材。"
       ],
       "conclusion": "古法守木之本，精工适世之用。快慢之间，权衡木作取舍之道。",
-      "source": {
-        "docxFile": "「木痴」科普专栏 全栏目正文定稿（1000字_篇 完整版） (2).docx",
-        "sourceSection": "三、【工法】木材传统+现代加工工艺科普（全6篇 千字定稿）",
-        "paragraphCount": 5
-      },
       "issue": {
         "number": 16,
         "display": "VOL.16",
@@ -958,13 +846,16 @@
           "alt": "木材堆垛阴干与窑干含水控制细节",
           "caption": "脱水不是把水赶走，而是让木材以可控速度接近稳定。",
           "afterParagraph": 3,
-          "layout": "wide",
-          "prompt": "Create a 3:2 premium in-article editorial image for the article '工法②：自然阴干VS人工窑干｜两大木材脱水烘干工艺深度对比'. Scene: neatly stacked boards with spacers, airflow gaps and a subtle kiln vent or humidity meter in soft workshop light. Use realistic premium editorial photography for a high-end Chinese woodcraft magazine. Natural light, restrained East Asian aesthetics, muted raw-wood palette, clean composition, real material texture. No text, no logo, no watermark, no labels, no obvious AI artifacts."
+          "layout": "wide"
         }
       ],
       "editorNote": {
         "label": "编辑手记",
         "text": "阴干与窑干看似都是脱水，实际代表两种时间观。一个交给空气缓慢调和，一个用温湿控制加速稳定。"
+      },
+      "triptych": {
+        "path": "journal/muchi-library/chapter-triptych/muchi-gongfa-02-triptych.jpg",
+        "afterParagraph": 2
       }
     },
     {
@@ -980,13 +871,7 @@
       "cover": {
         "file": "muchi-gongfa-03-cover-editorial-1.jpg",
         "path": "journal/muchi-library/article-cover/muchi-gongfa-03-cover-editorial-1.jpg",
-        "alt": "木料砂磨抛光工序与表面肌理",
-        "idea": "craft workshop table with hand plane shavings, sanding blocks, polished wooden board and soft raking light revealing surface texture",
-        "keywords": "木料精细化加工：削片、砂磨、抛光, 表层肌理加工原理",
-        "sourceSuggestion": "实拍优先",
-        "promptZh": "为「木痴」杂志文章《工法③：木料精细化加工：削片、砂磨、抛光｜表层肌理加工原理》制作一张封面图。画面主题：craft workshop table with hand plane shavings, sanding blocks, polished wooden board and soft raking light revealing surface texture。真实摄影感，高端木作杂志，自然光，低饱和原木色，克制东方审美；不要文字、logo、水印、人物和廉价科普插画。",
-        "promptEn": "Create a wide premium editorial cover image for the article '工法③：木料精细化加工：削片、砂磨、抛光｜表层肌理加工原理'. Scene: craft workshop table with hand plane shavings, sanding blocks, polished wooden board and soft raking light revealing surface texture. Use realistic premium editorial photography for a high-end Chinese woodcraft magazine. Natural light, restrained East Asian aesthetics, muted raw-wood palette, clean composition, real material texture. No text, no logo, no watermark, no labels, no obvious AI artifacts.",
-        "prompt": "Create a wide premium editorial cover image for the article '工法③：木料精细化加工：削片、砂磨、抛光｜表层肌理加工原理'. Scene: craft workshop table with hand plane shavings, sanding blocks, polished wooden board and soft raking light revealing surface texture. Use realistic premium editorial photography for a high-end Chinese woodcraft magazine. Natural light, restrained East Asian aesthetics, muted raw-wood palette, clean composition, real material texture. No text, no logo, no watermark, no labels, no obvious AI artifacts."
+        "alt": "木料砂磨抛光工序与表面肌理"
       },
       "body": [
         "原木完成剖切干燥后，需要精细化表层加工，才能从粗糙原料变成可落地使用的精致木器。削片、砂磨、抛光三大精细化工序，本质是重塑木料表层肌理与触感。",
@@ -996,11 +881,6 @@
         "精细化加工从不改变木材本质属性，只是放大木头天然的肌理与美感。精良工法，是成全天然良木的后天手段。"
       ],
       "conclusion": "精工修肌理，细磨见木魂。打磨的是木料，沉淀的是匠心。",
-      "source": {
-        "docxFile": "「木痴」科普专栏 全栏目正文定稿（1000字_篇 完整版） (2).docx",
-        "sourceSection": "三、【工法】木材传统+现代加工工艺科普（全6篇 千字定稿）",
-        "paragraphCount": 5
-      },
       "issue": {
         "number": 17,
         "display": "VOL.17",
@@ -1014,13 +894,16 @@
           "alt": "砂磨前后木板表面肌理变化",
           "caption": "表层加工让木材从粗粝进入可触摸、可居住的状态。",
           "afterParagraph": 3,
-          "layout": "wide",
-          "prompt": "Create a 3:2 premium in-article editorial image for the article '工法③：木料精细化加工：削片、砂磨、抛光｜表层肌理加工原理'. Scene: macro comparison of rough sanded and finely polished wood surface, with fine dust and reflected natural light. Use realistic premium editorial photography for a high-end Chinese woodcraft magazine. Natural light, restrained East Asian aesthetics, muted raw-wood palette, clean composition, real material texture. No text, no logo, no watermark, no labels, no obvious AI artifacts."
+          "layout": "wide"
         }
       ],
       "editorNote": {
         "label": "编辑手记",
         "text": "削片、砂磨、抛光改变的是表层，却会决定手触与光泽。木材的高级感，常常来自这些不喧哗的细节工序。"
+      },
+      "triptych": {
+        "path": "journal/muchi-library/chapter-triptych/muchi-gongfa-03-triptych.jpg",
+        "afterParagraph": 2
       }
     },
     {
@@ -1036,13 +919,7 @@
       "cover": {
         "file": "muchi-gongfa-04-cover-editorial-1.jpg",
         "path": "journal/muchi-library/article-cover/muchi-gongfa-04-cover-editorial-1.jpg",
-        "alt": "传统榫卯结构受力与结构美学",
-        "idea": "traditional Chinese joinery assembly on a quiet bench, interlocking beams and columns, visible mortise and tenon shoulders, premium craft photography",
-        "keywords": "传统古法木工, 榫卯结构受力原理与结构美学",
-        "sourceSuggestion": "实拍优先",
-        "promptZh": "为「木痴」杂志文章《工法④：传统古法木工｜榫卯结构受力原理与结构美学》制作一张封面图。画面主题：traditional Chinese joinery assembly on a quiet bench, interlocking beams and columns, visible mortise and tenon shoulders, premium craft photography。真实摄影感，高端木作杂志，自然光，低饱和原木色，克制东方审美；不要文字、logo、水印、人物和廉价科普插画。",
-        "promptEn": "Create a wide premium editorial cover image for the article '工法④：传统古法木工｜榫卯结构受力原理与结构美学'. Scene: traditional Chinese joinery assembly on a quiet bench, interlocking beams and columns, visible mortise and tenon shoulders, premium craft photography. Use realistic premium editorial photography for a high-end Chinese woodcraft magazine. Natural light, restrained East Asian aesthetics, muted raw-wood palette, clean composition, real material texture. No text, no logo, no watermark, no labels, no obvious AI artifacts.",
-        "prompt": "Create a wide premium editorial cover image for the article '工法④：传统古法木工｜榫卯结构受力原理与结构美学'. Scene: traditional Chinese joinery assembly on a quiet bench, interlocking beams and columns, visible mortise and tenon shoulders, premium craft photography. Use realistic premium editorial photography for a high-end Chinese woodcraft magazine. Natural light, restrained East Asian aesthetics, muted raw-wood palette, clean composition, real material texture. No text, no logo, no watermark, no labels, no obvious AI artifacts."
+        "alt": "传统榫卯结构受力与结构美学"
       },
       "body": [
         "深耕木作审美多年，我始终认为榫卯工艺是中式传统木作工艺的精髓，也是顺应木性最完美的连接工法。",
@@ -1052,11 +929,6 @@
         "现代工业慢慢简化舍弃榫卯工艺，但高端古法木作、收藏级家具依旧坚持全榫卯制作。最好的木作连接，从不是硬性捆绑固定，而是顺应木性的包容咬合。"
       ],
       "conclusion": "一榫一卯，天人合一。顺势承木之力，匠心承古之韵。",
-      "source": {
-        "docxFile": "「木痴」科普专栏 全栏目正文定稿（1000字_篇 完整版） (2).docx",
-        "sourceSection": "三、【工法】木材传统+现代加工工艺科普（全6篇 千字定稿）",
-        "paragraphCount": 5
-      },
       "issue": {
         "number": 18,
         "display": "VOL.18",
@@ -1070,13 +942,16 @@
           "alt": "榫卯咬合受力细节",
           "caption": "榫卯的结构美，来自木件之间彼此承托的受力秩序。",
           "afterParagraph": 3,
-          "layout": "wide",
-          "prompt": "Create a 3:2 premium in-article editorial image for the article '工法④：传统古法木工｜榫卯结构受力原理与结构美学'. Scene: close-up of a precise mortise-and-tenon joint being dry fitted, clean shoulders, grain direction and shadow showing structural lock. Use realistic premium editorial photography for a high-end Chinese woodcraft magazine. Natural light, restrained East Asian aesthetics, muted raw-wood palette, clean composition, real material texture. No text, no logo, no watermark, no labels, no obvious AI artifacts."
+          "layout": "wide"
         }
       ],
       "editorNote": {
         "label": "编辑手记",
         "text": "榫卯的美不只在造型，而在受力路径清晰。它让木件互相牵制，也让结构把力量藏进看不见的咬合里。"
+      },
+      "triptych": {
+        "path": "journal/muchi-library/chapter-triptych/muchi-gongfa-04-triptych.jpg",
+        "afterParagraph": 2
       }
     },
     {
@@ -1092,13 +967,7 @@
       "cover": {
         "file": "muchi-gongfa-05-cover-editorial-1.jpg",
         "path": "journal/muchi-library/article-cover/muchi-gongfa-05-cover-editorial-1.jpg",
-        "alt": "熏蒸碳化浸胶改性木材实验工艺",
-        "idea": "modern wood treatment studio with steamed timber, dark thermally modified boards and resin-treated sample blocks arranged editorially",
-        "keywords": "现代改性工艺：熏蒸、碳化、浸胶如何重塑木材属性",
-        "sourceSuggestion": "生成更适合",
-        "promptZh": "为「木痴」杂志文章《工法⑤：现代改性工艺：熏蒸、碳化、浸胶如何重塑木材属性》制作一张封面图。画面主题：modern wood treatment studio with steamed timber, dark thermally modified boards and resin-treated sample blocks arranged editorially。真实摄影感，高端木作杂志，自然光，低饱和原木色，克制东方审美；不要文字、logo、水印、人物和廉价科普插画。",
-        "promptEn": "Create a wide premium editorial cover image for the article '工法⑤：现代改性工艺：熏蒸、碳化、浸胶如何重塑木材属性'. Scene: modern wood treatment studio with steamed timber, dark thermally modified boards and resin-treated sample blocks arranged editorially. Use realistic premium editorial photography for a high-end Chinese woodcraft magazine. Natural light, restrained East Asian aesthetics, muted raw-wood palette, clean composition, real material texture. No text, no logo, no watermark, no labels, no obvious AI artifacts.",
-        "prompt": "Create a wide premium editorial cover image for the article '工法⑤：现代改性工艺：熏蒸、碳化、浸胶如何重塑木材属性'. Scene: modern wood treatment studio with steamed timber, dark thermally modified boards and resin-treated sample blocks arranged editorially. Use realistic premium editorial photography for a high-end Chinese woodcraft magazine. Natural light, restrained East Asian aesthetics, muted raw-wood palette, clean composition, real material texture. No text, no logo, no watermark, no labels, no obvious AI artifacts."
+        "alt": "熏蒸碳化浸胶改性木材实验工艺"
       },
       "body": [
         "面对天然原木开裂、虫蛀、霉变、强度不足等先天短板，现代木材深加工通过三大化学+物理复合工艺，从根源重塑木材物理属性。我通俗拆解熏蒸、碳化、浸胶三类改性工艺底层逻辑与适用边界。",
@@ -1108,11 +977,6 @@
         "现代改性工艺可以弥补天然木材大部分短板，但会弱化原木天然生物活性。功能性用材优先改性工艺；审美收藏级用材，保留天然原木属性最优。"
       ],
       "conclusion": "科技补木短板，自然守木本心。工法为所用，本心不丢木之本真。",
-      "source": {
-        "docxFile": "「木痴」科普专栏 全栏目正文定稿（1000字_篇 完整版） (2).docx",
-        "sourceSection": "三、【工法】木材传统+现代加工工艺科普（全6篇 千字定稿）",
-        "paragraphCount": 5
-      },
       "issue": {
         "number": 19,
         "display": "VOL.19",
@@ -1126,13 +990,16 @@
           "alt": "改性木材颜色与结构变化细节",
           "caption": "现代改性工艺把耐候、稳定与颜色变化写入木材内部。",
           "afterParagraph": 3,
-          "layout": "wide",
-          "prompt": "Create a 3:2 premium in-article editorial image for the article '工法⑤：现代改性工艺：熏蒸、碳化、浸胶如何重塑木材属性'. Scene: macro comparison of steamed, charred and resin-impregnated wood surfaces with subtle color and texture differences. Use realistic premium editorial photography for a high-end Chinese woodcraft magazine. Natural light, restrained East Asian aesthetics, muted raw-wood palette, clean composition, real material texture. No text, no logo, no watermark, no labels, no obvious AI artifacts."
+          "layout": "wide"
         }
       ],
       "editorNote": {
         "label": "编辑手记",
         "text": "熏蒸、碳化、浸胶让木材获得新的稳定性与耐候性。现代工艺不是否定天然，而是在明确场景里重塑木性。"
+      },
+      "triptych": {
+        "path": "journal/muchi-library/chapter-triptych/muchi-gongfa-05-triptych.jpg",
+        "afterParagraph": 2
       }
     },
     {
@@ -1148,13 +1015,7 @@
       "cover": {
         "file": "muchi-gongfa-06-cover-editorial-1.jpg",
         "path": "journal/muchi-library/article-cover/muchi-gongfa-06-cover-editorial-1.jpg",
-        "alt": "整板拼板指接板三种木料拼接方式",
-        "idea": "three wood panel types arranged in a premium studio: single slab, edge-glued panel and finger-jointed board, clean cross-section visibility",
-        "keywords": "木料拼接工艺对比：整板、拼板、指接板工艺原理",
-        "sourceSuggestion": "实拍/生成均可",
-        "promptZh": "为「木痴」杂志文章《工法⑥：木料拼接工艺对比：整板、拼板、指接板工艺原理》制作一张封面图。画面主题：three wood panel types arranged in a premium studio: single slab, edge-glued panel and finger-jointed board, clean cross-section visibility。真实摄影感，高端木作杂志，自然光，低饱和原木色，克制东方审美；不要文字、logo、水印、人物和廉价科普插画。",
-        "promptEn": "Create a wide premium editorial cover image for the article '工法⑥：木料拼接工艺对比：整板、拼板、指接板工艺原理'. Scene: three wood panel types arranged in a premium studio: single slab, edge-glued panel and finger-jointed board, clean cross-section visibility. Use realistic premium editorial photography for a high-end Chinese woodcraft magazine. Natural light, restrained East Asian aesthetics, muted raw-wood palette, clean composition, real material texture. No text, no logo, no watermark, no labels, no obvious AI artifacts.",
-        "prompt": "Create a wide premium editorial cover image for the article '工法⑥：木料拼接工艺对比：整板、拼板、指接板工艺原理'. Scene: three wood panel types arranged in a premium studio: single slab, edge-glued panel and finger-jointed board, clean cross-section visibility. Use realistic premium editorial photography for a high-end Chinese woodcraft magazine. Natural light, restrained East Asian aesthetics, muted raw-wood palette, clean composition, real material texture. No text, no logo, no watermark, no labels, no obvious AI artifacts."
+        "alt": "整板拼板指接板三种木料拼接方式"
       },
       "body": [
         "大尺寸实木成品，离不开木料拼接工艺。行业三大主流拼接工艺：整板、平拼板、指接板，原料品相、结构强度、造价、适用场景差距巨大，也是大众选材最容易踩坑的环节。",
@@ -1165,11 +1026,6 @@
         "栏目核心定位：侧重室内人居空间划分：地板、家具、软装、室外、古建筑全场景木种适配科普"
       ],
       "conclusion": "拼接见取舍，用材辨虚实。读懂木工工艺，方能不被板材表象迷惑。",
-      "source": {
-        "docxFile": "「木痴」科普专栏 全栏目正文定稿（1000字_篇 完整版） (2).docx",
-        "sourceSection": "三、【工法】木材传统+现代加工工艺科普（全6篇 千字定稿）",
-        "paragraphCount": 6
-      },
       "issue": {
         "number": 20,
         "display": "VOL.20",
@@ -1183,13 +1039,16 @@
           "alt": "指接板榫齿与拼板胶缝细节",
           "caption": "拼接方式决定了板材如何分担尺寸、稳定与视觉连续性。",
           "afterParagraph": 3,
-          "layout": "wide",
-          "prompt": "Create a 3:2 premium in-article editorial image for the article '工法⑥：木料拼接工艺对比：整板、拼板、指接板工艺原理'. Scene: close-up of finger joint teeth, edge-glued seam and solid board grain in one careful craft comparison. Use realistic premium editorial photography for a high-end Chinese woodcraft magazine. Natural light, restrained East Asian aesthetics, muted raw-wood palette, clean composition, real material texture. No text, no logo, no watermark, no labels, no obvious AI artifacts."
+          "layout": "wide"
         }
       ],
       "editorNote": {
         "label": "编辑手记",
         "text": "整板、拼板、指接板并不是谁更高级的简单排序，而是结构逻辑不同。每一种拼接方式都在材料尺寸、稳定和成本之间寻找平衡。"
+      },
+      "triptych": {
+        "path": "journal/muchi-library/chapter-triptych/muchi-gongfa-06-triptych.jpg",
+        "afterParagraph": 2
       }
     },
     {
@@ -1205,13 +1064,7 @@
       "cover": {
         "file": "muchi-qijing-01-cover-editorial-1.jpg",
         "path": "journal/muchi-library/article-cover/muchi-qijing-01-cover-editorial-1.jpg",
-        "alt": "古建筑木结构梁柱承重与防腐场景",
-        "idea": "traditional timber architecture under eaves, visible beams and columns, raised stone bases preventing moisture, calm architectural photography",
-        "keywords": "古建筑木结构, 承重、防腐场景适配底层逻辑",
-        "sourceSuggestion": "实拍优先",
-        "promptZh": "为「木痴」杂志文章《栖境①：古建筑木结构｜承重、防腐场景适配底层逻辑》制作一张封面图。画面主题：traditional timber architecture under eaves, visible beams and columns, raised stone bases preventing moisture, calm architectural photography。真实摄影感，高端木作杂志，自然光，低饱和原木色，克制东方审美；不要文字、logo、水印、人物和廉价科普插画。",
-        "promptEn": "Create a wide premium editorial cover image for the article '栖境①：古建筑木结构｜承重、防腐场景适配底层逻辑'. Scene: traditional timber architecture under eaves, visible beams and columns, raised stone bases preventing moisture, calm architectural photography. Use realistic premium editorial photography for a high-end Chinese woodcraft magazine. Natural light, restrained East Asian aesthetics, muted raw-wood palette, clean composition, real material texture. No text, no logo, no watermark, no labels, no obvious AI artifacts.",
-        "prompt": "Create a wide premium editorial cover image for the article '栖境①：古建筑木结构｜承重、防腐场景适配底层逻辑'. Scene: traditional timber architecture under eaves, visible beams and columns, raised stone bases preventing moisture, calm architectural photography. Use realistic premium editorial photography for a high-end Chinese woodcraft magazine. Natural light, restrained East Asian aesthetics, muted raw-wood palette, clean composition, real material texture. No text, no logo, no watermark, no labels, no obvious AI artifacts."
+        "alt": "古建筑木结构梁柱承重与防腐场景"
       },
       "body": [
         "纵观古今，木结构是中式古建筑的核心骨架。千年古建筑屹立不倒，核心是古人吃透木材属性、按场景匹配木种与结构用法。",
@@ -1221,11 +1074,6 @@
         "古建筑用木智慧，本质是顺应木性、因地制宜、结构适配。现代空间用材，依旧可以沿用这套底层逻辑。"
       ],
       "conclusion": "古匠顺木而筑，良木承筑千年。场景适配，是用木最高级的智慧。",
-      "source": {
-        "docxFile": "「木痴」科普专栏 全栏目正文定稿（1000字_篇 完整版） (2).docx",
-        "sourceSection": "四、【栖境】木材全场景空间应用科普（全8篇 千字定稿｜含地板/家具室内空间用材）",
-        "paragraphCount": 5
-      },
       "issue": {
         "number": 21,
         "display": "VOL.21",
@@ -1239,13 +1087,16 @@
           "alt": "木柱石础防潮与承重节点",
           "caption": "古建筑的木柱常借石础隔离潮气，也把承重关系清晰落地。",
           "afterParagraph": 3,
-          "layout": "wide",
-          "prompt": "Create a 3:2 premium in-article editorial image for the article '栖境①：古建筑木结构｜承重、防腐场景适配底层逻辑'. Scene: close-up of a timber column standing on a stone plinth, showing moisture separation, grain and structural load path. Use realistic premium editorial photography for a high-end Chinese woodcraft magazine. Natural light, restrained East Asian aesthetics, muted raw-wood palette, clean composition, real material texture. No text, no logo, no watermark, no labels, no obvious AI artifacts."
+          "layout": "wide"
         }
       ],
       "editorNote": {
         "label": "编辑手记",
         "text": "古建筑木结构首先是承重系统，其次才是文化符号。梁、柱、檩、枋共同工作，让木材在防腐、受力与尺度之间找到长期存在的方式。"
+      },
+      "triptych": {
+        "path": "journal/muchi-library/chapter-triptych/muchi-qijing-01-triptych.jpg",
+        "afterParagraph": 2
       }
     },
     {
@@ -1261,13 +1112,7 @@
       "cover": {
         "file": "muchi-qijing-02-cover-editorial-1.jpg",
         "path": "journal/muchi-library/article-cover/muchi-qijing-02-cover-editorial-1.jpg",
-        "alt": "室内木地板与家具用材场景区分",
-        "idea": "refined living interior with natural wood floor and solid wood furniture samples, material boards arranged by use case in soft daylight",
-        "keywords": "人居室内空间, 用材分类：适配地板VS适配家具的木种甄别",
-        "sourceSuggestion": "实拍/生成均可",
-        "promptZh": "为「木痴」杂志文章《栖境②：人居室内空间｜用材分类：适配地板VS适配家具的木种甄别》制作一张封面图。画面主题：refined living interior with natural wood floor and solid wood furniture samples, material boards arranged by use case in soft daylight。真实摄影感，高端木作杂志，自然光，低饱和原木色，克制东方审美；不要文字、logo、水印、人物和廉价科普插画。",
-        "promptEn": "Create a wide premium editorial cover image for the article '栖境②：人居室内空间｜用材分类：适配地板VS适配家具的木种甄别'. Scene: refined living interior with natural wood floor and solid wood furniture samples, material boards arranged by use case in soft daylight. Use realistic premium editorial photography for a high-end Chinese woodcraft magazine. Natural light, restrained East Asian aesthetics, muted raw-wood palette, clean composition, real material texture. No text, no logo, no watermark, no labels, no obvious AI artifacts.",
-        "prompt": "Create a wide premium editorial cover image for the article '栖境②：人居室内空间｜用材分类：适配地板VS适配家具的木种甄别'. Scene: refined living interior with natural wood floor and solid wood furniture samples, material boards arranged by use case in soft daylight. Use realistic premium editorial photography for a high-end Chinese woodcraft magazine. Natural light, restrained East Asian aesthetics, muted raw-wood palette, clean composition, real material texture. No text, no logo, no watermark, no labels, no obvious AI artifacts."
+        "alt": "室内木地板与家具用材场景区分"
       },
       "body": [
         "大部分室内原木落地翻车，都是因为混淆地板与家具用材标准。结合多年空间落地经验，我明确划分室内两大核心用材木种筛选标准。",
@@ -1277,11 +1122,6 @@
         "室内空间用木，第一步就是分清场景边界，匹配对应木种属性。"
       ],
       "conclusion": "因地选木，因境用材。空间无好坏，适配方为上佳。",
-      "source": {
-        "docxFile": "「木痴」科普专栏 全栏目正文定稿（1000字_篇 完整版） (2).docx",
-        "sourceSection": "四、【栖境】木材全场景空间应用科普（全8篇 千字定稿｜含地板/家具室内空间用材）",
-        "paragraphCount": 5
-      },
       "issue": {
         "number": 22,
         "display": "VOL.22",
@@ -1295,13 +1135,16 @@
           "alt": "地板木种与家具木种样板比较",
           "caption": "地板与家具面对的磨耗、触感和结构要求，并不相同。",
           "afterParagraph": 3,
-          "layout": "wide",
-          "prompt": "Create a 3:2 premium in-article editorial image for the article '栖境②：人居室内空间｜用材分类：适配地板VS适配家具的木种甄别'. Scene: editorial close-up of floor planks and furniture wood samples side by side, showing hardness, grain and finish differences. Use realistic premium editorial photography for a high-end Chinese woodcraft magazine. Natural light, restrained East Asian aesthetics, muted raw-wood palette, clean composition, real material texture. No text, no logo, no watermark, no labels, no obvious AI artifacts."
+          "layout": "wide"
         }
       ],
       "editorNote": {
         "label": "编辑手记",
         "text": "室内用木要先分场景：地板需要耐磨与稳定，家具需要触感、纹理和加工性。好选材从来不是一种木材打天下。"
+      },
+      "triptych": {
+        "path": "journal/muchi-library/chapter-triptych/muchi-qijing-02-triptych.jpg",
+        "afterParagraph": 2
       }
     },
     {
@@ -1317,13 +1160,7 @@
       "cover": {
         "file": "muchi-qijing-03-cover-editorial-1.jpg",
         "path": "journal/muchi-library/article-cover/muchi-qijing-03-cover-editorial-1.jpg",
-        "alt": "室内吊顶踢脚线背景墙木构件一体化",
-        "idea": "minimal interior showing wood ceiling detail, skirting board and wood feature wall aligned with a calm floor, premium architectural photography",
-        "keywords": "室内软装木构件, 吊顶、踢脚线、背景墙专属适配木材",
-        "sourceSuggestion": "实拍/生成均可",
-        "promptZh": "为「木痴」杂志文章《栖境③：室内软装木构件｜吊顶、踢脚线、背景墙专属适配木材》制作一张封面图。画面主题：minimal interior showing wood ceiling detail, skirting board and wood feature wall aligned with a calm floor, premium architectural photography。真实摄影感，高端木作杂志，自然光，低饱和原木色，克制东方审美；不要文字、logo、水印、人物和廉价科普插画。",
-        "promptEn": "Create a wide premium editorial cover image for the article '栖境③：室内软装木构件｜吊顶、踢脚线、背景墙专属适配木材'. Scene: minimal interior showing wood ceiling detail, skirting board and wood feature wall aligned with a calm floor, premium architectural photography. Use realistic premium editorial photography for a high-end Chinese woodcraft magazine. Natural light, restrained East Asian aesthetics, muted raw-wood palette, clean composition, real material texture. No text, no logo, no watermark, no labels, no obvious AI artifacts.",
-        "prompt": "Create a wide premium editorial cover image for the article '栖境③：室内软装木构件｜吊顶、踢脚线、背景墙专属适配木材'. Scene: minimal interior showing wood ceiling detail, skirting board and wood feature wall aligned with a calm floor, premium architectural photography. Use realistic premium editorial photography for a high-end Chinese woodcraft magazine. Natural light, restrained East Asian aesthetics, muted raw-wood palette, clean composition, real material texture. No text, no logo, no watermark, no labels, no obvious AI artifacts."
+        "alt": "室内吊顶踢脚线背景墙木构件一体化"
       },
       "body": [
         "除了地板和大件家具，室内软装木质构件，是提升全屋原木氛围感的关键装饰节点。吊顶、踢脚线、电视木饰面、造型背景墙，选材标准和功能主材完全不同。",
@@ -1334,11 +1171,6 @@
         "软装装饰木构件重美学轻性能，把名贵硬木留给地面和家具核心主材，普通稳定木料做装饰构件，是最合理、高性价比的全屋原木搭配方案。"
       ],
       "conclusion": "主次分明，木境共生。以木塑境，让原木融入人居烟火。",
-      "source": {
-        "docxFile": "「木痴」科普专栏 全栏目正文定稿（1000字_篇 完整版） (2).docx",
-        "sourceSection": "四、【栖境】木材全场景空间应用科普（全8篇 千字定稿｜含地板/家具室内空间用材）",
-        "paragraphCount": 6
-      },
       "issue": {
         "number": 23,
         "display": "VOL.23",
@@ -1352,13 +1184,16 @@
           "alt": "踢脚线背景墙木材收口细节",
           "caption": "软装木构件的高级感，常出现在墙地交接和边界收口处。",
           "afterParagraph": 3,
-          "layout": "wide",
-          "prompt": "Create a 3:2 premium in-article editorial image for the article '栖境③：室内软装木构件｜吊顶、踢脚线、背景墙专属适配木材'. Scene: close-up of skirting board, wall panel joint and floor edge meeting cleanly, showing wood grain continuity and precise installation. Use realistic premium editorial photography for a high-end Chinese woodcraft magazine. Natural light, restrained East Asian aesthetics, muted raw-wood palette, clean composition, real material texture. No text, no logo, no watermark, no labels, no obvious AI artifacts."
+          "layout": "wide"
         }
       ],
       "editorNote": {
         "label": "编辑手记",
         "text": "吊顶、踢脚线、背景墙这些木构件不承担主角，却决定空间的边界和收口。它们考验的是稳定、色差控制和与墙地关系的分寸。"
+      },
+      "triptych": {
+        "path": "journal/muchi-library/chapter-triptych/muchi-qijing-03-triptych.jpg",
+        "afterParagraph": 2
       }
     },
     {
@@ -1374,13 +1209,7 @@
       "cover": {
         "file": "muchi-qijing-04-cover-editorial-1.jpg",
         "path": "journal/muchi-library/article-cover/muchi-qijing-04-cover-editorial-1.jpg",
-        "alt": "全屋木器与木地板选材关系",
-        "idea": "warm refined home interior with wood floor, dining table, cabinet and door panels in balanced tones, natural light and lived-in calm",
-        "keywords": "日常生活场景，全屋家居木器木材选型逻辑",
-        "sourceSuggestion": "生成/实拍均可",
-        "promptZh": "为「木痴」杂志文章《栖境④：日常生活场景，全屋家居木器木材选型逻辑》制作一张封面图。画面主题：warm refined home interior with wood floor, dining table, cabinet and door panels in balanced tones, natural light and lived-in calm。真实摄影感，高端木作杂志，自然光，低饱和原木色，克制东方审美；不要文字、logo、水印、人物和廉价科普插画。",
-        "promptEn": "Create a wide premium editorial cover image for the article '栖境④：日常生活场景，全屋家居木器木材选型逻辑'. Scene: warm refined home interior with wood floor, dining table, cabinet and door panels in balanced tones, natural light and lived-in calm. Use realistic premium editorial photography for a high-end Chinese woodcraft magazine. Natural light, restrained East Asian aesthetics, muted raw-wood palette, clean composition, real material texture. No text, no logo, no watermark, no labels, no obvious AI artifacts.",
-        "prompt": "Create a wide premium editorial cover image for the article '栖境④：日常生活场景，全屋家居木器木材选型逻辑'. Scene: warm refined home interior with wood floor, dining table, cabinet and door panels in balanced tones, natural light and lived-in calm. Use realistic premium editorial photography for a high-end Chinese woodcraft magazine. Natural light, restrained East Asian aesthetics, muted raw-wood palette, clean composition, real material texture. No text, no logo, no watermark, no labels, no obvious AI artifacts."
+        "alt": "全屋木器与木地板选材关系"
       },
       "body": [
         "从大件柜体到桌面摆件，日常居家各类木器，选材逻辑遵循「接触频率+使用环境」双层标准。",
@@ -1390,11 +1219,6 @@
         "居家木器不用统一同一种木材，按使用频次、干湿环境分区选材，全屋木质感统一即可。原木人居空间，讲究木与生活、人与自然和谐共生。"
       ],
       "conclusion": "木服务于人，境融于生活。烟火人居，便是原木最好的归宿。",
-      "source": {
-        "docxFile": "「木痴」科普专栏 全栏目正文定稿（1000字_篇 完整版） (2).docx",
-        "sourceSection": "四、【栖境】木材全场景空间应用科普（全8篇 千字定稿｜含地板/家具室内空间用材）",
-        "paragraphCount": 5
-      },
       "issue": {
         "number": 24,
         "display": "VOL.24",
@@ -1408,13 +1232,16 @@
           "alt": "家居木器不同部位木材样本",
           "caption": "日常木器的选材，应跟随使用频率、触摸方式和空间气质一起判断。",
           "afterParagraph": 3,
-          "layout": "wide",
-          "prompt": "Create a 3:2 premium in-article editorial image for the article '栖境④：日常生活场景，全屋家居木器木材选型逻辑'. Scene: material board with small samples for floor, table, cabinet and door, arranged as a designer's selection palette. Use realistic premium editorial photography for a high-end Chinese woodcraft magazine. Natural light, restrained East Asian aesthetics, muted raw-wood palette, clean composition, real material texture. No text, no logo, no watermark, no labels, no obvious AI artifacts."
+          "layout": "wide"
         }
       ],
       "editorNote": {
         "label": "编辑手记",
         "text": "全屋木器选材不是把所有木头做成同一种颜色，而是让柜体、桌椅、门墙与地板在耐用、触感和气质之间互相成全。"
+      },
+      "triptych": {
+        "path": "journal/muchi-library/chapter-triptych/muchi-qijing-04-triptych.jpg",
+        "afterParagraph": 2
       }
     },
     {
@@ -1430,13 +1257,7 @@
       "cover": {
         "file": "muchi-qijing-05-cover-editorial-1.jpg",
         "path": "journal/muchi-library/article-cover/muchi-qijing-05-cover-editorial-1.jpg",
-        "alt": "艺术雕刻用木与雕刻刀痕细节",
-        "idea": "quiet carving studio with partially carved wooden relief, chisels, dense fine-grain wood block and soft side light",
-        "keywords": "艺术雕刻用材, 纹理与密度选材标准",
-        "sourceSuggestion": "实拍优先",
-        "promptZh": "为「木痴」杂志文章《栖境⑤：艺术雕刻用材｜纹理与密度选材标准》制作一张封面图。画面主题：quiet carving studio with partially carved wooden relief, chisels, dense fine-grain wood block and soft side light。真实摄影感，高端木作杂志，自然光，低饱和原木色，克制东方审美；不要文字、logo、水印、人物和廉价科普插画。",
-        "promptEn": "Create a wide premium editorial cover image for the article '栖境⑤：艺术雕刻用材｜纹理与密度选材标准'. Scene: quiet carving studio with partially carved wooden relief, chisels, dense fine-grain wood block and soft side light. Use realistic premium editorial photography for a high-end Chinese woodcraft magazine. Natural light, restrained East Asian aesthetics, muted raw-wood palette, clean composition, real material texture. No text, no logo, no watermark, no labels, no obvious AI artifacts.",
-        "prompt": "Create a wide premium editorial cover image for the article '栖境⑤：艺术雕刻用材｜纹理与密度选材标准'. Scene: quiet carving studio with partially carved wooden relief, chisels, dense fine-grain wood block and soft side light. Use realistic premium editorial photography for a high-end Chinese woodcraft magazine. Natural light, restrained East Asian aesthetics, muted raw-wood palette, clean composition, real material texture. No text, no logo, no watermark, no labels, no obvious AI artifacts."
+        "alt": "艺术雕刻用木与雕刻刀痕细节"
       },
       "body": [
         "木雕艺术对木材的筛选标准最苛刻，密度、纹理、韧性、木色、可雕刻性缺一不可。",
@@ -1446,11 +1267,6 @@
         "雕刻用材，木性决定雕刻上限，工匠工艺决定作品美学下限。天赐良木搭配手工雕琢，才能成型优质木雕艺术品。"
       ],
       "conclusion": "良木承匠心，雕琢赋木魂。一雕一刻，成全自然肌理，一斧一凿，沉淀东方匠心。",
-      "source": {
-        "docxFile": "「木痴」科普专栏 全栏目正文定稿（1000字_篇 完整版） (2).docx",
-        "sourceSection": "四、【栖境】木材全场景空间应用科普（全8篇 千字定稿｜含地板/家具室内空间用材）",
-        "paragraphCount": 5
-      },
       "issue": {
         "number": 25,
         "display": "VOL.25",
@@ -1464,13 +1280,16 @@
           "alt": "细密木纹承载雕刻刀痕",
           "caption": "雕刻木材的关键，是让密度支撑细节，让纹理不打断刀路。",
           "afterParagraph": 3,
-          "layout": "wide",
-          "prompt": "Create a 3:2 premium in-article editorial image for the article '栖境⑤：艺术雕刻用材｜纹理与密度选材标准'. Scene: macro of chisel marks on fine-grain carving wood, showing density, smooth cut surfaces and delicate relief detail. Use realistic premium editorial photography for a high-end Chinese woodcraft magazine. Natural light, restrained East Asian aesthetics, muted raw-wood palette, clean composition, real material texture. No text, no logo, no watermark, no labels, no obvious AI artifacts."
+          "layout": "wide"
         }
       ],
       "editorNote": {
         "label": "编辑手记",
         "text": "雕刻用材要同时看纹理、密度与纤维韧性。太松会塌，太硬难入刀，真正适合雕刻的木头要能承住刀痕，也能留下细节。"
+      },
+      "triptych": {
+        "path": "journal/muchi-library/chapter-triptych/muchi-qijing-05-triptych.jpg",
+        "afterParagraph": 2
       }
     },
     {
@@ -1486,13 +1305,7 @@
       "cover": {
         "file": "muchi-qijing-06-cover-editorial-1.jpg",
         "path": "journal/muchi-library/article-cover/muchi-qijing-06-cover-editorial-1.jpg",
-        "alt": "户外露台栈道庭院木结构耐候场景",
-        "idea": "elegant outdoor wood deck and garden walkway after light rain, visible drainage gaps, durable timber texture, calm landscape photography",
-        "keywords": "户外景观用材, 露台、栈道、庭院木结构选材逻辑",
-        "sourceSuggestion": "实拍/生成均可",
-        "promptZh": "为「木痴」杂志文章《栖境⑥：户外景观用材｜露台、栈道、庭院木结构选材逻辑》制作一张封面图。画面主题：elegant outdoor wood deck and garden walkway after light rain, visible drainage gaps, durable timber texture, calm landscape photography。真实摄影感，高端木作杂志，自然光，低饱和原木色，克制东方审美；不要文字、logo、水印、人物和廉价科普插画。",
-        "promptEn": "Create a wide premium editorial cover image for the article '栖境⑥：户外景观用材｜露台、栈道、庭院木结构选材逻辑'. Scene: elegant outdoor wood deck and garden walkway after light rain, visible drainage gaps, durable timber texture, calm landscape photography. Use realistic premium editorial photography for a high-end Chinese woodcraft magazine. Natural light, restrained East Asian aesthetics, muted raw-wood palette, clean composition, real material texture. No text, no logo, no watermark, no labels, no obvious AI artifacts.",
-        "prompt": "Create a wide premium editorial cover image for the article '栖境⑥：户外景观用材｜露台、栈道、庭院木结构选材逻辑'. Scene: elegant outdoor wood deck and garden walkway after light rain, visible drainage gaps, durable timber texture, calm landscape photography. Use realistic premium editorial photography for a high-end Chinese woodcraft magazine. Natural light, restrained East Asian aesthetics, muted raw-wood palette, clean composition, real material texture. No text, no logo, no watermark, no labels, no obvious AI artifacts."
+        "alt": "户外露台栈道庭院木结构耐候场景"
       },
       "body": [
         "很多人庭院造景翻车，大多选错户外原木用材；室内适配的高端硬木，露天场景反而极易报废。长期对接园林木造工程，我总结户外用材唯一核心标准：优先耐候性，其次兼顾颜值与硬度。",
@@ -1502,11 +1315,6 @@
         "户外木造从不是选材越贵越好，而是木性适配露天恶劣环境。顺应户外自然气候，选择高耐候木料，辅以表层防护工艺，才能让木质景观常年留存自然质感。"
       ],
       "conclusion": "良木栖于山野，融于庭院。顺应天地风物，原木方能长存露天烟火。",
-      "source": {
-        "docxFile": "「木痴」科普专栏 全栏目正文定稿（1000字_篇 完整版） (2).docx",
-        "sourceSection": "四、【栖境】木材全场景空间应用科普（全8篇 千字定稿｜含地板/家具室内空间用材）",
-        "paragraphCount": 5
-      },
       "issue": {
         "number": 26,
         "display": "VOL.26",
@@ -1520,13 +1328,16 @@
           "alt": "户外木地板排水缝与耐候细节",
           "caption": "户外用木的美感，必须和排水、耐候、通风一起成立。",
           "afterParagraph": 3,
-          "layout": "wide",
-          "prompt": "Create a 3:2 premium in-article editorial image for the article '栖境⑥：户外景观用材｜露台、栈道、庭院木结构选材逻辑'. Scene: close-up of outdoor deck boards with drainage gaps, water droplets, end grain protection and weathered but refined surface. Use realistic premium editorial photography for a high-end Chinese woodcraft magazine. Natural light, restrained East Asian aesthetics, muted raw-wood palette, clean composition, real material texture. No text, no logo, no watermark, no labels, no obvious AI artifacts."
+          "layout": "wide"
         }
       ],
       "editorNote": {
         "label": "编辑手记",
         "text": "户外木结构面对的不是单一审美，而是雨水、日晒、泥土和温差。露台、栈道、庭院木作都要求木材有更强的耐候逻辑。"
+      },
+      "triptych": {
+        "path": "journal/muchi-library/chapter-triptych/muchi-qijing-06-triptych.jpg",
+        "afterParagraph": 2
       }
     },
     {
@@ -1542,13 +1353,7 @@
       "cover": {
         "file": "muchi-qijing-07-cover-editorial-1.jpg",
         "path": "journal/muchi-library/article-cover/muchi-qijing-07-cover-editorial-1.jpg",
-        "alt": "南方潮湿居家环境中的防潮木作",
-        "idea": "southern humid home interior after rain, wood floor near open window, subtle moisture in the air, raised furniture feet and calm ventilation",
-        "keywords": "潮湿地域居家用木, 南方回南天防潮选木全攻略",
-        "sourceSuggestion": "生成更适合",
-        "promptZh": "为「木痴」杂志文章《栖境⑦：潮湿地域居家用木｜南方回南天防潮选木全攻略》制作一张封面图。画面主题：southern humid home interior after rain, wood floor near open window, subtle moisture in the air, raised furniture feet and calm ventilation。真实摄影感，高端木作杂志，自然光，低饱和原木色，克制东方审美；不要文字、logo、水印、人物和廉价科普插画。",
-        "promptEn": "Create a wide premium editorial cover image for the article '栖境⑦：潮湿地域居家用木｜南方回南天防潮选木全攻略'. Scene: southern humid home interior after rain, wood floor near open window, subtle moisture in the air, raised furniture feet and calm ventilation. Use realistic premium editorial photography for a high-end Chinese woodcraft magazine. Natural light, restrained East Asian aesthetics, muted raw-wood palette, clean composition, real material texture. No text, no logo, no watermark, no labels, no obvious AI artifacts.",
-        "prompt": "Create a wide premium editorial cover image for the article '栖境⑦：潮湿地域居家用木｜南方回南天防潮选木全攻略'. Scene: southern humid home interior after rain, wood floor near open window, subtle moisture in the air, raised furniture feet and calm ventilation. Use realistic premium editorial photography for a high-end Chinese woodcraft magazine. Natural light, restrained East Asian aesthetics, muted raw-wood palette, clean composition, real material texture. No text, no logo, no watermark, no labels, no obvious AI artifacts."
+        "alt": "南方潮湿居家环境中的防潮木作"
       },
       "body": [
         "我国南方沿海、江淮湿润区域，回南天、梅雨季空气湿度爆表，原木家具、地板极易受潮起拱、发黑霉变、板面鼓包。深耕潮湿区域落地项目多年，我针对性拆解高湿环境专属选木与用材逻辑。",
@@ -1558,11 +1363,6 @@
         "潮湿地区用好原木，从来不是放弃天然木料，而是摸清区域气候特征，从选材、施工、养护三重维度平衡木性与环境湿度。因地制宜，才是湿润地区栖木之道。"
       ],
       "conclusion": "湿气扰木形，匠心守木安。顺天时善用良木，方得潮湿居所温润木韵。",
-      "source": {
-        "docxFile": "「木痴」科普专栏 全栏目正文定稿（1000字_篇 完整版） (2).docx",
-        "sourceSection": "四、【栖境】木材全场景空间应用科普（全8篇 千字定稿｜含地板/家具室内空间用材）",
-        "paragraphCount": 5
-      },
       "issue": {
         "number": 27,
         "display": "VOL.27",
@@ -1576,13 +1376,16 @@
           "alt": "潮湿环境木地板通风防潮细节",
           "caption": "潮湿地区选木，要让含水、通风和收口共同参与稳定。",
           "afterParagraph": 3,
-          "layout": "wide",
-          "prompt": "Create a 3:2 premium in-article editorial image for the article '栖境⑦：潮湿地域居家用木｜南方回南天防潮选木全攻略'. Scene: close-up of wood floor edge with ventilation gap, dehumidifier shadow, soft humid daylight and no water damage. Use realistic premium editorial photography for a high-end Chinese woodcraft magazine. Natural light, restrained East Asian aesthetics, muted raw-wood palette, clean composition, real material texture. No text, no logo, no watermark, no labels, no obvious AI artifacts."
+          "layout": "wide"
         }
       ],
       "editorNote": {
         "label": "编辑手记",
         "text": "南方潮湿环境考验的是木材与空气相处的能力。防潮不是拒绝湿气，而是让材料、结构和通风共同降低水汽停留。"
+      },
+      "triptych": {
+        "path": "journal/muchi-library/chapter-triptych/muchi-qijing-07-triptych.jpg",
+        "afterParagraph": 2
       }
     },
     {
@@ -1598,13 +1401,7 @@
       "cover": {
         "file": "muchi-qijing-08-cover-editorial-1.jpg",
         "path": "journal/muchi-library/article-cover/muchi-qijing-08-cover-editorial-1.jpg",
-        "alt": "地暖环境中稳定木地板与温热光线",
-        "idea": "refined interior wood floor with subtle underfloor heating glow implied by warm light, stable planks and expansion details, premium photography",
-        "keywords": "地暖环境原木用材, 高温烘烤下的高稳定木料甄别",
-        "sourceSuggestion": "生成/实拍均可",
-        "promptZh": "为「木痴」杂志文章《栖境⑧：地暖环境原木用材｜高温烘烤下的高稳定木料甄别》制作一张封面图。画面主题：refined interior wood floor with subtle underfloor heating glow implied by warm light, stable planks and expansion details, premium photography。真实摄影感，高端木作杂志，自然光，低饱和原木色，克制东方审美；不要文字、logo、水印、人物和廉价科普插画。",
-        "promptEn": "Create a wide premium editorial cover image for the article '栖境⑧：地暖环境原木用材｜高温烘烤下的高稳定木料甄别'. Scene: refined interior wood floor with subtle underfloor heating glow implied by warm light, stable planks and expansion details, premium photography. Use realistic premium editorial photography for a high-end Chinese woodcraft magazine. Natural light, restrained East Asian aesthetics, muted raw-wood palette, clean composition, real material texture. No text, no logo, no watermark, no labels, no obvious AI artifacts.",
-        "prompt": "Create a wide premium editorial cover image for the article '栖境⑧：地暖环境原木用材｜高温烘烤下的高稳定木料甄别'. Scene: refined interior wood floor with subtle underfloor heating glow implied by warm light, stable planks and expansion details, premium photography. Use realistic premium editorial photography for a high-end Chinese woodcraft magazine. Natural light, restrained East Asian aesthetics, muted raw-wood palette, clean composition, real material texture. No text, no logo, no watermark, no labels, no obvious AI artifacts."
+        "alt": "地暖环境中稳定木地板与温热光线"
       },
       "body": [
         "北方全屋地暖、南方新兴湿式地暖家装，是目前原木用材翻车重灾区。地暖持续高温烘烤，叠加室内干燥通风，双重作用极易诱发原木开裂、缩缝、板面拱起。我结合上千套地暖全屋落地案例，讲清地暖场景专属选木与布局逻辑。",
@@ -1615,11 +1412,6 @@
         "栏目核心定位：脱离科普技术，侧重原木美学、东方审美、人与木头精神共鸣，治愈向专栏文稿"
       ],
       "conclusion": "温火润木，方寸有度。平衡温度与木性，让良木适配人居烟火冷暖。",
-      "source": {
-        "docxFile": "「木痴」科普专栏 全栏目正文定稿（1000字_篇 完整版） (2).docx",
-        "sourceSection": "四、【栖境】木材全场景空间应用科普（全8篇 千字定稿｜含地板/家具室内空间用材）",
-        "paragraphCount": 6
-      },
       "issue": {
         "number": 28,
         "display": "VOL.28",
@@ -1633,13 +1425,16 @@
           "alt": "地暖木地板结构层与伸缩控制",
           "caption": "地暖用木的稳定性，来自含水率、结构层与伸缩空间的共同控制。",
           "afterParagraph": 3,
-          "layout": "wide",
-          "prompt": "Create a 3:2 premium in-article editorial image for the article '栖境⑧：地暖环境原木用材｜高温烘烤下的高稳定木料甄别'. Scene: close-up of engineered wood flooring edge profile above a warm radiant heating layer, showing layers and expansion gap without labels. Use realistic premium editorial photography for a high-end Chinese woodcraft magazine. Natural light, restrained East Asian aesthetics, muted raw-wood palette, clean composition, real material texture. No text, no logo, no watermark, no labels, no obvious AI artifacts."
+          "layout": "wide"
         }
       ],
       "editorNote": {
         "label": "编辑手记",
         "text": "地暖环境把木材放进长期温热的考验里。真正稳定的木料，不只看表面漂亮，更要看含水控制、结构方式与热变形风险。"
+      },
+      "triptych": {
+        "path": "journal/muchi-library/chapter-triptych/muchi-qijing-08-triptych.jpg",
+        "afterParagraph": 2
       }
     },
     {
@@ -1655,13 +1450,7 @@
       "cover": {
         "file": "muchi-muyu-01-cover-editorial-1.jpg",
         "path": "journal/muchi-library/article-cover/muchi-muyu-01-cover-editorial-1.jpg",
-        "alt": "温润原木空间与人居心境",
-        "idea": "quiet sunlit room with natural wood floor, low table and warm tactile wood surfaces, serene human-scale atmosphere without people",
-        "keywords": "木有温度，材无寒凉, 为什么原木最适配人居心境",
-        "sourceSuggestion": "实拍/生成均可",
-        "promptZh": "为「木痴」杂志文章《木语①：木有温度，材无寒凉｜为什么原木最适配人居心境》制作一张封面图。画面主题：quiet sunlit room with natural wood floor, low table and warm tactile wood surfaces, serene human-scale atmosphere without people。真实摄影感，高端木作杂志，自然光，低饱和原木色，克制东方审美；不要文字、logo、水印、人物和廉价科普插画。",
-        "promptEn": "Create a wide premium editorial cover image for the article '木语①：木有温度，材无寒凉｜为什么原木最适配人居心境'. Scene: quiet sunlit room with natural wood floor, low table and warm tactile wood surfaces, serene human-scale atmosphere without people. Use realistic premium editorial photography for a high-end Chinese woodcraft magazine. Natural light, restrained East Asian aesthetics, muted raw-wood palette, clean composition, real material texture. No text, no logo, no watermark, no labels, no obvious AI artifacts.",
-        "prompt": "Create a wide premium editorial cover image for the article '木语①：木有温度，材无寒凉｜为什么原木最适配人居心境'. Scene: quiet sunlit room with natural wood floor, low table and warm tactile wood surfaces, serene human-scale atmosphere without people. Use realistic premium editorial photography for a high-end Chinese woodcraft magazine. Natural light, restrained East Asian aesthetics, muted raw-wood palette, clean composition, real material texture. No text, no logo, no watermark, no labels, no obvious AI artifacts."
+        "alt": "温润原木空间与人居心境"
       },
       "body": [
         "接触木料十余载，走过无数石材、金属、工业建材装修的空间，我始终笃定：天然原木，是最贴合人类身心感知的人居建材。金属冰冷、石材生硬、工业板材刻板，唯独木头自带温润触感与治愈烟火气。",
@@ -1671,11 +1460,6 @@
         "好的人居空间，从不是装修华丽堆砌材质；以木为媒，融自然入生活，冷暖相宜、方寸松弛，便是最舒服的生活居所。"
       ],
       "conclusion": "草木有温，可慰人心。一屋原木，收纳半生烟火，静渡日常浮沉。",
-      "source": {
-        "docxFile": "「木痴」科普专栏 全栏目正文定稿（1000字_篇 完整版） (2).docx",
-        "sourceSection": "五、【木语·观韵】原木美学与人文哲思（全5篇 千字定稿）",
-        "paragraphCount": 5
-      },
       "issue": {
         "number": 29,
         "display": "VOL.29",
@@ -1689,13 +1473,16 @@
           "alt": "手触原木表面的温润肌理",
           "caption": "原木的温度感，来自肌理、色泽和日常触摸建立的心理亲近。",
           "afterParagraph": 3,
-          "layout": "wide",
-          "prompt": "Create a 3:2 premium in-article editorial image for the article '木语①：木有温度，材无寒凉｜为什么原木最适配人居心境'. Scene: close editorial photograph of a hand-worn wooden tabletop edge and soft daylight, emphasizing tactile warmth but without people. Use realistic premium editorial photography for a high-end Chinese woodcraft magazine. Natural light, restrained East Asian aesthetics, muted raw-wood palette, clean composition, real material texture. No text, no logo, no watermark, no labels, no obvious AI artifacts."
+          "layout": "wide"
         }
       ],
       "editorNote": {
         "label": "编辑手记",
         "text": "木的温度不是物理温度那么简单，它来自触感、色泽和声响带来的心理安定。原木进入人居，是把自然的缓慢带进日常。"
+      },
+      "triptych": {
+        "path": "journal/muchi-library/chapter-triptych/muchi-muyu-01-triptych.jpg",
+        "afterParagraph": 2
       }
     },
     {
@@ -1711,13 +1498,7 @@
       "cover": {
         "file": "muchi-muyu-02-cover-editorial-1.jpg",
         "path": "journal/muchi-library/article-cover/muchi-muyu-02-cover-editorial-1.jpg",
-        "alt": "极简原木空间留白与自然纹理",
-        "idea": "minimal East Asian wood interior with large blank wall, simple wood floor, low furniture and one shaft of natural light, restrained composition",
-        "keywords": "极简原木美学, 少雕琢，顺本源的东方审美",
-        "sourceSuggestion": "生成/实拍均可",
-        "promptZh": "为「木痴」杂志文章《木语②：极简原木美学｜少雕琢，顺本源的东方审美》制作一张封面图。画面主题：minimal East Asian wood interior with large blank wall, simple wood floor, low furniture and one shaft of natural light, restrained composition。真实摄影感，高端木作杂志，自然光，低饱和原木色，克制东方审美；不要文字、logo、水印、人物和廉价科普插画。",
-        "promptEn": "Create a wide premium editorial cover image for the article '木语②：极简原木美学｜少雕琢，顺本源的东方审美'. Scene: minimal East Asian wood interior with large blank wall, simple wood floor, low furniture and one shaft of natural light, restrained composition. Use realistic premium editorial photography for a high-end Chinese woodcraft magazine. Natural light, restrained East Asian aesthetics, muted raw-wood palette, clean composition, real material texture. No text, no logo, no watermark, no labels, no obvious AI artifacts.",
-        "prompt": "Create a wide premium editorial cover image for the article '木语②：极简原木美学｜少雕琢，顺本源的东方审美'. Scene: minimal East Asian wood interior with large blank wall, simple wood floor, low furniture and one shaft of natural light, restrained composition. Use realistic premium editorial photography for a high-end Chinese woodcraft magazine. Natural light, restrained East Asian aesthetics, muted raw-wood palette, clean composition, real material texture. No text, no logo, no watermark, no labels, no obvious AI artifacts."
+        "alt": "极简原木空间留白与自然纹理"
       },
       "body": [
         "当下原木风大火，但多数家装走入误区：过度雕花、繁复漆面、多余造型堆砌，弄丢了原木本身的美学内核。深耕木作审美多年，我理解的顶级原木审美，从来都是极简留白，顺势而为。",
@@ -1727,11 +1508,6 @@
         "现在越来越多人偏爱极简原木，本质是厌倦都市繁杂冗余，向往朴素简单、回归本源的生活状态。木之极简，映射人心之纯粹；材之朴素，成全生活之淡然。"
       ],
       "conclusion": "大巧不工，大美从简。顺木之本源，守心之纯粹。",
-      "source": {
-        "docxFile": "「木痴」科普专栏 全栏目正文定稿（1000字_篇 完整版） (2).docx",
-        "sourceSection": "五、【木语·观韵】原木美学与人文哲思（全5篇 千字定稿）",
-        "paragraphCount": 5
-      },
       "issue": {
         "number": 30,
         "display": "VOL.30",
@@ -1745,13 +1521,16 @@
           "alt": "极简原木家具与留白构图",
           "caption": "少雕琢的重点不是寡淡，而是把注意力还给木材本身。",
           "afterParagraph": 3,
-          "layout": "wide",
-          "prompt": "Create a 3:2 premium in-article editorial image for the article '木语②：极简原木美学｜少雕琢，顺本源的东方审美'. Scene: close still life of a simple wood bench against an empty wall, grain and shadow carrying the composition. Use realistic premium editorial photography for a high-end Chinese woodcraft magazine. Natural light, restrained East Asian aesthetics, muted raw-wood palette, clean composition, real material texture. No text, no logo, no watermark, no labels, no obvious AI artifacts."
+          "layout": "wide"
         }
       ],
       "editorNote": {
         "label": "编辑手记",
         "text": "极简原木美学不是空白，而是克制。少雕琢不是少内容，而是让木材自身的纹理、比例和光线成为空间主角。"
+      },
+      "triptych": {
+        "path": "journal/muchi-library/chapter-triptych/muchi-muyu-02-triptych.jpg",
+        "afterParagraph": 2
       }
     },
     {
@@ -1767,13 +1546,7 @@
       "cover": {
         "file": "muchi-muyu-03-cover-editorial-1.jpg",
         "path": "journal/muchi-library/article-cover/muchi-muyu-03-cover-editorial-1.jpg",
-        "alt": "岁月包浆木器与使用痕迹",
-        "idea": "aged wooden vessel and hand-polished table surface with patina, quiet study light, traces of long-term use and warm depth",
-        "keywords": "器物包浆, 岁月沉淀，木头与人的双向滋养",
-        "sourceSuggestion": "实拍/生成均可",
-        "promptZh": "为「木痴」杂志文章《木语③：器物包浆｜岁月沉淀，木头与人的双向滋养》制作一张封面图。画面主题：aged wooden vessel and hand-polished table surface with patina, quiet study light, traces of long-term use and warm depth。真实摄影感，高端木作杂志，自然光，低饱和原木色，克制东方审美；不要文字、logo、水印、人物和廉价科普插画。",
-        "promptEn": "Create a wide premium editorial cover image for the article '木语③：器物包浆｜岁月沉淀，木头与人的双向滋养'. Scene: aged wooden vessel and hand-polished table surface with patina, quiet study light, traces of long-term use and warm depth. Use realistic premium editorial photography for a high-end Chinese woodcraft magazine. Natural light, restrained East Asian aesthetics, muted raw-wood palette, clean composition, real material texture. No text, no logo, no watermark, no labels, no obvious AI artifacts.",
-        "prompt": "Create a wide premium editorial cover image for the article '木语③：器物包浆｜岁月沉淀，木头与人的双向滋养'. Scene: aged wooden vessel and hand-polished table surface with patina, quiet study light, traces of long-term use and warm depth. Use realistic premium editorial photography for a high-end Chinese woodcraft magazine. Natural light, restrained East Asian aesthetics, muted raw-wood palette, clean composition, real material texture. No text, no logo, no watermark, no labels, no obvious AI artifacts."
+        "alt": "岁月包浆木器与使用痕迹"
       },
       "body": [
         "经常有人问我，什么样的木头器物最有韵味。我的答案从来不是名贵大料、完美板面、精工雕刻；而是经过人手常年摩挲、岁月沉淀氧化，形成温润包浆的老木器。木器最美的样子，从来不是刚完工的崭新模样，而是被时光浸润后的温润质感。",
@@ -1783,11 +1556,6 @@
         "玩木、品木，终极从不是追逐名贵材质，而是享受人与木头相伴生长，岁月慢慢沉淀的过程。"
       ],
       "conclusion": "人木互养，岁月成韵。时光不言语，雕琢世间最温润的木韵。",
-      "source": {
-        "docxFile": "「木痴」科普专栏 全栏目正文定稿（1000字_篇 完整版） (2).docx",
-        "sourceSection": "五、【木语·观韵】原木美学与人文哲思（全5篇 千字定稿）",
-        "paragraphCount": 5
-      },
       "issue": {
         "number": 31,
         "display": "VOL.31",
@@ -1801,13 +1569,16 @@
           "alt": "木器包浆光泽与边角磨痕",
           "caption": "包浆不是装饰效果，而是人与木长久相处后留下的光泽。",
           "afterParagraph": 3,
-          "layout": "wide",
-          "prompt": "Create a 3:2 premium in-article editorial image for the article '木语③：器物包浆｜岁月沉淀，木头与人的双向滋养'. Scene: macro photograph of patinated wood surface, softened edges, subtle oil sheen and fine scratches from years of use. Use realistic premium editorial photography for a high-end Chinese woodcraft magazine. Natural light, restrained East Asian aesthetics, muted raw-wood palette, clean composition, real material texture. No text, no logo, no watermark, no labels, no obvious AI artifacts."
+          "layout": "wide"
         }
       ],
       "editorNote": {
         "label": "编辑手记",
         "text": "包浆是时间和使用共同留下的光。它不是做旧，而是木器被反复触摸、擦拭、陪伴之后，慢慢显出的温润回应。"
+      },
+      "triptych": {
+        "path": "journal/muchi-library/chapter-triptych/muchi-muyu-03-triptych.jpg",
+        "afterParagraph": 2
       }
     },
     {
@@ -1823,13 +1594,7 @@
       "cover": {
         "file": "muchi-muyu-04-cover-editorial-1.jpg",
         "path": "journal/muchi-library/article-cover/muchi-muyu-04-cover-editorial-1.jpg",
-        "alt": "中式木构厅堂梁柱窗棂与东方木作秩序",
-        "idea": "quiet traditional Chinese timber hall, beams, columns, lattice windows and mortise-and-tenon order in natural side light",
-        "keywords": "中式木韵, 古建筑藏在木料里的东方哲学",
-        "sourceSuggestion": "实拍优先",
-        "promptZh": "为「木痴」杂志文章《木语④：中式木韵｜古建筑藏在木料里的东方哲学》制作一张封面图。画面主题：quiet traditional Chinese timber hall, beams, columns, lattice windows and mortise-and-tenon order in natural side light。真实摄影感，高端木作杂志，自然光，低饱和原木色，克制东方审美；不要文字、logo、水印、人物和廉价科普插画。",
-        "promptEn": "Create a wide premium editorial cover image for the article '木语④：中式木韵｜古建筑藏在木料里的东方哲学'. Scene: quiet traditional Chinese timber hall, beams, columns, lattice windows and mortise-and-tenon order in natural side light. Use realistic premium editorial photography for a high-end Chinese woodcraft magazine. Natural light, restrained East Asian aesthetics, muted raw-wood palette, clean composition, real material texture. No text, no logo, no watermark, no labels, no obvious AI artifacts.",
-        "prompt": "Create a wide premium editorial cover image for the article '木语④：中式木韵｜古建筑藏在木料里的东方哲学'. Scene: quiet traditional Chinese timber hall, beams, columns, lattice windows and mortise-and-tenon order in natural side light. Use realistic premium editorial photography for a high-end Chinese woodcraft magazine. Natural light, restrained East Asian aesthetics, muted raw-wood palette, clean composition, real material texture. No text, no logo, no watermark, no labels, no obvious AI artifacts."
+        "alt": "中式木构厅堂梁柱窗棂与东方木作秩序"
       },
       "body": [
         "纵观千年中式木构建筑与古典木器，古人用木，从来不止实用用材，而是把儒家中庸、道法自然的东方哲学，藏进每一块原木、每一组榫卯结构之中。中式木作，本质是有形木料承载无形东方文脉。",
@@ -1839,11 +1604,6 @@
         "痴迷原木，读懂中式木韵，读懂的不仅是木头，更是中国人温润谦和、顺势而为的处世本心。"
       ],
       "conclusion": "以木载道，以韵养心。一木承古今，方寸藏东方。",
-      "source": {
-        "docxFile": "「木痴」科普专栏 全栏目正文定稿（1000字_篇 完整版） (2).docx",
-        "sourceSection": "五、【木语·观韵】原木美学与人文哲思（全5篇 千字定稿）",
-        "paragraphCount": 5
-      },
       "issue": {
         "number": 32,
         "display": "VOL.32",
@@ -1857,13 +1617,16 @@
           "alt": "中式榫卯结构半插合细节与木作分寸",
           "caption": "榫卯不是把木头锁死，而是在咬合、留缝与受力之间，为木性保留伸缩的余地。",
           "afterParagraph": 3,
-          "layout": "wide",
-          "prompt": "Create a 3:2 premium in-article editorial image for the article '木语④：中式木韵｜古建筑藏在木料里的东方哲学'. Scene: close-up of a mortise-and-tenon joint half inserted on a quiet workbench, visible wood grain direction, small expansion gaps, hand-planed surfaces, mallet and marking gauge nearby. Use realistic premium editorial photography for a high-end Chinese woodcraft magazine. Natural light, restrained East Asian aesthetics, muted raw-wood palette, clean composition, real material texture. No text, no logo, no watermark, no labels, no obvious AI artifacts."
+          "layout": "wide"
         }
       ],
       "editorNote": {
         "label": "编辑手记",
         "text": "这篇文章不把中式木韵理解成一种复古装饰，而是把它还原成一套关于材料、秩序与分寸的观看方法：木头会呼吸、会伸缩，好的结构不是压住它，而是给它留出自然发生的位置。"
+      },
+      "triptych": {
+        "path": "journal/muchi-library/chapter-triptych/muchi-muyu-04-triptych.jpg",
+        "afterParagraph": 2
       }
     },
     {
@@ -1879,13 +1642,7 @@
       "cover": {
         "file": "muchi-muyu-05-cover-editorial-1.jpg",
         "path": "journal/muchi-library/article-cover/muchi-muyu-05-cover-editorial-1.jpg",
-        "alt": "现代极简空间与传统木作元素平衡",
-        "idea": "refined modern interior with clean lines and one traditional wood joinery screen or cabinet element, balanced old and new wood aesthetics",
-        "keywords": "现代审美vs传统木作, 两种木韵美学的取舍平衡",
-        "sourceSuggestion": "生成更适合",
-        "promptZh": "为「木痴」杂志文章《木语⑤：现代审美vs传统木作｜两种木韵美学的取舍平衡》制作一张封面图。画面主题：refined modern interior with clean lines and one traditional wood joinery screen or cabinet element, balanced old and new wood aesthetics。真实摄影感，高端木作杂志，自然光，低饱和原木色，克制东方审美；不要文字、logo、水印、人物和廉价科普插画。",
-        "promptEn": "Create a wide premium editorial cover image for the article '木语⑤：现代审美vs传统木作｜两种木韵美学的取舍平衡'. Scene: refined modern interior with clean lines and one traditional wood joinery screen or cabinet element, balanced old and new wood aesthetics. Use realistic premium editorial photography for a high-end Chinese woodcraft magazine. Natural light, restrained East Asian aesthetics, muted raw-wood palette, clean composition, real material texture. No text, no logo, no watermark, no labels, no obvious AI artifacts.",
-        "prompt": "Create a wide premium editorial cover image for the article '木语⑤：现代审美vs传统木作｜两种木韵美学的取舍平衡'. Scene: refined modern interior with clean lines and one traditional wood joinery screen or cabinet element, balanced old and new wood aesthetics. Use realistic premium editorial photography for a high-end Chinese woodcraft magazine. Natural light, restrained East Asian aesthetics, muted raw-wood palette, clean composition, real material texture. No text, no logo, no watermark, no labels, no obvious AI artifacts."
+        "alt": "现代极简空间与传统木作元素平衡"
       },
       "body": [
         "日常交流品木心得，经常遇到争议：现代简约原木风好看，还是传统中式复古木作更有韵味？深耕两边审美体系多年，我认为二者没有高下之分，审美不同、取舍不同，只需读懂两类木作美学内核，按需平衡即可。",
@@ -1896,11 +1653,6 @@
         "栏目核心定位：轻科普+走心感悟，适合栏目推送、封面推文，通俗治愈、少专业参数、多个人感悟"
       ],
       "conclusion": "古今木韵，各有风雅。审美无边界，本心定方圆。",
-      "source": {
-        "docxFile": "「木痴」科普专栏 全栏目正文定稿（1000字_篇 完整版） (2).docx",
-        "sourceSection": "五、【木语·观韵】原木美学与人文哲思（全5篇 千字定稿）",
-        "paragraphCount": 6
-      },
       "issue": {
         "number": 33,
         "display": "VOL.33",
@@ -1914,13 +1666,16 @@
           "alt": "现代木作与传统榫卯细节并置",
           "caption": "现代与传统的平衡，常发生在比例、收口和木纹表达的取舍里。",
           "afterParagraph": 3,
-          "layout": "wide",
-          "prompt": "Create a 3:2 premium in-article editorial image for the article '木语⑤：现代审美vs传统木作｜两种木韵美学的取舍平衡'. Scene: editorial still life comparing a minimal modern wood panel detail and a traditional joinery sample under the same light. Use realistic premium editorial photography for a high-end Chinese woodcraft magazine. Natural light, restrained East Asian aesthetics, muted raw-wood palette, clean composition, real material texture. No text, no logo, no watermark, no labels, no obvious AI artifacts."
+          "layout": "wide"
         }
       ],
       "editorNote": {
         "label": "编辑手记",
         "text": "现代审美与传统木作不是对立，而是一次取舍。现代需要干净、轻盈和尺度控制，传统提供温度、秩序和手作记忆。"
+      },
+      "triptych": {
+        "path": "journal/muchi-library/chapter-triptych/muchi-muyu-05-triptych.jpg",
+        "afterParagraph": 2
       }
     },
     {
@@ -1936,13 +1691,7 @@
       "cover": {
         "file": "muchi-duanzha-01-cover-editorial-1.jpg",
         "path": "journal/muchi-library/article-cover/muchi-duanzha-01-cover-editorial-1.jpg",
-        "alt": "木作人案头原木与手稿的本心",
-        "idea": "quiet woodworker's desk with a raw wood block, notebook, pencil, small branch and warm morning light, reflective editorial mood",
-        "keywords": "何为木痴, 我与草木相伴的本心",
-        "sourceSuggestion": "生成/实拍均可",
-        "promptZh": "为「木痴」杂志文章《短札①：何为木痴｜我与草木相伴的本心》制作一张封面图。画面主题：quiet woodworker's desk with a raw wood block, notebook, pencil, small branch and warm morning light, reflective editorial mood。真实摄影感，高端木作杂志，自然光，低饱和原木色，克制东方审美；不要文字、logo、水印、人物和廉价科普插画。",
-        "promptEn": "Create a wide premium editorial cover image for the article '短札①：何为木痴｜我与草木相伴的本心'. Scene: quiet woodworker's desk with a raw wood block, notebook, pencil, small branch and warm morning light, reflective editorial mood. Use realistic premium editorial photography for a high-end Chinese woodcraft magazine. Natural light, restrained East Asian aesthetics, muted raw-wood palette, clean composition, real material texture. No text, no logo, no watermark, no labels, no obvious AI artifacts.",
-        "prompt": "Create a wide premium editorial cover image for the article '短札①：何为木痴｜我与草木相伴的本心'. Scene: quiet woodworker's desk with a raw wood block, notebook, pencil, small branch and warm morning light, reflective editorial mood. Use realistic premium editorial photography for a high-end Chinese woodcraft magazine. Natural light, restrained East Asian aesthetics, muted raw-wood palette, clean composition, real material texture. No text, no logo, no watermark, no labels, no obvious AI artifacts."
+        "alt": "木作人案头原木与手稿的本心"
       },
       "body": [
         "经常有人问我，终日研木、观木、品木，执着于一块木头的参数、纹理、工艺，究竟意义何在。浮沉木料行业十余载，看过深山良木、工厂精工、人居木器，我慢慢明白：所谓木痴，从不是痴迷名贵木材、收藏高端器物；而是敬畏草木生命，坚守顺势而为的简单本心。",
@@ -1952,11 +1701,6 @@
         "痴于木，始于缘分，忠于敬畏。草木无言，却教会我最朴素的处世道理：沉下心沉淀自己，顺时而为，温润立身，时间终会成全一切美好。"
       ],
       "conclusion": "草木无言，渡人静心。以木修心，便是我痴迷草木一生的终极意义。",
-      "source": {
-        "docxFile": "「木痴」科普专栏 全栏目正文定稿（1000字_篇 完整版） (2).docx",
-        "sourceSection": "六、【木间短札】短篇感悟随笔（全4篇 千字走心随笔，专栏收尾文稿）",
-        "paragraphCount": 5
-      },
       "issue": {
         "number": 34,
         "display": "VOL.34",
@@ -1970,13 +1714,16 @@
           "alt": "草木与木料样本构成木痴初心",
           "caption": "木痴的起点，是愿意把草木当作时间与生活的同行者。",
           "afterParagraph": 3,
-          "layout": "wide",
-          "prompt": "Create a 3:2 premium in-article editorial image for the article '短札①：何为木痴｜我与草木相伴的本心'. Scene: still life of a small branch, wood offcuts, shavings and a notebook on a plain table, intimate and contemplative. Use realistic premium editorial photography for a high-end Chinese woodcraft magazine. Natural light, restrained East Asian aesthetics, muted raw-wood palette, clean composition, real material texture. No text, no logo, no watermark, no labels, no obvious AI artifacts."
+          "layout": "wide"
         }
       ],
       "editorNote": {
         "label": "编辑手记",
         "text": "“木痴”不是迷恋材料表面的漂亮，而是愿意花时间看一棵树、一块板、一件器物如何抵达人的生活。"
+      },
+      "triptych": {
+        "path": "journal/muchi-library/chapter-triptych/muchi-duanzha-01-triptych.jpg",
+        "afterParagraph": 2
       }
     },
     {
@@ -1992,13 +1739,7 @@
       "cover": {
         "file": "muchi-duanzha-02-cover-editorial-1.jpg",
         "path": "journal/muchi-library/article-cover/muchi-duanzha-02-cover-editorial-1.jpg",
-        "alt": "带天然缺憾的原木板材与温柔光线",
-        "idea": "beautiful solid wood slab with knots, mineral streaks and color variation, photographed as precious natural imperfection in soft light",
-        "keywords": "良木无完美, 接纳原木的天然缺憾",
-        "sourceSuggestion": "实拍优先",
-        "promptZh": "为「木痴」杂志文章《短札②：良木无完美｜接纳原木的天然缺憾》制作一张封面图。画面主题：beautiful solid wood slab with knots, mineral streaks and color variation, photographed as precious natural imperfection in soft light。真实摄影感，高端木作杂志，自然光，低饱和原木色，克制东方审美；不要文字、logo、水印、人物和廉价科普插画。",
-        "promptEn": "Create a wide premium editorial cover image for the article '短札②：良木无完美｜接纳原木的天然缺憾'. Scene: beautiful solid wood slab with knots, mineral streaks and color variation, photographed as precious natural imperfection in soft light. Use realistic premium editorial photography for a high-end Chinese woodcraft magazine. Natural light, restrained East Asian aesthetics, muted raw-wood palette, clean composition, real material texture. No text, no logo, no watermark, no labels, no obvious AI artifacts.",
-        "prompt": "Create a wide premium editorial cover image for the article '短札②：良木无完美｜接纳原木的天然缺憾'. Scene: beautiful solid wood slab with knots, mineral streaks and color variation, photographed as precious natural imperfection in soft light. Use realistic premium editorial photography for a high-end Chinese woodcraft magazine. Natural light, restrained East Asian aesthetics, muted raw-wood palette, clean composition, real material texture. No text, no logo, no watermark, no labels, no obvious AI artifacts."
+        "alt": "带天然缺憾的原木板材与温柔光线"
       },
       "body": [
         "做木料科普这些年，接触最多的用户执念，就是追求完美无瑕疵的天然原木：零结疤、无色差、无纹理杂色、不变形。久而久之我发现，大家执念追求的完美原木，本质违背自然规律，世间本无完美的天然良木。",
@@ -2008,11 +1749,6 @@
         "审美向内沉淀，放下完美执念。接纳木头的不完美，方能接纳生活的所有不如意。"
       ],
       "conclusion": "缺憾藏本真，微瑕见自然。不执于完美，方得木之本色，心之安然。",
-      "source": {
-        "docxFile": "「木痴」科普专栏 全栏目正文定稿（1000字_篇 完整版） (2).docx",
-        "sourceSection": "六、【木间短札】短篇感悟随笔（全4篇 千字走心随笔，专栏收尾文稿）",
-        "paragraphCount": 5
-      },
       "issue": {
         "number": 35,
         "display": "VOL.35",
@@ -2026,13 +1762,16 @@
           "alt": "原木结疤色差与自然缺憾细节",
           "caption": "原木的缺憾不是失败，而是自然生长留下的真实证据。",
           "afterParagraph": 3,
-          "layout": "wide",
-          "prompt": "Create a 3:2 premium in-article editorial image for the article '短札②：良木无完美｜接纳原木的天然缺憾'. Scene: macro of natural wood imperfections: knot, small crack, color variation and healed scar, composed elegantly. Use realistic premium editorial photography for a high-end Chinese woodcraft magazine. Natural light, restrained East Asian aesthetics, muted raw-wood palette, clean composition, real material texture. No text, no logo, no watermark, no labels, no obvious AI artifacts."
+          "layout": "wide"
         }
       ],
       "editorNote": {
         "label": "编辑手记",
         "text": "良木无完美，正因为天然材料从来带着生长痕迹。接纳结疤、色差和纹理变化，是进入原木美学的第一步。"
+      },
+      "triptych": {
+        "path": "journal/muchi-library/chapter-triptych/muchi-duanzha-02-triptych.jpg",
+        "afterParagraph": 2
       }
     },
     {
@@ -2048,13 +1787,7 @@
       "cover": {
         "file": "muchi-duanzha-03-cover-editorial-1.jpg",
         "path": "journal/muchi-library/article-cover/muchi-duanzha-03-cover-editorial-1.jpg",
-        "alt": "惜木善用的木料分类与再利用",
-        "idea": "wood workshop with carefully sorted offcuts, usable boards and small pieces saved for future work, respectful and orderly",
-        "keywords": "敬畏自然，惜木善用, 用材之人的底层初心",
-        "sourceSuggestion": "生成/实拍均可",
-        "promptZh": "为「木痴」杂志文章《短札③：敬畏自然，惜木善用｜用材之人的底层初心》制作一张封面图。画面主题：wood workshop with carefully sorted offcuts, usable boards and small pieces saved for future work, respectful and orderly。真实摄影感，高端木作杂志，自然光，低饱和原木色，克制东方审美；不要文字、logo、水印、人物和廉价科普插画。",
-        "promptEn": "Create a wide premium editorial cover image for the article '短札③：敬畏自然，惜木善用｜用材之人的底层初心'. Scene: wood workshop with carefully sorted offcuts, usable boards and small pieces saved for future work, respectful and orderly. Use realistic premium editorial photography for a high-end Chinese woodcraft magazine. Natural light, restrained East Asian aesthetics, muted raw-wood palette, clean composition, real material texture. No text, no logo, no watermark, no labels, no obvious AI artifacts.",
-        "prompt": "Create a wide premium editorial cover image for the article '短札③：敬畏自然，惜木善用｜用材之人的底层初心'. Scene: wood workshop with carefully sorted offcuts, usable boards and small pieces saved for future work, respectful and orderly. Use realistic premium editorial photography for a high-end Chinese woodcraft magazine. Natural light, restrained East Asian aesthetics, muted raw-wood palette, clean composition, real material texture. No text, no logo, no watermark, no labels, no obvious AI artifacts."
+        "alt": "惜木善用的木料分类与再利用"
       },
       "body": [
         "深耕原木行业越久，我越笃定一句话：惜木，方可用木。我们享受天然良木带来的人居质感与美学治愈，更要敬畏山林草木资源，坚守适度用材、善待自然的底层初心。",
@@ -2064,11 +1797,6 @@
         "品木修心，惜木修行。所有研木、辨木、用工法雕琢良木的前提，永远是心存敬畏，适度取用。"
       ],
       "conclusion": "取于山川，用于人间。心存敬畏惜草木，方寸之间守自然。",
-      "source": {
-        "docxFile": "「木痴」科普专栏 全栏目正文定稿（1000字_篇 完整版） (2).docx",
-        "sourceSection": "六、【木间短札】短篇感悟随笔（全4篇 千字走心随笔，专栏收尾文稿）",
-        "paragraphCount": 5
-      },
       "issue": {
         "number": 36,
         "display": "VOL.36",
@@ -2082,13 +1810,16 @@
           "alt": "木料边角料再利用与分类细节",
           "caption": "惜木不是舍不得用，而是让每一块材料都去到合适的位置。",
           "afterParagraph": 3,
-          "layout": "wide",
-          "prompt": "Create a 3:2 premium in-article editorial image for the article '短札③：敬畏自然，惜木善用｜用材之人的底层初心'. Scene: close-up of neatly arranged wood offcuts by size and grain, showing mindful material use and craft discipline. Use realistic premium editorial photography for a high-end Chinese woodcraft magazine. Natural light, restrained East Asian aesthetics, muted raw-wood palette, clean composition, real material texture. No text, no logo, no watermark, no labels, no obvious AI artifacts."
+          "layout": "wide"
         }
       ],
       "editorNote": {
         "label": "编辑手记",
         "text": "惜木善用，是把每块材料放到合适的位置。敬畏自然不是口号，而是减少浪费、尊重纹理、让木材完成它应有的去处。"
+      },
+      "triptych": {
+        "path": "journal/muchi-library/chapter-triptych/muchi-duanzha-03-triptych.jpg",
+        "afterParagraph": 2
       }
     },
     {
@@ -2104,28 +1835,16 @@
       "cover": {
         "file": "muchi-duanzha-04-cover-editorial-1.jpg",
         "path": "journal/muchi-library/article-cover/muchi-duanzha-04-cover-editorial-1.jpg",
-        "alt": "山林原木与人居木作之间的时间过渡",
-        "idea": "poetic transition from forest timber to a quiet wood interior, raw log, finished floor plank and soft daylight, contemplative finale",
-        "keywords": "终章, 一木一浮生，专栏结语",
-        "sourceSuggestion": "生成/实拍均可",
-        "promptZh": "为「木痴」杂志文章《短札④：终章｜一木一浮生，专栏结语》制作一张封面图。画面主题：poetic transition from forest timber to a quiet wood interior, raw log, finished floor plank and soft daylight, contemplative finale。真实摄影感，高端木作杂志，自然光，低饱和原木色，克制东方审美；不要文字、logo、水印、人物和廉价科普插画。",
-        "promptEn": "Create a wide premium editorial cover image for the article '短札④：终章｜一木一浮生，专栏结语'. Scene: poetic transition from forest timber to a quiet wood interior, raw log, finished floor plank and soft daylight, contemplative finale. Use realistic premium editorial photography for a high-end Chinese woodcraft magazine. Natural light, restrained East Asian aesthetics, muted raw-wood palette, clean composition, real material texture. No text, no logo, no watermark, no labels, no obvious AI artifacts.",
-        "prompt": "Create a wide premium editorial cover image for the article '短札④：终章｜一木一浮生，专栏结语'. Scene: poetic transition from forest timber to a quiet wood interior, raw log, finished floor plank and soft daylight, contemplative finale. Use realistic premium editorial photography for a high-end Chinese woodcraft magazine. Natural light, restrained East Asian aesthetics, muted raw-wood palette, clean composition, real material texture. No text, no logo, no watermark, no labels, no obvious AI artifacts."
+        "alt": "山林原木与人居木作之间的时间过渡"
       },
       "body": [
         "从本源自然科普、辨木识材、工法工艺、栖境落地，到木语美学、木间感悟，整套「木痴」专栏，终归落脚于人与自然共生的简单道理。",
         "从一粒种子到参天大树，从深山原木到人居器物；一棵树走完一生，跨越百年山川沉淀，最终融入我们的日常生活。它承载自然规律，顺应人工雕琢，包容人居环境的干湿冷暖，默默服务于人，温润整个生活空间。木头从来不是冰冷建材，它是留存下来的山林生命，是连接城市人居与野外自然的唯一纽带。",
         "这些文稿，写给所有偏爱原木、痴迷草木之人。希望大家不止看懂木材科普、学会选材避坑；更能读懂木头背后的自然规律：万物皆有天性，凡事顺势而为；草木尚且沉心沉淀数十载方成良材，人生亦该沉下心慢慢修行，不急不躁、温润立身。",
         "繁华都市，万物嘈杂。愿我们皆能以木为伴，以静养心。家里留一方原木角落，卸下生活浮躁；心怀草木温柔，接纳万物天性。顺应自然，温润待人，安稳度日。",
-        "一木一浮生，一草一世界。痴于木，不止于木；观草木，自省人心。",
-        "全专栏定稿汇总备注：全套6大栏目，30篇正文；全部980-1050字标准定稿、统一第一人称木痴人设、结尾专属结语、无商业话术、可直接批量发布"
+        "一木一浮生，一草一世界。痴于木，不止于木；观草木，自省人心。"
       ],
       "conclusion": "万物有灵，木渡人心。此身向静，此生喜木，万事顺遂。",
-      "source": {
-        "docxFile": "「木痴」科普专栏 全栏目正文定稿（1000字_篇 完整版） (2).docx",
-        "sourceSection": "六、【木间短札】短篇感悟随笔（全4篇 千字走心随笔，专栏收尾文稿）",
-        "paragraphCount": 6
-      },
       "issue": {
         "number": 37,
         "display": "VOL.37",
@@ -2139,13 +1858,16 @@
           "alt": "一块木从山林到人居的终章意象",
           "caption": "一木一浮生，是从山林到人居，也从材料回到人的生活。",
           "afterParagraph": 3,
-          "layout": "wide",
-          "prompt": "Create a 3:2 premium in-article editorial image for the article '短札④：终章｜一木一浮生，专栏结语'. Scene: editorial still life of raw branch, planed wood board and finished wooden object on a simple table, representing a life journey of wood. Use realistic premium editorial photography for a high-end Chinese woodcraft magazine. Natural light, restrained East Asian aesthetics, muted raw-wood palette, clean composition, real material texture. No text, no logo, no watermark, no labels, no obvious AI artifacts."
+          "layout": "wide"
         }
       ],
       "editorNote": {
         "label": "编辑手记",
         "text": "终章不是结束，而是把前面的树、木、工法、空间和人重新收束成一句话：我们借木作靠近自然，也借自然重新理解生活。"
+      },
+      "triptych": {
+        "path": "journal/muchi-library/chapter-triptych/muchi-duanzha-04-triptych.jpg",
+        "afterParagraph": 2
       }
     }
   ]
