@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="痴木堂 WOOD ALL，高端原木地板定制品牌，提供木地板产品选型、铺装参考、工艺技术、安装交付与终身维保服务。">
 <title>痴木堂 · 高端木地板品牌</title>
-<link rel="icon" type="image/png" href="logo/favicon.png">
-<link rel="preconnect" href="https://woodall-1307516706.cos.ap-guangzhou.myqcloud.com" crossorigin>
+<link rel="icon" type="image/png" href="logo/logo.png">
+<link rel="preconnect" href="https://woodall-1307516706.cos.ap-guangzhou.myqcloud.com">
 <link rel="dns-prefetch" href="//woodall-1307516706.cos.ap-guangzhou.myqcloud.com">
 <script>
 (function(){
@@ -15,24 +15,9 @@
   var allowed='home products series craft journal cases about service contact not-found'.split(' ');
   if(allowed.indexOf(route)<0) route='not-found';
   document.documentElement.setAttribute('data-initial-route',route);
-  var criticalImages={
-    home:'journal/home-hero-forest-door-lite.webp',
-    journal:'journal/craft-ring-section-lite.webp',
-    cases:'journal/paving-reference/ref-living-light.webp',
-    service:'journal/case-all-house-model.webp',
-    contact:'journal/home-hero-forest-door-lite.webp'
-  };
-  if(criticalImages[route]){
-    var preload=document.createElement('link');
-    preload.rel='preload';
-    preload.as='image';
-    preload.href=criticalImages[route];
-    preload.fetchPriority='high';
-    document.head.appendChild(preload);
-  }
 })();
 </script>
-<link rel="stylesheet" href="style.min.css?v=hero-white-copy-1">
+<link rel="stylesheet" href="style.min.css?v=selective-restore-1">
 </head>
 <body>
 
@@ -40,7 +25,7 @@
 <nav class="nav" id="nav">
   <div class="nav-inner">
     <a href="#home" class="nav-logo">
-      <img src="logo/logo-ui.png" alt="痴木堂 WOOD ALL" class="nav-logo-img">
+      <img src="logo/logo.png" alt="痴木堂 WOOD ALL" class="nav-logo-img">
     </a>
     <div class="nav-mobile-context" aria-live="polite">
       <span id="mobileNavEyebrow">WOOD ALL</span>
@@ -86,7 +71,7 @@
   <div class="film-modal-backdrop" id="filmModalBackdrop"></div>
   <div class="film-modal-panel" role="dialog" aria-modal="true" aria-label="痴木堂品牌宣传视频">
     <button class="film-modal-close" id="filmModalClose" type="button" aria-label="关闭视频">×</button>
-    <video id="brandFilmVideo" class="brand-film-video" controls playsinline preload="metadata" data-poster="media/brand-story-wood-ring-lite.webp"></video>
+    <video id="brandFilmVideo" class="brand-film-video" controls playsinline preload="metadata" poster="media/brand-story-wood-ring-lite.webp"></video>
     <div class="film-fallback" id="filmFallback">
       <span>VIDEO SOURCE</span>
       <strong>品牌影像正在加载</strong>
@@ -121,10 +106,10 @@
 <!-- ===== PAGES ===== -->
 
 <!-- HOME -->
-<section class="page" id="page-home">
+<section class="page active" id="page-home">
   <div class="hero">
     <div class="hero-video-layer" aria-hidden="true">
-      <video class="hero-video" id="heroVideo" muted playsinline preload="none" data-poster="media/brand-film-poster.jpg" data-src="media/chimutang-brand-film.mp4"></video>
+      <video class="hero-video" id="heroVideo" muted playsinline preload="none" poster="media/brand-film-poster.jpg" data-src="media/chimutang-brand-film.mp4"></video>
       <div class="hero-video-gradient"></div>
     </div>
     <div class="hero-content">
@@ -147,9 +132,9 @@
         </div>
       </div>
       <div class="hero-gallery" aria-hidden="true">
-        <div class="gallery-card gallery-main"><img data-route-src="journal/case-villa.webp" alt="大宅空间木地板搭配效果" loading="lazy" fetchpriority="low" decoding="async"></div>
-        <div class="gallery-card gallery-side gallery-side-a"><img data-route-src="journal/space-floor.webp" alt="木地板空间尺度与光线关系" loading="lazy" fetchpriority="low" decoding="async"></div>
-        <div class="gallery-card gallery-side gallery-side-b"><img data-route-src="journal/touch-wood.webp" alt="手触木材纹理与表面质感" loading="lazy" fetchpriority="low" decoding="async"></div>
+        <div class="gallery-card gallery-main"><img src="journal/case-villa.webp" alt="大宅空间木地板搭配效果" loading="eager" fetchpriority="high" decoding="async"></div>
+        <div class="gallery-card gallery-side gallery-side-a"><img src="journal/space-floor.webp" alt="木地板空间尺度与光线关系" loading="lazy" fetchpriority="low" decoding="async"></div>
+        <div class="gallery-card gallery-side gallery-side-b"><img src="journal/touch-wood.webp" alt="手触木材纹理与表面质感" loading="lazy" fetchpriority="low" decoding="async"></div>
         <div class="gallery-caption">
           <span>Flooring Atmosphere</span>
           <strong>空间 / 木纹 / 触感</strong>
@@ -225,7 +210,7 @@
 
     <div class="brand-film-section">
       <button class="brand-film-card" id="brandFilmOpen" type="button" data-video-src="media/chimutang-brand-film.mp4" aria-label="播放痴木堂品牌宣传视频">
-        <img data-route-src="media/brand-story-wood-ring-lite.webp" alt="原木年轮与木纹肌理" loading="lazy" fetchpriority="low" decoding="async">
+        <img src="media/brand-story-wood-ring-lite.webp" alt="原木年轮与木纹肌理" loading="lazy" fetchpriority="low" decoding="async">
         <span class="brand-film-shade"></span>
         <span class="brand-film-play" aria-hidden="true"></span>
         <span class="brand-film-meta">BRAND FILM · WOOD ALL</span>
@@ -249,7 +234,7 @@
         </div>
       </div>
       <button class="motion-feature" type="button" data-video-src="media/motion-atelier-01.mp4" aria-label="播放展厅大板木纹影像">
-        <video muted playsinline loop preload="none" data-poster="media/motion-atelier-01-poster.jpg" data-src="media/motion-atelier-01.mp4"></video>
+        <video muted playsinline loop preload="none" poster="media/motion-atelier-01-poster.jpg" data-src="media/motion-atelier-01.mp4"></video>
         <span class="motion-shade"></span>
         <span class="motion-index">01</span>
         <strong>展厅里的木纹尺度</strong>
@@ -257,17 +242,17 @@
       </button>
       <div class="motion-stack">
         <button class="motion-tile" type="button" data-video-src="media/motion-atelier-02.mp4" aria-label="播放地板光影影像">
-          <video muted playsinline loop preload="none" data-poster="media/motion-atelier-02-poster.jpg" data-src="media/motion-atelier-02.mp4"></video>
+          <video muted playsinline loop preload="none" poster="media/motion-atelier-02-poster.jpg" data-src="media/motion-atelier-02.mp4"></video>
           <span>02</span>
           <strong>地板光影</strong>
         </button>
         <button class="motion-tile" type="button" data-video-src="media/motion-atelier-03.mp4" aria-label="播放原木运输影像">
-          <video muted playsinline loop preload="none" data-poster="media/motion-atelier-03-poster.jpg" data-src="media/motion-atelier-03.mp4"></video>
+          <video muted playsinline loop preload="none" poster="media/motion-atelier-03-poster.jpg" data-src="media/motion-atelier-03.mp4"></video>
           <span>03</span>
           <strong>原木源头</strong>
         </button>
         <button class="motion-tile" type="button" data-video-src="media/motion-atelier-04.mp4" aria-label="播放刨花手作影像">
-          <video muted playsinline loop preload="none" data-poster="media/motion-atelier-04-poster.jpg" data-src="media/motion-atelier-04.mp4"></video>
+          <video muted playsinline loop preload="none" poster="media/motion-atelier-04-poster.jpg" data-src="media/motion-atelier-04.mp4"></video>
           <span>04</span>
           <strong>刨花手作</strong>
         </button>
@@ -353,15 +338,15 @@
           </div>
           <div class="home-journal-grid">
             <a class="home-journal-card large" href="#journal" data-home-journal-category="space">
-              <img data-route-src="journal/space-floor.webp" alt="木地板空间尺度与光线关系" loading="lazy" decoding="async">
+              <img src="journal/space-floor.webp" alt="木地板空间尺度与光线关系" loading="lazy" decoding="async">
               <div><span>01 / SPACE</span><h3>光线先于木色</h3><p>用采光、层高与家具明度判断地板色阶。</p></div>
             </a>
             <a class="home-journal-card" href="#journal" data-home-journal-category="material">
-              <img data-route-src="journal/surface-wood-mosaic-lite.webp" alt="多种木材色泽与纹理拼接" loading="lazy" decoding="async">
+              <img src="journal/surface-wood-mosaic-lite.webp" alt="多种木材色泽与纹理拼接" loading="lazy" decoding="async">
               <div><span>02 / MATERIAL</span><h3>橡木为什么耐看</h3></div>
             </a>
             <a class="home-journal-card" href="#journal" data-home-journal-category="craft">
-              <img data-route-src="journal/touch-wood.webp" alt="木材表面工艺" loading="lazy" decoding="async">
+              <img src="journal/touch-wood.webp" alt="木材表面工艺" loading="lazy" decoding="async">
               <div><span>03 / CRAFT</span><h3>表面触感档案</h3></div>
             </a>
             <a class="home-journal-card" href="#journal" data-home-journal-category="care">
@@ -1183,7 +1168,7 @@
               </ul>
             </div>
           </div>
-          <div style="margin-top:10px;padding:10px;background:#fff3e0;border-radius:6px;font-size:.72rem;color:#963b0b">
+          <div style="margin-top:10px;padding:10px;background:#fff3e0;border-radius:6px;font-size:.72rem;color:#e65100">
             <strong>⚠ 常见问题</strong>：接头不在龙骨上 &nbsp;|&nbsp; 相邻龙骨未错缝 &nbsp;|&nbsp; 伸缩缝偏小或受潮
           </div>
         </div>
@@ -1338,7 +1323,7 @@
   <div class="footer-inner">
     <div class="footer-brand footer-brand-panel">
       <a href="#home" class="footer-logo-card" aria-label="返回痴木堂首页">
-        <img src="logo/logo-ui.png" alt="痴木堂 WOOD ALL" class="footer-logo" loading="lazy" decoding="async">
+        <img src="logo/logo.png" alt="痴木堂 WOOD ALL" class="footer-logo" loading="lazy" decoding="async">
       </a>
       <div>
         <span class="footer-brand-mark">WOOD ALL</span>
@@ -1381,6 +1366,6 @@
   <div class="footer-bottom">© 2025 痴木堂 CHIMUTANG. All rights reserved.</div>
 </footer>
 
-<script src="app.min.js?v=journal-header-system-1"></script>
+<script src="app.min.js?v=selective-restore-1"></script>
 </body>
 </html>
