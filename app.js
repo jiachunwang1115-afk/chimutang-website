@@ -2798,7 +2798,10 @@ function closeMuchiReader(updateHash){
 }
 
 // ===== INIT =====
-document.addEventListener('DOMContentLoaded',function(){handleHash()});
+document.addEventListener('DOMContentLoaded',function(){
+  handleHash();
+  document.documentElement.removeAttribute('data-initial-route');
+});
 
 // ===== QUIET INTERACTIONS =====
 document.addEventListener('DOMContentLoaded',function(){
