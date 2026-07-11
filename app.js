@@ -1,5 +1,19 @@
 // ===== ROUTING =====
 var ROUTES=['#home','#products','#series','#craft','#journal','#cases','#about','#service','#contact'];
+var CONTACT_CHANNELS={
+  phone:{label:'0575-85666148',href:'tel:+8657585666148'},
+  wechat:{label:'deku',type:'qr',asset:'media/contact-wechat-deku.jpg'},
+  xiaohongshu:{label:'49959364923',href:'https://www.xiaohongshu.com/search_result?keyword=49959364923'},
+  douyin:{label:'43639161265',href:'https://www.douyin.com/search/43639161265'}
+};
+var SERIES_FEATURE_CODES={
+  '境系列':{code:'A3-B805',scene:'product-assets/swatch-wall/A3-B805-scene.webp',texture:'product-assets/swatch-wall/A3-B805-texture.webp',swatch:'product-assets/swatch-wall/A3-B805-swatch.webp',glyph:'境'},
+  '森系列':{code:'B3-X809',scene:'product-assets/swatch-wall/B3-X809-scene.webp',texture:'product-assets/swatch-wall/B3-X809-texture.webp',swatch:'product-assets/swatch-wall/B3-X809-swatch.webp',glyph:'森'},
+  '悦系列':{code:'Q3-X802',scene:'product-assets/swatch-wall/Q3-X802-scene.webp',texture:'product-assets/swatch-wall/Q3-X802-texture.webp',swatch:'product-assets/swatch-wall/Q3-X802-swatch.webp',glyph:'悦'},
+  '墨系列':{code:'M9-B701',scene:'product-assets/swatch-wall/M9-B701-scene.webp',texture:'product-assets/swatch-wall/M9-B701-texture.webp',swatch:'product-assets/swatch-wall/M9-B701-swatch.webp',glyph:'墨'},
+  '匠系列':{code:'CUSTOM',scene:'journal/craft-hand.webp',texture:'journal/touch-wood.webp',swatch:'',glyph:'匠'},
+  '璞系列':{code:'ORIGIN',scene:'journal/wood-ring.webp',texture:'journal/craft-ring-section-lite.webp',swatch:'',glyph:'璞'}
+};
 var MOBILE_NAV_META={
   '#home':{eyebrow:'WOOD ALL',title:'痴木堂'},
   '#products':{eyebrow:'PRODUCT CENTER',title:'产品中心'},
@@ -34,6 +48,7 @@ function navigate(hash,options){
   }
   updateNav(baseHash);
   updateCorporateCta(baseHash);
+  closeContactQr();
   showPage(baseHash,{preserveScroll:preserveScroll});
   if(baseHash==='#products') initProductsPage();
   if(baseHash==='#series') initSeriesPage();
@@ -112,6 +127,7 @@ function closeMobileNav(){
   if(menuChip){
     menuChip.classList.remove('open');
     menuChip.setAttribute('aria-expanded','false');
+    menuChip.setAttribute('aria-label','打开品牌目录');
   }
   if(backdrop) backdrop.classList.remove('open');
   document.body.classList.remove('nav-open');
@@ -130,6 +146,7 @@ function openMobileNav(){
   if(menuChip){
     menuChip.classList.add('open');
     menuChip.setAttribute('aria-expanded','true');
+    menuChip.setAttribute('aria-label','关闭品牌目录');
   }
   if(backdrop) backdrop.classList.add('open');
   document.body.classList.add('nav-open');
@@ -149,7 +166,8 @@ if(mobileMenuButton){
 }
 
 if(mobileMenuChip){
-  mobileMenuChip.addEventListener('click',function(){
+  mobileMenuChip.addEventListener('click',function(e){
+    e.stopPropagation();
     var navLinks=document.getElementById('navLinks');
     if(navLinks&&navLinks.classList.contains('open')) closeMobileNav();
     else openMobileNav();
@@ -166,9 +184,44 @@ if(mobileMenuBackdrop){
 
 document.addEventListener('click',function(e){
   if(!document.body.classList.contains('nav-open')) return;
-  if(e.target.closest('.nav-inner')||e.target.closest('.nav-links')) return;
+  if(e.target.closest('.nav-inner')||e.target.closest('.nav-links')||e.target.closest('#mobileMenuChip')) return;
   closeMobileNav();
 });
+
+function openContactQr(){
+  var modal=document.getElementById('contactQrModal');
+  var closeButton=document.getElementById('contactQrClose');
+  if(!modal)return;
+  modal.classList.add('open');
+  modal.setAttribute('aria-hidden','false');
+  document.body.classList.add('contact-qr-open');
+  if(closeButton)closeButton.focus();
+}
+
+function closeContactQr(){
+  var modal=document.getElementById('contactQrModal');
+  if(!modal)return;
+  modal.classList.remove('open');
+  modal.setAttribute('aria-hidden','true');
+  document.body.classList.remove('contact-qr-open');
+}
+
+function initContactChannels(){
+  document.querySelectorAll('[data-contact-channel]').forEach(function(item){
+    var key=item.getAttribute('data-contact-channel');
+    var channel=CONTACT_CHANNELS[key];
+    if(!channel)return;
+    if(channel.href&&item.tagName==='A')item.setAttribute('href',channel.href);
+    if(key==='wechat'&&!item.dataset.contactBound){
+      item.dataset.contactBound='true';
+      item.addEventListener('click',openContactQr);
+    }
+  });
+  var closeButton=document.getElementById('contactQrClose');
+  var backdrop=document.getElementById('contactQrBackdrop');
+  if(closeButton)closeButton.addEventListener('click',closeContactQr);
+  if(backdrop)backdrop.addEventListener('click',closeContactQr);
+}
 
 document.addEventListener('keydown',function(e){
   if(e.key==='Escape'){
@@ -176,6 +229,7 @@ document.addEventListener('keydown',function(e){
     closeBrandFilm();
     closeSpaceCase();
     closeDrawer();
+    closeContactQr();
   }
 });
 
@@ -753,6 +807,13 @@ function goSeriesIntro(series){
     if(content)content.scrollIntoView({behavior:"smooth",block:"start"});
   },0);
 }
+
+document.querySelectorAll('[data-series-intro]').forEach(function(card){
+  card.addEventListener('click',function(e){
+    e.preventDefault();
+    goSeriesIntro(this.getAttribute('data-series-intro'));
+  });
+});
 
 function escapeHtml(value){
   return String(value||"").replace(/[&<>"']/g,function(ch){
@@ -2073,10 +2134,17 @@ function renderSeriesContent(key){
   var productText=productsReady?(hasProducts?'查看本系列产品':'查看在售产品'):'查看相关产品';
   var productSeries=key;
   var contactText=hasProducts?'预约系列咨询':'预约定制咨询';
+  var media=SERIES_FEATURE_CODES[key]||SERIES_FEATURE_CODES['境系列'];
+  var swatch=media.swatch?'<img class="series-swatch" src="'+escapeHtml(media.swatch)+'" alt="'+escapeHtml(key+' '+media.code+' 色卡')+'" loading="lazy" decoding="async">':'<span class="series-swatch series-swatch-solid" aria-label="'+escapeHtml(key+' 品牌棕色卡')+'"></span>';
+  var mediaHtml='<div class="series-card-media series-hero-media">'
+    +'<img class="series-scene" src="'+escapeHtml(media.scene)+'" alt="'+escapeHtml(key+' '+media.code+' 铺装场景')+'" loading="lazy" decoding="async">'
+    +'<img class="series-texture" src="'+escapeHtml(media.texture)+'" alt="'+escapeHtml(key+' '+media.code+' 木纹细节')+'" loading="lazy" decoding="async">'
+    +swatch+'<span class="series-card-glyph">'+escapeHtml(media.glyph)+'</span></div>';
   var html='<div class="series-content active">';
   html+='<div class="series-hero">'
     +'<div class="series-hero-kicker">WOOD ALL SERIES</div>'
     +'<div class="series-hero-grid">'
+    +mediaHtml
     +'<div class="series-hero-copy"><h2>'+key+'</h2><p class="series-tagline"><strong>'+d.tagline+'</strong></p><p class="series-desc">'+d.hero+'</p></div>'
     +'<div class="series-hero-side '+(productsReady&&!hasProducts?'is-archive':'')+'"><span>'+sideCount+'</span><em>'+sideLabel+'</em><button class="series-link-products" type="button" data-series="'+productSeries+'">'+productText+'</button><button class="series-link-contact" type="button">'+contactText+'</button></div>'
     +'</div></div>';
@@ -2800,6 +2868,7 @@ function closeMuchiReader(updateHash){
 // ===== INIT =====
 document.addEventListener('DOMContentLoaded',function(){
   handleHash();
+  initContactChannels();
   document.documentElement.removeAttribute('data-initial-route');
 });
 

@@ -17,7 +17,7 @@
   document.documentElement.setAttribute('data-initial-route',route);
 })();
 </script>
-<link rel="stylesheet" href="style.min.css?v=selective-restore-2">
+<link rel="stylesheet" href="style.min.css?v=mobile-consistency-4">
 </head>
 <body>
 
@@ -66,6 +66,17 @@
   <a href="#service" data-mobile-chapter="#service">服务</a>
 </div>
 <div class="nav-backdrop" id="navBackdrop" aria-hidden="true"></div>
+
+<div class="contact-qr-modal" id="contactQrModal" aria-hidden="true">
+  <button class="contact-qr-backdrop" id="contactQrBackdrop" type="button" aria-label="关闭微信二维码"></button>
+  <section class="contact-qr-panel" role="dialog" aria-modal="true" aria-labelledby="contactQrTitle">
+    <button class="contact-qr-close" id="contactQrClose" type="button" aria-label="关闭微信二维码">×</button>
+    <span>WECHAT CONTACT</span>
+    <h2 id="contactQrTitle">微信联系 deku</h2>
+    <p>打开微信扫一扫，添加联系人。</p>
+    <img src="media/contact-wechat-deku.jpg" alt="微信联系人 deku 的二维码" loading="lazy" decoding="async">
+  </section>
+</div>
 
 <div class="film-modal" id="filmModal" aria-hidden="true">
   <div class="film-modal-backdrop" id="filmModalBackdrop"></div>
@@ -278,41 +289,66 @@
     <div class="section">
       <div class="section-title"><h2>产品系列</h2><p>四大在售系列稳定供货，高端定制开放咨询。</p></div>
       <div class="series-grid">
-        <div class="series-card" onclick="navigate('#series')">
-          <div class="series-card-img">境</div>
+        <a class="series-card" href="#series" data-series-intro="境系列">
+          <div class="series-card-media">
+            <img class="series-scene" src="product-assets/swatch-wall/A3-B805-scene.webp" alt="境系列 A3-B805 木地板铺装场景" loading="lazy" decoding="async">
+            <img class="series-texture" src="product-assets/swatch-wall/A3-B805-texture.webp" alt="境系列 A3-B805 木纹细节" loading="lazy" decoding="async">
+            <img class="series-swatch" src="product-assets/swatch-wall/A3-B805-swatch.webp" alt="境系列 A3-B805 色卡" loading="lazy" decoding="async">
+            <span class="series-card-glyph">境</span>
+          </div>
           <div class="series-card-body">
             <h3>境系列</h3>
             <p>高品质流量款 · 意式极简 · Valinge无缝锁扣 · 零度薄涂工艺</p>
           </div>
-        </div>
-        <div class="series-card" onclick="navigate('#series')">
-          <div class="series-card-img">森</div>
+        </a>
+        <a class="series-card" href="#series" data-series-intro="森系列">
+          <div class="series-card-media">
+            <img class="series-scene" src="product-assets/swatch-wall/B3-X809-scene.webp" alt="森系列 B3-X809 木地板铺装场景" loading="lazy" decoding="async">
+            <img class="series-texture" src="product-assets/swatch-wall/B3-X809-texture.webp" alt="森系列 B3-X809 木纹细节" loading="lazy" decoding="async">
+            <img class="series-swatch" src="product-assets/swatch-wall/B3-X809-swatch.webp" alt="森系列 B3-X809 色卡" loading="lazy" decoding="async">
+            <span class="series-card-glyph">森</span>
+          </div>
           <div class="series-card-body">
             <h3>森系列</h3>
             <p>国际联名款 · Ciranova通体化染 · Bona色彩研发 · 宣伟UV漆</p>
           </div>
-        </div>
-        <div class="series-card" onclick="navigate('#series')">
-          <div class="series-card-img">悦</div>
+        </a>
+        <a class="series-card" href="#series" data-series-intro="悦系列">
+          <div class="series-card-media">
+            <img class="series-scene" src="product-assets/swatch-wall/Q3-X802-scene.webp" alt="悦系列 Q3-X802 木地板铺装场景" loading="lazy" decoding="async">
+            <img class="series-texture" src="product-assets/swatch-wall/Q3-X802-texture.webp" alt="悦系列 Q3-X802 木纹细节" loading="lazy" decoding="async">
+            <img class="series-swatch" src="product-assets/swatch-wall/Q3-X802-swatch.webp" alt="悦系列 Q3-X802 色卡" loading="lazy" decoding="async">
+            <span class="series-card-glyph">悦</span>
+          </div>
           <div class="series-card-body">
             <h3>悦系列</h3>
             <p>意式简奢高端款 · 172纳米氮气工艺 · N+1表面处理 · 纳米色浆</p>
           </div>
-        </div>
-        <div class="series-card" onclick="navigate('#series')">
-          <div class="series-card-img">墨</div>
+        </a>
+        <a class="series-card" href="#series" data-series-intro="墨系列">
+          <div class="series-card-media">
+            <img class="series-scene" src="product-assets/swatch-wall/M9-B701-scene.webp" alt="墨系列 M9-B701 木地板铺装场景" loading="lazy" decoding="async">
+            <img class="series-texture" src="product-assets/swatch-wall/M9-B701-texture.webp" alt="墨系列 M9-B701 木纹细节" loading="lazy" decoding="async">
+            <img class="series-swatch" src="product-assets/swatch-wall/M9-B701-swatch.webp" alt="墨系列 M9-B701 色卡" loading="lazy" decoding="async">
+            <span class="series-card-glyph">墨</span>
+          </div>
           <div class="series-card-body">
             <h3>墨系列</h3>
             <p>现代深色系 · 稳重大宅质感 · 适配高级灰、轻奢与东方空间</p>
           </div>
-        </div>
-        <div class="series-card" onclick="navigate('#series')">
-          <div class="series-card-img">定</div>
+        </a>
+        <a class="series-card" href="#series" data-series-intro="匠系列">
+          <div class="series-card-media">
+            <img class="series-scene" src="journal/craft-hand.webp" alt="高端定制木作工匠场景" loading="lazy" decoding="async">
+            <img class="series-texture" src="journal/touch-wood.webp" alt="高端定制原木纹理细节" loading="lazy" decoding="async">
+            <span class="series-swatch series-swatch-solid" aria-label="高端定制品牌棕色卡"></span>
+            <span class="series-card-glyph">定</span>
+          </div>
           <div class="series-card-body">
             <h3>高端定制</h3>
             <p>全屋一体化 · 珍稀原木 · 设计师方案 · 按项目需求专项沟通</p>
           </div>
-        </div>
+        </a>
       </div>
     </div>
 
@@ -1213,7 +1249,7 @@
 
     <!-- Contact bar -->
     <div class="service-contact-bar">
-      <div class="service-contact-item"><span>📞</span> 售后电话：85666148</div>
+      <div class="service-contact-item"><span>📞</span> <a href="tel:+8657585666148" data-contact-channel="phone">售后电话：0575-85666148</a></div>
       <div class="service-contact-item"><span>⚡</span> 极速响应：8小时内上门</div>
       <div class="service-contact-item"><span>🔄</span> 终身维保：30年质保</div>
     </div>
@@ -1239,30 +1275,30 @@
     </div>
 
     <div class="contact-grid">
-      <div class="contact-card">
+      <a class="contact-card contact-channel-card" href="tel:+8657585666148" data-contact-channel="phone">
         <div class="contact-icon">📞</div>
         <h3>电话咨询</h3>
-        <div class="contact-val">85666148</div>
+        <div class="contact-val">0575-85666148</div>
         <p>售后服务专线，专人及时响应</p>
-      </div>
-      <div class="contact-card">
+      </a>
+      <button class="contact-card contact-channel-card" type="button" data-contact-channel="wechat">
         <div class="contact-icon">💬</div>
-        <h3>飞书联系</h3>
-        <div class="contact-val">@痴木堂团队</div>
-        <p>搜索飞书团队，直接私信合作对接人</p>
-      </div>
-      <div class="contact-card">
-        <div class="contact-icon">👥</div>
-        <h3>合作交流群</h3>
-        <div class="contact-val">扫码加入</div>
-        <p>获取最新合作资讯、产品动态与行业分享</p>
-      </div>
-      <div class="contact-card">
-        <div class="contact-icon">⏱️</div>
-        <h3>响应时效</h3>
-        <div class="contact-val">24 小时内</div>
-        <p>需求对接专人响应，售后问题8小时内上门</p>
-      </div>
+        <h3>微信咨询</h3>
+        <div class="contact-val">deku</div>
+        <p>查看二维码，添加微信联系人</p>
+      </button>
+      <a class="contact-card contact-channel-card" href="https://www.xiaohongshu.com/search_result?keyword=49959364923" data-contact-channel="xiaohongshu" target="_blank" rel="noopener noreferrer">
+        <div class="contact-icon">RED</div>
+        <h3>小红书</h3>
+        <div class="contact-val">49959364923</div>
+        <p>查看痴木堂木作内容与空间案例</p>
+      </a>
+      <a class="contact-card contact-channel-card" href="https://www.douyin.com/search/43639161265" data-contact-channel="douyin" target="_blank" rel="noopener noreferrer">
+        <div class="contact-icon">DY</div>
+        <h3>抖音</h3>
+        <div class="contact-val">43639161265</div>
+        <p>查看产品影像与木地板实拍</p>
+      </a>
     </div>
 
     <div class="contact-luxe-lead">
@@ -1271,7 +1307,7 @@
         <h3>让顾问先读懂空间，再推荐木色。</h3>
       </div>
       <p>建议留言包含城市、户型面积、采光方向、地暖情况、偏好木色和计划安装时间。信息越完整，初次沟通越接近真实方案。</p>
-      <a href="tel:85666148">拨打 85666148</a>
+      <a href="tel:+8657585666148" data-contact-channel="phone">拨打 0575-85666148</a>
     </div>
 
     <div class="contact-brief">
@@ -1358,14 +1394,18 @@
     <aside class="footer-contact-card" aria-label="联系咨询">
       <span>CONTACT</span>
       <h4>联系咨询</h4>
-      <p>售后电话：85666148</p>
-      <p>微信 · 抖音 · 小红书</p>
+      <p><a href="tel:+8657585666148" data-contact-channel="phone">售后电话：0575-85666148</a></p>
+      <div class="footer-social-links" aria-label="痴木堂社交平台">
+        <button type="button" data-contact-channel="wechat">微信</button>
+        <a href="https://www.douyin.com/search/43639161265" data-contact-channel="douyin" target="_blank" rel="noopener noreferrer">抖音</a>
+        <a href="https://www.xiaohongshu.com/search_result?keyword=49959364923" data-contact-channel="xiaohongshu" target="_blank" rel="noopener noreferrer">小红书</a>
+      </div>
       <a href="#contact">展厅预约参观</a>
     </aside>
   </div>
   <div class="footer-bottom">© 2025 痴木堂 CHIMUTANG. All rights reserved.</div>
 </footer>
 
-<script src="app.min.js?v=selective-restore-2"></script>
+<script src="app.min.js?v=mobile-consistency-4"></script>
 </body>
 </html>
