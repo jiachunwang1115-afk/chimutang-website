@@ -842,10 +842,34 @@ function getCaseSelectedFilters(){
   });
 }
 
-function clearCaseFilters(){
-  CASE_FILTER_DEFS.forEach(function(def){activeCaseFilters[def.key]=def.all});
+function restoreDocumentScroll(top){
+  var root=document.documentElement;
+  var body=document.body;
+  var rootBehavior=root.style.scrollBehavior;
+  var bodyBehavior=body.style.scrollBehavior;
+  var restore=function(){
+    root.style.scrollBehavior="auto";
+    body.style.scrollBehavior="auto";
+    window.scrollTo(0,top);
+  };
+  restore();
+  window.requestAnimationFrame(function(){
+    restore();
+    root.style.scrollBehavior=rootBehavior;
+    body.style.scrollBehavior=bodyBehavior;
+  });
+}
+
+function refreshCaseExperience(preserveScroll){
+  var top=preserveScroll?window.scrollY:null;
   renderCaseFilters();
   renderCaseGallery();
+  if(top!==null)restoreDocumentScroll(top);
+}
+
+function clearCaseFilters(){
+  CASE_FILTER_DEFS.forEach(function(def){activeCaseFilters[def.key]=def.all});
+  refreshCaseExperience(true);
 }
 
 function getFilteredSpaceMedia(){
@@ -982,25 +1006,28 @@ function renderCaseGallery(){
   el.innerHTML=list.map(function(item,index){
     var large=index===0&&getCaseSelectedFilters().length===0?" large":"";
     var selected=isPavingSelected(item.id);
-    return '<article class="space-gallery-card action-card'+large+'" role="button" tabindex="0" data-space-id="'+item.id+'" aria-label="打开'+escapeHtml(item.title)+'铺装参考">'+renderSpaceMedia(item,'space-media')+'<span class="space-image-shade"></span><span class="space-logo-mark" aria-hidden="true"></span><button class="case-save-chip" type="button" data-case-save="'+escapeHtml(item.id)+'" aria-pressed="'+(selected?"true":"false")+'" aria-label="'+(selected?"已加入选材夹，点击移除":"加入选材夹")+'">'+renderCaseSaveIcon(selected)+'</button><div class="space-gallery-copy"><span>'+escapeHtml(item.roomType)+' · '+escapeHtml(item.colorTone)+' · '+escapeHtml(item.pattern)+'</span><h3>'+escapeHtml(item.title)+'</h3><p>'+escapeHtml(item.summary)+'</p><em>入境查看 / 同色产品</em></div></article>';
+    return '<article class="space-gallery-card action-card'+large+'" role="button" tabindex="0" data-space-id="'+item.id+'" aria-label="打开'+escapeHtml(item.title)+'铺装参考">'+renderSpaceMedia(item,'space-media')+'<span class="space-image-shade"></span><span class="space-logo-mark" aria-hidden="true"></span><button class="case-save-chip" type="button" data-case-save="'+escapeHtml(item.id)+'" aria-pressed="'+(selected?"true":"false")+'" aria-label="'+(selected?"已加入选材夹，点击移除":"加入选材夹")+'">'+renderCaseSaveIcon(selected)+'</button><div class="space-gallery-copy"><span>'+escapeHtml(item.roomType)+' · '+escapeHtml(item.colorTone)+' · '+escapeHtml(item.pattern)+'</span><h3>'+escapeHtml(item.title)+'</h3><p>'+escapeHtml(item.summary)+'</p></div></article>';
   }).join("");
   playSpaceVideos(el);
   updatePavingSelectionUI();
 }
 
 function applyProductFilterObject(filter){
+  var alreadyOnProducts=getBaseHash(window.location.hash)==="#products"&&document.getElementById("page-products").classList.contains("active");
   filter=filter||{};
   activeFilters=resolveProductFilterObject(filter);
   closeSpaceCase();
-  navigate("#products");
+  if(!alreadyOnProducts)navigate("#products");
   setTimeout(function(){
     if(PRODUCTS.length){
       buildAllFilters();
       buildProds();
     }
     renderProductSpaceShortcuts();
-    var header=document.querySelector(".prod-page-header");
-    if(header)header.scrollIntoView({behavior:"smooth",block:"start"});
+    if(!alreadyOnProducts){
+      var header=document.querySelector(".prod-page-header");
+      if(header)header.scrollIntoView({behavior:"smooth",block:"start"});
+    }
   },0);
 }
 
@@ -1225,14 +1252,15 @@ function initSpaceExperience(){
       var key=tab.getAttribute("data-case-filter-key");
       var value=tab.getAttribute("data-case-filter-value");
       if(key&&value)activeCaseFilters[key]=value;
-      renderCaseFilters();
-      renderCaseGallery();
+      refreshCaseExperience(true);
       return;
     }
     var advancedToggle=e.target.closest("[data-case-advanced-toggle]");
     if(advancedToggle){
+      var advancedTop=window.scrollY;
       caseAdvancedOpen=!caseAdvancedOpen;
       renderCaseFilters();
+      restoreDocumentScroll(advancedTop);
       return;
     }
     if(e.target.closest("[data-case-clear]")){
