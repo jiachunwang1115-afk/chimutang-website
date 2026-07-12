@@ -186,7 +186,7 @@ async function processProduct(folder, existingProduct) {
     const outputMetadata = await sharp(fullPath).metadata();
 
     gallery.push({
-      src: toWebPath(path.relative(root, fullPath)),
+      src: toWebPath(path.relative(catalogRoot, fullPath)),
       thumb: toWebPath(path.relative(root, thumbPath)),
       role: image.role,
       label: `${ROLE_LABELS[image.role]} ${roleCounts[image.role]}`,

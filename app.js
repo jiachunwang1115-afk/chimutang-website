@@ -384,6 +384,7 @@ var CASE_FILTER_DEFS=[
 ];
 
 var PRODUCTS=[], currentProd=null, COS_BASE='https://woodall-1307516706.cos.ap-guangzhou.myqcloud.com/';
+var PRODUCT_CATALOG_CDN_BASE='https://cdn.jsdelivr.net/gh/jiachunwang1115-afk/chimutang-website@ec37226/product-assets/catalog/';
 fetch('./products_clean.json').then(function(r){return r.json()}).then(function(data){
   PRODUCTS=data.map(function(p){
     function fixPath(path){
@@ -395,8 +396,9 @@ fetch('./products_clean.json').then(function(r){return r.json()}).then(function(
     }
     function fullImagePath(path){
       if(!path)return'';
-      if(path.indexOf('product-assets/')===0)return'./'+path;
-      if(path.indexOf('./product-assets/')===0)return path;
+      if(path.indexOf('product-assets/catalog/')===0)path=path.replace('product-assets/catalog/','');
+      if(path.indexOf('./product-assets/catalog/')===0)path=path.replace('./product-assets/catalog/','');
+      if(/^[^/]+\/[abe]-\d+\.webp$/i.test(path))return PRODUCT_CATALOG_CDN_BASE+path;
       return COS_BASE+'product-images/'+path.replace(/^.*[\\/]/,'');
     }
     var gallery=Array.isArray(p.gallery)?p.gallery.map(function(image){
