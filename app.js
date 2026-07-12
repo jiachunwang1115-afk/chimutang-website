@@ -388,18 +388,38 @@ fetch('./products_clean.json').then(function(r){return r.json()}).then(function(
   PRODUCTS=data.map(function(p){
     function fixPath(path){
       if(!path)return'';
+      if(path.indexOf('product-assets/')===0)return'./'+path;
       if(path.indexOf('product-images-thumb/')===0)return'./'+path;
       if(path.indexOf('product-images/')===0)return path.replace('product-images/','./product-images-thumb/');
       return path;
     }
+    function fullImagePath(path){
+      if(!path)return'';
+      if(path.indexOf('product-assets/')===0)return'./'+path;
+      if(path.indexOf('./product-assets/')===0)return path;
+      return COS_BASE+'product-images/'+path.replace(/^.*[\\/]/,'');
+    }
+    var gallery=Array.isArray(p.gallery)?p.gallery.map(function(image){
+      return {
+        src:fullImagePath(image.src),
+        thumb:fixPath(image.thumb||image.src),
+        role:image.role||'',
+        label:image.label||'产品图片',
+        width:image.width||null,
+        height:image.height||null
+      };
+    }):[];
     var swatchSample=getProductSwatchSample(p.code);
     var mapReady=!!(swatchSample&&PRODUCT_SWATCH_MAP_READY[p.code]);
     return {
-      code:p.code,wood:p.wood,board:p.board,surface:p.surface,structure:p.structure,spec:p.spec,thickness:p.thickness,width:p.width,length:p.length,base:p.base,grade:p.grade,series:p.series,
-      img_b_thumb:fixPath(p.img_b),
-      img_e_thumb:fixPath(p.img_e),
-      img_b_hd:p.img_b?COS_BASE+'product-images/'+p.img_b.replace(/^.*[\\/]/,''):'',
-      img_e_hd:p.img_e?COS_BASE+'product-images/'+p.img_e.replace(/^.*[\\/]/,''):'',
+      code:p.code,wood:p.wood,board:p.board,surface:p.surface,structure:p.structure,spec:p.spec,thickness:p.thickness,width:p.width,length:p.length,base:p.base,grade:p.grade,series:p.series,model:p.model||'',metadata_status:p.metadata_status||'已核验',source_image_count:p.source_image_count||gallery.length,
+      img_a_thumb:fixPath(p.img_a_thumb||p.img_a),
+      img_b_thumb:fixPath(p.img_b_thumb||p.img_b),
+      img_e_thumb:fixPath(p.img_e_thumb||p.img_e),
+      img_a_hd:fullImagePath(p.img_a),
+      img_b_hd:fullImagePath(p.img_b),
+      img_e_hd:fullImagePath(p.img_e),
+      gallery:gallery,
       swatch_thumb:swatchSample?swatchSample.swatch:'',
       texture_thumb:swatchSample?swatchSample.texture:'',
       scene_thumb:swatchSample?swatchSample.scene:'',
@@ -988,7 +1008,7 @@ function renderProductSpaceRecommendation(item,list){
     return;
   }
   var previews=list.slice(0,4).map(function(product){
-    var src=product.map_thumb||product.img_b_thumb||product.img_e_thumb||product.swatch_thumb;
+    var src=product.img_a_thumb||product.img_b_thumb||product.img_e_thumb||product.map_thumb||product.swatch_thumb;
     return '<button class="space-recommendation-product" type="button" data-space-product-code="'+escapeHtml(product.code)+'" aria-label="查看'+escapeHtml(product.code+' '+product.wood)+'"><span class="space-recommendation-image">'+(src?'<img src="'+escapeHtml(src)+'" alt="'+escapeHtml(product.code+' '+product.wood+'木地板纹理')+'" loading="lazy" decoding="async">':'')+'</span><span class="space-recommendation-copy"><strong>'+escapeHtml(product.code)+'</strong><em>'+escapeHtml(product.wood+(product.tone?' · '+product.tone:''))+'</em></span></button>';
   }).join("");
   root.innerHTML='<div class="space-recommendation-head"><span>已匹配 '+list.length+' 款</span><strong>'+escapeHtml(item.roomType)+'推荐</strong><p>'+escapeHtml(item.colorTone+' · '+item.pattern)+'，点击产品可查看纹理与规格。</p><button type="button" data-space-recommendation-results>查看全部推荐</button></div><div class="space-recommendation-products">'+previews+'</div>';
@@ -1625,7 +1645,7 @@ function createProductCard(p,index){
   var selected=isProductSelected(p.code);
   var active=currentProd&&currentProd.code===p.code;
   var eager=index<8;
-  var imageSrc=p.map_thumb||p.img_b_thumb||p.img_e_thumb||p.swatch_thumb;
+  var imageSrc=p.img_a_thumb||p.img_b_thumb||p.img_e_thumb||p.map_thumb||p.swatch_thumb;
   var imageMarkup=imageSrc?'<img src="'+escapeHtml(imageSrc)+'" loading="'+(eager?"eager":"lazy")+'" fetchpriority="'+(eager?"high":"low")+'" decoding="async" alt="'+escapeHtml(p.code+' '+p.wood+' 木地板纹理')+'">':'<span class="product-card-image-placeholder" aria-hidden="true"></span>';
   var swatchMarkup=p.map_thumb?'<span class="product-card-swatchbar"><i style="--swatch-color:'+escapeHtml(p.swatch_accent||"#b28247")+'"></i><b>'+escapeHtml(p.tone||"木色")+'</b><em>纹理贴图</em></span>':'';
   card.className="pcard action-card"+(p.map_thumb?" has-swatch-assets":"")+(active?" active":"")+(selected?" selected":"");
@@ -1940,7 +1960,10 @@ function unbindDrawerSwipe(){
 
 function getProductSceneSources(p){
   var sources=[];
-  [p.map_full,p.map_thumb,p.scene_thumb,p.texture_thumb,p.swatch_thumb,p.img_e_thumb,p.img_b_thumb,p.img_e_hd,p.img_b_hd].forEach(function(src){
+  (p.gallery||[]).forEach(function(image){
+    if(image.src&&sources.indexOf(image.src)<0)sources.push(image.src);
+  });
+  [p.img_e_hd,p.img_b_hd,p.img_a_hd,p.img_e_thumb,p.img_b_thumb,p.img_a_thumb,p.map_full,p.map_thumb,p.scene_thumb,p.texture_thumb,p.swatch_thumb].forEach(function(src){
     if(src&&sources.indexOf(src)<0)sources.push(src);
   });
   return sources;
@@ -1961,7 +1984,8 @@ function uniqueProductSources(sources){
 
 function getProductHighResSources(p){
   if(productHdDisabled)return [];
-  return uniqueProductSources([p.img_e_hd,p.img_b_hd]);
+  var gallerySources=(p.gallery||[]).map(function(image){return image.src});
+  return uniqueProductSources(gallerySources.concat([p.img_e_hd,p.img_b_hd,p.img_a_hd]));
 }
 
 function isProductHdSource(src){
@@ -2056,6 +2080,24 @@ function isTextHeavyProductImage(src){
   return /logo|banner|poster|text|title|word|qr|wechat|weixin|公众号|海报|文字/i.test(src);
 }
 
+function formatDrawerValue(value,suffix){
+  if(value===null||value===undefined||value==='')return'咨询确认';
+  return escapeHtml(String(value)+(suffix||''));
+}
+
+function getDrawerGalleryMarkup(p){
+  var gallery=(p.gallery||[]).filter(function(image){return image&&image.src});
+  if(!gallery.length)return'';
+  return '<div class="drawer-product-gallery" role="group" aria-label="'+escapeHtml(p.code+' 产品图片')+'">'
+    +gallery.map(function(image,index){
+      return '<button class="drawer-gallery-item'+(index===0?' active':'')+'" type="button" data-drawer-image="'+escapeHtml(image.src)+'" data-drawer-image-label="'+escapeHtml(image.label||'产品图片')+'" aria-pressed="'+(index===0?'true':'false')+'">'
+        +'<img src="'+escapeHtml(image.thumb||image.src)+'" alt="'+escapeHtml(p.code+' '+(image.label||'产品图片'))+'" loading="lazy" decoding="async">'
+        +'<span>'+escapeHtml(image.label||'产品图片')+'</span>'
+        +'</button>';
+    }).join('')
+    +'</div>';
+}
+
 function showProductInDrawer(p){
   // Quick fade flash
   var bg=document.querySelector('.drawer-bg');
@@ -2102,18 +2144,20 @@ function showProductInDrawer(p){
 
   // Info panel
   var info=document.getElementById('drawerInfoPanel');
-  var drawerVisuals=p.map_thumb?'<div class="drawer-product-visuals"><figure><img src="'+escapeHtml(p.map_thumb)+'" alt="'+escapeHtml(p.code+' 纹理贴图')+'" loading="lazy" decoding="async"><figcaption>贴图</figcaption></figure><figure><img src="'+escapeHtml(p.texture_thumb||p.map_thumb)+'" alt="'+escapeHtml(p.code+' 纹理细节')+'" loading="lazy" decoding="async"><figcaption>纹理</figcaption></figure><figure><img src="'+escapeHtml(p.scene_thumb||p.texture_thumb||p.map_thumb)+'" alt="'+escapeHtml(p.code+' 场景图')+'" loading="lazy" decoding="async"><figcaption>场景</figcaption></figure></div>':'';
-  info.innerHTML='<h3>'+p.code+'</h3><div class="d-meta">'+p.wood+' · '+p.surface+'</div>'
-    +drawerVisuals
+  var drawerGallery=getDrawerGalleryMarkup(p);
+  var verificationNote=p.metadata_status==='待确认'?'<p class="drawer-verification-note">部分规格正在核对，实际参数以门店样板为准。</p>':'';
+  info.innerHTML='<h3>'+escapeHtml(p.code)+'</h3><div class="d-meta">'+formatDrawerValue(p.wood)+' · '+formatDrawerValue(p.surface)+(p.model?' · '+escapeHtml(p.model):'')+'</div>'
+    +drawerGallery
+    +verificationNote
     +'<div class="drawer-cards">'
-    +'<div class="drawer-card"><div class="val">'+p.wood+'</div><div class="lbl">木种</div></div>'
-    +'<div class="drawer-card"><div class="val">'+p.board+'</div><div class="lbl">板材</div></div>'
-    +'<div class="drawer-card"><div class="val">'+p.surface+'</div><div class="lbl">表面</div></div>'
-    +'<div class="drawer-card"><div class="val">'+p.structure+'</div><div class="lbl">结构</div></div>'
-    +'<div class="drawer-card"><div class="val">'+p.thickness+'mm</div><div class="lbl">厚度</div></div>'
-    +'<div class="drawer-card"><div class="val">'+p.width+'mm</div><div class="lbl">宽度</div></div>'
-    +'<div class="drawer-card"><div class="val">'+p.length+'mm</div><div class="lbl">长度</div></div>'
-    +'<div class="drawer-card"><div class="val">'+p.spec+'</div><div class="lbl">规格</div></div>'
+    +'<div class="drawer-card"><div class="val">'+formatDrawerValue(p.wood)+'</div><div class="lbl">木种</div></div>'
+    +'<div class="drawer-card"><div class="val">'+formatDrawerValue(p.board)+'</div><div class="lbl">板材</div></div>'
+    +'<div class="drawer-card"><div class="val">'+formatDrawerValue(p.surface)+'</div><div class="lbl">表面</div></div>'
+    +'<div class="drawer-card"><div class="val">'+formatDrawerValue(p.structure)+'</div><div class="lbl">结构</div></div>'
+    +'<div class="drawer-card"><div class="val">'+formatDrawerValue(p.thickness,'mm')+'</div><div class="lbl">厚度</div></div>'
+    +'<div class="drawer-card"><div class="val">'+formatDrawerValue(p.width,'mm')+'</div><div class="lbl">宽度</div></div>'
+    +'<div class="drawer-card"><div class="val">'+formatDrawerValue(p.length,'mm')+'</div><div class="lbl">长度</div></div>'
+    +'<div class="drawer-card"><div class="val">'+formatDrawerValue(p.spec)+'</div><div class="lbl">规格</div></div>'
     +'</div>'
     +'<div class="drawer-actions">'
     +'<button class="secondary product-selection-action" type="button" data-product-save="'+escapeHtml(p.code)+'">'+(isProductSelected(p.code)?"已加入":"加入选材夹")+'</button>'
@@ -2121,6 +2165,31 @@ function showProductInDrawer(p){
     +'<a class="secondary" href="#series" onclick="goSeriesIntro(\''+p.series+'\');return false;">看'+getIntroSeriesKey(p.series)+'</a>'
     +'<a class="secondary" href="#service" onclick="closeDrawer()">量尺安装</a>'
     +'</div>';
+  info.querySelectorAll('[data-drawer-image]').forEach(function(button){
+    button.addEventListener('click',function(){
+      var nextSrc=button.getAttribute('data-drawer-image');
+      if(!nextSrc)return;
+      var nextToken=++drawerImageLoadToken;
+      info.querySelectorAll('[data-drawer-image]').forEach(function(item){
+        var active=item===button;
+        item.classList.toggle('active',active);
+        item.setAttribute('aria-pressed',active?'true':'false');
+      });
+      sceneImg.classList.add('is-loading');
+      sceneImg.classList.remove('is-hd-ready');
+      sceneImg.alt=escapeHtml(p.code+' '+(button.getAttribute('data-drawer-image-label')||'产品图片'));
+      sceneImg.onload=function(){
+        if(nextToken!==drawerImageLoadToken)return;
+        sceneImg.classList.remove('is-loading');
+        sceneImg.classList.add('is-hd-ready');
+      };
+      sceneImg.onerror=function(){
+        if(nextToken!==drawerImageLoadToken)return;
+        sceneImg.classList.remove('is-loading');
+      };
+      sceneImg.src=nextSrc;
+    });
+  });
 }
 
 // ===== SERIES DATA =====

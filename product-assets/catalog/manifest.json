@@ -1,0 +1,121 @@
+{
+  "generated_at": "2026-07-12T14:45:17.610Z",
+  "totals": {
+    "product_folders": 156,
+    "imported_products": 138,
+    "empty_product_folders": 18,
+    "imported_images": 727,
+    "orientation_corrections": 39,
+    "verified_metadata": 105,
+    "inferred_metadata": 33
+  },
+  "empty_products": [
+    {
+      "code": "B9-C305",
+      "series": "森系列（大板屋）"
+    },
+    {
+      "code": "B9-C306",
+      "series": "森系列（大板屋）"
+    },
+    {
+      "code": "B9-C307",
+      "series": "森系列（大板屋）"
+    },
+    {
+      "code": "B9-C501",
+      "series": "森系列（大板屋）"
+    },
+    {
+      "code": "B9-C502",
+      "series": "森系列（大板屋）"
+    },
+    {
+      "code": "B9-C503",
+      "series": "森系列（大板屋）"
+    },
+    {
+      "code": "B9-C504",
+      "series": "森系列（大板屋）"
+    },
+    {
+      "code": "B9-C505",
+      "series": "森系列（大板屋）"
+    },
+    {
+      "code": "B9-C506",
+      "series": "森系列（大板屋）"
+    },
+    {
+      "code": "B9-C507",
+      "series": "森系列（大板屋）"
+    },
+    {
+      "code": "B9-C701",
+      "series": "森系列（大板屋）"
+    },
+    {
+      "code": "B9-C702",
+      "series": "森系列（大板屋）"
+    },
+    {
+      "code": "B9-C703",
+      "series": "森系列（大板屋）"
+    },
+    {
+      "code": "B9-C704",
+      "series": "森系列（大板屋）"
+    },
+    {
+      "code": "B9-C705",
+      "series": "森系列（大板屋）"
+    },
+    {
+      "code": "B9-C706",
+      "series": "森系列（大板屋）"
+    },
+    {
+      "code": "B9-C707",
+      "series": "森系列（大板屋）"
+    },
+    {
+      "code": "B9-C801",
+      "series": "森系列（大板屋）"
+    }
+  ],
+  "inferred_products": [
+    "A6-X301",
+    "A9-X001",
+    "A9-X002",
+    "A9-X003",
+    "A9-X004",
+    "A9-X005",
+    "A9-X006",
+    "A9-X703",
+    "A9-X704",
+    "A9-X705",
+    "A9-X706",
+    "A9-X707",
+    "A9-X708",
+    "A9-X801",
+    "A9-X802",
+    "A9-X901",
+    "A9-X902",
+    "B3-X808",
+    "B3-X810",
+    "B3-X811",
+    "B3-X812",
+    "B3-X813",
+    "B3-X814",
+    "B9-B701",
+    "B9-B702",
+    "B9-B703",
+    "B9-B706",
+    "B9-B707",
+    "B9-B708",
+    "B9-C301",
+    "B9-C302",
+    "B9-C303",
+    "B9-C304"
+  ]
+}
