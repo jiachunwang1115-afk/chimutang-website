@@ -6912,6 +6912,862 @@ body.has-scrolled .fixed-action-rail button{opacity:1}
   }
 }
 
+/* ===== Mobile Reading Density Pass =====
+   Keep the desktop composition intact while turning long mobile chapters into
+   shorter reading blocks and thumb-friendly horizontal rails. */
+@media(max-width:760px){
+  :root{
+    --mobile-section-space:28px;
+    --mobile-card-gap:10px;
+  }
+
+  .page:not(#page-home) .page-header,
+  #page-products .prod-page-header{
+    min-height:300px!important;
+    height:auto!important;
+    margin-bottom:18px!important;
+    padding:42px 18px 28px!important;
+  }
+
+  .page:not(#page-home) .page-header :where(h1,h2),
+  #page-products .prod-page-header :where(h1,h2){
+    margin-top:10px!important;
+    margin-bottom:14px!important;
+    font-size:36px!important;
+    line-height:1.16!important;
+  }
+
+  .page:not(#page-home) .page-header p,
+  #page-products .prod-page-header p{
+    margin:0!important;
+    font-size:15px!important;
+    line-height:1.72!important;
+  }
+
+  #page-cases .case-space-hero{
+    min-height:320px!important;
+    padding:34px 18px 24px!important;
+  }
+
+  #page-journal .journal-cover.page-header{
+    min-height:360px!important;
+    padding:38px 18px 32px!important;
+  }
+
+  #page-journal .journal-cover.page-header h2{
+    font-size:44px!important;
+    line-height:1.08!important;
+  }
+
+  #page-journal .journal-cover.page-header p{
+    margin-bottom:26px!important;
+  }
+
+  #page-service .page-header{
+    min-height:320px!important;
+  }
+
+  .section-title:not(.page-header),
+  .space-section-head,
+  #page-journal .wood-academy-head,
+  #page-journal .journal-directory-head{
+    min-height:0!important;
+    margin-top:0!important;
+    margin-bottom:18px!important;
+    padding-top:26px!important;
+    padding-bottom:18px!important;
+  }
+
+  .section-title:not(.page-header) h2,
+  .space-section-head h2,
+  #page-journal .wood-academy-head h2{
+    margin:6px 0 10px!important;
+    font-size:28px!important;
+    line-height:1.22!important;
+  }
+
+  .section-title:not(.page-header) p,
+  .space-section-head p,
+  #page-journal .wood-academy-head p{
+    font-size:15px!important;
+    line-height:1.72!important;
+  }
+
+  .page-conversion{
+    min-height:0!important;
+    margin:18px 0 28px!important;
+    padding:20px 18px!important;
+  }
+
+  .page-conversion h3{
+    margin:6px 0 8px!important;
+    font-size:24px!important;
+    line-height:1.25!important;
+  }
+
+  .page-conversion p{
+    margin:0!important;
+    font-size:14px!important;
+    line-height:1.7!important;
+  }
+
+  .page-conversion .page-cta{
+    display:grid!important;
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    gap:8px!important;
+    margin-top:16px!important;
+  }
+
+  .page-conversion .page-cta :where(a,button){
+    width:100%!important;
+    min-width:0!important;
+    min-height:44px!important;
+    padding:0 10px!important;
+    white-space:nowrap!important;
+  }
+
+  /* Home: keep the hero cinematic, compress the chapters below it. */
+  #page-home .luxe-brief-strip{
+    gap:1px!important;
+    margin:0!important;
+  }
+
+  #page-home .luxe-brief-strip a{
+    min-height:0!important;
+    padding:14px 18px!important;
+  }
+
+  #page-home .luxe-brief-strip span{
+    margin-bottom:5px!important;
+  }
+
+  #page-home .luxe-brief-strip strong{
+    margin-bottom:5px!important;
+    font-size:18px!important;
+    line-height:1.3!important;
+  }
+
+  #page-home .luxe-brief-strip em{
+    font-size:13px!important;
+    line-height:1.58!important;
+  }
+
+  #page-home .stats{
+    gap:14px 10px!important;
+    padding:24px 0!important;
+  }
+
+  #page-home .stat-item{
+    min-height:0!important;
+    padding:4px 8px!important;
+  }
+
+  #page-home .home-manifesto{
+    min-height:0!important;
+    padding:28px 18px!important;
+  }
+
+  #page-home .home-manifesto h2{
+    margin:8px 0 14px!important;
+  }
+
+  #page-home .home-manifesto p{
+    margin:0!important;
+    font-size:15px!important;
+    line-height:1.72!important;
+  }
+
+  #page-home .home-capabilities{
+    display:flex!important;
+    gap:10px!important;
+    padding:22px 0 8px!important;
+    overflow-x:auto!important;
+    scroll-snap-type:x proximity;
+    scrollbar-width:none;
+  }
+
+  #page-home .home-capabilities::-webkit-scrollbar,
+  #page-home .motion-stack::-webkit-scrollbar,
+  #page-home .space-card-grid::-webkit-scrollbar,
+  #page-home .series-grid::-webkit-scrollbar,
+  #page-products .selection-command-steps::-webkit-scrollbar,
+  #page-products .space-shortcuts::-webkit-scrollbar{
+    display:none;
+  }
+
+  #page-home .capability-card{
+    flex:0 0 82%!important;
+    min-height:176px!important;
+    padding:18px!important;
+    scroll-snap-align:start;
+  }
+
+  #page-home .capability-card h3{
+    margin:22px 0 8px!important;
+    font-size:22px!important;
+  }
+
+  #page-home .capability-card p{
+    font-size:14px!important;
+    line-height:1.65!important;
+  }
+
+  #page-home .brand-film-section{
+    margin:26px 0 8px!important;
+  }
+
+  #page-home .brand-film-card{
+    min-height:320px!important;
+    height:320px!important;
+  }
+
+  #page-home .brand-film-copy{
+    min-height:0!important;
+    padding:20px 18px!important;
+  }
+
+  #page-home .brand-film-copy h2{
+    margin:8px 0 10px!important;
+    font-size:27px!important;
+  }
+
+  #page-home .brand-film-copy p{
+    font-size:14px!important;
+    line-height:1.7!important;
+  }
+
+  #page-home .motion-atelier{
+    margin:28px 0 12px!important;
+    padding:0!important;
+  }
+
+  #page-home .motion-copy{
+    min-height:0!important;
+    padding:22px 18px!important;
+  }
+
+  #page-home .motion-copy h2{
+    margin:8px 0 10px!important;
+    font-size:28px!important;
+  }
+
+  #page-home .motion-copy p{
+    margin:0!important;
+    font-size:14px!important;
+    line-height:1.7!important;
+  }
+
+  #page-home .motion-feature{
+    min-height:340px!important;
+    height:340px!important;
+  }
+
+  #page-home .motion-stack{
+    display:flex!important;
+    gap:1px!important;
+    min-height:0!important;
+    overflow-x:auto!important;
+    scroll-snap-type:x proximity;
+  }
+
+  #page-home .motion-tile{
+    flex:0 0 72%!important;
+    min-height:190px!important;
+    height:190px!important;
+    scroll-snap-align:start;
+  }
+
+  #page-home .space-showcase-section{
+    padding-top:28px!important;
+  }
+
+  #page-home .space-section-head{
+    margin-bottom:14px!important;
+  }
+
+  #page-home .space-showcase-layout{
+    display:block!important;
+    border:0!important;
+    background:transparent!important;
+  }
+
+  #page-home .space-feature-slot{
+    min-height:390px!important;
+    height:390px!important;
+    border:1px solid var(--line)!important;
+  }
+
+  #page-home .space-card-grid{
+    display:flex!important;
+    gap:8px!important;
+    margin-top:8px!important;
+    overflow-x:auto!important;
+    background:transparent!important;
+    scroll-snap-type:x proximity;
+  }
+
+  #page-home .space-card{
+    flex:0 0 78%!important;
+    min-height:280px!important;
+    height:280px!important;
+    border:1px solid var(--line)!important;
+    scroll-snap-align:start;
+  }
+
+  #page-home .space-showcase-foot{
+    gap:8px!important;
+    padding-top:12px!important;
+  }
+
+  #page-home .space-showcase-foot :where(a,button){
+    min-height:42px!important;
+  }
+
+  #page-home .series-grid{
+    display:flex!important;
+    gap:10px!important;
+    border:0!important;
+    overflow-x:auto!important;
+    background:transparent!important;
+    scroll-snap-type:x proximity;
+  }
+
+  #page-home .series-card{
+    flex:0 0 82%!important;
+    min-height:0!important;
+    scroll-snap-align:start;
+  }
+
+  #page-home .series-card-media{
+    aspect-ratio:4/3!important;
+  }
+
+  #page-home .series-card-body{
+    min-height:0!important;
+    padding:16px!important;
+  }
+
+  #page-home .series-card-body p{
+    margin-top:6px!important;
+    font-size:13px!important;
+    line-height:1.58!important;
+  }
+
+  #page-home .journal-preview-section{
+    padding-top:28px!important;
+  }
+
+  #page-home .home-journal-lead{
+    padding:18px!important;
+  }
+
+  #page-home .home-journal-lead h3{
+    margin:8px 0!important;
+    font-size:25px!important;
+  }
+
+  #page-home .home-journal-lead p{
+    font-size:13px!important;
+    line-height:1.62!important;
+  }
+
+  #page-home .home-journal-tabs{
+    flex-wrap:nowrap!important;
+    gap:6px!important;
+    margin-top:12px!important;
+    overflow-x:auto!important;
+  }
+
+  #page-home .home-journal-tab{
+    flex:0 0 auto!important;
+    min-height:36px!important;
+    padding:0 12px!important;
+  }
+
+  #page-home .home-journal-grid{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    grid-auto-rows:178px!important;
+  }
+
+  #page-home .home-journal-card,
+  #page-home .home-journal-card.large{
+    min-height:178px!important;
+    height:178px!important;
+    grid-column:auto!important;
+    grid-row:auto!important;
+    grid-template-rows:102px 76px!important;
+  }
+
+  #page-home .home-journal-card.large{
+    grid-column:span 2!important;
+    min-height:356px!important;
+    height:356px!important;
+    grid-template-rows:240px 116px!important;
+  }
+
+  #page-home .home-journal-card-copy{
+    padding:10px 12px!important;
+  }
+
+  #page-home .home-journal-card h3{
+    margin:3px 0 0!important;
+    font-size:16px!important;
+    line-height:1.35!important;
+  }
+
+  #page-home .home-journal-card p{
+    display:none!important;
+  }
+
+  #page-home .muchi-home-cta{
+    margin:26px 0!important;
+    padding:20px 18px!important;
+  }
+
+  #page-home .muchi-home-cta h3{
+    margin:8px 0!important;
+    font-size:25px!important;
+  }
+
+  #page-home .muchi-home-actions{
+    display:grid!important;
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    gap:8px!important;
+    margin-top:14px!important;
+  }
+
+  /* Products: put the guidance in short, swipeable decision rails. */
+  #page-products .product-experience-bar{
+    min-height:0!important;
+    margin:0 0 12px!important;
+    padding:14px 16px!important;
+  }
+
+  #page-products .selection-command{
+    margin:12px 0 18px!important;
+  }
+
+  #page-products .selection-command-copy{
+    min-height:0!important;
+    padding:18px!important;
+  }
+
+  #page-products .selection-command-copy h3{
+    margin:7px 0 8px!important;
+    font-size:24px!important;
+  }
+
+  #page-products .selection-command-copy p{
+    font-size:14px!important;
+    line-height:1.68!important;
+  }
+
+  #page-products .selection-command-steps{
+    display:flex!important;
+    overflow-x:auto!important;
+    scroll-snap-type:x proximity;
+  }
+
+  #page-products .selection-command-steps a{
+    flex:0 0 72%!important;
+    min-height:92px!important;
+    padding:16px!important;
+    border-right:1px solid var(--line)!important;
+    border-bottom:0!important;
+    scroll-snap-align:start;
+  }
+
+  #page-products .space-product-guide{
+    gap:12px!important;
+    margin:12px 0!important;
+    padding:16px!important;
+  }
+
+  #page-products .space-product-guide strong{
+    font-size:20px!important;
+  }
+
+  #page-products .space-product-guide p{
+    margin-top:5px!important;
+    line-height:1.62!important;
+  }
+
+  #page-products .space-shortcuts{
+    display:flex!important;
+    flex-wrap:nowrap!important;
+    gap:8px!important;
+    overflow-x:auto!important;
+    scroll-snap-type:x proximity;
+  }
+
+  #page-products .space-shortcut{
+    flex:0 0 132px!important;
+    min-height:62px!important;
+    padding:10px 12px!important;
+    scroll-snap-align:start;
+  }
+
+  #page-products .product-choice-guide{
+    margin-top:12px!important;
+  }
+
+  #page-products .product-choice-guide-head{
+    padding:18px!important;
+  }
+
+  #page-products .product-choice-guide-head strong{
+    font-size:24px!important;
+  }
+
+  #page-products .product-choice-card{
+    flex-basis:68%!important;
+    min-height:148px!important;
+    padding:16px!important;
+  }
+
+  #page-products .product-choice-card strong{
+    margin:22px 0 8px!important;
+  }
+
+  /* Series and case pages. */
+  #page-series .series-tabs{
+    margin-bottom:16px!important;
+  }
+
+  #page-series .series-tab{
+    min-width:136px!important;
+    min-height:62px!important;
+    padding:11px 12px 10px 40px!important;
+  }
+
+  #page-series .series-hero{
+    margin-bottom:16px!important;
+  }
+
+  #page-series .series-hero-kicker{
+    padding:18px 18px 0!important;
+  }
+
+  #page-series .series-hero-grid{
+    gap:14px!important;
+    padding:14px 18px 18px!important;
+  }
+
+  #page-series .series-hero h2{
+    margin-bottom:10px!important;
+    font-size:40px!important;
+  }
+
+  #page-series .series-tagline,
+  #page-series .series-desc{
+    font-size:14px!important;
+    line-height:1.68!important;
+  }
+
+  #page-series .series-hero-media{
+    min-height:0!important;
+    aspect-ratio:4/3!important;
+  }
+
+  #page-series .series-hero-side{
+    gap:8px!important;
+    padding:14px!important;
+  }
+
+  #page-series .series-grid-detail{
+    gap:8px!important;
+    margin-top:12px!important;
+  }
+
+  #page-series .detail-card{
+    min-height:0!important;
+    padding:16px!important;
+  }
+
+  #page-series .detail-card h4{
+    margin:0 0 7px!important;
+    font-size:19px!important;
+  }
+
+  #page-series .detail-card p{
+    margin:0!important;
+    font-size:14px!important;
+    line-height:1.65!important;
+  }
+
+  #page-cases .case-space-page{
+    padding-top:14px!important;
+    padding-bottom:32px!important;
+  }
+
+  #page-cases .case-atlas-stats{
+    margin:0 0 14px!important;
+    padding:14px 0!important;
+  }
+
+  #page-cases .case-space-toolbar{
+    padding:12px 0!important;
+  }
+
+  #page-cases .case-filter-tabs{
+    padding-bottom:4px!important;
+  }
+
+  #page-cases .space-gallery{
+    gap:8px!important;
+    border:0!important;
+    background:transparent!important;
+  }
+
+  #page-cases .space-gallery-card{
+    min-height:280px!important;
+    height:280px!important;
+    border:1px solid var(--line)!important;
+  }
+
+  /* Journal: restore a compact two-column magazine directory on phones. */
+  #page-journal .journal-index-shell{
+    padding:18px 12px!important;
+  }
+
+  #page-journal .journal-index-shell .journal-directory-head{
+    row-gap:10px!important;
+    padding:0 0 14px!important;
+  }
+
+  #page-journal .journal-directory-title h3{
+    margin:6px 0!important;
+    font-size:25px!important;
+  }
+
+  #page-journal .journal-directory-title p,
+  #page-journal .journal-directory-note p{
+    font-size:13px!important;
+    line-height:1.6!important;
+  }
+
+  #page-journal .journal-directory-tabs{
+    flex-wrap:nowrap!important;
+    gap:6px!important;
+    overflow-x:auto!important;
+  }
+
+  #page-journal .journal-index-shell .journal-index-grid{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  }
+
+  #page-journal .journal-index-shell .journal-index-card,
+  #page-journal .journal-index-shell .journal-index-card:nth-child(1),
+  #page-journal .journal-index-shell .journal-index-card:nth-child(8){
+    min-height:226px!important;
+    grid-column:auto!important;
+    grid-template-columns:1fr!important;
+    grid-template-rows:104px minmax(0,1fr)!important;
+  }
+
+  #page-journal .journal-topics .journal-index-grid{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  }
+
+  #page-journal .journal-topics .journal-index-card,
+  #page-journal .journal-topics .journal-index-card:nth-child(1),
+  #page-journal .journal-topics .journal-index-card:nth-child(8){
+    min-height:226px!important;
+    grid-column:auto!important;
+    grid-template-columns:1fr!important;
+    grid-template-rows:104px minmax(0,1fr)!important;
+  }
+
+  #page-journal .journal-index-copy{
+    padding:11px 12px 12px!important;
+  }
+
+  #page-journal .journal-index-copy span{
+    margin-bottom:6px!important;
+  }
+
+  #page-journal .journal-index-copy h3{
+    margin-bottom:4px!important;
+    font-size:16px!important;
+    line-height:1.34!important;
+  }
+
+  #page-journal .journal-index-copy p{
+    display:-webkit-box!important;
+    overflow:hidden!important;
+    -webkit-box-orient:vertical;
+    -webkit-line-clamp:2;
+    font-size:12px!important;
+    line-height:1.5!important;
+  }
+
+  #page-journal .journal-index-copy em{
+    padding-top:8px!important;
+  }
+
+  #page-journal .chimu-journal-studio .wood-academy-copy,
+  #page-journal .chimu-journal-studio .wood-academy-media{
+    min-height:280px!important;
+  }
+
+  #page-journal .chimu-journal-studio .wood-family-grid{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    gap:8px!important;
+  }
+
+  #page-journal .wood-family-card{
+    padding:15px!important;
+  }
+
+  #page-journal .wood-family-card p{
+    font-size:13px!important;
+    line-height:1.6!important;
+  }
+
+  #page-journal .muchi-column{
+    padding-top:28px!important;
+  }
+
+  #page-journal .muchi-heading h2{
+    font-size:38px!important;
+  }
+
+  #page-journal .muchi-issue-row{
+    gap:10px!important;
+    padding:14px 0!important;
+  }
+
+  /* Service and contact: retain hierarchy without tall stacked cards. */
+  #page-service .service-banner{
+    margin:0 0 18px!important;
+  }
+
+  #page-service .service-banner-index{
+    padding:12px 16px 10px!important;
+  }
+
+  #page-service .service-banner-text{
+    padding:14px 16px!important;
+  }
+
+  #page-service .service-section{
+    margin-bottom:20px!important;
+    padding-top:0!important;
+  }
+
+  #page-service .service-section-title{
+    margin-bottom:12px!important;
+    padding:0 0 10px!important;
+  }
+
+  #page-service .service-section-title h2{
+    font-size:25px!important;
+  }
+
+  #page-service .phase-grid,
+  #page-service .service-grid{
+    gap:8px!important;
+  }
+
+  #page-service .phase-card-header{
+    min-height:58px!important;
+    padding:11px 13px!important;
+  }
+
+  #page-service .phase-card-body{
+    padding:0 13px!important;
+  }
+
+  #page-service .phase-step{
+    gap:10px!important;
+    padding:12px 0!important;
+  }
+
+  #page-service .phase-step-body h5{
+    margin-bottom:4px!important;
+  }
+
+  #page-service .service-card-header{
+    min-height:56px!important;
+    padding:12px 14px!important;
+  }
+
+  #page-service .service-card-body{
+    padding:13px 14px!important;
+    font-size:15px!important;
+    line-height:1.72!important;
+  }
+
+  #page-service .service-list{
+    gap:8px!important;
+  }
+
+  #page-service .service-list li{
+    padding:10px 0!important;
+  }
+
+  #page-service .service-contact-bar{
+    margin:18px 0!important;
+    padding:16px!important;
+  }
+
+  #page-contact .contact-grid{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    gap:8px!important;
+    margin-bottom:18px!important;
+  }
+
+  #page-contact .contact-card{
+    min-height:0!important;
+    padding:16px!important;
+  }
+
+  #page-contact .contact-card h3{
+    margin:8px 0 6px!important;
+    font-size:19px!important;
+  }
+
+  #page-contact .contact-card p{
+    font-size:13px!important;
+    line-height:1.58!important;
+  }
+
+  #page-contact :where(.contact-luxe-lead,.contact-brief,.contact-coop,.contact-note){
+    min-height:0!important;
+    margin:14px 0!important;
+    padding:18px!important;
+  }
+
+  #page-contact .contact-luxe-lead h3{
+    margin:7px 0!important;
+    font-size:26px!important;
+  }
+
+  #page-contact .contact-luxe-lead p,
+  #page-contact :where(.contact-brief,.contact-coop,.contact-note) p{
+    font-size:14px!important;
+    line-height:1.68!important;
+  }
+}
+
+@media(max-width:380px){
+  .page:not(#page-home) .page-header,
+  #page-products .prod-page-header{
+    min-height:280px!important;
+  }
+
+  #page-home .capability-card,
+  #page-home .series-card{
+    flex-basis:86%!important;
+  }
+
+  #page-journal .journal-index-shell .journal-index-card,
+  #page-journal .journal-index-shell .journal-index-card:nth-child(1),
+  #page-journal .journal-index-shell .journal-index-card:nth-child(8){
+    min-height:218px!important;
+  }
+}
+
 /* ===== Product Drawer Cropped Original Images ===== */
 .drawer-bg{
   min-height:620px!important;
@@ -15363,5 +16219,707 @@ body[data-route="cases"]{
 
   .footer-luxe .footer-phone-link strong{
     text-align:left!important;
+  }
+}
+
+/* Final mobile density authority. This block intentionally lives last so the
+   mature desktop stylesheet cannot re-expand mobile chapters. */
+@media(max-width:760px){
+  .page:not(#page-home) .page-header,
+  #page-products .prod-page-header,
+  #page-craft .page-header,
+  #page-cases .page-header,
+  #page-series .page-header,
+  #page-service .page-header,
+  #page-contact .page-header{
+    min-height:300px!important;
+    height:auto!important;
+    width:100vw!important;
+    max-width:none!important;
+    margin-bottom:18px!important;
+    grid-template-columns:18px minmax(0,1fr) 18px!important;
+    grid-template-rows:auto auto auto auto!important;
+    padding:16px 0 24px!important;
+    overflow:hidden!important;
+  }
+
+  .page:not(#page-home):not(#page-journal) .page-header::before{
+    grid-column:2!important;
+    grid-row:1!important;
+    width:100%!important;
+    height:140px!important;
+    margin:0 0 14px!important;
+  }
+
+  .page:not(#page-home):not(#page-journal) .page-header::after{
+    display:none!important;
+  }
+
+  .page:not(#page-home):not(#page-journal) .page-header .page-eyebrow,
+  .page:not(#page-home):not(#page-journal) .page-header h2,
+  .page:not(#page-home):not(#page-journal) .page-header p{
+    grid-column:2!important;
+  }
+
+  .page:not(#page-home):not(#page-journal) .page-header .page-eyebrow{
+    grid-row:2!important;
+    margin-bottom:10px!important;
+  }
+
+  .page:not(#page-home):not(#page-journal) .page-header h2{
+    grid-row:3!important;
+  }
+
+  .page:not(#page-home):not(#page-journal) .page-header p{
+    grid-row:4!important;
+    margin-top:12px!important;
+  }
+
+  .page:not(#page-home):not(#page-journal) .page-header p::before{
+    width:48px!important;
+    margin-bottom:11px!important;
+  }
+
+  #page-cases .case-space-hero{
+    min-height:320px!important;
+    padding:34px 18px 24px!important;
+  }
+
+  #page-journal .journal-cover.page-header{
+    min-height:360px!important;
+    height:auto!important;
+    margin-bottom:18px!important;
+    padding:38px 18px 30px!important;
+  }
+
+  #page-journal .journal-cover.page-header h2{
+    margin:10px 0 14px!important;
+    font-size:44px!important;
+    line-height:1.08!important;
+  }
+
+  #page-journal .journal-cover.page-header p{
+    margin:0 0 24px!important;
+    font-size:15px!important;
+    line-height:1.68!important;
+  }
+
+  .page:not(#page-home) .page-header :where(h1,h2),
+  #page-products .prod-page-header :where(h1,h2){
+    margin:8px 0 13px!important;
+    font-size:36px!important;
+    line-height:1.16!important;
+  }
+
+  .page:not(#page-home) .page-header p,
+  #page-products .prod-page-header p{
+    margin:0!important;
+    font-size:15px!important;
+    line-height:1.7!important;
+  }
+
+  .section-title:not(.page-header),
+  .space-section-head{
+    min-height:0!important;
+    margin:0 0 16px!important;
+    padding:24px 0 16px!important;
+  }
+
+  .section-title:not(.page-header) h2,
+  .space-section-head h2{
+    margin:6px 0 9px!important;
+    font-size:28px!important;
+    line-height:1.22!important;
+  }
+
+  #page-home .luxe-brief-strip a{
+    min-height:0!important;
+    padding:14px 18px!important;
+  }
+
+  #page-home .luxe-brief-strip span{
+    margin-bottom:4px!important;
+  }
+
+  #page-home .luxe-brief-strip strong{
+    margin-bottom:4px!important;
+    font-size:18px!important;
+    line-height:1.28!important;
+  }
+
+  #page-home .luxe-brief-strip em{
+    font-size:13px!important;
+    line-height:1.56!important;
+  }
+
+  #page-home .home-manifesto{
+    min-height:0!important;
+    padding:28px 18px!important;
+  }
+
+  #page-home .home-manifesto h2{
+    margin:8px 0 12px!important;
+  }
+
+  #page-home .home-manifesto p{
+    margin:0!important;
+    font-size:15px!important;
+    line-height:1.7!important;
+  }
+
+  #page-home .home-capabilities{
+    padding:20px 0 6px!important;
+  }
+
+  #page-home .capability-card{
+    min-height:176px!important;
+    padding:18px!important;
+  }
+
+  #page-home .journal-preview-section{
+    padding-top:26px!important;
+  }
+
+  #page-home .home-journal-board{
+    grid-template-columns:1fr!important;
+  }
+
+  #page-home .home-journal-lead{
+    min-height:0!important;
+    padding:18px!important;
+  }
+
+  #page-home .home-journal-lead h3{
+    margin:7px 0!important;
+    font-size:25px!important;
+  }
+
+  #page-home .home-journal-lead p{
+    font-size:13px!important;
+    line-height:1.6!important;
+  }
+
+  #page-home .home-journal-tabs{
+    flex-wrap:nowrap!important;
+    gap:6px!important;
+    margin-top:12px!important;
+    overflow-x:auto!important;
+  }
+
+  #page-home .home-journal-grid{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    grid-auto-rows:178px!important;
+  }
+
+  #page-home .home-journal-card,
+  #page-home .home-journal-card.large{
+    min-height:178px!important;
+    height:178px!important;
+    grid-column:auto!important;
+    grid-row:auto!important;
+    grid-template-columns:1fr!important;
+    grid-template-rows:102px 76px!important;
+  }
+
+  #page-home .home-journal-card.large{
+    grid-column:span 2!important;
+    min-height:356px!important;
+    height:356px!important;
+    grid-template-rows:240px 116px!important;
+  }
+
+  #page-home .home-journal-card-copy{
+    padding:10px 12px!important;
+  }
+
+  #page-home .home-journal-card h3{
+    margin:3px 0 0!important;
+    font-size:16px!important;
+    line-height:1.34!important;
+  }
+
+  #page-home .home-journal-card p{
+    display:none!important;
+  }
+
+  #page-home .muchi-home-cta{
+    min-height:0!important;
+    margin:24px 0!important;
+    padding:20px 18px!important;
+  }
+
+  #page-home .muchi-home-actions{
+    display:grid!important;
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    gap:8px!important;
+    margin-top:14px!important;
+  }
+
+  #page-products .product-experience-bar{
+    min-height:0!important;
+    margin:0 0 12px!important;
+    padding:14px 16px!important;
+  }
+
+  #page-products .selection-command-copy,
+  #page-products .product-choice-guide-head{
+    min-height:0!important;
+    padding:18px!important;
+  }
+
+  #page-products .selection-command-steps{
+    display:flex!important;
+    overflow-x:auto!important;
+  }
+
+  #page-products .selection-command-steps a{
+    flex:0 0 72%!important;
+    min-height:92px!important;
+    padding:16px!important;
+    border-right:1px solid var(--line)!important;
+    border-bottom:0!important;
+  }
+
+  #page-products .space-product-guide{
+    gap:12px!important;
+    margin:12px 0!important;
+    padding:16px!important;
+  }
+
+  #page-products .space-shortcuts{
+    display:flex!important;
+    flex-wrap:nowrap!important;
+    gap:8px!important;
+    overflow-x:auto!important;
+  }
+
+  #page-products .space-shortcut{
+    flex:0 0 132px!important;
+    min-height:62px!important;
+    padding:10px 12px!important;
+  }
+
+  #page-products .product-choice-card{
+    flex-basis:68%!important;
+    min-height:148px!important;
+    padding:16px!important;
+  }
+
+  #page-series .series-tabs{
+    margin-bottom:16px!important;
+  }
+
+  #page-series .series-hero-grid{
+    gap:14px!important;
+    padding:14px 18px 18px!important;
+  }
+
+  #page-series .series-hero-media{
+    min-height:0!important;
+    aspect-ratio:4/3!important;
+  }
+
+  #page-series .series-hero-side{
+    gap:8px!important;
+    padding:14px!important;
+  }
+
+  #page-series .series-grid-detail{
+    gap:8px!important;
+    margin-top:12px!important;
+  }
+
+  #page-series .detail-card{
+    min-height:0!important;
+    padding:16px!important;
+  }
+
+  #page-journal .journal-index-shell{
+    padding:18px 12px!important;
+  }
+
+  #page-journal .journal-index-shell .journal-index-grid{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  }
+
+  #page-journal .journal-index-shell .journal-index-card,
+  #page-journal .journal-index-shell .journal-index-card:nth-child(1),
+  #page-journal .journal-index-shell .journal-index-card:nth-child(8){
+    min-height:226px!important;
+    grid-column:auto!important;
+    grid-template-columns:1fr!important;
+    grid-template-rows:104px minmax(0,1fr)!important;
+  }
+
+  #page-journal .journal-index-copy{
+    padding:11px 12px 12px!important;
+  }
+
+  #page-journal .journal-index-copy p{
+    display:-webkit-box!important;
+    overflow:hidden!important;
+    -webkit-box-orient:vertical;
+    -webkit-line-clamp:2;
+  }
+
+  #page-journal .chimu-journal-studio .wood-family-grid{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    gap:8px!important;
+  }
+
+  #page-service .service-banner{
+    margin-bottom:18px!important;
+  }
+
+  #page-service .service-section{
+    margin-bottom:20px!important;
+    padding-top:0!important;
+  }
+
+  #page-service .service-section-title{
+    margin-bottom:12px!important;
+    padding:0 0 10px!important;
+  }
+
+  #page-service .phase-grid,
+  #page-service .service-grid{
+    gap:8px!important;
+  }
+
+  #page-service .phase-card-header{
+    min-height:58px!important;
+    padding:11px 13px!important;
+  }
+
+  #page-service .phase-card-body{
+    padding:0 13px!important;
+  }
+
+  #page-service .phase-step{
+    padding:12px 0!important;
+  }
+
+  #page-service .service-card-header{
+    min-height:56px!important;
+    padding:12px 14px!important;
+  }
+
+  #page-service .service-card-body{
+    padding:13px 14px!important;
+  }
+
+  #page-contact .contact-grid{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    gap:8px!important;
+    margin-bottom:18px!important;
+  }
+
+  #page-contact .contact-card{
+    min-height:0!important;
+    padding:16px!important;
+  }
+
+  #page-contact :where(.contact-luxe-lead,.contact-brief,.contact-coop,.contact-note){
+    min-height:0!important;
+    margin:14px 0!important;
+    padding:18px!important;
+  }
+
+  .page-conversion{
+    min-height:0!important;
+    margin:18px 0 28px!important;
+    padding:20px 18px!important;
+  }
+
+  .page-conversion .page-cta{
+    display:grid!important;
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    gap:8px!important;
+    margin-top:16px!important;
+  }
+}
+
+@media(max-width:380px){
+  .page:not(#page-home) .page-header,
+  #page-products .prod-page-header{
+    min-height:280px!important;
+  }
+}
+
+@media(max-width:760px){
+  #page-journal .journal-topics .journal-index-grid{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+  }
+
+  #page-journal .journal-topics .journal-index-card,
+  #page-journal .journal-topics .journal-index-card:nth-child(1),
+  #page-journal .journal-topics .journal-index-card:nth-child(8){
+    min-height:226px!important;
+    grid-column:auto!important;
+    grid-template-columns:1fr!important;
+    grid-template-rows:104px minmax(0,1fr)!important;
+  }
+}
+
+@media(max-width:760px){
+  #page-journal .muchi-reading-path{
+    padding:20px 0 26px!important;
+  }
+
+  #page-journal :where(.muchi-path-head,.muchi-subhead){
+    gap:8px!important;
+    margin-bottom:14px!important;
+  }
+
+  #page-journal .muchi-path-head h2{
+    font-size:27px!important;
+  }
+
+  #page-journal .muchi-path-head p{
+    font-size:13px!important;
+    line-height:1.65!important;
+  }
+
+  #page-journal :where(.muchi-editor-section,.muchi-guide-section,.muchi-volume-section){
+    margin-top:22px!important;
+  }
+
+  #page-journal .muchi-editor-picks{
+    display:flex!important;
+    gap:8px!important;
+    border:0!important;
+    overflow-x:auto!important;
+    background:transparent!important;
+    scroll-snap-type:x proximity;
+    scrollbar-width:none;
+  }
+
+  #page-journal .muchi-editor-picks::-webkit-scrollbar{
+    display:none;
+  }
+
+  #page-journal .muchi-pick-card,
+  #page-journal .muchi-pick-card.large{
+    flex:0 0 78%!important;
+    min-height:300px!important;
+    grid-template-rows:160px minmax(0,1fr)!important;
+    border:1px solid rgba(124,84,48,.18)!important;
+    scroll-snap-align:start;
+  }
+
+  #page-journal .muchi-pick-img{
+    min-height:160px!important;
+    height:160px!important;
+  }
+
+  #page-journal .muchi-pick-copy{
+    padding:14px 16px 24px!important;
+  }
+
+  #page-journal .muchi-pick-copy em{
+    margin-bottom:7px!important;
+  }
+
+  #page-journal .muchi-pick-copy strong{
+    margin-bottom:7px!important;
+    font-size:19px!important;
+    line-height:1.3!important;
+  }
+
+  #page-journal .muchi-pick-copy small{
+    display:-webkit-box!important;
+    overflow:hidden!important;
+    -webkit-box-orient:vertical;
+    -webkit-line-clamp:2;
+    font-size:12px!important;
+    line-height:1.55!important;
+  }
+
+  #page-journal .muchi-pick-copy i{
+    margin-top:10px!important;
+  }
+
+  #page-journal .muchi-question-grid,
+  #page-journal .muchi-volume-grid{
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    gap:8px!important;
+    border:0!important;
+    background:transparent!important;
+  }
+
+  #page-journal .muchi-question-card{
+    min-height:158px!important;
+    padding:14px 14px 24px!important;
+    border:1px solid rgba(124,84,48,.18)!important;
+  }
+
+  #page-journal .muchi-question-card span{
+    margin-bottom:7px!important;
+  }
+
+  #page-journal .muchi-question-card strong{
+    margin-bottom:7px!important;
+    font-size:17px!important;
+    line-height:1.32!important;
+  }
+
+  #page-journal .muchi-question-card small{
+    display:-webkit-box!important;
+    overflow:hidden!important;
+    -webkit-box-orient:vertical;
+    -webkit-line-clamp:3;
+    font-size:12px!important;
+    line-height:1.5!important;
+  }
+
+  #page-journal .muchi-question-card em{
+    margin-top:9px!important;
+  }
+
+  #page-journal .muchi-volume-card{
+    min-height:190px!important;
+    grid-template-rows:82px minmax(0,1fr)!important;
+    border:1px solid rgba(124,84,48,.18)!important;
+  }
+
+  #page-journal .muchi-volume-img{
+    height:82px!important;
+  }
+
+  #page-journal .muchi-volume-copy{
+    padding:11px 13px 20px!important;
+  }
+
+  #page-journal .muchi-volume-copy em{
+    margin-bottom:6px!important;
+  }
+
+  #page-journal .muchi-volume-copy strong{
+    margin-bottom:6px!important;
+    font-size:16px!important;
+    line-height:1.32!important;
+  }
+
+  #page-journal .muchi-volume-copy small{
+    display:-webkit-box!important;
+    overflow:hidden!important;
+    -webkit-box-orient:vertical;
+    -webkit-line-clamp:2;
+    font-size:11px!important;
+    line-height:1.45!important;
+  }
+
+  #page-journal .muchi-volume-copy i{
+    margin-top:8px!important;
+  }
+
+  #page-journal .muchi-column{
+    margin-top:22px!important;
+    padding:26px 0!important;
+  }
+
+  #page-journal .muchi-heading{
+    gap:8px!important;
+  }
+
+  #page-journal .muchi-heading h2{
+    font-size:30px!important;
+  }
+
+  #page-journal .muchi-heading p{
+    font-size:13px!important;
+    line-height:1.62!important;
+  }
+
+  #page-journal .muchi-magazine-cover{
+    margin:18px 0!important;
+  }
+
+  #page-journal .muchi-mag-cover{
+    min-height:0!important;
+  }
+
+  #page-journal .muchi-mag-visual{
+    min-height:220px!important;
+  }
+
+  #page-journal .muchi-mag-copy{
+    padding:18px!important;
+  }
+
+  #page-journal .muchi-mag-copy strong{
+    font-size:28px!important;
+  }
+
+  #page-journal .muchi-mag-copy span{
+    font-size:14px!important;
+    line-height:1.6!important;
+  }
+
+  #page-journal .muchi-toolbar{
+    gap:8px!important;
+    padding:10px!important;
+  }
+
+  #page-journal .muchi-tabs{
+    flex-wrap:nowrap!important;
+    gap:6px!important;
+    overflow-x:auto!important;
+  }
+
+  #page-journal .muchi-tabs button{
+    flex:0 0 auto!important;
+    min-height:40px!important;
+    padding:8px 11px!important;
+  }
+}
+
+/* Space atlas mobile finish: keep photographic captions legible and compact. */
+@media (max-width:760px){
+  #page-products .product-choice-guide-head strong span{
+    display:block!important;
+  }
+
+  #page-products .product-choice-grid{
+    display:grid!important;
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    gap:1px!important;
+    overflow:visible!important;
+  }
+
+  #page-products .product-choice-card{
+    min-width:0!important;
+    min-height:142px!important;
+    padding:15px!important;
+  }
+
+  #page-products .product-choice-card strong{
+    margin:20px 0 9px!important;
+    font-size:16px!important;
+    line-height:1.36!important;
+  }
+
+  #page-products .product-choice-card em{
+    font-size:11px!important;
+    line-height:1.5!important;
+  }
+
+  #page-cases .space-gallery{
+    gap:6px!important;
+  }
+
+  #page-cases .space-gallery-card{
+    min-height:264px!important;
+    height:264px!important;
+  }
+
+  #page-cases .space-gallery-card .space-gallery-copy,
+  #page-cases .space-gallery-card .space-gallery-copy :where(span,h3,p,em){
+    color:#fff8ee!important;
+  }
+
+  #page-cases .space-gallery-card .space-gallery-copy h3,
+  #page-cases .space-gallery-card .space-gallery-copy p{
+    text-shadow:0 2px 16px rgba(0,0,0,.56)!important;
   }
 }
