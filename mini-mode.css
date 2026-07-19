@@ -282,3 +282,85 @@ html[data-channel="weimob"] .selection-actions button::after{display:none!import
 }
 
 @media(prefers-reduced-motion:reduce){.mini-toast{transition:none}}
+
+/* Mini-program cover polish: keep the magazine hero and pale product scenes legible. */
+html[data-channel="weimob"] #page-journal .journal-cover.page-header{
+  display:flex!important;
+  width:100%!important;
+  min-height:430px!important;
+  left:0!important;
+  right:auto!important;
+  margin:0 0 18px!important;
+  padding:86px 20px 38px!important;
+  flex-direction:column!important;
+  align-items:flex-start!important;
+  justify-content:flex-end!important;
+  background-position:46% center!important;
+}
+html[data-channel="weimob"] #page-journal .journal-cover.page-header::before{
+  display:none!important;
+}
+html[data-channel="weimob"] #page-journal .journal-cover.page-header::after{
+  display:block!important;
+  z-index:0!important;
+  inset:0!important;
+  border:0!important;
+  background:linear-gradient(180deg,rgba(15,18,16,.16) 0%,rgba(15,18,16,.48) 48%,rgba(15,18,16,.88) 100%)!important;
+}
+html[data-channel="weimob"] #page-journal .journal-cover.page-header .page-eyebrow,
+html[data-channel="weimob"] #page-journal .journal-cover.page-header h2,
+html[data-channel="weimob"] #page-journal .journal-cover.page-header p{
+  position:relative!important;
+  z-index:2!important;
+  grid-column:auto!important;
+  width:100%!important;
+  max-width:350px!important;
+  margin-left:0!important;
+  margin-right:0!important;
+  text-shadow:0 2px 20px rgba(0,0,0,.64)!important;
+}
+html[data-channel="weimob"] #page-journal .journal-cover.page-header .page-eyebrow{
+  margin-bottom:12px!important;
+  color:#d8ad75!important;
+  font-size:10px!important;
+  line-height:1.45!important;
+  letter-spacing:.12em!important;
+}
+html[data-channel="weimob"] #page-journal .journal-cover.page-header h2{
+  margin:0 0 12px!important;
+  color:#fff8ee!important;
+  font-size:52px!important;
+  line-height:1!important;
+}
+html[data-channel="weimob"] #page-journal .journal-cover.page-header p{
+  margin:0!important;
+  color:#efe4d5!important;
+  font-size:15px!important;
+  line-height:1.72!important;
+}
+
+.mini-series-visual::after{
+  position:absolute;
+  inset:34% 0 0;
+  background:linear-gradient(180deg,transparent,rgba(22,18,15,.68));
+  content:"";
+  pointer-events:none;
+}
+.mini-series-visual img{
+  filter:saturate(.96) contrast(1.05);
+}
+.mini-series-visual b{
+  z-index:1;
+  display:grid;
+  width:42px;
+  height:42px;
+  place-items:center;
+  border:1px solid rgba(255,248,238,.56);
+  background:rgba(31,28,25,.28);
+  text-shadow:0 2px 14px rgba(0,0,0,.72);
+  backdrop-filter:blur(6px);
+}
+.mini-series-card:focus-visible{
+  outline:2px solid #7a3f0b;
+  outline-offset:2px;
+}
