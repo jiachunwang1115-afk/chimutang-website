@@ -5,6 +5,7 @@ import { fileURLToPath } from "node:url";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, "..");
 const dist = path.join(root, "dist");
+const client = path.join(dist, "client");
 
 const rootFiles = [
   "index.html",
@@ -128,9 +129,10 @@ export default {
 
 await rm(dist, { recursive: true, force: true });
 await mkdir(path.join(dist, "server"), { recursive: true });
+await mkdir(client, { recursive: true });
 
 for (const file of [...runtimeFiles, ...explicitAssets]) {
-  const destination = path.join(dist, file);
+  const destination = path.join(client, file);
   await mkdir(path.dirname(destination), { recursive: true });
   await cp(path.join(root, file), destination);
 }
@@ -144,7 +146,7 @@ let copiedAssets = explicitAssets.length;
 for (const asset of assetPaths) {
   if (optionalAssets.test(asset)) continue;
   const source = path.join(root, asset);
-  const destination = path.join(dist, asset);
+  const destination = path.join(client, asset);
   try {
     await mkdir(path.dirname(destination), { recursive: true });
     await cp(source, destination);
