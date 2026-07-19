@@ -15015,7 +15015,7 @@ textarea{
 .contact-qr-modal{
   position:fixed;
   inset:0;
-  z-index:2600;
+  z-index:5600;
   display:grid;
   place-items:center;
   padding:16px;
@@ -16922,4 +16922,310 @@ body[data-route="cases"]{
   #page-cases .space-gallery-card .space-gallery-copy p{
     text-shadow:0 2px 16px rgba(0,0,0,.56)!important;
   }
+}
+
+/* ===== Contrast system: keep deep surfaces legible at every breakpoint ===== */
+:root{
+  --ct-on-dark-title:#fff8ee;
+  --ct-on-dark-body:#efe4d5;
+  --ct-on-dark-meta:#d8ad75;
+  --ct-on-dark-border:rgba(255,248,238,.52);
+  --ct-dark-control:#2f241e;
+  --ct-light-control:#f5ede1;
+  --ct-on-light:#432719;
+}
+
+/* Image and deep-brown surfaces must not inherit the default brown page text. */
+#page-home .brand-film-card,
+#page-home .motion-feature,
+#page-home .motion-tile,
+#page-series .series-hero,
+#page-journal .journal-cover.page-header,
+#page-journal .journal-hero-card,
+#page-about .about-hero,
+#page-about .about-contact,
+#page-service .service-banner,
+#page-service .service-contact-bar,
+.page .page-conversion.dark{
+  color:var(--ct-on-dark-title)!important;
+}
+
+#page-home .brand-film-card .brand-film-title,
+#page-home .motion-feature strong,
+#page-home .motion-tile strong,
+#page-series .series-hero h2,
+#page-series .series-hero .series-tagline,
+#page-series .series-hero .series-tagline strong,
+#page-series .series-hero-side span,
+#page-journal .journal-cover.page-header h2,
+#page-journal .journal-hero-card h3,
+#page-about .about-hero h2,
+#page-about .about-contact strong,
+#page-service .service-banner h3,
+#page-service .service-contact-bar strong,
+.page .page-conversion.dark :where(h1,h2,h3,h4,strong){
+  color:var(--ct-on-dark-title)!important;
+  opacity:1!important;
+}
+
+#page-home .brand-film-card .brand-film-meta,
+#page-home .motion-feature .motion-index,
+#page-home .motion-tile>span,
+#page-series .series-hero-kicker,
+#page-journal .journal-cover.page-header .page-eyebrow,
+#page-journal .journal-hero-copy>span{
+  color:var(--ct-on-dark-meta)!important;
+  opacity:1!important;
+}
+
+#page-home .motion-feature em,
+#page-series .series-hero .series-desc,
+#page-series .series-hero-side em,
+#page-journal .journal-cover.page-header p,
+#page-journal .journal-hero-card p,
+#page-about .about-hero p,
+#page-about .about-contact .ct,
+#page-service .service-banner p,
+#page-service .service-contact-bar,
+#page-service .service-contact-bar a,
+.page .page-conversion.dark :where(p,li,small,em,span,a){
+  color:var(--ct-on-dark-body)!important;
+  opacity:1!important;
+}
+
+/* Selected series tabs use a dark fill, so both labels stay light. */
+#page-series .series-tab.active,
+#page-series .series-tab.active span{
+  color:var(--ct-on-dark-title)!important;
+}
+
+#page-series .series-tab.active small{
+  color:var(--ct-on-dark-body)!important;
+}
+
+/* On a deep panel, primary actions are light and secondary actions are outlined. */
+#page-series .series-hero .series-link-products{
+  background:var(--ct-light-control)!important;
+  border-color:var(--ct-light-control)!important;
+  color:var(--ct-on-light)!important;
+}
+
+#page-series .series-hero .series-link-contact{
+  background:transparent!important;
+  border-color:var(--ct-on-dark-border)!important;
+  color:var(--ct-on-dark-title)!important;
+}
+
+#page-series .series-hero .series-link-products:hover,
+#page-series .series-hero .series-link-products:focus-visible{
+  background:#fffaf2!important;
+  border-color:#fffaf2!important;
+  color:var(--ct-on-light)!important;
+}
+
+#page-series .series-hero .series-link-contact:hover,
+#page-series .series-hero .series-link-contact:focus-visible{
+  background:rgba(255,248,238,.13)!important;
+  border-color:rgba(255,248,238,.8)!important;
+  color:var(--ct-on-dark-title)!important;
+}
+
+/* A primary button always keeps light text on its dark fill. */
+.page:not(#page-contact) .btn-primary,
+#page-about .about-contact .btn-primary{
+  background:var(--ct-dark-control)!important;
+  border-color:var(--ct-dark-control)!important;
+  color:var(--ct-on-dark-title)!important;
+}
+
+#page-about .about-contact .btn-secondary{
+  background:var(--ct-light-control)!important;
+  border-color:var(--ct-light-control)!important;
+  color:var(--ct-on-light)!important;
+}
+
+#page-about .about-contact .btn-primary:hover,
+#page-about .about-contact .btn-primary:focus-visible{
+  background:#19130f!important;
+  border-color:#19130f!important;
+  color:var(--ct-on-dark-title)!important;
+}
+
+#page-about .about-contact .btn-secondary:hover,
+#page-about .about-contact .btn-secondary:focus-visible{
+  background:#fffaf2!important;
+  border-color:#fffaf2!important;
+  color:var(--ct-on-light)!important;
+}
+
+/* Preserve photo-caption contrast even if the mobile page color system changes. */
+#page-home :where(.space-feature-card,.space-card) :where(.space-feature-copy,.space-card-copy) :where(span,h3,p,em),
+#page-cases .space-gallery-card .space-gallery-copy :where(span,h3,p,em){
+  color:var(--ct-on-dark-title)!important;
+}
+
+#page-home :where(.brand-film-card,.motion-feature,.motion-tile):focus-visible,
+#page-series :where(.series-tab,.series-link-products,.series-link-contact):focus-visible,
+#page-journal .journal-hero-card:focus-visible,
+#page-about .about-contact a:focus-visible,
+#page-service .service-contact-bar a:focus-visible{
+  outline:2px solid #f2c98f!important;
+  outline-offset:3px!important;
+}
+
+/* Product texture matrix: lightness descends vertically, saturation grows across. */
+#page-products .product-swatch-wall .swatch-board-shell{
+  grid-column:1 / -1;
+  position:relative;
+  padding:38px 0 0 54px;
+  background:#f7f2ea;
+}
+
+#page-products .product-swatch-wall .swatch-axis{
+  position:absolute;
+  z-index:5;
+  color:#8b5b35;
+  font:700 10px/1 var(--font-cn);
+  letter-spacing:.14em;
+  pointer-events:none;
+}
+
+#page-products .product-swatch-wall .swatch-axis::after{
+  content:"";
+  display:block;
+  background:currentColor;
+  opacity:.55;
+}
+
+#page-products .product-swatch-wall .swatch-axis-x{
+  top:12px;
+  left:54px;
+  right:14px;
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+#page-products .product-swatch-wall .swatch-axis-x::after{
+  height:1px;
+  flex:1;
+}
+
+#page-products .product-swatch-wall .swatch-axis-y{
+  top:56px;
+  bottom:14px;
+  left:14px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  writing-mode:vertical-rl;
+}
+
+#page-products .product-swatch-wall .swatch-axis-y::after{
+  width:1px;
+  flex:1;
+}
+
+#page-products .product-swatch-wall .swatch-board{
+  grid-column:auto;
+  display:grid;
+  grid-template-columns:repeat(10,minmax(0,1fr));
+  gap:1px;
+  padding:1px;
+  overflow:visible;
+  background:rgba(67,39,25,.22);
+}
+
+#page-products .product-swatch-wall .swatch-card{
+  min-width:0;
+  min-height:176px;
+  aspect-ratio:4 / 5;
+}
+
+#page-products .product-swatch-wall .swatch-card::after{
+  left:10px;
+  right:10px;
+  top:10px;
+  height:2px;
+}
+
+#page-products .product-swatch-wall .swatch-card span,
+#page-products .product-swatch-wall .swatch-card strong,
+#page-products .product-swatch-wall .swatch-card em{
+  left:10px;
+  right:10px;
+}
+
+#page-products .product-swatch-wall .swatch-card span{bottom:52px;font-size:10px}
+#page-products .product-swatch-wall .swatch-card strong{bottom:27px;font-size:15px}
+#page-products .product-swatch-wall .swatch-card em{bottom:11px;font-size:10px}
+
+@media(max-width:1320px){
+  #page-products .product-swatch-wall .swatch-board{grid-template-columns:repeat(8,minmax(0,1fr))}
+}
+
+@media(max-width:1020px){
+  #page-products .product-swatch-wall .swatch-board{grid-template-columns:repeat(6,minmax(0,1fr))}
+}
+
+@media(max-width:760px){
+  #page-products .product-swatch-wall .swatch-board-shell{padding:34px 0 0 36px}
+  #page-products .product-swatch-wall .swatch-axis{font-size:9px;letter-spacing:.08em}
+  #page-products .product-swatch-wall .swatch-axis-x{left:36px;right:10px;top:11px;gap:8px}
+  #page-products .product-swatch-wall .swatch-axis-y{left:10px;top:48px;bottom:10px;gap:7px}
+  #page-products .product-swatch-wall .swatch-board{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));overflow:visible}
+  #page-products .product-swatch-wall .swatch-card{flex:auto;min-width:0;min-height:144px;aspect-ratio:3 / 4}
+  #page-products .product-swatch-wall .swatch-card span{bottom:46px;font-size:9px}
+  #page-products .product-swatch-wall .swatch-card strong{bottom:25px;font-size:13px}
+  #page-products .product-swatch-wall .swatch-card em{bottom:10px;font-size:9px}
+}
+
+/* Product catalog loading stability */
+#prodGrid .pcard.image-loading,
+#prodGrid .product-card-skeleton{
+  background:linear-gradient(105deg,#eee8df 18%,#f8f4ed 40%,#eee8df 62%);
+  background-size:220% 100%;
+  animation:product-card-loading 1.35s ease-in-out infinite;
+}
+
+#prodGrid .pcard.image-loading img{
+  opacity:0;
+}
+
+#prodGrid .pcard img{
+  opacity:1;
+  transition:opacity .28s ease,transform .7s cubic-bezier(.16,1,.3,1),filter .7s;
+}
+
+#prodGrid .pcard.image-failed{
+  background:#eee8df;
+}
+
+#prodGrid .pcard.image-failed .product-card-image-placeholder::after,
+#prodGrid .pcard.image-failed::before{
+  content:"纹理图待加载";
+  position:absolute;
+  inset:0;
+  display:grid!important;
+  place-items:center;
+  color:rgba(67,39,25,.58);
+  font-size:12px;
+  letter-spacing:.08em;
+}
+
+#prodGrid .product-card-skeleton::before,
+#prodGrid .product-card-skeleton::after,
+#prodGrid .product-card-skeleton .pname{
+  display:none!important;
+  content:none!important;
+}
+
+@keyframes product-card-loading{
+  0%{background-position:100% 0}
+  100%{background-position:-100% 0}
+}
+
+@media(prefers-reduced-motion:reduce){
+  #prodGrid .pcard.image-loading,
+  #prodGrid .product-card-skeleton{animation:none}
 }

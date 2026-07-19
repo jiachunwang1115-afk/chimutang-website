@@ -8,16 +8,18 @@
 <link rel="icon" type="image/png" href="logo/logo.png">
 <link rel="preconnect" href="https://woodall-1307516706.cos.ap-guangzhou.myqcloud.com">
 <link rel="dns-prefetch" href="//woodall-1307516706.cos.ap-guangzhou.myqcloud.com">
+<link rel="preload" href="products_clean.json" as="fetch" type="application/json">
 <script>
 (function(){
   var hash=window.location.hash||'#home';
   var route=hash.indexOf('#journal/muchi/')===0?'journal':hash.replace(/^#/,'').split('/')[0]||'home';
-  var allowed='home products series craft journal cases about service contact not-found'.split(' ');
+  var allowed='home products series craft journal cases about service contact selection not-found'.split(' ');
   if(allowed.indexOf(route)<0) route='not-found';
   document.documentElement.setAttribute('data-initial-route',route);
 })();
 </script>
-<link rel="stylesheet" href="style.min.css?v=copy-audit-24">
+  <link rel="stylesheet" href="style.min.css?v=contact-qr-layer-1">
+  <link rel="stylesheet" href="mini-mode.css?v=weimob-content-v3-3">
 </head>
 <body>
 
@@ -1407,6 +1409,7 @@
   <div class="footer-bottom">© 2025 痴木堂 CHIMUTANG. All rights reserved.</div>
 </footer>
 
-<script src="app.min.js?v=copy-audit-24"></script>
+  <script src="app.min.js?v=contact-qr-layer-1"></script>
+  <script src="mini-mode.js?v=weimob-content-v3-3"></script>
 </body>
 </html>
