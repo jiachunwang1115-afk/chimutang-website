@@ -10,8 +10,23 @@ const rootFiles = [
   "index.html",
   "style.min.css",
   "app.min.js",
+  "mini-mode.css",
+  "mini-mode.js",
   "products_clean.json",
   "_headers",
+];
+
+const explicitAssets = [
+  "media/mini-nav/home-default.png",
+  "media/mini-nav/home-active.png",
+  "media/mini-nav/products-default.png",
+  "media/mini-nav/products-active.png",
+  "media/mini-nav/journal-default.png",
+  "media/mini-nav/journal-active.png",
+  "media/mini-nav/service-default.png",
+  "media/mini-nav/service-active.png",
+  "media/mini-nav/profile-default.png",
+  "media/mini-nav/profile-active.png",
 ];
 
 const runtimeFiles = [
@@ -114,7 +129,7 @@ export default {
 await rm(dist, { recursive: true, force: true });
 await mkdir(path.join(dist, "server"), { recursive: true });
 
-for (const file of runtimeFiles) {
+for (const file of [...runtimeFiles, ...explicitAssets]) {
   const destination = path.join(dist, file);
   await mkdir(path.dirname(destination), { recursive: true });
   await cp(path.join(root, file), destination);
@@ -125,7 +140,7 @@ const runtimeText = (
 ).join("\n");
 const assetPaths = [...new Set(runtimeText.match(assetPattern) || [])].sort();
 
-let copiedAssets = 0;
+let copiedAssets = explicitAssets.length;
 for (const asset of assetPaths) {
   if (optionalAssets.test(asset)) continue;
   const source = path.join(root, asset);

@@ -385,7 +385,37 @@ var CASE_FILTER_DEFS=[
 
 var PRODUCTS=[], currentProd=null, COS_BASE='https://woodall-1307516706.cos.ap-guangzhou.myqcloud.com/';
 var PRODUCT_CATALOG_CDN_BASE='https://cdn.jsdelivr.net/gh/jiachunwang1115-afk/chimutang-website@ec37226/product-assets/catalog/';
-fetch('./products_clean.json').then(function(r){return r.json()}).then(function(data){
+var productDataState='loading',productDataError=null;
+
+function fetchProductCatalog(url,timeoutMs,cacheMode){
+  var controller=typeof AbortController!=='undefined'?new AbortController():null;
+  var timer=window.setTimeout(function(){if(controller)controller.abort()},timeoutMs);
+  var request=fetch(url,{
+    cache:cacheMode||'default',
+    credentials:'same-origin',
+    signal:controller?controller.signal:undefined
+  }).then(function(response){
+    if(!response.ok)throw new Error('Product catalog HTTP '+response.status);
+    return response.json();
+  });
+  return request.then(function(data){
+    window.clearTimeout(timer);
+    return data;
+  },function(error){
+    window.clearTimeout(timer);
+    throw error;
+  });
+}
+
+function loadProductCatalog(){
+  return fetchProductCatalog('./products_clean.json',6500,'default').catch(function(firstError){
+    console.warn('Product catalog retrying after initial request failed',firstError);
+    return fetchProductCatalog('./products_clean.json?retry='+Date.now(),10000,'no-store');
+  });
+}
+
+loadProductCatalog().then(function(data){
+  if(!Array.isArray(data)||!data.length)throw new Error('Product catalog is empty');
   PRODUCTS=data.map(function(p){
     function fixPath(path){
       if(!path)return'';
@@ -432,6 +462,8 @@ fetch('./products_clean.json').then(function(r){return r.json()}).then(function(
       swatch_accent:swatchSample?swatchSample.accent:''
     };
   });
+  productDataState='ready';
+  productDataError=null;
   if(window.location.hash==='#products'){
     currentProd=PRODUCTS[0]||null;
     renderProductSwatchWall();
@@ -444,13 +476,18 @@ fetch('./products_clean.json').then(function(r){return r.json()}).then(function(
     initSeriesPage();
   }
 }).catch(function(e){
+  productDataState='error';
+  productDataError=e;
   console.error('Product data load failed', e);
   var grid=document.getElementById("prodGrid");
-  if(grid)grid.innerHTML='<div class="prod-empty"><span>LOAD FAILED</span><h3>产品资料暂时未能显示</h3><p>请刷新后重试，或直接联系品牌顾问获取选材资料。</p><div class="page-cta"><a href="#contact" class="btn-primary">联系品牌顾问</a></div></div>';
+  var count=document.getElementById("prodCount");
+  if(count)count.textContent='加载失败';
+  if(grid)grid.innerHTML='<div class="prod-empty"><span>LOAD FAILED</span><h3>产品资料暂时未能显示</h3><p>请刷新后重试，或直接联系品牌顾问获取选材资料。</p><div class="page-cta"><button type="button" class="btn-primary" onclick="retryProductCatalog()">重新加载</button><a href="#contact" class="btn-secondary">联系品牌顾问</a></div></div>';
 });
 var activeFilters={series:"全部",wood:"全部",board:"全部",surface:"全部",structure:"全部"};
 var PRODUCT_FILTER_LABELS={series:"系列",wood:"木种",board:"板材",surface:"表面",structure:"结构"};
 var productsInitialized=false;
+var productImageObserver=null;
 var activeProductSpaceId="";
 var activeSeriesKey=null;
 var pendingSeriesKey=null;
@@ -608,6 +645,41 @@ function getSwatchWallItems(){
   }).filter(Boolean);
 }
 
+function getSwatchHsl(hex){
+  var value=String(hex||"").replace("#","");
+  if(!/^[0-9a-f]{6}$/i.test(value))return {lightness:50,saturation:0};
+  var red=parseInt(value.slice(0,2),16)/255;
+  var green=parseInt(value.slice(2,4),16)/255;
+  var blue=parseInt(value.slice(4,6),16)/255;
+  var max=Math.max(red,green,blue);
+  var min=Math.min(red,green,blue);
+  var lightness=(max+min)/2;
+  var delta=max-min;
+  var saturation=delta===0?0:delta/(1-Math.abs(2*lightness-1));
+  return {lightness:Math.round(lightness*100),saturation:Math.round(saturation*100)};
+}
+
+function arrangeSwatchMatrix(items){
+  var prepared=items.map(function(item){
+    var metrics=getSwatchHsl(item.accent);
+    item.swatchLightness=metrics.lightness;
+    item.swatchSaturation=metrics.saturation;
+    return item;
+  }).sort(function(a,b){
+    return b.swatchLightness-a.swatchLightness||a.swatchSaturation-b.swatchSaturation||a.code.localeCompare(b.code);
+  });
+  var rows=5;
+  var perRow=Math.ceil(prepared.length/rows);
+  var ordered=[];
+  for(var row=0;row<rows;row++){
+    var band=prepared.slice(row*perRow,(row+1)*perRow).sort(function(a,b){
+      return a.swatchSaturation-b.swatchSaturation||b.swatchLightness-a.swatchLightness||a.code.localeCompare(b.code);
+    });
+    Array.prototype.push.apply(ordered,band);
+  }
+  return ordered;
+}
+
 function getSwatchWallItem(code){
   var items=getSwatchWallItems();
   for(var i=0;i<items.length;i++){
@@ -757,11 +829,29 @@ function renderProductSwatchWall(){
   var toneButtons=tones.map(function(tone){
     return '<button type="button" class="swatch-tone'+(tone==="all"?" active":"")+'" data-swatch-tone="'+escapeHtml(tone)+'" aria-pressed="'+(tone==="all"?"true":"false")+'">'+(tone==="all"?"全部色卡":escapeHtml(tone))+'</button>';
   }).join("");
-  var cards=items.map(function(item){
+  var cards=arrangeSwatchMatrix(items).map(function(item){
     return '<button type="button" class="swatch-card" data-swatch-code="'+escapeHtml(item.code)+'" data-swatch-card-tone="'+escapeHtml(item.tone)+'" style="--chip:'+escapeHtml(item.accent)+'" aria-label="查看 '+escapeHtml(item.code)+' 纹理贴图"><img src="'+escapeHtml(item.mapCard||item.swatch)+'" alt="'+escapeHtml(item.code+' '+item.tone+' 木地板纹理贴图')+'" loading="lazy" decoding="async"><span>'+escapeHtml(item.tone)+'</span><strong>'+escapeHtml(item.code)+'</strong><em>'+escapeHtml(getDisplayFilterLabel("series",item.product.series))+'</em></button>';
   }).join("");
   var lead=items[0];
   root.innerHTML='<div class="swatch-wall-copy"><span>PRODUCT TEXTURE MAP</span><h3>对比真实木色与纹理。</h3><p>从真实纹理中查看木色深浅、天然纹理与板缝比例，选择接近你空间气质的方向。实际颜色与触感请以到店样板为准。</p><div class="swatch-tone-row" role="group" aria-label="按木色筛选纹理">'+toneButtons+'</div><small data-swatch-count>'+items.length+' 款纹理</small></div><div class="swatch-wall-stage"><figure><img data-swatch-preview src="'+escapeHtml(lead.map||lead.mapCard||lead.swatch)+'" alt="产品纹理预览" loading="lazy" decoding="async"></figure><div class="swatch-wall-stage-copy"><span data-swatch-preview-meta>'+escapeHtml(getDisplayFilterLabel("series",lead.product.series)+" · "+lead.tone+" · "+lead.product.board)+'</span><h4 data-swatch-preview-title>'+escapeHtml(lead.code)+'</h4><p data-swatch-preview-copy>'+escapeHtml(lead.product.wood+" · "+lead.product.surface+" · "+lead.note)+'</p><button type="button" data-swatch-open="'+escapeHtml(lead.code)+'">查看此款</button></div></div><div class="swatch-board" aria-label="产品纹理色卡墙">'+cards+'</div>';
+  var board=root.querySelector(".swatch-board");
+  if(board){
+    var boardShell=document.createElement("div");
+    boardShell.className="swatch-board-shell";
+    var saturationAxis=document.createElement("div");
+    saturationAxis.className="swatch-axis swatch-axis-x";
+    saturationAxis.setAttribute("aria-hidden","true");
+    saturationAxis.textContent="\u9971\u548c\u5ea6\uff1a\u7d20 \u2192 \u6d53";
+    var lightnessAxis=document.createElement("div");
+    lightnessAxis.className="swatch-axis swatch-axis-y";
+    lightnessAxis.setAttribute("aria-hidden","true");
+    lightnessAxis.textContent="\u660e\u5ea6\uff1a\u4eae \u2192 \u6df1";
+    board.parentNode.insertBefore(boardShell,board);
+    boardShell.appendChild(saturationAxis);
+    boardShell.appendChild(lightnessAxis);
+    boardShell.appendChild(board);
+    board.setAttribute("aria-label","\u4ea7\u54c1\u7eb9\u7406\u8272\u5361\u77e9\u9635");
+  }
   root.addEventListener("click",function(e){
     var toneBtn=e.target.closest&&e.target.closest("[data-swatch-tone]");
     if(toneBtn){
@@ -1647,6 +1737,12 @@ function getProductRenderBatchSize(){
   return window.matchMedia&&window.matchMedia("(max-width:640px)").matches?18:32;
 }
 
+function retryProductCatalog(){
+  productDataState='loading';
+  productDataError=null;
+  window.location.reload();
+}
+
 function scheduleProductRender(callback){
   if("requestIdleCallback" in window){
     requestIdleCallback(callback,{timeout:180});
@@ -1655,20 +1751,93 @@ function scheduleProductRender(callback){
   }
 }
 
+function getProductImageCandidates(product){
+  var seen={};
+  return [product.img_a_thumb,product.img_b_thumb,product.img_e_thumb,product.map_thumb,product.swatch_thumb].filter(function(src){
+    if(!src||seen[src])return false;
+    seen[src]=true;
+    return true;
+  });
+}
+
+function activateProductCardImage(image){
+  var src=image&&image.getAttribute('data-product-src');
+  if(!src)return;
+  image.removeAttribute('data-product-src');
+  image.loading='eager';
+  image.fetchPriority='auto';
+  image.src=src;
+}
+
+function ensureProductImageObserver(){
+  if(productImageObserver||!('IntersectionObserver' in window))return productImageObserver;
+  productImageObserver=new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if(!entry.isIntersecting)return;
+      productImageObserver.unobserve(entry.target);
+      activateProductCardImage(entry.target);
+    });
+  },{root:null,rootMargin:'1100px 0px',threshold:0.01});
+  return productImageObserver;
+}
+
+function primeProductCardImages(root){
+  var images=(root||document).querySelectorAll('img[data-product-src]:not([data-product-observed])');
+  var observer=ensureProductImageObserver();
+  images.forEach(function(image){
+    image.setAttribute('data-product-observed','true');
+    if(observer)observer.observe(image);
+    else activateProductCardImage(image);
+  });
+}
+
+function renderProductLoadingSkeleton(el){
+  var cardCount=window.matchMedia&&window.matchMedia("(max-width:640px)").matches?8:10;
+  var cards='';
+  for(var i=0;i<cardCount;i++)cards+='<div class="pcard product-card-skeleton" aria-hidden="true"><span></span></div>';
+  el.innerHTML=cards;
+}
+
 function createProductCard(p,index){
   var card=document.createElement("div");
   var selected=isProductSelected(p.code);
   var active=currentProd&&currentProd.code===p.code;
-  var eager=index<8;
-  var imageSrc=p.img_a_thumb||p.img_b_thumb||p.img_e_thumb||p.map_thumb||p.swatch_thumb;
-  var imageMarkup=imageSrc?'<img src="'+escapeHtml(imageSrc)+'" loading="'+(eager?"eager":"lazy")+'" fetchpriority="'+(eager?"high":"low")+'" decoding="async" alt="'+escapeHtml(p.code+' '+p.wood+' 木地板纹理')+'">':'<span class="product-card-image-placeholder" aria-hidden="true"></span>';
+  var eager=index<getProductRenderBatchSize();
+  var highPriority=index<5;
+  var imageCandidates=getProductImageCandidates(p);
+  var imageSrc=imageCandidates[0]||'';
+  var fallbackSrc=imageCandidates[1]||'';
+  var sourceAttr=eager?' src="'+escapeHtml(imageSrc)+'"':' data-product-src="'+escapeHtml(imageSrc)+'"';
+  var imageMarkup=imageSrc?'<img'+sourceAttr+' loading="'+(eager?"eager":"lazy")+'" fetchpriority="'+(highPriority?"high":eager?"auto":"low")+'" decoding="async" data-product-fallback="'+escapeHtml(fallbackSrc)+'" alt="'+escapeHtml(p.code+' '+p.wood+' 木地板纹理')+'">':'<span class="product-card-image-placeholder" aria-hidden="true"></span>';
   var swatchMarkup=p.map_thumb?'<span class="product-card-swatchbar"><i style="--swatch-color:'+escapeHtml(p.swatch_accent||"#b28247")+'"></i><b>'+escapeHtml(p.tone||"木色")+'</b><em>纹理贴图</em></span>':'';
-  card.className="pcard action-card"+(p.map_thumb?" has-swatch-assets":"")+(active?" active":"")+(selected?" selected":"");
+  card.className="pcard action-card"+(imageSrc?" image-loading":" image-failed")+(p.map_thumb?" has-swatch-assets":"")+(active?" active":"")+(selected?" selected":"");
   card.dataset.productCode=p.code;
   card.setAttribute("role","button");
   card.setAttribute("tabindex","0");
   card.setAttribute("aria-label","查看产品 "+p.code+" "+p.wood+" 详情");
   card.innerHTML=imageMarkup+swatchMarkup+'<span class="pname">'+escapeHtml(p.code)+' · '+escapeHtml(p.wood)+'</span><button class="product-save-chip" type="button" data-product-save="'+escapeHtml(p.code)+'" aria-pressed="'+(selected?"true":"false")+'" aria-label="'+(selected?"已加入选材夹，点击移除":"加入选材夹")+'">'+renderProductSaveIcon(selected)+'</button>';
+  var productImage=card.querySelector('img');
+  if(productImage){
+    productImage.addEventListener('load',function(){
+      card.classList.remove('image-loading','image-failed');
+      productImage.classList.add('product-image-ready');
+    });
+    productImage.addEventListener('error',function(){
+      var fallback=productImage.getAttribute('data-product-fallback');
+      if(fallback&&!productImage.hasAttribute('data-fallback-used')){
+        productImage.setAttribute('data-fallback-used','true');
+        productImage.removeAttribute('data-product-src');
+        productImage.src=fallback;
+        return;
+      }
+      card.classList.remove('image-loading');
+      card.classList.add('image-failed');
+    });
+    if(productImage.complete&&productImage.naturalWidth>0){
+      card.classList.remove('image-loading','image-failed');
+      productImage.classList.add('product-image-ready');
+    }
+  }
   card.onclick=function(){selectProd(p)};
   var saveBtn=card.querySelector("[data-product-save]");
   if(saveBtn){
@@ -1705,6 +1874,7 @@ function appendProductCards(el,list,start,token){
     frag.appendChild(createProductCard(list[i],i));
   }
   el.appendChild(frag);
+  primeProductCardImages(el);
   updateProductCardStates();
   if(end<list.length){
     scheduleProductRender(function(){appendProductCards(el,list,end,token)});
@@ -1713,11 +1883,19 @@ function appendProductCards(el,list,start,token){
 
 function buildProds(){
   var el=document.getElementById("prodGrid");el.innerHTML="";
+  if(productImageObserver){
+    productImageObserver.disconnect();
+    productImageObserver=null;
+  }
   productRenderToken++;
   updateFilterSummary();
   if(!PRODUCTS.length){
-    document.getElementById("prodCount").textContent="正在加载产品";
-    el.innerHTML='<div class="prod-empty"><span>LOADING</span><h3>正在整理产品纹理</h3><p>产品图片与参数正在加载，请稍候。</p></div>';
+    document.getElementById("prodCount").textContent=productDataState==='error'?'加载失败':'正在加载产品';
+    if(productDataState==='error'){
+      el.innerHTML='<div class="prod-empty"><span>LOAD FAILED</span><h3>产品资料暂时未能显示</h3><p>请重新加载，或直接联系品牌顾问获取选材资料。</p><div class="page-cta"><button type="button" class="btn-primary" onclick="retryProductCatalog()">重新加载</button><a href="#contact" class="btn-secondary">联系品牌顾问</a></div></div>';
+    }else{
+      renderProductLoadingSkeleton(el);
+    }
     syncProductSpaceRecommendation([]);
     return;
   }
