@@ -9,8 +9,15 @@ const client = path.join(dist, "client");
 
 const rootFiles = [
   "index.html",
+  "dealer-quote.html",
   "style.min.css",
+  "dealer-quote.css",
   "app.min.js",
+  "dealer-quote.js",
+  "quote-core.mjs",
+  "quote-drafts.mjs",
+  "quote-ppt.mjs",
+  "quote-content.json",
   "mini-mode.css",
   "mini-mode.js",
   "products_clean.json",
@@ -30,6 +37,10 @@ const explicitAssets = [
   "media/mini-nav/profile-active.png",
 ];
 
+const vendorFiles = [
+  ["node_modules/pptxgenjs/dist/pptxgen.bundle.js", "vendor/pptxgen.bundle.js"],
+];
+
 const runtimeFiles = [
   ...rootFiles,
   "journal/muchi_articles_data.min.js",
@@ -42,6 +53,7 @@ const workerSource = String.raw`
 const MIME_TYPES = {
   ".css": "text/css; charset=utf-8",
   ".js": "text/javascript; charset=utf-8",
+  ".mjs": "text/javascript; charset=utf-8",
   ".json": "application/json; charset=utf-8",
   ".html": "text/html; charset=utf-8",
   ".svg": "image/svg+xml",
@@ -81,7 +93,7 @@ function withAssetHeaders(response, pathname, method) {
   if (extension && MIME_TYPES[extension] && !headers.has("content-type")) {
     headers.set("content-type", MIME_TYPES[extension]);
   }
-  if (extension && /\.(css|js|json|webp|jpg|jpeg|png|gif|svg|mp4)$/i.test(extension)) {
+  if (extension && /\.(css|js|mjs|json|webp|jpg|jpeg|png|gif|svg|mp4)$/i.test(extension)) {
     headers.set("cache-control", "public, max-age=31536000, immutable");
   } else {
     headers.set("cache-control", "public, max-age=120");
@@ -135,6 +147,12 @@ for (const file of [...runtimeFiles, ...explicitAssets]) {
   const destination = path.join(client, file);
   await mkdir(path.dirname(destination), { recursive: true });
   await cp(path.join(root, file), destination);
+}
+
+for (const [sourceFile, destinationFile] of vendorFiles) {
+  const destination = path.join(client, destinationFile);
+  await mkdir(path.dirname(destination), { recursive: true });
+  await cp(path.join(root, sourceFile), destination);
 }
 
 const runtimeText = (

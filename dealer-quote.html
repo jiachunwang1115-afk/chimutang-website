@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="robots" content="noindex,nofollow,noarchive">
+  <meta name="theme-color" content="#f5f0e8">
+  <title>痴木堂经销商私定报价</title>
+  <link rel="icon" href="logo/logo.png">
+  <link rel="stylesheet" href="dealer-quote.css?v=20260721-1">
+</head>
+<body>
+  <header class="quote-topbar">
+    <a class="quote-brand" href="/" aria-label="返回痴木堂官网">
+      <img src="logo/logo.png" alt="痴木堂 WOOD ALL">
+      <span><strong>私定报价</strong><small>DEALER QUOTATION</small></span>
+    </a>
+    <div class="save-state" id="saveState" role="status"><span></span>已保存到本机</div>
+    <button class="primary-action" id="generateButton" type="button">
+      <span aria-hidden="true">↓</span> 生成并下载 PPT
+    </button>
+  </header>
+
+  <main class="quote-layout">
+    <aside class="history-panel" aria-label="历史报价">
+      <div class="panel-heading">
+        <div><span class="eyebrow">LOCAL DRAFTS</span><h2>历史报价</h2></div>
+        <button class="icon-button" id="newDraftButton" type="button" aria-label="新建报价" title="新建报价">＋</button>
+      </div>
+      <div class="history-list" id="historyList"></div>
+      <div class="history-actions">
+        <button type="button" id="duplicateDraftButton">复制</button>
+        <button type="button" id="renameDraftButton">重命名</button>
+        <button class="danger-text" type="button" id="deleteDraftButton">删除</button>
+      </div>
+      <div class="privacy-note">
+        <strong>本机报价</strong>
+        <span>客户资料与价格不会上传，清除浏览器数据会同时清除历史报价。</span>
+      </div>
+    </aside>
+
+    <form class="quote-workspace" id="quoteForm" novalidate>
+      <section class="tool-section" aria-labelledby="projectHeading">
+        <div class="section-heading">
+          <div><span class="step-number">01</span><h2 id="projectHeading">项目资料</h2></div>
+          <span class="section-status">报价有效期默认 15 天</span>
+        </div>
+        <div class="field-grid project-fields">
+          <label class="field field-wide"><span>客户 / 项目名称 <b>*</b></span><input name="project.name" autocomplete="organization" placeholder="例如：镜湖府王宅" required></label>
+          <label class="field"><span>城市</span><input name="project.city" autocomplete="address-level2" placeholder="绍兴"></label>
+          <label class="field field-address"><span>项目地址</span><input name="project.address" autocomplete="street-address" placeholder="小区、楼栋或项目地址"></label>
+          <label class="field"><span>报价日期</span><input name="project.quoteDate" type="date"></label>
+          <label class="field"><span>有效期至</span><input name="project.validUntil" type="date"></label>
+          <label class="field field-half"><span>项目需求</span><textarea name="project.needs" rows="4" placeholder="空间功能、采光、风格、地暖及日常使用偏好"></textarea></label>
+          <label class="field field-half"><span>选材建议</span><textarea name="project.advice" rows="4" placeholder="为什么推荐本次木种、结构、颜色与规格"></textarea></label>
+        </div>
+      </section>
+
+      <section class="tool-section" aria-labelledby="linesHeading">
+        <div class="section-heading">
+          <div><span class="step-number">02</span><h2 id="linesHeading">产品明细</h2></div>
+          <button class="secondary-action" id="addLineButton" type="button"><span aria-hidden="true">＋</span> 添加明细</button>
+        </div>
+        <div class="line-column-head" aria-hidden="true">
+          <span>空间 / 产品</span><span>净面积</span><span>损耗率</span><span>计价面积</span><span>单价</span><span>选材备注</span><span></span>
+        </div>
+        <div class="quote-lines" id="quoteLines"></div>
+        <div class="line-limit" id="lineLimit">最多 8 条空间 / 产品明细</div>
+      </section>
+
+      <section class="tool-section" aria-labelledby="feesHeading">
+        <div class="section-heading">
+          <div><span class="step-number">03</span><h2 id="feesHeading">费用与税率</h2></div>
+          <span class="section-status">未填写的可选费用不会进入 PPT</span>
+        </div>
+        <div class="field-grid fees-grid">
+          <label class="field"><span>辅材单价（元 / m²）</span><input name="fees.accessoryUnitPrice" type="number" min="0" step="0.01" inputmode="decimal" placeholder="0.00"></label>
+          <label class="field"><span>安装单价（元 / m²）</span><input name="fees.installationUnitPrice" type="number" min="0" step="0.01" inputmode="decimal" placeholder="0.00"></label>
+          <label class="field"><span>运输费（元）</span><input name="fees.transportAmount" type="number" min="0" step="0.01" inputmode="decimal" placeholder="0.00"></label>
+          <label class="field"><span>其他费用（元）</span><input name="fees.otherAmount" type="number" min="0" step="0.01" inputmode="decimal" placeholder="0.00"></label>
+          <label class="field field-half"><span>其他费用说明</span><input name="fees.otherLabel" placeholder="填写费用后必填，例如：楼层搬运费"></label>
+          <div class="field field-half">
+            <span>折扣方式</span>
+            <div class="compound-control">
+              <select name="discount.type" aria-label="折扣方式"><option value="percent">按比例</option><option value="fixed">固定金额</option></select>
+              <input name="discount.value" type="number" min="0" step="0.01" inputmode="decimal" aria-label="折扣数值" placeholder="0">
+              <span class="input-suffix" id="discountSuffix">%</span>
+            </div>
+          </div>
+          <div class="field field-half">
+            <span>计税方式</span>
+            <div class="segmented-control" role="group" aria-label="计税方式">
+              <label><input type="radio" name="tax.mode" value="included"><span>输入价含税</span></label>
+              <label><input type="radio" name="tax.mode" value="excluded"><span>输入价未税</span></label>
+            </div>
+          </div>
+          <label class="field field-tax"><span>税率（%）</span><input name="tax.rate" type="number" min="0" step="0.01" inputmode="decimal" placeholder="13"></label>
+          <label class="field field-full"><span>报价条款</span><textarea name="terms" rows="4"></textarea></label>
+        </div>
+      </section>
+    </form>
+
+    <aside class="summary-panel" aria-label="金额汇总">
+      <div class="summary-sticky">
+        <span class="eyebrow">QUOTATION TOTAL</span>
+        <h2>金额汇总</h2>
+        <div class="summary-metrics">
+          <div><span>净面积</span><strong id="totalNetArea">0.00 m²</strong></div>
+          <div><span>计价面积</span><strong id="totalBillableArea">0.00 m²</strong></div>
+        </div>
+        <dl class="summary-breakdown" id="summaryBreakdown"></dl>
+        <div class="summary-total"><span>报价总额</span><strong id="grandTotal">¥0.00</strong><small id="taxSummary">输入价含税</small></div>
+        <div class="validation-summary" id="validationSummary" role="alert" hidden></div>
+        <button class="primary-action summary-generate" id="summaryGenerateButton" type="button"><span aria-hidden="true">↓</span> 生成并下载 PPT</button>
+        <p class="generation-status" id="generationStatus" role="status"></p>
+      </div>
+    </aside>
+  </main>
+
+  <div class="product-popover" id="productPopover" role="listbox" aria-label="产品搜索结果" hidden></div>
+  <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+  <script src="vendor/pptxgen.bundle.js"></script>
+  <script type="module" src="dealer-quote.js?v=20260721-1"></script>
+</body>
+</html>

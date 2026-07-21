@@ -5,9 +5,14 @@
   "type": "module",
   "scripts": {
     "build": "node scripts/build-sites.mjs",
-    "preview": "node scripts/serve-static.mjs"
+    "preview": "node scripts/serve-static.mjs",
+    "test:quote": "node scripts/test-dealer-quote.mjs",
+    "fixtures:quote": "node scripts/generate-quote-fixtures.mjs"
   },
   "engines": {
     "node": ">=22.13.0"
+  },
+  "dependencies": {
+    "pptxgenjs": "4.0.1"
   }
 }

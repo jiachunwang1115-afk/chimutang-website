@@ -11,6 +11,7 @@ const port = Number(process.env.PORT || 4173);
 const types = {
   ".css": "text/css; charset=utf-8",
   ".js": "text/javascript; charset=utf-8",
+  ".mjs": "text/javascript; charset=utf-8",
   ".json": "application/json; charset=utf-8",
   ".html": "text/html; charset=utf-8",
   ".png": "image/png",
@@ -25,6 +26,9 @@ function resolveRequest(url) {
   const parsed = new URL(url, `http://127.0.0.1:${port}`);
   let pathname = decodeURIComponent(parsed.pathname);
   if (!pathname || pathname === "/") pathname = "/index.html";
+  if (pathname === "/vendor/pptxgen.bundle.js") {
+    return path.join(root, "node_modules", "pptxgenjs", "dist", "pptxgen.bundle.js");
+  }
   const resolved = path.resolve(root, `.${pathname}`);
   if (!resolved.startsWith(root)) return null;
   return resolved;
