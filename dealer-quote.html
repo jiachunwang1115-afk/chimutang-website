@@ -16,9 +16,10 @@
       <span><strong>私定报价</strong><small>DEALER QUOTATION</small></span>
     </a>
     <div class="save-state" id="saveState" role="status"><span></span>已保存到本机</div>
-    <button class="primary-action" id="generateButton" type="button">
-      <span aria-hidden="true">↓</span> 生成并下载 PPT
-    </button>
+    <div class="download-actions" aria-label="报价文件下载">
+      <button class="primary-action" id="generateButton" type="button"><span aria-hidden="true">↓</span> 下载 PPT</button>
+      <button class="secondary-action" id="generatePdfButton" type="button"><span aria-hidden="true">↓</span> 下载 PDF</button>
+    </div>
   </header>
 
   <main class="quote-layout">
@@ -71,7 +72,7 @@
       <section class="tool-section" aria-labelledby="feesHeading">
         <div class="section-heading">
           <div><span class="step-number">03</span><h2 id="feesHeading">费用与税率</h2></div>
-          <span class="section-status">未填写的可选费用不会进入 PPT</span>
+          <span class="section-status">未填写的可选费用不会进入报价文件</span>
         </div>
         <div class="field-grid fees-grid">
           <label class="field"><span>辅材单价（元 / m²）</span><input name="fees.accessoryUnitPrice" type="number" min="0" step="0.01" inputmode="decimal" placeholder="0.00"></label>
@@ -111,7 +112,10 @@
         <dl class="summary-breakdown" id="summaryBreakdown"></dl>
         <div class="summary-total"><span>报价总额</span><strong id="grandTotal">¥0.00</strong><small id="taxSummary">输入价含税</small></div>
         <div class="validation-summary" id="validationSummary" role="alert" hidden></div>
-        <button class="primary-action summary-generate" id="summaryGenerateButton" type="button"><span aria-hidden="true">↓</span> 生成并下载 PPT</button>
+        <div class="summary-downloads">
+          <button class="primary-action summary-generate" id="summaryGenerateButton" type="button"><span aria-hidden="true">↓</span> 下载 PPT</button>
+          <button class="secondary-action summary-generate" id="summaryGeneratePdfButton" type="button"><span aria-hidden="true">↓</span> 下载 PDF</button>
+        </div>
         <p class="generation-status" id="generationStatus" role="status"></p>
       </div>
     </aside>
@@ -120,6 +124,7 @@
   <div class="product-popover" id="productPopover" role="listbox" aria-label="产品搜索结果" hidden></div>
   <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
   <script src="vendor/pptxgen.bundle.js?v=4.0.1-standalone-1"></script>
-  <script type="module" src="dealer-quote.js?v=20260721-1"></script>
+  <script src="vendor/pdf-lib.min.js?v=1.17.1-standalone-1"></script>
+  <script type="module" src="dealer-quote.js?v=20260721-3"></script>
 </body>
 </html>

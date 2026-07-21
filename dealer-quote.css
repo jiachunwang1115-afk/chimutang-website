@@ -48,6 +48,7 @@ input, textarea, select { color: var(--ink); }
 .save-state { display: inline-flex; align-items: center; gap: 7px; margin-right: 18px; color: var(--muted); font-size: 12px; white-space: nowrap; }
 .save-state span { width: 7px; height: 7px; border-radius: 50%; background: var(--success); }
 .save-state.is-saving span { background: var(--wood); }
+.download-actions { display: flex; gap: 8px; }
 
 .primary-action, .secondary-action, .history-actions button {
   min-height: 40px;
@@ -189,7 +190,8 @@ input, textarea, select { color: var(--ink); }
 .summary-total { display: grid; }
 .summary-total strong { margin-top: 7px; color: var(--brown); font-size: 27px; white-space: nowrap; }
 .summary-total small { margin-top: 5px; color: var(--muted); font-size: 10px; }
-.summary-generate { width: 100%; margin-top: 20px; }
+.summary-downloads { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 20px; }
+.summary-generate { width: 100%; padding-inline: 10px; }
 .validation-summary { margin-top: 16px; border-left: 3px solid var(--danger); padding: 9px 10px; background: #f4e4e1; color: #7c2c25; font-size: 11px; line-height: 1.55; }
 .generation-status { min-height: 30px; margin: 10px 0 0; color: var(--muted); font-size: 10px; line-height: 1.5; }
 .generation-status.is-error { color: var(--danger); }
@@ -223,7 +225,8 @@ input, textarea, select { color: var(--ink); }
   .quote-brand img { width: 42px; height: 38px; }
   .quote-brand strong { font-size: 15px; }
   .save-state { grid-column: 1 / -1; grid-row: 2; margin: 3px 0 0; padding-left: 54px; font-size: 9px; }
-  .quote-topbar > .primary-action { min-height: 38px; padding: 0 10px; font-size: 12px; }
+  .download-actions { gap: 6px; }
+  .download-actions .primary-action, .download-actions .secondary-action { min-height: 38px; padding: 0 9px; font-size: 11px; }
   .quote-layout { display: block; }
   .history-panel { padding: 12px; }
   .history-panel .panel-heading { margin-bottom: 10px; }
@@ -247,8 +250,7 @@ input, textarea, select { color: var(--ink); }
 
 @media (max-width: 390px) {
   .quote-brand small { display: none; }
-  .quote-topbar > .primary-action { width: 42px; padding: 0; font-size: 0; }
-  .quote-topbar > .primary-action span { font-size: 19px; }
+  .download-actions .primary-action, .download-actions .secondary-action { padding: 0 7px; font-size: 10px; }
   .save-state { padding-left: 0; }
   .section-heading { align-items: flex-start; }
   .section-heading .secondary-action { min-height: 34px; padding: 0 8px; font-size: 11px; }

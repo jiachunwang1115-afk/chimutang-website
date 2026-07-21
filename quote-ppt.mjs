@@ -1,65 +1,132 @@
 import { buildDeckModel, centsToYuan, normalizeSeriesName } from "./quote-core.mjs";
 
 const CDN_BASE = "https://cdn.jsdelivr.net/gh/jiachunwang1115-afk/chimutang-website@ec37226/product-assets/catalog/";
-const FONT = "Microsoft YaHei";
+const TITLE_FONT = "Microsoft YaHei Light";
+const BODY_FONT = "Microsoft YaHei";
+const LATIN_FONT = "Aptos";
 const W = 13.333;
 const H = 7.5;
 const C = {
-  paper: "F5F0E8",
-  paperLight: "FBF8F2",
-  ink: "2E251F",
-  brown: "5B3928",
-  wood: "A36F46",
+  paper: "F3EFE8",
+  paperLight: "FAF8F4",
+  ink: "241F1B",
+  brown: "5A3827",
+  wood: "9A6741",
   clay: "B98A62",
-  line: "D8CCBE",
-  muted: "796B60",
-  white: "FFFDF8",
-  green: "68715C",
+  line: "D8CFC5",
+  muted: "746B63",
+  white: "FFFDF9",
+  soft: "E9E2D9",
+  sage: "697064",
 };
 
 const currency = (cents) => new Intl.NumberFormat("zh-CN", {
   style: "currency",
   currency: "CNY",
   minimumFractionDigits: 2,
-}).format(centsToYuan(cents));
+}).format(centsToYuan(cents)).replace("CN¥", "¥");
 
 const dateText = (value) => {
   const match = String(value || "").match(/^(\d{4})-(\d{2})-(\d{2})$/);
   return match ? `${match[1]}.${match[2]}.${match[3]}` : String(value || "");
 };
 
-const safeName = (value) => String(value || "项目").replace(/[\\/:*?"<>|]/g, "-").replace(/\s+/g, " ").trim().slice(0, 40) || "项目";
+const safeName = (value) => String(value || "项目")
+  .replace(/[\\/:*?"<>|]/g, "-")
+  .replace(/\s+/g, " ")
+  .trim()
+  .slice(0, 40) || "项目";
+
+const imageSource = (asset) => asset?.data ? { data: asset.data } : { path: asset?.path };
+
+function containRect(asset, x, y, w, h) {
+  const ratio = Number(asset?.width) > 0 && Number(asset?.height) > 0
+    ? Number(asset.width) / Number(asset.height)
+    : w / h;
+  if (ratio >= w / h) {
+    const fittedH = w / ratio;
+    return { x, y: y + (h - fittedH) / 2, w, h: fittedH };
+  }
+  const fittedW = h * ratio;
+  return { x: x + (w - fittedW) / 2, y, w: fittedW, h };
+}
 
 function addImage(slide, asset, x, y, w, h, mode = "cover") {
   if (!asset) {
-    slide.addShape("rect", { x, y, w, h, fill: { color: "E7DED3" }, line: { color: "D4C6B7", width: 0.8 } });
-    slide.addText("图片未载入\n产品参数仍可编辑", { x: x + 0.2, y: y + h / 2 - 0.3, w: w - 0.4, h: 0.6, fontFace: FONT, fontSize: 14, color: C.muted, align: "center", valign: "mid", margin: 0 });
+    slide.addShape("rect", { x, y, w, h, fill: { color: C.soft }, line: { color: C.line, width: 0.6 } });
+    slide.addText("图片暂未载入", {
+      x: x + 0.2, y: y + h / 2 - 0.15, w: w - 0.4, h: 0.3,
+      fontFace: BODY_FONT, fontSize: 14, color: C.muted, align: "center", margin: 0,
+    });
     return;
   }
-  const source = asset.data ? { data: asset.data } : { path: asset.path };
-  slide.addImage({ ...source, x, y, w, h, sizing: { type: mode, w, h } });
+  const source = imageSource(asset);
+  if (mode === "contain") {
+    slide.addImage({ ...source, ...containRect(asset, x, y, w, h) });
+    return;
+  }
+  slide.addImage({ ...source, x, y, w, h });
 }
 
-function addImageVeil(slide, x, y, w, h, transparency = 35) {
-  slide.addShape("rect", { x, y, w, h, fill: { color: "1D1713", transparency }, line: { color: "1D1713", transparency: 100 } });
-}
-
-function addPageChrome(slide, section, page, dark = false) {
-  const color = dark ? C.white : C.muted;
-  slide.addText("WOOD ALL  ·  PRIVATE QUOTATION", { x: 0.62, y: 0.28, w: 4.7, h: 0.2, fontFace: FONT, fontSize: 10, bold: true, color, charSpacing: 1.2, margin: 0 });
-  slide.addText(`${section}   ${String(page).padStart(2, "0")}`, { x: 10.9, y: 0.28, w: 1.8, h: 0.2, fontFace: FONT, fontSize: 10, color, align: "right", margin: 0 });
+function addPageChrome(slide, section, page, dark = false, x = 0.68) {
+  const color = dark ? "E6DDD4" : C.muted;
+  slide.addText("WOOD ALL  /  PRIVATE PROPOSAL", {
+    x, y: 0.28, w: 4.5, h: 0.2, fontFace: LATIN_FONT, fontSize: 9,
+    color, charSpacing: 1.2, margin: 0,
+  });
+  slide.addText(`${section}  ${String(page).padStart(2, "0")}`, {
+    x: 10.75, y: 0.28, w: 1.9, h: 0.2, fontFace: LATIN_FONT, fontSize: 9,
+    color, align: "right", charSpacing: 0.7, margin: 0,
+  });
 }
 
 function addSlideTitle(slide, eyebrow, title, subtitle = "") {
-  slide.addText(eyebrow, { x: 0.68, y: 0.72, w: 3.8, h: 0.24, fontFace: FONT, fontSize: 11, bold: true, color: C.wood, charSpacing: 1.6, margin: 0 });
-  slide.addText(title, { x: 0.66, y: 1.02, w: 8.7, h: 0.58, fontFace: FONT, fontSize: 36, bold: true, color: C.ink, margin: 0, breakLine: false });
-  if (subtitle) slide.addText(subtitle, { x: 9.2, y: 1.1, w: 3.45, h: 0.38, fontFace: FONT, fontSize: 15, color: C.muted, align: "right", margin: 0, fit: "shrink" });
-  slide.addShape("line", { x: 0.68, y: 1.72, w: 12.0, h: 0, line: { color: C.line, width: 1 } });
+  slide.addText(eyebrow, {
+    x: 0.7, y: 0.72, w: 4.1, h: 0.22, fontFace: LATIN_FONT, fontSize: 10,
+    color: C.wood, charSpacing: 1.6, margin: 0,
+  });
+  slide.addText(title, {
+    x: 0.68, y: 1.03, w: 9.0, h: 0.62, fontFace: TITLE_FONT, fontSize: 36,
+    bold: false, color: C.ink, margin: 0, fit: "shrink", breakLine: false,
+  });
+  if (subtitle) {
+    slide.addText(subtitle, {
+      x: 9.35, y: 1.16, w: 3.3, h: 0.28, fontFace: BODY_FONT, fontSize: 14,
+      color: C.muted, align: "right", margin: 0, fit: "shrink",
+    });
+  }
+  slide.addShape("line", { x: 0.7, y: 1.78, w: 11.95, h: 0, line: { color: C.line, width: 0.8 } });
 }
 
 function addLabelValue(slide, label, value, x, y, w, options = {}) {
-  slide.addText(label, { x, y, w, h: 0.2, fontFace: FONT, fontSize: 10, bold: true, color: options.dark ? "D7C7B8" : C.muted, charSpacing: 0.8, margin: 0 });
-  slide.addText(value || "-", { x, y: y + 0.25, w, h: options.h || 0.42, fontFace: FONT, fontSize: options.size || 18, bold: options.bold || false, color: options.dark ? C.white : C.ink, margin: 0, valign: "top", fit: "shrink" });
+  slide.addText(label, {
+    x, y, w, h: 0.2, fontFace: BODY_FONT, fontSize: 10,
+    color: options.dark ? "CFC0B4" : C.muted, margin: 0,
+  });
+  slide.addText(value || "-", {
+    x, y: y + 0.28, w, h: options.h || 0.4, fontFace: options.latin ? LATIN_FONT : BODY_FONT,
+    fontSize: options.size || 17, bold: false, color: options.dark ? C.white : C.ink,
+    margin: 0, valign: "top", fit: "shrink",
+  });
+}
+
+function addSectionCopy(slide, number, title, text, x, y, w, dark = false) {
+  const ink = dark ? C.white : C.ink;
+  const muted = dark ? "D9CCC1" : C.muted;
+  slide.addText(number, {
+    x, y, w: 0.42, h: 0.22, fontFace: LATIN_FONT, fontSize: 11,
+    color: dark ? "D6B18E" : C.wood, margin: 0,
+  });
+  slide.addShape("line", { x: x + 0.55, y: y + 0.12, w: 0.6, h: 0, line: { color: dark ? "8A6954" : C.line, width: 1 } });
+  slide.addText(title, {
+    x: x + 1.35, y: y - 0.05, w: w - 1.35, h: 0.4,
+    fontFace: TITLE_FONT, fontSize: 22, color: ink, margin: 0, fit: "shrink",
+  });
+  slide.addText(text, {
+    x: x + 1.35, y: y + 0.56, w: w - 1.35, h: 0.9,
+    fontFace: BODY_FONT, fontSize: 17, color: muted, margin: 0,
+    breakLine: true, valign: "top", fit: "shrink",
+  });
 }
 
 function asCandidateList(value) {
@@ -84,25 +151,39 @@ export async function createBrowserImageProvider() {
     const urls = asCandidateList(candidates).flatMap(productUrls);
     for (const url of urls) {
       const absolute = /^(https?:|data:)/.test(url) ? url : new URL(url, window.location.href).href;
-      const key = `${absolute}|${options.format || "jpeg"}|${options.maxWidth || 1600}`;
+      const key = `${absolute}|${options.format || "jpeg"}|${options.maxWidth || 1600}|${options.aspectRatio || "auto"}`;
       if (cache.has(key)) return cache.get(key);
       try {
         const response = await fetch(absolute, { method: "GET", credentials: "omit", cache: "force-cache" });
         if (!response.ok) continue;
         const blob = await response.blob();
         const bitmap = await createImageBitmap(blob);
-        const scale = Math.min(1, (options.maxWidth || 1600) / bitmap.width, (options.maxHeight || 1200) / bitmap.height);
+        let sx = 0;
+        let sy = 0;
+        let sourceWidth = bitmap.width;
+        let sourceHeight = bitmap.height;
+        const targetRatio = Number(options.aspectRatio);
+        if (targetRatio > 0) {
+          if (bitmap.width / bitmap.height > targetRatio) {
+            sourceWidth = bitmap.height * targetRatio;
+            sx = (bitmap.width - sourceWidth) / 2;
+          } else {
+            sourceHeight = bitmap.width / targetRatio;
+            sy = (bitmap.height - sourceHeight) / 2;
+          }
+        }
+        const scale = Math.min(1, (options.maxWidth || 1600) / sourceWidth, (options.maxHeight || 1200) / sourceHeight);
         const canvas = document.createElement("canvas");
-        canvas.width = Math.max(1, Math.round(bitmap.width * scale));
-        canvas.height = Math.max(1, Math.round(bitmap.height * scale));
+        canvas.width = Math.max(1, Math.round(sourceWidth * scale));
+        canvas.height = Math.max(1, Math.round(sourceHeight * scale));
         const context = canvas.getContext("2d", { alpha: options.format === "png" });
         if (options.format !== "png") {
-          context.fillStyle = "#F5F0E8";
+          context.fillStyle = "#F3EFE8";
           context.fillRect(0, 0, canvas.width, canvas.height);
         }
-        context.drawImage(bitmap, 0, 0, canvas.width, canvas.height);
+        context.drawImage(bitmap, sx, sy, sourceWidth, sourceHeight, 0, 0, canvas.width, canvas.height);
         bitmap.close();
-        const data = canvas.toDataURL(options.format === "png" ? "image/png" : "image/jpeg", options.quality || 0.84);
+        const data = canvas.toDataURL(options.format === "png" ? "image/png" : "image/jpeg", options.quality || 0.86);
         const result = { data, width: canvas.width, height: canvas.height, source: absolute };
         cache.set(key, result);
         return result;
@@ -116,20 +197,23 @@ export async function createBrowserImageProvider() {
 
 async function prepareAssets(model, provider) {
   const brand = model.content.brand;
+  const firstProduct = model.products[0];
+  const heroCandidates = firstProduct?.sceneCandidates?.length ? firstProduct.sceneCandidates : brand.image;
   const result = {
-    logo: await provider(brand.logo, { format: "png", maxWidth: 700, maxHeight: 320 }),
-    brand: await provider(brand.image, { maxWidth: 1600, maxHeight: 1200 }),
+    hero: await provider(heroCandidates, { maxWidth: 1600, maxHeight: 1600, aspectRatio: (W - 5.75) / H }),
+    logo: await provider(brand.logo, { format: "png", maxWidth: 900, maxHeight: 700 }),
+    brand: await provider(brand.image, { maxWidth: 1200, maxHeight: 1600, aspectRatio: (W - 7.88) / H }),
     series: new Map(),
     products: new Map(),
   };
   await Promise.all(model.series.map(async (series) => {
-    result.series.set(series.key, await provider(series.representativeImage, { maxWidth: 1600, maxHeight: 1200 }));
+    result.series.set(series.key, await provider(series.representativeImage, { maxWidth: 1200, maxHeight: 1600, aspectRatio: 7.15 / H }));
   }));
   await Promise.all(model.products.map(async (product) => {
     const [scene, detail, texture] = await Promise.all([
-      provider(product.sceneCandidates, { maxWidth: 1700, maxHeight: 1200 }),
-      provider(product.detailCandidates, { maxWidth: 1200, maxHeight: 1000 }),
-      provider(product.textureCandidates, { maxWidth: 1200, maxHeight: 1000 }),
+      provider(product.sceneCandidates, { maxWidth: 1600, maxHeight: 1100, aspectRatio: 7.15 / 4.65 }),
+      provider(product.detailCandidates, { maxWidth: 1000, maxHeight: 600, aspectRatio: 3.45 / 1.36 }),
+      provider(product.textureCandidates, { maxWidth: 1000, maxHeight: 600, aspectRatio: 3.47 / 1.36 }),
     ]);
     result.products.set(product.code, { scene, detail, texture });
   }));
@@ -141,32 +225,41 @@ function createPpt(PptxCtor) {
   pptx.layout = "LAYOUT_WIDE";
   pptx.author = "痴木堂 WOOD ALL";
   pptx.company = "痴木堂 WOOD ALL";
-  pptx.subject = "客户私定报价方案";
-  pptx.title = "痴木堂私定报价方案";
+  pptx.subject = "原木地板私定提案";
+  pptx.title = "痴木堂原木地板私定提案";
   pptx.lang = "zh-CN";
-  pptx.theme = {
-    headFontFace: FONT,
-    bodyFontFace: FONT,
-    lang: "zh-CN",
-  };
+  pptx.theme = { headFontFace: TITLE_FONT, bodyFontFace: BODY_FONT, lang: "zh-CN" };
   return pptx;
 }
 
 function coverSlide(pptx, model, assets, page) {
   const slide = pptx.addSlide();
-  slide.background = { color: C.brown };
-  const hero = assets.products.get(model.products[0]?.code)?.scene || assets.brand;
-  addImage(slide, hero, 0, 0, W, H, "cover");
-  addImageVeil(slide, 0, 0, W, H, 37);
-  addPageChrome(slide, "PROPOSAL", page, true);
-  if (assets.logo) addImage(slide, assets.logo, 0.65, 0.62, 1.45, 0.62, "contain");
-  else slide.addText("痴木堂\nWOOD ALL", { x: 0.66, y: 0.62, w: 1.7, h: 0.65, fontFace: FONT, fontSize: 18, bold: true, color: C.white, margin: 0 });
-  slide.addText("私定报价方案", { x: 0.68, y: 2.25, w: 6.5, h: 0.82, fontFace: FONT, fontSize: 54, bold: true, color: C.white, margin: 0, breakLine: false });
-  slide.addText(model.draft.project.name || "客户项目", { x: 0.7, y: 3.24, w: 6.3, h: 0.55, fontFace: FONT, fontSize: 26, color: C.white, margin: 0, fit: "shrink" });
-  slide.addShape("line", { x: 0.7, y: 4.08, w: 1.2, h: 0, line: { color: "D4AA7D", width: 3 } });
-  slide.addText("以真实产品、明确范围与专业交付，完成一次可核验的选材决策。", { x: 0.7, y: 4.38, w: 5.5, h: 0.65, fontFace: FONT, fontSize: 18, color: C.white, breakLine: true, margin: 0, fit: "shrink" });
-  addLabelValue(slide, "报价日期", dateText(model.draft.project.quoteDate), 9.0, 5.7, 1.7, { dark: true, size: 16 });
-  addLabelValue(slide, "有效期至", dateText(model.draft.project.validUntil), 10.9, 5.7, 1.7, { dark: true, size: 16 });
+  slide.background = { color: C.paperLight };
+  addImage(slide, assets.hero, 5.75, 0, W - 5.75, H, "cover");
+  slide.addShape("rect", { x: 0, y: 0, w: 5.78, h: H, fill: { color: C.paperLight }, line: { color: C.paperLight } });
+  slide.addShape("rect", { x: 5.72, y: 0, w: 0.06, h: H, fill: { color: C.wood }, line: { color: C.wood } });
+  if (assets.logo) addImage(slide, assets.logo, 0.72, 0.58, 1.12, 0.86, "contain");
+  else slide.addText("痴木堂\nWOOD ALL", { x: 0.72, y: 0.58, w: 1.6, h: 0.7, fontFace: BODY_FONT, fontSize: 16, color: C.brown, margin: 0 });
+  slide.addText("PRIVATE PROPOSAL", {
+    x: 0.72, y: 1.72, w: 2.8, h: 0.22, fontFace: LATIN_FONT, fontSize: 10,
+    color: C.wood, charSpacing: 2.1, margin: 0,
+  });
+  slide.addText("原木地板\n私定提案", {
+    x: 0.68, y: 2.08, w: 4.5, h: 1.62, fontFace: TITLE_FONT, fontSize: 50,
+    bold: false, color: C.ink, breakLine: true, margin: 0, fit: "shrink",
+  });
+  slide.addText(`为「${model.draft.project.name || "客户项目"}」而作`, {
+    x: 0.72, y: 4.05, w: 4.35, h: 0.46, fontFace: BODY_FONT, fontSize: 22,
+    color: C.brown, margin: 0, fit: "shrink",
+  });
+  slide.addShape("line", { x: 0.72, y: 4.82, w: 0.9, h: 0, line: { color: C.clay, width: 2 } });
+  slide.addText("选材  /  配置  /  报价  /  交付", {
+    x: 0.72, y: 5.08, w: 3.8, h: 0.3, fontFace: BODY_FONT, fontSize: 15,
+    color: C.muted, margin: 0,
+  });
+  addLabelValue(slide, "报价日期", dateText(model.draft.project.quoteDate), 0.72, 6.4, 1.55, { size: 14, latin: true });
+  addLabelValue(slide, "有效期至", dateText(model.draft.project.validUntil), 2.52, 6.4, 1.55, { size: 14, latin: true });
+  slide.addText(String(page).padStart(2, "0"), { x: 4.8, y: 6.88, w: 0.3, h: 0.2, fontFace: LATIN_FONT, fontSize: 9, color: C.muted, align: "right", margin: 0 });
   return slide;
 }
 
@@ -174,33 +267,42 @@ function projectSlide(pptx, model, page) {
   const slide = pptx.addSlide();
   slide.background = { color: C.paperLight };
   addPageChrome(slide, "PROJECT", page);
-  addSlideTitle(slide, "01  PROJECT BRIEF", "先理解空间，再决定木材", model.draft.project.city || "项目需求");
-  addLabelValue(slide, "客户 / 项目", model.draft.project.name, 0.72, 2.08, 3.7, { size: 24, bold: true });
-  addLabelValue(slide, "项目地址", [model.draft.project.city, model.draft.project.address].filter(Boolean).join(" · ") || "待补充", 0.72, 3.08, 3.7, { h: 0.72, size: 16 });
-  addLabelValue(slide, "方案有效期", `${dateText(model.draft.project.quoteDate)} — ${dateText(model.draft.project.validUntil)}`, 0.72, 4.08, 3.7, { size: 16 });
-  slide.addShape("rect", { x: 4.7, y: 2.04, w: 3.8, h: 3.9, fill: { color: "EAE1D6" }, line: { color: "EAE1D6" } });
-  slide.addText("项目需求", { x: 5.05, y: 2.38, w: 2.8, h: 0.35, fontFace: FONT, fontSize: 24, bold: true, color: C.brown, margin: 0 });
-  slide.addText(model.draft.project.needs || "结合空间功能、采光、风格与日常使用方式，确认木地板的视觉方向与性能重点。", { x: 5.05, y: 3.0, w: 3.05, h: 2.3, fontFace: FONT, fontSize: 17, color: C.ink, breakLine: true, valign: "top", margin: 0.02, fit: "shrink" });
-  slide.addShape("rect", { x: 8.75, y: 2.04, w: 3.86, h: 3.9, fill: { color: C.brown }, line: { color: C.brown } });
-  slide.addText("选材建议", { x: 9.1, y: 2.38, w: 2.8, h: 0.35, fontFace: FONT, fontSize: 24, bold: true, color: C.white, margin: 0 });
-  slide.addText(model.draft.project.advice || "本方案以真实图库与完整参数为依据，兼顾空间连续性、木材天然表现和后续交付范围。", { x: 9.1, y: 3.0, w: 3.08, h: 2.3, fontFace: FONT, fontSize: 17, color: C.white, breakLine: true, valign: "top", margin: 0.02, fit: "shrink" });
+  addSlideTitle(slide, "PROJECT / 项目判断", "先读懂空间，再选择木材", model.draft.project.city || "项目需求");
+  const needs = model.draft.project.needs || "空间的尺度、光线与日常使用，共同决定木材应有的色泽、纹理与结构。";
+  const advice = model.draft.project.advice || "先建立整体木色，再以板型、表面与铺装方向，校准每个空间的气质。";
+  addSectionCopy(slide, "01", "本案所求", needs, 0.72, 2.35, 5.65);
+  addSectionCopy(slide, "02", "我们的判断", advice, 6.78, 2.35, 5.85);
+  slide.addShape("line", { x: 0.72, y: 5.18, w: 11.9, h: 0, line: { color: C.line, width: 0.8 } });
+  addLabelValue(slide, "客户 / 项目", model.draft.project.name, 0.72, 5.62, 3.3, { size: 20 });
+  addLabelValue(slide, "项目地址", [model.draft.project.city, model.draft.project.address].filter(Boolean).join(" · ") || "待补充", 4.35, 5.62, 4.2, { size: 16 });
+  addLabelValue(slide, "方案有效期", `${dateText(model.draft.project.quoteDate)} — ${dateText(model.draft.project.validUntil)}`, 9.0, 5.62, 3.0, { size: 16, latin: true });
   return slide;
 }
 
 function brandSlide(pptx, model, assets, page) {
   const slide = pptx.addSlide();
   slide.background = { color: C.paper };
+  addImage(slide, assets.brand, 7.88, 0, W - 7.88, H, "cover");
+  slide.addShape("rect", { x: 0, y: 0, w: 7.92, h: H, fill: { color: C.paper }, line: { color: C.paper } });
   addPageChrome(slide, "BRAND", page);
-  addImage(slide, assets.brand, 7.7, 0, 5.633, H, "cover");
-  slide.addShape("rect", { x: 0, y: 0, w: 7.9, h: H, fill: { color: C.paper }, line: { color: C.paper } });
-  slide.addText("WOOD ALL", { x: 0.72, y: 0.86, w: 2.4, h: 0.25, fontFace: FONT, fontSize: 11, bold: true, color: C.wood, charSpacing: 2.2, margin: 0 });
-  slide.addText(model.content.brand.headline, { x: 0.7, y: 1.32, w: 6.25, h: 0.86, fontFace: FONT, fontSize: 38, bold: true, color: C.ink, margin: 0, fit: "shrink" });
-  slide.addText(model.content.brand.summary, { x: 0.72, y: 2.45, w: 5.9, h: 1.1, fontFace: FONT, fontSize: 18, color: C.muted, breakLine: true, margin: 0, fit: "shrink" });
-  model.content.brand.proofs.forEach((proof, index) => {
-    const y = 4.0 + index * 0.8;
-    slide.addText(String(index + 1).padStart(2, "0"), { x: 0.72, y, w: 0.45, h: 0.25, fontFace: FONT, fontSize: 13, bold: true, color: C.wood, margin: 0 });
-    slide.addShape("line", { x: 1.22, y: y + 0.12, w: 0.42, h: 0, line: { color: C.clay, width: 1.5 } });
-    slide.addText(proof, { x: 1.82, y: y - 0.04, w: 4.95, h: 0.54, fontFace: FONT, fontSize: 16, color: C.ink, margin: 0, fit: "shrink" });
+  slide.addText("WOOD ALL / 痴木堂", {
+    x: 0.72, y: 0.86, w: 3.2, h: 0.24, fontFace: LATIN_FONT, fontSize: 10,
+    color: C.wood, charSpacing: 1.7, margin: 0,
+  });
+  slide.addText(model.content.brand.headline, {
+    x: 0.7, y: 1.35, w: 6.45, h: 1.05, fontFace: TITLE_FONT, fontSize: 38,
+    bold: false, color: C.ink, margin: 0, fit: "shrink",
+  });
+  slide.addText(model.content.brand.summary, {
+    x: 0.72, y: 2.68, w: 6.2, h: 0.9, fontFace: BODY_FONT, fontSize: 18,
+    color: C.muted, margin: 0, fit: "shrink", breakLine: true,
+  });
+  (model.content.brand.proofs || []).slice(0, 3).forEach((proof, index) => {
+    const item = typeof proof === "string" ? { title: String(index + 1).padStart(2, "0"), text: proof } : proof;
+    const y = 4.0 + index * 0.86;
+    slide.addShape("line", { x: 0.72, y: y - 0.12, w: 6.25, h: 0, line: { color: C.line, width: 0.8 } });
+    slide.addText(item.title, { x: 0.72, y, w: 1.35, h: 0.3, fontFace: BODY_FONT, fontSize: 16, color: C.brown, margin: 0, fit: "shrink" });
+    slide.addText(item.text, { x: 2.0, y, w: 4.85, h: 0.34, fontFace: BODY_FONT, fontSize: 16, color: C.ink, margin: 0, fit: "shrink" });
   });
   return slide;
 }
@@ -208,17 +310,31 @@ function brandSlide(pptx, model, assets, page) {
 function seriesSlide(pptx, series, asset, page) {
   const slide = pptx.addSlide();
   slide.background = { color: C.paperLight };
-  addPageChrome(slide, "SERIES", page);
-  addImage(slide, asset, 0, 0, 6.3, H, "cover");
-  slide.addShape("rect", { x: 6.05, y: 0, w: 7.283, h: H, fill: { color: C.paperLight }, line: { color: C.paperLight } });
-  slide.addText("WOOD ALL SERIES", { x: 6.65, y: 0.86, w: 2.8, h: 0.24, fontFace: FONT, fontSize: 11, bold: true, color: C.wood, charSpacing: 1.6, margin: 0 });
-  slide.addText(series.shortName || series.key, { x: 6.62, y: 1.25, w: 5.9, h: 0.72, fontFace: FONT, fontSize: 42, bold: true, color: C.ink, margin: 0, fit: "shrink" });
-  slide.addText(series.tagline || "系列价值", { x: 6.65, y: 2.12, w: 5.8, h: 0.5, fontFace: FONT, fontSize: 20, color: C.brown, margin: 0, fit: "shrink" });
-  slide.addText(series.summary || "", { x: 6.65, y: 2.85, w: 5.65, h: 1.0, fontFace: FONT, fontSize: 17, color: C.muted, margin: 0, fit: "shrink" });
+  addImage(slide, asset, 0, 0, 7.15, H, "cover");
+  slide.addShape("rect", { x: 7.12, y: 0, w: W - 7.12, h: H, fill: { color: C.paperLight }, line: { color: C.paperLight } });
+  addPageChrome(slide, "SERIES", page, false, 7.72);
+  slide.addText(series.key || "WOOD ALL SERIES", {
+    x: 7.72, y: 0.9, w: 4.8, h: 0.26, fontFace: BODY_FONT, fontSize: 10,
+    color: C.wood, margin: 0, fit: "shrink",
+  });
+  slide.addText(series.shortName || series.key, {
+    x: 7.68, y: 1.32, w: 4.75, h: 0.66, fontFace: TITLE_FONT, fontSize: 40,
+    bold: false, color: C.ink, margin: 0, fit: "shrink",
+  });
+  slide.addText(series.tagline || "让木材自然进入空间", {
+    x: 7.72, y: 2.25, w: 4.75, h: 0.65, fontFace: TITLE_FONT, fontSize: 23,
+    color: C.brown, margin: 0, fit: "shrink",
+  });
+  slide.addText(series.summary || "", {
+    x: 7.72, y: 3.08, w: 4.75, h: 0.9, fontFace: BODY_FONT, fontSize: 17,
+    color: C.muted, margin: 0, fit: "shrink", breakLine: true,
+  });
   (series.features || []).slice(0, 3).forEach((feature, index) => {
-    const y = 4.26 + index * 0.72;
-    slide.addShape("ellipse", { x: 6.68, y: y + 0.05, w: 0.18, h: 0.18, fill: { color: C.wood }, line: { color: C.wood } });
-    slide.addText(feature, { x: 7.05, y, w: 5.2, h: 0.46, fontFace: FONT, fontSize: 16, color: C.ink, margin: 0, fit: "shrink" });
+    const item = typeof feature === "string" ? { title: String(index + 1).padStart(2, "0"), text: feature } : feature;
+    const y = 4.35 + index * 0.75;
+    slide.addShape("line", { x: 7.72, y: y - 0.14, w: 4.75, h: 0, line: { color: C.line, width: 0.8 } });
+    slide.addText(item.title, { x: 7.72, y, w: 1.3, h: 0.28, fontFace: BODY_FONT, fontSize: 15, color: C.brown, margin: 0, fit: "shrink" });
+    slide.addText(item.text, { x: 9.02, y, w: 3.35, h: 0.34, fontFace: BODY_FONT, fontSize: 15, color: C.ink, margin: 0, fit: "shrink" });
   });
   return slide;
 }
@@ -227,34 +343,64 @@ function productSlide(pptx, product, asset, page) {
   const slide = pptx.addSlide();
   slide.background = { color: C.paperLight };
   addPageChrome(slide, "PRODUCT", page);
-  addSlideTitle(slide, product.seriesKey, `${product.code} · ${product.wood || "原木地板"}`, product.metadata_status === "待确认" ? "资料状态：待确认" : "资料已核验");
-  addImage(slide, asset?.scene, 6.4, 1.94, 6.25, 3.42, "cover");
-  addImage(slide, asset?.detail, 6.4, 5.55, 2.98, 1.32, "cover");
-  addImage(slide, asset?.texture, 9.62, 5.55, 3.03, 1.32, "cover");
-  slide.addText("从参数到真实木纹，完整核验本次选材", { x: 0.72, y: 2.08, w: 4.95, h: 0.74, fontFace: FONT, fontSize: 24, bold: true, color: C.brown, margin: 0, fit: "shrink" });
+  addImage(slide, asset?.scene, 0.68, 0.92, 7.15, 4.65, "cover");
+  slide.addText(product.seriesKey, {
+    x: 8.42, y: 0.92, w: 3.8, h: 0.23, fontFace: BODY_FONT, fontSize: 10,
+    color: C.wood, margin: 0, fit: "shrink",
+  });
+  slide.addText(product.code, {
+    x: 8.38, y: 1.34, w: 4.15, h: 0.62, fontFace: TITLE_FONT, fontSize: 38,
+    color: C.ink, margin: 0, fit: "shrink", breakLine: false,
+  });
+  slide.addText(product.wood || "原木地板", {
+    x: 8.42, y: 2.08, w: 3.8, h: 0.4, fontFace: BODY_FONT, fontSize: 20,
+    color: C.brown, margin: 0, fit: "shrink",
+  });
+  slide.addShape("line", { x: 8.42, y: 2.75, w: 4.15, h: 0, line: { color: C.line, width: 0.8 } });
+  slide.addText("所见，是选材的依据", {
+    x: 8.42, y: 3.05, w: 3.8, h: 0.35, fontFace: TITLE_FONT, fontSize: 20,
+    color: C.ink, margin: 0,
+  });
+  slide.addText("场景、细节与纹理均取自真实产品图库；最终以实物选样确认木色与天然差异。", {
+    x: 8.42, y: 3.55, w: 4.0, h: 0.72, fontFace: BODY_FONT, fontSize: 15,
+    color: C.muted, margin: 0, fit: "shrink", breakLine: true,
+  });
   const specs = [
-    ["木种", product.wood], ["板型", product.board],
-    ["表面", product.surface], ["结构", product.structure],
-    ["规格", product.spec], ["基材", product.base],
-    ["等级", product.grade], ["产品型号", product.model || product.code],
+    ["板型", product.board], ["表面", product.surface],
+    ["结构", product.structure], ["规格", product.spec],
+    ["基材", product.base], ["等级", product.grade],
   ];
   specs.forEach(([label, value], index) => {
     const col = index % 2;
     const row = Math.floor(index / 2);
-    const x = 0.72 + col * 2.65;
-    const y = 3.08 + row * 0.74;
-    addLabelValue(slide, label, value || "-", x, y, 2.2, { size: 16, h: 0.32 });
+    addLabelValue(slide, label, value || "-", 8.42 + col * 2.05, 4.55 + row * 0.68, 1.75, { size: 14, h: 0.28 });
   });
-  slide.addText("天然木材的色差、纹理与结疤具有个体差异，最终以确认样品与到货实物为准。", { x: 0.72, y: 6.34, w: 5.15, h: 0.5, fontFace: FONT, fontSize: 13, color: C.muted, margin: 0, fit: "shrink" });
+  addImage(slide, asset?.detail, 0.68, 5.78, 3.45, 1.36, "cover");
+  addImage(slide, asset?.texture, 4.36, 5.78, 3.47, 1.36, "cover");
+  slide.addText(product.metadata_status === "待确认" ? "产品资料状态：待确认" : "产品资料已核验", {
+    x: 8.42, y: 6.88, w: 3.4, h: 0.2, fontFace: BODY_FONT, fontSize: 10,
+    color: product.metadata_status === "待确认" ? C.wood : C.sage, margin: 0,
+  });
   return slide;
 }
 
-function addTableRow(slide, values, widths, y, options = {}) {
-  let x = 0.68;
+function addFlatRow(slide, values, widths, y, options = {}) {
+  const x0 = options.x || 0.72;
+  const height = options.h || 0.56;
+  const fill = options.fill || C.paperLight;
+  const color = options.color || C.ink;
+  const fontSize = options.fontSize || 14;
+  const totalWidth = widths.reduce((sum, width) => sum + width, 0);
+  slide.addShape("rect", { x: x0, y, w: totalWidth, h: height, fill: { color: fill }, line: { color: fill } });
+  slide.addShape("line", { x: x0, y: y + height, w: totalWidth, h: 0, line: { color: options.line || C.line, width: 0.6 } });
+  let x = x0;
   values.forEach((value, index) => {
     const w = widths[index];
-    slide.addShape("rect", { x, y, w, h: options.h || 0.56, fill: { color: options.fill || C.paperLight }, line: { color: options.line || C.line, width: 0.6 } });
-    slide.addText(String(value ?? ""), { x: x + 0.08, y: y + 0.04, w: w - 0.16, h: (options.h || 0.56) - 0.08, fontFace: FONT, fontSize: options.fontSize || 15, bold: options.bold || false, color: options.color || C.ink, align: options.align?.[index] || "left", valign: "mid", margin: 0 });
+    slide.addText(String(value ?? ""), {
+      x: x + 0.08, y: y + 0.04, w: w - 0.16, h: height - 0.08,
+      fontFace: BODY_FONT, fontSize, color, bold: Boolean(options.bold),
+      align: options.align?.[index] || "left", valign: "mid", margin: 0, fit: "shrink",
+    });
     x += w;
   });
 }
@@ -263,14 +409,26 @@ function configurationSlide(pptx, model, page) {
   const slide = pptx.addSlide();
   slide.background = { color: C.paperLight };
   addPageChrome(slide, "CONFIGURATION", page);
-  addSlideTitle(slide, "SPACE & PRODUCT", "让每个空间都有明确的产品依据", `${model.totals.totalBillableArea.toFixed(2)} m² 计价面积`);
-  const widths = [1.55, 2.05, 1.65, 1.15, 1.25, 4.35];
-  addTableRow(slide, ["空间", "产品型号", "系列", "净面积", "损耗", "选材备注"], widths, 2.05, { h: 0.58, fill: C.brown, line: C.brown, color: C.white, bold: true, fontSize: 14 });
+  addSlideTitle(slide, "SPACE / 空间配置", "空间有别，木色相连", `${model.totals.totalBillableArea.toFixed(2)} m² 计价面积`);
+  const widths = [1.35, 1.75, 1.55, 1.2, 1.05, 4.99];
+  addFlatRow(slide, ["空间", "产品型号", "系列", "净面积", "损耗", "选材备注"], widths, 2.18, {
+    h: 0.55, fill: C.ink, line: C.ink, color: C.white, bold: true, fontSize: 13,
+  });
   model.lines.forEach((line, index) => {
     const product = line.product || {};
-    addTableRow(slide, [line.room, line.productCode, normalizeSeriesName(product.series).split("（")[0], `${line.netArea.toFixed(2)} m²`, `${line.wasteRate}%`, line.note || "与整体空间方案协调确认"], widths, 2.63 + index * 0.52, { h: 0.52, fill: index % 2 ? "F1EBE3" : C.paperLight, fontSize: 14 });
+    addFlatRow(slide, [
+      line.room,
+      line.productCode,
+      normalizeSeriesName(product.series).split("（")[0],
+      `${line.netArea.toFixed(2)} m²`,
+      `${line.wasteRate}%`,
+      line.note || "与整体空间关系协调确认",
+    ], widths, 2.73 + index * 0.52, { h: 0.52, fill: index % 2 ? C.paper : C.paperLight, fontSize: 13 });
   });
-  slide.addText("计价面积 = 净面积 ×（1 + 损耗率）", { x: 0.7, y: 6.96, w: 4.6, h: 0.22, fontFace: FONT, fontSize: 12, color: C.muted, margin: 0 });
+  slide.addText("计价面积 = 净面积 ×（1 + 损耗率）", {
+    x: 0.72, y: 6.87, w: 4.5, h: 0.22, fontFace: BODY_FONT, fontSize: 11,
+    color: C.muted, margin: 0,
+  });
   return slide;
 }
 
@@ -278,24 +436,45 @@ function quoteSlide(pptx, model, quotePage, index, page) {
   const slide = pptx.addSlide();
   slide.background = { color: C.paperLight };
   addPageChrome(slide, "QUOTATION", page);
-  addSlideTitle(slide, "PRIVATE QUOTATION", index ? `报价明细 · 续 ${index + 1}` : "报价明细", quotePage.isLast ? `合计 ${currency(model.totals.totalCents)}` : "明细续页");
-  const widths = [1.32, 1.68, 1.0, 0.86, 1.16, 1.26, 1.48, 3.24];
-  addTableRow(slide, ["空间", "型号", "净面积", "损耗", "计价面积", "单价", "金额", "备注"], widths, 2.03, { h: 0.58, fill: C.brown, line: C.brown, color: C.white, bold: true, fontSize: 13 });
+  addSlideTitle(
+    slide,
+    "QUOTATION / 报价明细",
+    index ? `本案报价 · 续 ${index + 1}` : "本案报价，清晰到每一项",
+    quotePage.isLast ? `报价总额 ${currency(model.totals.totalCents)}` : "明细续页",
+  );
+  const widths = [1.12, 1.48, 0.92, 0.72, 1.08, 1.1, 1.28, 4.19];
+  addFlatRow(slide, ["空间", "型号", "净面积", "损耗", "计价面积", "单价", "金额", "备注"], widths, 2.15, {
+    h: 0.55, fill: C.ink, line: C.ink, color: C.white, bold: true, fontSize: 12,
+  });
   quotePage.lines.forEach((line, rowIndex) => {
-    addTableRow(slide, [line.room, line.productCode, line.netArea.toFixed(2), `${line.wasteRate}%`, line.billableArea.toFixed(2), currency(line.unitPriceCents).replace("CN¥", "¥"), currency(line.amountCents).replace("CN¥", "¥"), line.note || "-"], widths, 2.61 + rowIndex * 0.57, { h: 0.57, fill: rowIndex % 2 ? "F1EBE3" : C.paperLight, fontSize: 13 });
+    addFlatRow(slide, [
+      line.room,
+      line.productCode,
+      line.netArea.toFixed(2),
+      `${line.wasteRate}%`,
+      line.billableArea.toFixed(2),
+      currency(line.unitPriceCents),
+      currency(line.amountCents),
+      line.note || "-",
+    ], widths, 2.7 + rowIndex * 0.55, { h: 0.55, fill: rowIndex % 2 ? C.paper : C.paperLight, fontSize: 12 });
   });
   if (quotePage.isLast) {
     const items = [
-      ["地板金额", model.totals.materialCents],
+      ["地板", model.totals.materialCents],
       ...model.totals.optionalItems.map((item) => [item.label, item.cents]),
       ...(model.totals.discountCents ? [["优惠", -model.totals.discountCents]] : []),
-      [model.totals.taxMode === "included" ? `含税额（${model.totals.taxRate}%）` : `税额（${model.totals.taxRate}%）`, model.totals.taxCents],
+      [model.totals.taxMode === "included" ? `含税额 ${model.totals.taxRate}%` : `税额 ${model.totals.taxRate}%`, model.totals.taxCents],
     ];
-    const startY = 6.15 - Math.min(3, items.length) * 0.3;
-    slide.addText(items.map(([label, cents]) => `${label}  ${cents < 0 ? "-" : ""}${currency(Math.abs(cents))}`).join("    "), { x: 0.72, y: startY, w: 8.1, h: 0.62, fontFace: FONT, fontSize: 13, color: C.muted, margin: 0, fit: "shrink" });
-    slide.addShape("rect", { x: 9.25, y: 5.62, w: 3.4, h: 1.18, fill: { color: C.brown }, line: { color: C.brown } });
-    slide.addText("报价总额", { x: 9.56, y: 5.84, w: 1.0, h: 0.22, fontFace: FONT, fontSize: 12, color: "DACABC", margin: 0 });
-    slide.addText(currency(model.totals.totalCents), { x: 9.55, y: 6.15, w: 2.75, h: 0.38, fontFace: FONT, fontSize: 24, bold: true, color: C.white, align: "right", margin: 0, fit: "shrink" });
+    slide.addShape("line", { x: 0.72, y: 6.02, w: 11.9, h: 0, line: { color: C.ink, width: 1 } });
+    slide.addText(items.map(([label, cents]) => `${label}  ${cents < 0 ? "-" : ""}${currency(Math.abs(cents))}`).join("    "), {
+      x: 0.72, y: 6.27, w: 8.35, h: 0.5, fontFace: BODY_FONT, fontSize: 12,
+      color: C.muted, margin: 0, fit: "shrink",
+    });
+    slide.addText("报价总额", { x: 9.35, y: 6.22, w: 1.0, h: 0.22, fontFace: BODY_FONT, fontSize: 11, color: C.muted, margin: 0 });
+    slide.addText(currency(model.totals.totalCents), {
+      x: 9.35, y: 6.48, w: 3.28, h: 0.42, fontFace: LATIN_FONT, fontSize: 27,
+      color: C.brown, align: "right", margin: 0, fit: "shrink",
+    });
   }
   return slide;
 }
@@ -303,48 +482,69 @@ function quoteSlide(pptx, model, quotePage, index, page) {
 function serviceSlide(pptx, model, page) {
   const slide = pptx.addSlide();
   slide.background = { color: C.paper };
-  addPageChrome(slide, "SERVICE", page);
-  addSlideTitle(slide, "DELIVERY", model.content.service.headline, "全周期服务");
-  slide.addText(model.content.service.summary, { x: 0.72, y: 2.05, w: 8.8, h: 0.6, fontFace: FONT, fontSize: 17, color: C.muted, margin: 0, fit: "shrink" });
+  addPageChrome(slide, "DELIVERY", page);
+  addSlideTitle(slide, "DELIVERY / 服务交付", model.content.service.headline, "全周期服务");
+  slide.addText(model.content.service.summary, {
+    x: 0.72, y: 2.08, w: 8.7, h: 0.55, fontFace: BODY_FONT, fontSize: 17,
+    color: C.muted, margin: 0, fit: "shrink",
+  });
+  slide.addShape("line", { x: 0.95, y: 3.48, w: 10.96, h: 0, line: { color: C.line, width: 1 } });
   model.content.service.steps.forEach((step, index) => {
     const x = 0.72 + index * 3.02;
-    slide.addText(String(index + 1).padStart(2, "0"), { x, y: 3.02, w: 0.55, h: 0.3, fontFace: FONT, fontSize: 15, bold: true, color: C.wood, margin: 0 });
-    slide.addShape("line", { x, y: 3.48, w: 2.46, h: 0, line: { color: index === 3 ? C.brown : C.line, width: index === 3 ? 3 : 1 } });
-    slide.addText(step.title, { x, y: 3.82, w: 2.55, h: 0.48, fontFace: FONT, fontSize: 24, bold: true, color: C.ink, margin: 0, fit: "shrink" });
-    slide.addText(step.text, { x, y: 4.58, w: 2.55, h: 1.15, fontFace: FONT, fontSize: 16, color: C.muted, margin: 0, fit: "shrink" });
+    slide.addShape("ellipse", { x: x + 0.12, y: 3.34, w: 0.28, h: 0.28, fill: { color: index === 3 ? C.brown : C.paper }, line: { color: index === 3 ? C.brown : C.wood, width: 1.2 } });
+    slide.addText(String(index + 1).padStart(2, "0"), { x, y: 2.98, w: 0.5, h: 0.22, fontFace: LATIN_FONT, fontSize: 11, color: C.wood, align: "center", margin: 0 });
+    slide.addText(step.title, { x, y: 3.9, w: 2.45, h: 0.42, fontFace: TITLE_FONT, fontSize: 22, color: C.ink, margin: 0, fit: "shrink" });
+    slide.addText(step.text, { x, y: 4.62, w: 2.5, h: 0.9, fontFace: BODY_FONT, fontSize: 15, color: C.muted, margin: 0, fit: "shrink", breakLine: true });
   });
-  slide.addText("选材、报价与交付使用同一套信息", { x: 0.72, y: 6.48, w: 5.2, h: 0.42, fontFace: FONT, fontSize: 20, bold: true, color: C.brown, margin: 0 });
+  slide.addText("同一份确认，贯穿选材、报价与交付。", {
+    x: 0.72, y: 6.4, w: 5.5, h: 0.38, fontFace: TITLE_FONT, fontSize: 20,
+    color: C.brown, margin: 0,
+  });
   return slide;
 }
 
-function termsSlide(pptx, model, assets, page) {
+function termsSlide(pptx, model, page) {
   const slide = pptx.addSlide();
-  slide.background = { color: C.brown };
-  addPageChrome(slide, "CONFIRMATION", page, true);
-  if (assets.logo) {
-    slide.addShape("rect", { x: 10.7, y: 0.58, w: 2.05, h: 0.92, fill: { color: C.paperLight }, line: { color: C.paperLight } });
-    addImage(slide, assets.logo, 10.86, 0.7, 1.75, 0.68, "contain");
-  }
-  slide.addText("确认报价范围，进入下一步", { x: 0.72, y: 1.0, w: 7.6, h: 0.82, fontFace: FONT, fontSize: 42, bold: true, color: C.white, margin: 0, fit: "shrink" });
-  slide.addText(model.content.quote.scopeNote, { x: 0.75, y: 2.05, w: 7.3, h: 0.52, fontFace: FONT, fontSize: 18, color: "E8DDD1", margin: 0, fit: "shrink" });
-  slide.addShape("line", { x: 0.74, y: 2.92, w: 11.9, h: 0, line: { color: "8A6954", width: 1 } });
-  slide.addText("报价条款", { x: 0.75, y: 3.34, w: 2.4, h: 0.42, fontFace: FONT, fontSize: 24, bold: true, color: C.white, margin: 0 });
-  slide.addText(model.draft.terms, { x: 0.75, y: 4.02, w: 7.35, h: 1.55, fontFace: FONT, fontSize: 16, color: "E8DDD1", margin: 0, fit: "shrink" });
-  slide.addText(model.content.quote.naturalMaterialNote, { x: 0.75, y: 5.92, w: 7.35, h: 0.58, fontFace: FONT, fontSize: 13, color: "CBB8A7", margin: 0, fit: "shrink" });
-  slide.addShape("rect", { x: 8.75, y: 3.28, w: 3.9, h: 2.95, fill: { color: "3C2C23" }, line: { color: "6E5140", width: 1 } });
-  slide.addText("总部联系", { x: 9.12, y: 3.66, w: 2.2, h: 0.35, fontFace: FONT, fontSize: 24, bold: true, color: C.white, margin: 0 });
-  addLabelValue(slide, "电话", model.content.contact.phone, 9.12, 4.36, 2.9, { dark: true, size: 18 });
-  addLabelValue(slide, "微信", model.content.contact.wechat, 9.12, 5.18, 1.35, { dark: true, size: 18 });
-  addLabelValue(slide, "官网", model.content.contact.website.replace(/^www\./, ""), 10.45, 5.18, 1.85, { dark: true, size: 13 });
+  slide.background = { color: C.paperLight };
+  slide.addShape("rect", { x: 8.55, y: 0, w: W - 8.55, h: H, fill: { color: C.brown }, line: { color: C.brown } });
+  addPageChrome(slide, "CONFIRMATION", page);
+  slide.addText("CONFIRMATION / 方案确认", {
+    x: 0.72, y: 0.9, w: 3.3, h: 0.22, fontFace: LATIN_FONT, fontSize: 10,
+    color: C.wood, charSpacing: 1.5, margin: 0,
+  });
+  slide.addText("确认方案，\n进入复尺与选样", {
+    x: 0.68, y: 1.35, w: 6.9, h: 1.28, fontFace: TITLE_FONT, fontSize: 40,
+    color: C.ink, margin: 0, fit: "shrink", breakLine: true,
+  });
+  slide.addText(model.content.quote.scopeNote, {
+    x: 0.72, y: 2.92, w: 6.85, h: 0.55, fontFace: BODY_FONT, fontSize: 16,
+    color: C.muted, margin: 0, fit: "shrink",
+  });
+  const steps = model.content.quote.confirmationSteps || [];
+  steps.slice(0, 3).forEach((step, index) => {
+    const y = 3.82 + index * 0.74;
+    slide.addText(String(index + 1).padStart(2, "0"), { x: 0.72, y, w: 0.45, h: 0.22, fontFace: LATIN_FONT, fontSize: 11, color: C.wood, margin: 0 });
+    slide.addText(step.title, { x: 1.35, y: y - 0.03, w: 1.35, h: 0.3, fontFace: BODY_FONT, fontSize: 16, color: C.brown, margin: 0, fit: "shrink" });
+    slide.addText(step.text, { x: 2.8, y: y - 0.03, w: 4.7, h: 0.38, fontFace: BODY_FONT, fontSize: 15, color: C.ink, margin: 0, fit: "shrink" });
+  });
+  slide.addShape("line", { x: 0.72, y: 6.18, w: 7.1, h: 0, line: { color: C.line, width: 0.8 } });
+  slide.addText("报价说明", { x: 0.72, y: 6.43, w: 1.0, h: 0.22, fontFace: BODY_FONT, fontSize: 11, color: C.muted, margin: 0 });
+  slide.addText(model.draft.terms, { x: 1.72, y: 6.38, w: 6.1, h: 0.5, fontFace: BODY_FONT, fontSize: 13, color: C.muted, margin: 0, fit: "shrink" });
+  slide.addText("痴木堂", { x: 9.12, y: 1.05, w: 2.5, h: 0.48, fontFace: TITLE_FONT, fontSize: 28, color: C.white, margin: 0 });
+  slide.addText("WOOD ALL", { x: 9.15, y: 1.66, w: 2.4, h: 0.24, fontFace: LATIN_FONT, fontSize: 11, color: "D8C6B7", charSpacing: 2.2, margin: 0 });
+  slide.addShape("line", { x: 9.15, y: 2.3, w: 2.85, h: 0, line: { color: "8A6954", width: 0.8 } });
+  slide.addText("让木材的真实，\n成为空间的分寸。", { x: 9.12, y: 2.72, w: 3.2, h: 0.9, fontFace: TITLE_FONT, fontSize: 22, color: C.white, margin: 0, breakLine: true });
+  addLabelValue(slide, "电话", model.content.contact.phone, 9.15, 4.45, 2.8, { dark: true, size: 18, latin: true });
+  addLabelValue(slide, "微信", model.content.contact.wechat, 9.15, 5.27, 1.4, { dark: true, size: 17, latin: true });
+  addLabelValue(slide, "官网", model.content.contact.website.replace(/^www\./, ""), 10.72, 5.27, 1.8, { dark: true, size: 14, latin: true });
+  slide.addText(model.content.quote.naturalMaterialNote, {
+    x: 9.15, y: 6.35, w: 3.15, h: 0.54, fontFace: BODY_FONT, fontSize: 11,
+    color: "C9B7A8", margin: 0, fit: "shrink", breakLine: true,
+  });
   return slide;
 }
 
-export async function generatePptx({ draft, catalog, content, PptxCtor = globalThis.PptxGenJS, imageProvider, outputFile } = {}) {
-  if (!PptxCtor) throw new Error("PPTX 生成组件未加载，请刷新页面后重试");
-  const model = buildDeckModel(draft, catalog, content);
-  const provider = imageProvider || await createBrowserImageProvider();
-  const assets = await prepareAssets(model, provider);
-  const pptx = createPpt(PptxCtor);
+function buildDeckSlides(pptx, model, assets) {
   let page = 1;
   coverSlide(pptx, model, assets, page++);
   projectSlide(pptx, model, page++);
@@ -354,9 +554,225 @@ export async function generatePptx({ draft, catalog, content, PptxCtor = globalT
   configurationSlide(pptx, model, page++);
   model.quotePages.forEach((quotePage, index) => quoteSlide(pptx, model, quotePage, index, page++));
   serviceSlide(pptx, model, page++);
-  termsSlide(pptx, model, assets, page++);
+  termsSlide(pptx, model, page++);
+  return page - 1;
+}
+
+class CanvasSlide {
+  constructor() {
+    this.background = { color: C.paperLight };
+    this.commands = [];
+  }
+
+  addText(text, options) {
+    this.commands.push({ type: "text", text: String(text ?? ""), options: { ...options } });
+  }
+
+  addShape(shape, options) {
+    this.commands.push({ type: "shape", shape, options: { ...options } });
+  }
+
+  addImage(options) {
+    this.commands.push({ type: "image", options: { ...options } });
+  }
+}
+
+class CanvasDeck {
+  constructor() {
+    this.slides = [];
+  }
+
+  addSlide() {
+    const slide = new CanvasSlide();
+    this.slides.push(slide);
+    return slide;
+  }
+}
+
+const cssColor = (value, fallback = "#000000") => value ? `#${String(value).replace(/^#/, "")}` : fallback;
+
+function wrapCanvasText(context, text, maxWidth, allowWrap) {
+  const paragraphs = String(text).split("\n");
+  const lines = [];
+  paragraphs.forEach((paragraph) => {
+    if (!allowWrap || !paragraph) {
+      lines.push(paragraph);
+      return;
+    }
+    let line = "";
+    for (const character of paragraph) {
+      const candidate = line + character;
+      if (line && context.measureText(candidate).width > maxWidth) {
+        lines.push(line);
+        line = character;
+      } else {
+        line = candidate;
+      }
+    }
+    lines.push(line);
+  });
+  return lines.length ? lines : [""];
+}
+
+function canvasTextLayout(context, text, options, pxPerInch) {
+  const width = Number(options.w || 0) * pxPerInch;
+  const height = Number(options.h || 0.3) * pxPerInch;
+  const allowWrap = options.breakLine !== false;
+  let fontSize = Number(options.fontSize || 18);
+  let lines = [];
+  let lineHeight = 0;
+  while (fontSize >= 9) {
+    const fontPx = fontSize * pxPerInch / 72;
+    const weight = options.bold ? 700 : 400;
+    const family = options.fontFace || BODY_FONT;
+    context.font = `${weight} ${fontPx}px "${family}", "Microsoft YaHei", sans-serif`;
+    lines = wrapCanvasText(context, text, Math.max(1, width), allowWrap);
+    lineHeight = fontPx * 1.28;
+    const widest = Math.max(...lines.map((line) => context.measureText(line).width), 0);
+    const fits = widest <= width + 0.5 && lines.length * lineHeight <= height + 0.5;
+    if (fits || options.fit !== "shrink") break;
+    fontSize -= 0.5;
+  }
+  return { lines, lineHeight, fontSize };
+}
+
+async function loadCanvasImage(source, cache) {
+  if (!source) return null;
+  if (cache.has(source)) return cache.get(source);
+  const promise = new Promise((resolve, reject) => {
+    const image = new Image();
+    image.onload = () => resolve(image);
+    image.onerror = () => reject(new Error("PDF 图片载入失败"));
+    image.src = source;
+  });
+  cache.set(source, promise);
+  return promise;
+}
+
+async function renderCanvasSlide(slide, canvas, imageCache) {
+  const context = canvas.getContext("2d");
+  const pxPerInch = canvas.width / W;
+  context.fillStyle = cssColor(slide.background?.color, cssColor(C.paperLight));
+  context.fillRect(0, 0, canvas.width, canvas.height);
+
+  for (const command of slide.commands) {
+    const options = command.options || {};
+    const x = Number(options.x || 0) * pxPerInch;
+    const y = Number(options.y || 0) * pxPerInch;
+    const width = Number(options.w || 0) * pxPerInch;
+    const height = Number(options.h || 0) * pxPerInch;
+    if (command.type === "image") {
+      const source = options.data || options.path;
+      try {
+        const image = await loadCanvasImage(source, imageCache);
+        if (image) context.drawImage(image, x, y, width, height);
+      } catch {
+        context.fillStyle = cssColor(C.soft);
+        context.fillRect(x, y, width, height);
+      }
+      continue;
+    }
+    if (command.type === "shape") {
+      const fill = options.fill?.color;
+      const line = options.line || {};
+      context.beginPath();
+      if (command.shape === "line") {
+        context.moveTo(x, y);
+        context.lineTo(x + width, y + height);
+      } else if (command.shape === "ellipse") {
+        context.ellipse(x + width / 2, y + height / 2, Math.abs(width / 2), Math.abs(height / 2), 0, 0, Math.PI * 2);
+      } else {
+        context.rect(x, y, width, height);
+      }
+      if (fill && Number(options.fill?.transparency || 0) < 100) {
+        context.save();
+        context.globalAlpha = 1 - Number(options.fill?.transparency || 0) / 100;
+        context.fillStyle = cssColor(fill);
+        context.fill();
+        context.restore();
+      }
+      if (line.color && Number(line.transparency || 0) < 100) {
+        context.save();
+        context.globalAlpha = 1 - Number(line.transparency || 0) / 100;
+        context.strokeStyle = cssColor(line.color);
+        context.lineWidth = Math.max(0.5, Number(line.width || 1) * pxPerInch / 72);
+        context.stroke();
+        context.restore();
+      }
+      continue;
+    }
+    if (command.type === "text") {
+      const layout = canvasTextLayout(context, command.text, options, pxPerInch);
+      const fontPx = layout.fontSize * pxPerInch / 72;
+      const weight = options.bold ? 700 : 400;
+      const family = options.fontFace || BODY_FONT;
+      context.font = `${weight} ${fontPx}px "${family}", "Microsoft YaHei", sans-serif`;
+      context.fillStyle = cssColor(options.color, cssColor(C.ink));
+      context.textBaseline = "top";
+      let startY = y;
+      const textHeight = layout.lines.length * layout.lineHeight;
+      if (options.valign === "mid") startY = y + Math.max(0, (height - textHeight) / 2);
+      if (options.valign === "bottom") startY = y + Math.max(0, height - textHeight);
+      layout.lines.forEach((line, index) => {
+        const measured = context.measureText(line).width;
+        let textX = x;
+        if (options.align === "center") textX = x + (width - measured) / 2;
+        if (options.align === "right") textX = x + width - measured;
+        context.fillText(line, textX, startY + index * layout.lineHeight);
+      });
+    }
+  }
+}
+
+async function dataUrlBytes(dataUrl) {
+  const response = await fetch(dataUrl);
+  return new Uint8Array(await response.arrayBuffer());
+}
+
+function downloadBlob(blob, filename) {
+  const link = document.createElement("a");
+  const url = URL.createObjectURL(blob);
+  link.href = url;
+  link.download = filename;
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 1500);
+}
+
+export async function generatePdf({ draft, catalog, content, imageProvider, outputFile } = {}) {
+  if (!globalThis.PDFLib?.PDFDocument) throw new Error("PDF 生成组件未加载，请刷新页面后重试");
+  const model = buildDeckModel(draft, catalog, content);
+  const provider = imageProvider || await createBrowserImageProvider();
+  const assets = await prepareAssets(model, provider);
+  const canvasDeck = new CanvasDeck();
+  const slideCount = buildDeckSlides(canvasDeck, model, assets);
+  const pdf = await globalThis.PDFLib.PDFDocument.create();
+  const imageCache = new Map();
+  for (const slide of canvasDeck.slides) {
+    const canvas = document.createElement("canvas");
+    canvas.width = 1920;
+    canvas.height = 1080;
+    await renderCanvasSlide(slide, canvas, imageCache);
+    const jpeg = await pdf.embedJpg(await dataUrlBytes(canvas.toDataURL("image/jpeg", 0.9)));
+    const page = pdf.addPage([W * 72, H * 72]);
+    page.drawImage(jpeg, { x: 0, y: 0, width: W * 72, height: H * 72 });
+  }
+  const filename = outputFile || `痴木堂-${safeName(draft.project.name)}-${String(draft.project.quoteDate || "").replace(/-/g, "")}-私定报价.pdf`;
+  const bytes = await pdf.save({ useObjectStreams: true });
+  downloadBlob(new Blob([bytes], { type: "application/pdf" }), filename);
+  return { filename, slideCount, model };
+}
+
+export async function generatePptx({ draft, catalog, content, PptxCtor = globalThis.PptxGenJS, imageProvider, outputFile } = {}) {
+  if (!PptxCtor) throw new Error("PPTX 生成组件未加载，请刷新页面后重试");
+  const model = buildDeckModel(draft, catalog, content);
+  const provider = imageProvider || await createBrowserImageProvider();
+  const assets = await prepareAssets(model, provider);
+  const pptx = createPpt(PptxCtor);
+  const slideCount = buildDeckSlides(pptx, model, assets);
 
   const filename = outputFile || `痴木堂-${safeName(draft.project.name)}-${String(draft.project.quoteDate || "").replace(/-/g, "")}-私定报价.pptx`;
   await pptx.writeFile({ fileName: filename, compression: true });
-  return { filename, slideCount: page - 1, model };
+  return { filename, slideCount, model };
 }

@@ -1,6 +1,6 @@
 import { calculateQuote, createDraft, validateDraft, MAX_QUOTE_LINES, migrateDraft } from "./quote-core.mjs";
 import { DraftRepository } from "./quote-drafts.mjs";
-import { generatePptx } from "./quote-ppt.mjs";
+import { generatePdf, generatePptx } from "./quote-ppt.mjs?v=20260721-3";
 
 const refs = {
   form: document.getElementById("quoteForm"),
@@ -18,7 +18,9 @@ const refs = {
   toast: document.getElementById("toast"),
   addLine: document.getElementById("addLineButton"),
   generate: document.getElementById("generateButton"),
+  generatePdf: document.getElementById("generatePdfButton"),
   summaryGenerate: document.getElementById("summaryGenerateButton"),
+  summaryGeneratePdf: document.getElementById("summaryGeneratePdfButton"),
   discountSuffix: document.getElementById("discountSuffix"),
   newDraft: document.getElementById("newDraftButton"),
   duplicateDraft: document.getElementById("duplicateDraftButton"),
@@ -286,7 +288,7 @@ function selectProduct(code) {
   refs.lines.querySelector(`[data-line-index="${index}"] [data-product-search]`)?.focus();
 }
 
-async function generate() {
+async function generate(kind = "pptx") {
   saveDraft();
   const errors = validateDraft(draft, catalog);
   if (!showValidation(errors)) {
@@ -294,19 +296,22 @@ async function generate() {
     refs.status.classList.add("is-error");
     return;
   }
-  [refs.generate, refs.summaryGenerate].forEach((button) => { button.disabled = true; });
+  const downloadButtons = [refs.generate, refs.generatePdf, refs.summaryGenerate, refs.summaryGeneratePdf];
+  downloadButtons.forEach((button) => { button.disabled = true; });
   refs.status.classList.remove("is-error");
-  refs.status.textContent = "正在整理真实产品图片与报价内容…";
+  refs.status.textContent = `正在整理真实产品图片与${kind === "pdf" ? "客户版 PDF" : "可编辑 PPT"}…`;
   try {
-    const result = await generatePptx({ draft, catalog, content });
-    refs.status.textContent = `已生成 ${result.slideCount} 页可编辑 PPT，草稿仍保存在本机。`;
+    const result = kind === "pdf"
+      ? await generatePdf({ draft, catalog, content })
+      : await generatePptx({ draft, catalog, content });
+    refs.status.textContent = `已生成 ${result.slideCount} 页${kind === "pdf" ? "客户版 PDF" : "可编辑 PPT"}，草稿仍保存在本机。`;
     showToast(`${result.filename} 已开始下载`);
   } catch (error) {
     console.error(error);
     refs.status.textContent = `生成失败：${error?.message || "请检查网络后重试"}。草稿已保留。`;
     refs.status.classList.add("is-error");
   } finally {
-    [refs.generate, refs.summaryGenerate].forEach((button) => { button.disabled = false; });
+    downloadButtons.forEach((button) => { button.disabled = false; });
   }
 }
 
@@ -362,7 +367,8 @@ function bindEvents() {
     draft.lines.push(blankLine()); renderLines(); renderSummary(); scheduleSave();
     refs.lines.lastElementChild?.scrollIntoView({ behavior: "smooth", block: "center" });
   });
-  [refs.generate, refs.summaryGenerate].forEach((button) => button.addEventListener("click", generate));
+  [refs.generate, refs.summaryGenerate].forEach((button) => button.addEventListener("click", () => generate("pptx")));
+  [refs.generatePdf, refs.summaryGeneratePdf].forEach((button) => button.addEventListener("click", () => generate("pdf")));
   refs.history.addEventListener("click", (event) => {
     const item = event.target.closest("[data-draft-id]");
     if (item) { saveDraft(); loadDraft(repository.get(item.dataset.draftId)); }
@@ -395,11 +401,11 @@ async function init() {
     const active = repository.get(repository.active());
     loadDraft(active || drafts[0] || repository.create({ lines: [blankLine()] }));
     bindEvents();
-    window.woodallQuoteApp = { getDraft: () => structuredClone(draft), calculate: () => calculateQuote(draft), generate, catalog, content };
+    window.woodallQuoteApp = { getDraft: () => structuredClone(draft), calculate: () => calculateQuote(draft), generatePptx: () => generate("pptx"), generatePdf: () => generate("pdf"), catalog, content };
   } catch (error) {
     refs.status.textContent = `工作台加载失败：${error.message}。请刷新页面重试。`;
     refs.status.classList.add("is-error");
-    [refs.generate, refs.summaryGenerate].forEach((button) => { button.disabled = true; });
+    [refs.generate, refs.generatePdf, refs.summaryGenerate, refs.summaryGeneratePdf].forEach((button) => { button.disabled = true; });
   }
 }
 

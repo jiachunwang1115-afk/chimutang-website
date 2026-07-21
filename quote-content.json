@@ -1,73 +1,106 @@
 {
-  "version": "2026.07.21",
+  "version": "2026.07.21.2",
   "brand": {
     "name": "痴木堂",
     "englishName": "WOOD ALL",
     "positioning": "高端原木地板定制",
-    "headline": "从一块木，到一个完整空间",
-    "summary": "痴木堂以产品为基，以工艺为尺，以东方审美为度，为住宅与商业空间提供从选材、量尺到铺装、维保的全周期原木地板服务。",
+    "headline": "让木材的真实，\n成为空间的分寸",
+    "summary": "痴木堂尊重每一块木材的天然差异，也以可核验的产品、参数与交付标准，让这份差异被准确地带入空间。",
     "proofs": [
-      "真实产品图库与可追溯参数，让选材建立在具体证据上",
-      "围绕木种、结构、表面与空间采光综合判断，不只比较颜色",
-      "报价范围、损耗、辅材与施工费用分项呈现，便于项目决策"
+      {
+        "title": "真实可见",
+        "text": "每个型号对应实拍场景、细节与纹理"
+      },
+      {
+        "title": "选择有据",
+        "text": "从采光、尺度与使用方式判断，而非只看色卡"
+      },
+      {
+        "title": "交付有度",
+        "text": "面积、损耗、费用与服务边界，逐项确认"
+      }
     ],
-    "image": "media/brand-story-wood-ring-lite.webp",
-    "logo": "logo/logo.png"
+    "image": {
+      "src": "media/brand-story-wood-ring-lite.webp",
+      "width": 1800,
+      "height": 900
+    },
+    "logo": {
+      "src": "logo/logo.png",
+      "width": 9936,
+      "height": 7061
+    }
   },
   "series": {
     "境系列（阿兹慕）": {
       "shortName": "境系列",
-      "tagline": "高品质经典系列 · 以稳定工艺回应长期使用",
-      "summary": "从原料、生产到验收实施标准化管控，强调稳定结构、精密开槽与清晰木纹表达，适合重视长期使用与空间秩序的项目。",
+      "tagline": "克制而稳定，适合长久相处",
+      "summary": "以精密结构与清晰木纹建立空间秩序，适合重视稳定、耐用与整体连续性的住宅。",
       "features": [
-        "精密锁扣与稳定结构，兼顾铺装效率与拼接品质",
-        "薄涂多层工艺，尽量保留天然木材的触感与导管纹理",
-        "一色多形的产品组合，便于不同空间保持连续的选材语言"
+        { "title": "精密结构", "text": "拼接稳定，收口更利落" },
+        { "title": "天然触感", "text": "薄涂工艺保留木材肌理" },
+        { "title": "空间连续", "text": "同色多形，适配不同尺度" }
       ],
-      "representativeImage": "product-assets/swatch-wall/A3-B805-scene.webp"
+      "representativeImage": {
+        "src": "product-assets/swatch-wall/A3-B805-scene.webp",
+        "width": 1280,
+        "height": 820
+      }
     },
     "森系列（大板屋）": {
       "shortName": "森系列",
-      "tagline": "国际工艺协作 · 强化色彩、涂装与结构表现",
-      "summary": "围绕木材色彩、表面涂装和结构稳定性进行系统协作，强调自然色彩、细腻触感以及复杂使用环境下的稳定表现。",
+      "tagline": "让木材回到自然本色",
+      "summary": "将色彩、触感与结构协同处理，保留木材的呼吸感，也回应地暖与日常使用。",
       "features": [
-        "通体化染与专业色彩研发，让颜色与木材纹理更自然融合",
-        "薄涂涂装体系兼顾通透显纹、耐用与日常清洁",
-        "从层间粘合到锁扣结构协同优化，关注潮湿与地暖环境"
+        { "title": "自然显纹", "text": "色彩不过度覆盖木材本色" },
+        { "title": "细腻触感", "text": "薄涂体系兼顾通透与日常使用" },
+        { "title": "环境适配", "text": "结构协同考虑地暖与湿度变化" }
       ],
-      "representativeImage": "product-assets/swatch-wall/B3-X809-scene.webp"
+      "representativeImage": {
+        "src": "product-assets/swatch-wall/B3-X809-scene.webp",
+        "width": 1280,
+        "height": 820
+      }
     },
     "悦系列（多诺米亚）": {
       "shortName": "悦系列",
-      "tagline": "意式简奢表达 · 工艺与触感并重",
-      "summary": "以原创设计、氮气固化与 N+1 表面处理为核心，追求低光泽、细腻触感与稳定色彩，适合强调材质质感的当代空间。",
+      "tagline": "低光泽，呈现更细腻的当代质感",
+      "summary": "以意式色彩与细腻表面工艺收敛光线，让纹理更安静，也让空间更显从容。",
       "features": [
-        "172 纳米氮气工艺带来超哑光、细腻触感与耐污表现",
-        "N+1 表面处理塑造层次丰富、不过度反光的天然肌理",
-        "意式上色系统兼顾色彩饱和度、牢度与空间搭配能力"
+        { "title": "超哑光", "text": "柔和吸收光线，减少表面反射" },
+        { "title": "细腻触感", "text": "纳米工艺带来安静而精致的表面" },
+        { "title": "意式色彩", "text": "饱和度克制，易与家具材质协调" }
       ],
-      "representativeImage": "product-assets/swatch-wall/Q3-X802-scene.webp"
+      "representativeImage": {
+        "src": "product-assets/swatch-wall/Q3-X802-scene.webp",
+        "width": 1280,
+        "height": 820
+      }
     },
     "墨系列（莫马）": {
       "shortName": "墨系列",
-      "tagline": "现代深色系 · 建立稳重的大宅秩序",
-      "summary": "以深色、灰调与暖棕调为主要表达，强调空间的安定感和材质秩序，适合采光充足、尺度开阔或需要沉稳气质的空间。",
+      "tagline": "深色不是浓重，而是秩序",
+      "summary": "以深色、灰调与暖棕建立视觉重心，适合尺度开阔、采光充足的空间。",
       "features": [
-        "深色木纹为空间建立视觉重心与连续的基底",
-        "便于与高级灰、石材、金属及深色家具形成材质关系",
-        "选型同时考虑采光、面积与家具色彩，避免单看小样决定"
+        { "title": "深色秩序", "text": "为大空间建立稳定的视觉基底" },
+        { "title": "材质协调", "text": "与石材、金属及深色家具自然衔接" },
+        { "title": "尺度判断", "text": "结合采光与面积确定深浅比例" }
       ],
-      "representativeImage": "product-assets/swatch-wall/M9-B701-scene.webp"
+      "representativeImage": {
+        "src": "product-assets/swatch-wall/M9-B701-scene.webp",
+        "width": 1280,
+        "height": 820
+      }
     }
   },
   "service": {
-    "headline": "专业交付，始于方案确认之前",
-    "summary": "围绕项目条件、产品特性与施工边界进行前置确认，让选材、报价和交付使用同一套信息。",
+    "headline": "把选择，落到完成面",
+    "summary": "从复尺、选样到铺装与维护，每一步都回到同一份已确认的信息。",
     "steps": [
-      { "title": "需求梳理", "text": "确认空间功能、采光、风格、地暖及使用偏好。" },
-      { "title": "选材建议", "text": "综合木种、结构、规格、表面与真实铺装效果提出建议。" },
-      { "title": "复尺与交底", "text": "以现场复尺为依据，确认基层、损耗、收口和施工范围。" },
-      { "title": "铺装与维保", "text": "按确认方案组织铺装，并提供日常使用与维护建议。" }
+      { "title": "现场复尺", "text": "核对面积、基层与收口条件" },
+      { "title": "实物选样", "text": "确认木色、纹理与允许差异" },
+      { "title": "施工交底", "text": "锁定铺装方向、损耗与施工边界" },
+      { "title": "铺装交付", "text": "按确认方案完成，并说明使用与维护" }
     ]
   },
   "contact": {
@@ -77,7 +110,12 @@
     "website": "www.woodall.design"
   },
   "quote": {
-    "scopeNote": "报价金额以本方案列明的产品、计价面积与服务范围为准。",
-    "naturalMaterialNote": "天然木材的色差、纹理与结疤具有个体差异，属于材料真实特征，最终以确认样品与到货实物为准。"
+    "scopeNote": "本提案所列产品、面积与服务范围，是后续复尺、选样与合同确认的依据。",
+    "naturalMaterialNote": "木材的色差、纹理与结疤并非瑕疵，而是天然材料不可复制的身份；最终以确认样与到货实物为准。",
+    "confirmationSteps": [
+      { "title": "现场复尺", "text": "核对面积、基层、收口与施工边界" },
+      { "title": "实物选样", "text": "确认木色、纹理与天然差异" },
+      { "title": "交付确认", "text": "锁定产品、数量、费用与项目计划" }
+    ]
   }
 }
