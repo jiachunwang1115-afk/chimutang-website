@@ -1,7 +1,8 @@
 import { access, mkdir, readFile } from "node:fs/promises";
+import { createHash } from "node:crypto";
 import os from "node:os";
 import path from "node:path";
-import { fileURLToPath } from "node:url";
+import { fileURLToPath, pathToFileURL } from "node:url";
 import PptxGenJS from "pptxgenjs";
 import { createDraft } from "../quote-core.mjs";
 import { generatePptx } from "../quote-ppt.mjs";
@@ -9,17 +10,61 @@ import { generatePptx } from "../quote-ppt.mjs";
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const output = process.env.QUOTE_FIXTURE_DIR || path.join(os.tmpdir(), "codex-presentations", "dealer-quote-generator", "fixtures");
 await mkdir(output, { recursive: true });
+const fixtureAssets = path.join(output, "cropped-assets");
+await mkdir(fixtureAssets, { recursive: true });
 const catalog = JSON.parse(await readFile(path.join(root, "products_clean.json"), "utf8"));
 const content = JSON.parse(await readFile(path.join(root, "quote-content.json"), "utf8"));
 
-const localProvider = async (candidates) => {
+async function loadSharp() {
+  try {
+    return (await import("sharp")).default;
+  } catch {
+    const bundled = path.join(
+      process.env.HOME || os.homedir(),
+      ".cache", "codex-runtimes", "codex-primary-runtime", "dependencies", "node", "node_modules",
+      ".pnpm", "sharp@0.34.5", "node_modules", "sharp", "lib", "index.js",
+    );
+    return (await import(pathToFileURL(bundled).href)).default;
+  }
+}
+
+const sharp = await loadSharp();
+
+const localProvider = async (candidates, options = {}) => {
   const list = Array.isArray(candidates) ? candidates : [candidates];
   for (const candidate of list) {
-    const paths = typeof candidate === "string" ? [candidate] : [candidate?.thumb, candidate?.src ? `product-assets/catalog/${candidate.src.replace(/^product-assets\/catalog\//, "")}` : ""];
+    const source = candidate?.src
+      ? (/^(product-assets|media|logo)\//.test(candidate.src)
+        ? candidate.src
+        : `product-assets/catalog/${candidate.src.replace(/^product-assets\/catalog\//, "")}`)
+      : "";
+    const paths = typeof candidate === "string" ? [candidate] : [candidate?.thumb, source];
     for (const relative of paths.filter(Boolean)) {
       if (/^https?:/.test(relative)) continue;
       const file = path.join(root, relative);
-      try { await access(file); return { path: file }; } catch { /* next candidate */ }
+      try {
+        await access(file);
+        if (Number(options.aspectRatio) > 0) {
+          const ratio = Number(options.aspectRatio);
+          const maxWidth = options.maxWidth || 1600;
+          const maxHeight = options.maxHeight || 1200;
+          let width = Math.min(maxWidth, Math.round(maxHeight * ratio));
+          let height = Math.round(width / ratio);
+          if (height > maxHeight) {
+            height = maxHeight;
+            width = Math.round(height * ratio);
+          }
+          const hash = createHash("sha1").update(`${file}|${width}|${height}`).digest("hex").slice(0, 16);
+          const cropped = path.join(fixtureAssets, `${hash}.jpg`);
+          try {
+            await access(cropped);
+          } catch {
+            await sharp(file).resize(width, height, { fit: "cover", position: "centre" }).jpeg({ quality: 88 }).toFile(cropped);
+          }
+          return { path: cropped, width, height };
+        }
+        return { path: file, width: candidate?.width, height: candidate?.height };
+      } catch { /* next candidate */ }
     }
   }
   return null;

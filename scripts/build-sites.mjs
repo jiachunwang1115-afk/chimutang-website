@@ -39,6 +39,7 @@ const explicitAssets = [
 
 const vendorFiles = [
   ["vendor/pptxgen.bundle.js", "vendor/pptxgen.bundle.js"],
+  ["vendor/pdf-lib.min.js", "vendor/pdf-lib.min.js"],
 ];
 
 const runtimeFiles = [
