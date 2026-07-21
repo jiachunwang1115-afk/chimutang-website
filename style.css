@@ -6458,6 +6458,7 @@ body.has-scrolled .fixed-action-rail button{opacity:1}
     min-height:240px;
   }
 }
+
 #page-cases .page-header{
   --page-head-img:url("journal/paving-reference/ref-living-light.webp");
   --page-head-position:center 62%;
@@ -17844,5 +17845,65 @@ body[data-route="cases"]{
     color:#efe4d5!important;
     font-size:14px!important;
     line-height:1.7!important;
+  }
+}
+
+/* Final contrast guard: photographic cards must keep their captions readable on mobile too. */
+#page-home :where(.space-feature-card,.space-card) .space-image-shade,
+#page-cases .space-gallery-card .space-image-shade{
+  background:
+    linear-gradient(180deg,rgba(0,0,0,.08) 0%,rgba(0,0,0,.16) 36%,rgba(12,9,7,.86) 100%),
+    linear-gradient(90deg,rgba(0,0,0,.48),rgba(0,0,0,.12) 62%,rgba(0,0,0,.3));
+}
+
+#page-home .space-feature-card .space-feature-copy,
+#page-home .space-card .space-card-copy,
+#page-cases .space-gallery-card .space-gallery-copy{
+  color:var(--ct-on-dark-title)!important;
+  text-shadow:0 2px 16px rgba(0,0,0,.72),0 1px 2px rgba(0,0,0,.66)!important;
+}
+
+#page-home .space-feature-card .space-feature-copy span,
+#page-home .space-feature-card .space-feature-copy h3,
+#page-home .space-feature-card .space-feature-copy p,
+#page-home .space-feature-card .space-feature-copy strong,
+#page-home .space-card .space-card-copy span,
+#page-home .space-card .space-card-copy h3,
+#page-home .space-card .space-card-copy p,
+#page-home .space-card .space-card-copy strong,
+#page-cases .space-gallery-card .space-gallery-copy :where(span,h3,p,strong){
+  color:var(--ct-on-dark-title)!important;
+  opacity:1!important;
+  text-shadow:inherit!important;
+}
+
+#page-home .space-feature-card .space-feature-copy em,
+#page-home .space-card .space-card-copy em,
+#page-cases .space-gallery-card .space-gallery-copy em{
+  color:#fffaf2!important;
+  border-color:rgba(255,248,238,.9)!important;
+  background:rgba(31,24,20,.78)!important;
+  box-shadow:0 8px 20px rgba(0,0,0,.24)!important;
+  text-shadow:0 1px 3px rgba(0,0,0,.52)!important;
+}
+
+@media(max-width:760px){
+  #page-home :where(.space-feature-card,.space-card) :where(.space-feature-copy,.space-card-copy){
+    left:18px!important;
+    right:18px!important;
+    bottom:18px!important;
+  }
+
+  #page-home .space-feature-copy p,
+  #page-home .space-card-copy p{
+    color:#fffaf2!important;
+    font-size:14px!important;
+    line-height:1.78!important;
+  }
+
+  #page-home .space-feature-copy span,
+  #page-home .space-card-copy span{
+    color:#f4d8ae!important;
+    text-shadow:0 1px 6px rgba(0,0,0,.72)!important;
   }
 }
