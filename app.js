@@ -502,6 +502,9 @@ var caseAdvancedOpen=false;
 var PAVING_SELECTION_STORAGE="woodallPavingSelection";
 var PRODUCT_SELECTION_STORAGE="woodallProductSelection";
 var productRenderToken=0;
+var standardProductPageSize=24;
+var standardProductVisibleLimit=standardProductPageSize;
+var standardProductSignature="";
 var productSwatchWallReady=false;
 var PRODUCT_SWATCH_SAMPLES=[
   {code:"A9-B701",tone:"浅木",note:"浅白蜡木 / 中独幅",swatch:"product-assets/swatch-wall/A9-B701-swatch.webp",texture:"product-assets/swatch-wall/A9-B701-texture.webp",scene:"product-assets/swatch-wall/A9-B701-scene.webp",accent:"#b39c83"},
@@ -1036,7 +1039,7 @@ function setCaseSaveButton(btn, selected){
 
 function renderProductSaveIcon(selected){
   var label=selected?"已加入选材夹":"加入选材夹";
-  return '<svg class="product-save-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 5h2.3l2.1 10.4h8.8l1.8-7.2H7.2"></path><path d="M9.2 19.1h.1"></path><path d="M16.8 19.1h.1"></path></svg><span class="product-save-text">'+label+'</span>';
+  return '<svg class="product-save-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6.5 4.5h11v15l-5.5-3.4-5.5 3.4z"></path></svg><span class="product-save-text">'+label+'</span>';
 }
 
 function setProductSaveButton(btn, selected){
@@ -1724,7 +1727,7 @@ function setFilter(group,val){
   buildFilterRow(group);
   updateFilterSummary();
   buildProds();
-  if(isProductFilterRail()){
+  if(isProductFilterRail()&&!isStandardCompactFilters()){
     window.setTimeout(function(){setMobileFilterGroup(null)},80);
   }
 }
@@ -1735,6 +1738,25 @@ function getFiltered(){
 
 function getProductRenderBatchSize(){
   return window.matchMedia&&window.matchMedia("(max-width:640px)").matches?18:32;
+}
+
+function usesStandardProductPagination(){
+  return document.documentElement.getAttribute("data-channel")!=="weimob"&&
+    window.matchMedia&&window.matchMedia("(max-width:1100px)").matches;
+}
+
+function updateStandardProductPager(total,visible){
+  var pager=document.getElementById("standardProductPager");
+  var progress=document.getElementById("standardProductProgress");
+  var more=document.getElementById("standardProductMore");
+  if(!pager)return;
+  var enabled=usesStandardProductPagination()&&total>0;
+  pager.hidden=!enabled;
+  if(progress)progress.textContent="已显示 "+Math.min(visible,total)+" / "+total+" 款";
+  if(more){
+    more.hidden=!enabled||visible>=total;
+    more.disabled=visible>=total;
+  }
 }
 
 function retryProductCatalog(){
@@ -1900,13 +1922,27 @@ function buildProds(){
     return;
   }
   var list=getFiltered();
+  var renderList=list;
+  if(usesStandardProductPagination()){
+    var signature=list.map(function(product){return product.code}).join("|");
+    if(signature!==standardProductSignature){
+      standardProductSignature=signature;
+      standardProductVisibleLimit=standardProductPageSize;
+    }
+    renderList=list.slice(0,standardProductVisibleLimit);
+  }else{
+    standardProductSignature="";
+    standardProductVisibleLimit=standardProductPageSize;
+  }
   syncProductSpaceRecommendation(list);
   document.getElementById("prodCount").textContent=list.length+"/"+PRODUCTS.length+"款";
   if(!list.length){
+    updateStandardProductPager(0,0);
     el.innerHTML='<div class="prod-empty"><span>NO RESULT</span><h3>没有找到匹配产品</h3><p>可以清除筛选重新浏览，或直接联系管家为您推荐合适系列。</p><div class="page-cta"><button type="button" class="btn-primary" onclick="clearProductFilters()">清除筛选</button><a href="#contact" class="btn-secondary">联系管家</a></div></div>';
     return;
   }
-  appendProductCards(el,list,0,productRenderToken);
+  appendProductCards(el,renderList,0,productRenderToken);
+  updateStandardProductPager(list.length,renderList.length);
   updatePavingSelectionUI();
 }
 
@@ -1972,6 +2008,14 @@ function initProductFilterActions(){
       clearProductFilters();
     });
   }
+  var more=document.getElementById("standardProductMore");
+  if(more&&!more.dataset.bound){
+    more.dataset.bound="true";
+    more.addEventListener("click",function(){
+      standardProductVisibleLimit+=standardProductPageSize;
+      buildProds();
+    });
+  }
 }
 
 function setMobileFiltersOpen(open){
@@ -1987,6 +2031,11 @@ function setMobileFiltersOpen(open){
 
 function isProductFilterRail(){
   return window.matchMedia&&window.matchMedia("(max-width:640px)").matches;
+}
+
+function isStandardCompactFilters(){
+  return document.documentElement.getAttribute("data-channel")!=="weimob"&&
+    window.matchMedia&&window.matchMedia("(max-width:760px)").matches;
 }
 
 function setMobileFilterGroup(group){
@@ -2007,7 +2056,7 @@ function setMobileFilterGroup(group){
 }
 
 function syncMobileFilterLabels(){
-  var isRail=isProductFilterRail();
+  var isRail=isProductFilterRail()&&!isStandardCompactFilters();
   document.querySelectorAll(".filter-row-wrap[data-filter-group] .filter-label").forEach(function(label){
     if(isRail){
       label.setAttribute("role","button");
@@ -2019,7 +2068,8 @@ function syncMobileFilterLabels(){
       label.removeAttribute("aria-label");
     }
   });
-  if(!isRail)setMobileFilterGroup(null);
+  if(isStandardCompactFilters())setMobileFiltersOpen(false);
+  else if(!isRail)setMobileFilterGroup(null);
 }
 
 function initMobileFilterToggle(){
@@ -2029,18 +2079,24 @@ function initMobileFilterToggle(){
   setMobileFilterGroup(null);
   syncMobileFilterLabels();
   toggle.addEventListener("click",function(){
+    if(isStandardCompactFilters()){
+      setMobileFiltersOpen(!filters.classList.contains("open"));
+      return;
+    }
     setMobileFilterGroup(null);
   });
   document.querySelectorAll(".filter-row-wrap[data-filter-group]").forEach(function(row){
     var label=row.querySelector(".filter-label");
     if(!label)return;
     label.addEventListener("click",function(e){
+      if(isStandardCompactFilters())return;
       if(!isProductFilterRail())return;
       e.preventDefault();
       var group=row.getAttribute("data-filter-group");
       setMobileFilterGroup(row.classList.contains("mobile-active")?null:group);
     });
     label.addEventListener("keydown",function(e){
+      if(isStandardCompactFilters())return;
       if(!isProductFilterRail())return;
       if(e.key==="Enter"||e.key===" "){
         e.preventDefault();
@@ -2050,6 +2106,12 @@ function initMobileFilterToggle(){
     });
   });
   document.addEventListener("click",function(e){
+    if(isStandardCompactFilters()){
+      var eventPath=typeof e.composedPath==="function"?e.composedPath():[];
+      var startedInside=eventPath.indexOf(filters)>=0||filters.contains(e.target);
+      if(filters.classList.contains("open")&&!startedInside)setMobileFiltersOpen(false);
+      return;
+    }
     if(!isProductFilterRail()||!filters.classList.contains("open"))return;
     if(!filters.contains(e.target))setMobileFilterGroup(null);
   });
@@ -2388,7 +2450,7 @@ function showProductInDrawer(p){
 // ===== SERIES DATA =====
 var seriesData={
   "境系列":{
-    tagline:"高品质流量款 · 打破「低价=低质」的认知误区",
+    tagline:"高品质经典系列 · 以稳定工艺回应长期使用",
     hero:"境系列从产品原料、生产过程、产品验收三大环节实施标准化管控，采用德国豪迈高速开槽设备、意大利水性涂装工艺，全自动化生产线是该系列立足市场且优于同类产品的核心优势。",
     features:[
       {title:"无缝拼接技术",text:"采用比利时尤林林（Valinge）锁扣专利，拼装高低误差不超过0.02mm，实现「无缝地板」效果。"},
