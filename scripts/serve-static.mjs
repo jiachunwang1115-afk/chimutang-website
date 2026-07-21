@@ -26,9 +26,6 @@ function resolveRequest(url) {
   const parsed = new URL(url, `http://127.0.0.1:${port}`);
   let pathname = decodeURIComponent(parsed.pathname);
   if (!pathname || pathname === "/") pathname = "/index.html";
-  if (pathname === "/vendor/pptxgen.bundle.js") {
-    return path.join(root, "node_modules", "pptxgenjs", "dist", "pptxgen.bundle.js");
-  }
   const resolved = path.resolve(root, `.${pathname}`);
   if (!resolved.startsWith(root)) return null;
   return resolved;

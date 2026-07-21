@@ -38,7 +38,7 @@ const explicitAssets = [
 ];
 
 const vendorFiles = [
-  ["node_modules/pptxgenjs/dist/pptxgen.bundle.js", "vendor/pptxgen.bundle.js"],
+  ["vendor/pptxgen.bundle.js", "vendor/pptxgen.bundle.js"],
 ];
 
 const runtimeFiles = [
