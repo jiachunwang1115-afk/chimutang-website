@@ -18,9 +18,6 @@ const passwordRecord = await hashPassword(temporaryPassword);
 assert(await verifyPassword(temporaryPassword, passwordRecord.salt, passwordRecord.hash, passwordRecord.iterations));
 assert.equal(await verifyPassword(`${temporaryPassword}x`, passwordRecord.salt, passwordRecord.hash, passwordRecord.iterations), false);
 
-const initialPassword = await hashPassword("WA-Bgf27oJaAcPP9dzk", "IunpOIairu8ob9DFQtDq1Q", 120000);
-assert.equal(initialPassword.hash, "VnZaujockTFyM9bhG91J4R7S65WMLuqps9M81Pky_6c", "初始管理员密码哈希必须匹配");
-
 const draft = createDraft({
   id: "quote-system-test",
   project: { name: "总部同步测试", city: "绍兴" },
@@ -106,11 +103,11 @@ vm.runInNewContext(miniApiSource, {
   encodeURIComponent,
 });
 const miniApi = miniApiModule.exports;
-await miniApi.startLocalMode();
-await miniApi.saveQuote(miniDraft);
-assert.equal((await miniApi.listQuotes()).quotes.length, 1, "本机体验应保存报价");
-await miniApi.deleteQuote(miniDraft.id);
-assert.equal((await miniApi.listQuotes()).quotes.length, 0, "本机体验应删除报价");
+miniApi.leaveLocalMode();
+assert.equal(miniApi.mode(), "cloud", "小程序必须使用总部账号模式");
+assert.equal("startLocalMode" in miniApi, false, "正式小程序不应暴露本机体验入口");
+const loginWxml = await readFile(path.join(miniRoot, "pages", "login", "login.wxml"), "utf8");
+assert.equal(loginWxml.includes("先体验报价功能"), false, "登录页不应提供绕过账号的体验入口");
 
 for (const [htmlFile, jsFile] of [["dealer-quote.html", "dealer-quote.js"], ["dealer-admin.html", "dealer-admin.js"]]) {
   const [html, js] = await Promise.all([readFile(path.join(root, htmlFile), "utf8"), readFile(path.join(root, jsFile), "utf8")]);

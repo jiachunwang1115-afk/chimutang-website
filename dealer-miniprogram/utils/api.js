@@ -97,12 +97,6 @@ function quoteSummary(draft) {
   };
 }
 
-function startLocalMode() {
-  setToken("");
-  setMode(LOCAL_MODE);
-  return Promise.resolve({ user: LOCAL_USER, mode: LOCAL_MODE });
-}
-
 function leaveLocalMode() {
   setMode("cloud");
 }
@@ -171,6 +165,5 @@ module.exports = {
   saveQuote,
   session,
   setToken,
-  startLocalMode,
   changePassword: (currentPassword, nextPassword) => cloudRequest("/auth/change-password", { method: "POST", data: { currentPassword, nextPassword } }),
 };

@@ -11,7 +11,5 @@
 .login-step text:last-child { font-size: 28rpx; font-weight: 700; }
 .login-form > button { width: 100%; margin-right: 0; margin-left: 0; }
 .login-form .primary-button { margin-top: 34rpx; }
-.preview-button { min-height: 82rpx; margin-top: 16rpx; border: 1rpx solid #c8b8a8; border-radius: 6rpx; background: transparent; color: #5b3928; font-size: 24rpx; font-weight: 700; line-height: 82rpx; }
-.preview-note { display: block; margin-top: 14rpx; color: #75685e; font-size: 19rpx; line-height: 1.6; text-align: center; }
 .login-message { display: block; min-height: 40rpx; margin-top: 22rpx; color: #9a352d; font-size: 21rpx; line-height: 1.6; }
 .login-support { display: block; margin-top: 34rpx; color: #75685e; font-size: 19rpx; }

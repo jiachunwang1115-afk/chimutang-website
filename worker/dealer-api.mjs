@@ -9,8 +9,8 @@ const INITIAL_ADMIN = {
   id: "woodall-initial-admin",
   username: "woodall_admin",
   displayName: "痴木堂总部",
-  salt: "IunpOIairu8ob9DFQtDq1Q",
-  hash: "VnZaujockTFyM9bhG91J4R7S65WMLuqps9M81Pky_6c",
+  salt: "rftNyBhG3YTRWF_E1-mHmw",
+  hash: "55RYQDl7J6N9dfzx7ojFpvN5D5SNKsk_xE9-Bp78QzE",
   iterations: 120000,
 };
 
@@ -223,6 +223,17 @@ async function ensureSchema(db) {
           INITIAL_ADMIN.iterations,
           timestamp,
           timestamp,
+        ).run();
+
+      await db.prepare(`UPDATE dealer_users SET
+        password_salt = ?, password_hash = ?, password_iterations = ?, updated_at = ?
+        WHERE id = ? AND must_change_password = 1 AND last_login_at IS NULL`)
+        .bind(
+          INITIAL_ADMIN.salt,
+          INITIAL_ADMIN.hash,
+          INITIAL_ADMIN.iterations,
+          timestamp,
+          INITIAL_ADMIN.id,
         ).run();
     })().catch((error) => {
       schemaPromise = null;
@@ -677,4 +688,3 @@ export async function handleDealerApi(request, env) {
     return errorResponse("INTERNAL_ERROR", "服务暂时不可用，请稍后重试", 500);
   }
 }
-

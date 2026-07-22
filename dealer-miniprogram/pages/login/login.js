@@ -13,12 +13,13 @@ Page({
     message: "",
   },
   onLoad() {
+    api.leaveLocalMode();
     api.session().then((result) => {
       if (result.user.mustChangePassword) this.setData({ mode: "password" });
       else this.enter(result.user);
     }).catch((error) => {
       if (error.code === "API_UNAVAILABLE" || error.code === "NETWORK_ERROR") {
-        this.setData({ serviceUnavailable: true, message: "总部账号服务正在接入，可先使用本机体验。" });
+        this.setData({ serviceUnavailable: false, message: "暂时无法连接总部账号服务，请稍后重试。" });
       }
     });
   },
@@ -44,10 +45,6 @@ Page({
     } finally {
       this.setData({ submitting: false });
     }
-  },
-  async enterPreview() {
-    const result = await api.startLocalMode();
-    this.enter(result.user);
   },
   async changePassword() {
     if (this.data.nextPassword.length < 12) {
