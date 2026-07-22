@@ -48,10 +48,15 @@ function showToast(message) {
   toastTimer = setTimeout(() => { refs.toast.hidden = true; }, 3000);
 }
 
-function showAuth(mode, message = "") {
+const isServiceUnavailable = (error) => error?.code === "INVALID_RESPONSE" || Number(error?.status) >= 500;
+
+function showAuth(mode, message = "", serviceUnavailable = false) {
   refs.loginForm.hidden = mode !== "login";
   refs.passwordForm.hidden = mode !== "password";
   refs.authMessage.textContent = message;
+  const loginButton = refs.loginForm.querySelector("button[type='submit']");
+  [...refs.loginForm.elements].forEach((control) => { control.disabled = serviceUnavailable; });
+  loginButton.textContent = serviceUnavailable ? "账号系统配置中" : "进入管理后台";
   requestAnimationFrame(() => (mode === "password" ? refs.passwordForm.elements.currentPassword : refs.loginForm.elements.username)?.focus());
 }
 
@@ -74,6 +79,7 @@ function bindAuth() {
     const button = refs.loginForm.querySelector("button[type='submit']");
     button.disabled = true;
     refs.authMessage.textContent = "正在验证账号…";
+    let serviceUnavailable = false;
     try {
       const username = refs.loginForm.elements.username.value.trim();
       const password = refs.loginForm.elements.password.value;
@@ -85,9 +91,11 @@ function bindAuth() {
         showAuth("password");
       } else completeAuth(result.user);
     } catch (error) {
-      refs.authMessage.textContent = error.message;
+      serviceUnavailable = isServiceUnavailable(error);
+      if (serviceUnavailable) showAuth("login", "账号数据库正在接入，当前暂未开放登录。", true);
+      else refs.authMessage.textContent = error.message;
     } finally {
-      button.disabled = false;
+      if (!serviceUnavailable) button.disabled = false;
     }
   });
   refs.passwordForm.addEventListener("submit", async (event) => {
@@ -256,7 +264,8 @@ async function init() {
     if (result.user.mustChangePassword) showAuth("password");
     else completeAuth(result.user);
   } catch (error) {
-    showAuth("login", error.status === 503 ? "系统正在初始化，请稍后刷新页面" : "");
+    const unavailable = isServiceUnavailable(error);
+    showAuth("login", unavailable ? "账号数据库正在接入，当前暂未开放登录。" : "", unavailable);
   }
 }
 

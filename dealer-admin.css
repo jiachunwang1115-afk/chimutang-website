@@ -24,17 +24,21 @@ body.auth-pending { overflow: hidden; }
 body.auth-pending > :not(.admin-auth) { visibility: hidden; }
 .admin-auth { position: fixed; z-index: 100; inset: 0; display: grid; grid-template-columns: minmax(0, 1.35fr) minmax(420px, .65fr); min-height: 100dvh; background: var(--paper-light); }
 .admin-auth[hidden] { display: none; }
-.auth-image { background: #48372d url("media/brand-film-poster.jpg") center / cover no-repeat; }
+.auth-image { background: #48372d url("media/motion-atelier-02-poster.jpg") center / cover no-repeat; }
 .auth-panel { display: flex; flex-direction: column; justify-content: center; padding: clamp(44px, 7vw, 90px); }
 .auth-panel > img { width: 62px; height: 54px; margin-bottom: 62px; object-fit: contain; }
 .auth-panel h1 { margin: 11px 0 0; font-family: "Songti SC", SimSun, serif; font-size: clamp(30px, 3vw, 44px); font-weight: 600; letter-spacing: 0; }
 .auth-panel > p:not(.auth-message) { margin: 16px 0 0; color: var(--muted); font-size: 13px; }
 .auth-form { display: grid; gap: 16px; margin-top: 36px; }
+.auth-form[hidden] { display: none; }
+.auth-step { display: flex; align-items: baseline; gap: 11px; margin-bottom: 2px; }
+.auth-step span { color: var(--wood); font-family: Georgia, "Times New Roman", serif; font-size: 12px; }
+.auth-step strong { color: var(--ink); font-size: 16px; }
 .auth-form label { display: grid; gap: 7px; color: var(--muted); font-size: 11px; }
 .auth-form input { height: 48px; border: 0; border-bottom: 1px solid var(--line); border-radius: 0; padding: 0 2px; outline: 0; background: transparent; color: var(--ink); font-size: 16px; }
 .auth-form input:focus { border-color: var(--brown); box-shadow: 0 1px var(--brown); }
 .auth-form button, .primary-button, .create-user button { min-height: 46px; border: 1px solid var(--brown); border-radius: 4px; background: var(--brown); color: #fff; font-weight: 700; }
-.auth-form strong { font-size: 18px; }
+.form-note { margin: -2px 0 1px; color: var(--muted); font-size: 10px; line-height: 1.7; }
 .auth-message { min-height: 22px; color: var(--danger); font-size: 11px; }
 .admin-topbar { position: sticky; z-index: 30; top: 0; display: grid; grid-template-columns: minmax(210px, 1fr) auto minmax(210px, 1fr); align-items: center; min-height: 66px; padding: 8px 24px; border-bottom: 1px solid var(--line); background: rgba(251, 248, 242, .97); backdrop-filter: blur(14px); }
 .admin-brand { display: inline-flex; align-items: center; gap: 11px; width: max-content; color: var(--ink); text-decoration: none; }
