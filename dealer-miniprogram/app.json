@@ -13,6 +13,10 @@
     "backgroundColor": "#f5f0e8",
     "backgroundTextStyle": "dark"
   },
+  "networkTimeout": {
+    "request": 10000,
+    "downloadFile": 15000
+  },
   "style": "v2",
   "sitemapLocation": "sitemap.json"
 }

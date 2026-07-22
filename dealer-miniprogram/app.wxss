@@ -6,15 +6,16 @@ page {
 }
 view, text, input, textarea, button, scroll-view { box-sizing: border-box; }
 button::after { border: 0; }
+button:disabled { opacity: .45; }
 .page { min-height: 100vh; padding: 32rpx 28rpx 150rpx; }
-.eyebrow { color: #9a6741; font-size: 18rpx; letter-spacing: 3rpx; }
-.page-title { margin-top: 12rpx; font-family: STSong, SimSun, serif; font-size: 52rpx; font-weight: 600; }
-.page-subtitle { margin-top: 12rpx; color: #75685e; font-size: 22rpx; line-height: 1.7; }
+.eyebrow { display: block; color: #9a6741; font-size: 18rpx; letter-spacing: 3rpx; }
+.page-title { display: block; margin-top: 12rpx; font-family: STSong, SimSun, serif; font-size: 52rpx; font-weight: 600; }
+.page-subtitle { display: block; margin-top: 12rpx; color: #75685e; font-size: 22rpx; line-height: 1.7; }
 .section { margin-top: 30rpx; border-top: 1rpx solid #d9cec1; }
 .section-head { display: flex; align-items: center; justify-content: space-between; min-height: 92rpx; }
 .section-head text:first-child { font-size: 28rpx; font-weight: 700; }
 .section-head text:last-child { color: #75685e; font-size: 20rpx; }
-.primary-button, .outline-button { display: flex; min-height: 92rpx; align-items: center; justify-content: center; border-radius: 6rpx; padding: 0 28rpx; background: #5b3928; color: #fffdf9; font-size: 26rpx; font-weight: 700; line-height: 1; }
+.primary-button, .outline-button { display: flex; width: 100%; min-height: 92rpx; align-items: center; justify-content: center; margin: 0; border-radius: 6rpx; padding: 0 28rpx; background: #5b3928; color: #fffdf9; font-size: 26rpx; font-weight: 700; line-height: 1; }
 .outline-button { border: 1rpx solid #bfae9f; background: transparent; color: #5b3928; }
 .field { display: block; margin-top: 24rpx; }
 .field-label { display: block; margin-bottom: 12rpx; color: #75685e; font-size: 21rpx; }

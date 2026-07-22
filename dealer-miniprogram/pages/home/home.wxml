@@ -1,13 +1,15 @@
 <view class="page">
   <view class="home-head">
-    <view><text class="eyebrow">WOOD ALL · DEALER</text><text class="page-title">{{greeting}}</text><text class="page-subtitle">让报价成为一次专业的选材说明。</text></view>
+    <view><text class="eyebrow">WOOD ALL · DEALER</text><text class="page-title">{{greeting}}</text><text class="page-subtitle">让报价成为一次专业的选材说明。</text><text class="connection-state {{localMode ? 'is-local' : ''}}">{{statusText}}</text></view>
     <image src="/assets/logo.png" mode="aspectFit"></image>
   </view>
+
+  <view class="local-notice" wx:if="{{localMode}}"><text>本机体验</text><text>报价仅保存在当前手机，正式账号启用后可切换至总部同步。</text></view>
 
   <view class="home-total">
     <text>累计报价金额</text>
     <text class="money">{{totalAmount}}</text>
-    <view><text>{{quotes.length}} 份报价</text><text>{{totalArea}} m² 计价面积</text></view>
+    <view><text>{{quoteCount}} 份报价</text><text>{{totalArea}} m² 计价面积</text></view>
   </view>
 
   <view class="quick-actions">

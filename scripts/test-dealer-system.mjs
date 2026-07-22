@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import { access, readFile } from "node:fs/promises";
 import path from "node:path";
+import vm from "node:vm";
 import { fileURLToPath } from "node:url";
 import { calculateQuote, createDraft } from "../quote-core.mjs";
 import { calculateServerTotals, createTemporaryPassword, hashPassword, isValidUsername, sanitizeDraft, verifyPassword } from "../worker/dealer-api.mjs";
@@ -48,6 +49,68 @@ const miniProductSource = await readFile(path.join(miniRoot, "data", "products.j
 const miniProducts = JSON.parse(miniProductSource.replace(/^module\.exports\s*=\s*/, "").replace(/;\s*$/, ""));
 assert.equal(miniProducts.length, 138);
 assert(miniProducts.every((product) => product.code));
+assert(miniProducts.every((product) => product.thumbUrl?.startsWith("/assets/products/")), "小程序产品应使用包内真实缩略图");
+for (const product of miniProducts) await access(path.join(miniRoot, product.thumbUrl.slice(1)));
+
+const miniQuoteSource = await readFile(path.join(miniRoot, "utils", "quote.js"), "utf8");
+const miniQuoteModule = { exports: {} };
+vm.runInNewContext(miniQuoteSource, { module: miniQuoteModule, exports: miniQuoteModule.exports, Date, Math, Number, String, Boolean, Array, Set });
+const miniQuote = miniQuoteModule.exports;
+const miniDraft = miniQuote.createDraft({
+  id: "mini-quote-test",
+  project: { name: "小程序计价测试", city: "绍兴" },
+  lines: [{ room: "客厅", productCode: "A3-B802", netArea: 20, wasteRate: 5, unitPrice: 680, note: "连续铺装" }],
+  fees: { accessoryUnitPrice: 15, installationUnitPrice: 30, transportAmount: 500 },
+  discount: { type: "percent", value: 5 },
+  tax: { mode: "excluded", rate: 13 },
+});
+const miniTotals = miniQuote.calculate(miniDraft);
+const singleClientTotals = calculateQuote(createDraft({
+  id: "mini-quote-test",
+  project: { name: "小程序计价测试", city: "绍兴" },
+  lines: [{ room: "客厅", productCode: "A3-B802", netArea: 20, wasteRate: 5, unitPrice: 680, note: "连续铺装" }],
+  fees: { accessoryUnitPrice: 15, installationUnitPrice: 30, transportAmount: 500 },
+  discount: { type: "percent", value: 5 },
+  tax: { mode: "excluded", rate: 13 },
+}));
+assert.equal(miniTotals.totalCents, singleClientTotals.totalCents, "小程序与网页端总价必须一致");
+assert.equal(miniTotals.totalBillableArea, singleClientTotals.totalBillableArea);
+assert.equal(miniQuote.validate(miniDraft, miniProducts).length, 0);
+assert(miniQuote.validate(miniQuote.createDraft(), miniProducts).length >= 5, "空报价必须被完整校验");
+
+const miniStorage = new Map();
+const miniWx = {
+  getStorageSync: (key) => miniStorage.get(key),
+  setStorageSync: (key, value) => miniStorage.set(key, value),
+  removeStorageSync: (key) => miniStorage.delete(key),
+  request: () => { throw new Error("本机模式不应发起网络请求"); },
+};
+const miniApiSource = await readFile(path.join(miniRoot, "utils", "api.js"), "utf8");
+const miniApiModule = { exports: {} };
+vm.runInNewContext(miniApiSource, {
+  module: miniApiModule,
+  exports: miniApiModule.exports,
+  require: (specifier) => specifier === "./quote" ? miniQuote : null,
+  wx: miniWx,
+  Promise,
+  Date,
+  JSON,
+  Math,
+  Number,
+  String,
+  Boolean,
+  Array,
+  Set,
+  Map,
+  Error,
+  encodeURIComponent,
+});
+const miniApi = miniApiModule.exports;
+await miniApi.startLocalMode();
+await miniApi.saveQuote(miniDraft);
+assert.equal((await miniApi.listQuotes()).quotes.length, 1, "本机体验应保存报价");
+await miniApi.deleteQuote(miniDraft.id);
+assert.equal((await miniApi.listQuotes()).quotes.length, 0, "本机体验应删除报价");
 
 for (const [htmlFile, jsFile] of [["dealer-quote.html", "dealer-quote.js"], ["dealer-admin.html", "dealer-admin.js"]]) {
   const [html, js] = await Promise.all([readFile(path.join(root, htmlFile), "utf8"), readFile(path.join(root, jsFile), "utf8")]);

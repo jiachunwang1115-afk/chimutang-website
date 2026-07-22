@@ -1,5 +1,10 @@
 .home-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 24rpx; }
 .home-head image { width: 112rpx; height: 92rpx; }
+.connection-state { display: inline-flex; min-height: 38rpx; align-items: center; margin-top: 20rpx; border: 1rpx solid #aebaa9; border-radius: 4rpx; padding: 0 13rpx; color: #55704f; font-size: 18rpx; }
+.connection-state.is-local { border-color: #c8b8a8; color: #8b6549; }
+.local-notice { display: grid; grid-template-columns: 118rpx minmax(0, 1fr); gap: 20rpx; margin-top: 28rpx; border-left: 4rpx solid #9a6741; padding: 20rpx 22rpx; background: #fffdf9; }
+.local-notice text:first-child { color: #5b3928; font-size: 21rpx; font-weight: 700; }
+.local-notice text:last-child { color: #75685e; font-size: 20rpx; line-height: 1.6; }
 .home-total { margin-top: 44rpx; border-block: 1rpx solid #d9cec1; padding: 34rpx 4rpx; }
 .home-total > text:first-child { display: block; color: #75685e; font-size: 21rpx; }
 .home-total > .money { display: block; margin-top: 12rpx; font-size: 58rpx; }

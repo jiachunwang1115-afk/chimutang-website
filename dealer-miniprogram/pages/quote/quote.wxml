@@ -1,60 +1,98 @@
 <view class="quote-page" wx:if="{{draft}}">
   <view class="quote-heading"><text class="eyebrow">PRIVATE QUOTATION</text><text class="page-title">项目报价</text><text class="save-state">{{saveState}}</text></view>
+  <view class="local-strip" wx:if="{{localMode}}">本机体验 · 当前报价不会同步至总部</view>
 
-  <view class="quote-section">
-    <view class="quote-section-title"><text>01</text><text class="section-name">项目资料</text></view>
+  <view class="quote-section" id="project">
+    <view class="quote-section-title"><view><text>01</text><text class="section-name">项目资料</text></view></view>
     <label class="field"><text class="field-label">客户 / 项目名称 *</text><input class="field-input" value="{{draft.project.name}}" data-field="name" bindinput="onProjectInput" placeholder="例如：镜湖府王宅"></input></label>
     <view class="field-row">
       <label class="field"><text class="field-label">城市</text><input class="field-input" value="{{draft.project.city}}" data-field="city" bindinput="onProjectInput" placeholder="绍兴"></input></label>
       <label class="field"><text class="field-label">报价日期</text><picker mode="date" value="{{draft.project.quoteDate}}" data-field="quoteDate" bindchange="onProjectInput"><view class="field-picker">{{draft.project.quoteDate}}</view></picker></label>
     </view>
-    <label class="field"><text class="field-label">项目地址</text><input class="field-input" value="{{draft.project.address}}" data-field="address" bindinput="onProjectInput"></input></label>
+    <view class="field-row">
+      <label class="field"><text class="field-label">有效期至</text><picker mode="date" value="{{draft.project.validUntil}}" data-field="validUntil" bindchange="onProjectInput"><view class="field-picker">{{draft.project.validUntil}}</view></picker></label>
+      <label class="field"><text class="field-label">项目地址</text><input class="field-input" value="{{draft.project.address}}" data-field="address" bindinput="onProjectInput" placeholder="选填"></input></label>
+    </view>
     <label class="field"><text class="field-label">项目需求</text><textarea class="field-textarea" value="{{draft.project.needs}}" data-field="needs" bindinput="onProjectInput" placeholder="空间、采光、地暖及使用偏好"></textarea></label>
     <label class="field"><text class="field-label">选材建议</text><textarea class="field-textarea" value="{{draft.project.advice}}" data-field="advice" bindinput="onProjectInput" placeholder="本次木种、结构、颜色与规格的选择理由"></textarea></label>
   </view>
 
-  <view class="quote-section">
+  <view class="quote-section" id="lines">
     <view class="quote-section-title"><view><text>02</text><text class="section-name">产品明细</text></view><button bindtap="addLine" disabled="{{draft.lines.length >= 8}}">＋ 添加</button></view>
-    <view class="line-card" wx:for="{{draft.lines}}" wx:key="index">
-      <view class="line-head"><text>空间 {{index + 1}}</text><button data-index="{{index}}" bindtap="removeLine">删除</button></view>
-      <view class="line-product-row">
-        <label class="field"><text class="field-label">空间</text><input class="field-input" value="{{item.room}}" data-index="{{index}}" data-field="room" bindinput="onLineInput" placeholder="客厅"></input></label>
-        <label class="field product-field"><text class="field-label">产品型号</text><input class="field-input" value="{{item.productQuery}}" data-index="{{index}}" data-field="productQuery" bindfocus="openProduct" bindinput="onLineInput" placeholder="搜索型号或木种"></input></label>
-      </view>
-      <view class="product-results" wx:if="{{activeProductIndex === index && productResults.length}}">
-        <view class="product-option" wx:for="{{productResults}}" wx:key="code" data-code="{{item.code}}" bindtap="chooseProduct">
-          <view><text class="product-name">{{item.code}} · {{item.wood}}</text><text>{{item.series}} · {{item.structure}}</text></view><text>选择</text>
+    <view class="line-card" id="line-{{index}}" wx:for="{{draft.lines}}" wx:key="index">
+      <view class="line-head">
+        <text>空间 {{index + 1}}</text>
+        <view class="line-tools">
+          <button aria-label="上移" data-index="{{index}}" data-direction="-1" disabled="{{index === 0}}" bindtap="moveLine">↑</button>
+          <button aria-label="下移" data-index="{{index}}" data-direction="1" disabled="{{index === draft.lines.length - 1}}" bindtap="moveLine">↓</button>
+          <button class="delete-line" data-index="{{index}}" bindtap="removeLine">删除</button>
         </view>
       </view>
-      <view class="number-grid">
-        <label class="field"><text class="field-label">净面积 m²</text><input class="field-input" type="digit" value="{{item.netArea}}" data-index="{{index}}" data-field="netArea" bindinput="onLineInput"></input></label>
-        <label class="field"><text class="field-label">损耗率 %</text><input class="field-input" type="digit" value="{{item.wasteRate}}" data-index="{{index}}" data-field="wasteRate" bindinput="onLineInput"></input></label>
-        <label class="field"><text class="field-label">单价 元/m²</text><input class="field-input" type="digit" value="{{item.unitPrice}}" data-index="{{index}}" data-field="unitPrice" bindinput="onLineInput"></input></label>
-        <view class="billable"><text>计价面积</text><text class="billable-value">{{totals.lines[index].billableArea || '0.00'}} m²</text></view>
+      <label class="field room-field"><text class="field-label">空间名称 *</text><input class="field-input" value="{{item.room}}" data-index="{{index}}" data-field="room" bindinput="onLineInput" placeholder="客厅、主卧或书房"></input></label>
+      <view class="product-select" data-index="{{index}}" bindtap="openProduct">
+        <image wx:if="{{item.productThumb}}" src="{{item.productThumb}}" mode="aspectFill"></image>
+        <view class="product-placeholder" wx:else>WOOD</view>
+        <view class="product-selected-copy"><text>{{item.productName}}</text><text>{{item.productMeta}}</text><text wx:if="{{item.productStatus}}">{{item.productStatus}}</text></view>
+        <text class="select-command">选择</text>
       </view>
-      <label class="field"><text class="field-label">选材备注</text><input class="field-input" value="{{item.note}}" data-index="{{index}}" data-field="note" bindinput="onLineInput"></input></label>
+      <view class="number-grid">
+        <label class="field"><text class="field-label">净面积 m² *</text><input class="field-input" type="digit" value="{{item.netArea}}" data-index="{{index}}" data-field="netArea" bindinput="onLineInput"></input></label>
+        <label class="field"><text class="field-label">损耗率 %</text><input class="field-input" type="digit" value="{{item.wasteRate}}" data-index="{{index}}" data-field="wasteRate" bindinput="onLineInput"></input></label>
+        <label class="field"><text class="field-label">单价 元/m² *</text><input class="field-input" type="digit" value="{{item.unitPrice}}" data-index="{{index}}" data-field="unitPrice" bindinput="onLineInput"></input></label>
+        <view class="billable"><text>计价面积</text><text class="billable-value">{{totals.lines[index].billableArea || '0.00'}} m²</text><text>{{totals.lines[index].amountText || '¥0.00'}}</text></view>
+      </view>
+      <label class="field"><text class="field-label">选材备注</text><input class="field-input" value="{{item.note}}" data-index="{{index}}" data-field="note" bindinput="onLineInput" placeholder="色泽、拼接或空间关系"></input></label>
     </view>
   </view>
 
-  <view class="quote-section">
-    <view class="quote-section-title"><text>03</text><text class="section-name">费用设置</text></view>
-    <view class="number-grid">
+  <view class="quote-section" id="fees">
+    <view class="quote-section-title"><view><text>03</text><text class="section-name">费用与结算</text></view></view>
+    <view class="number-grid section-grid">
       <label class="field"><text class="field-label">辅材 元/m²</text><input class="field-input" type="digit" value="{{draft.fees.accessoryUnitPrice}}" data-field="accessoryUnitPrice" bindinput="onFeeInput"></input></label>
       <label class="field"><text class="field-label">安装 元/m²</text><input class="field-input" type="digit" value="{{draft.fees.installationUnitPrice}}" data-field="installationUnitPrice" bindinput="onFeeInput"></input></label>
       <label class="field"><text class="field-label">运输费 元</text><input class="field-input" type="digit" value="{{draft.fees.transportAmount}}" data-field="transportAmount" bindinput="onFeeInput"></input></label>
       <label class="field"><text class="field-label">其他费用 元</text><input class="field-input" type="digit" value="{{draft.fees.otherAmount}}" data-field="otherAmount" bindinput="onFeeInput"></input></label>
     </view>
-    <label class="field" wx:if="{{draft.fees.otherAmount > 0}}"><text class="field-label">其他费用说明</text><input class="field-input" value="{{draft.fees.otherLabel}}" data-field="otherLabel" bindinput="onFeeInput"></input></label>
+    <label class="field section-field" wx:if="{{draft.fees.otherAmount > 0}}"><text class="field-label">其他费用说明 *</text><input class="field-input" value="{{draft.fees.otherLabel}}" data-field="otherLabel" bindinput="onFeeInput"></input></label>
+    <view class="field-row section-grid">
+      <label class="field"><text class="field-label">折扣方式</text><picker range="{{discountTypeLabels}}" value="{{discountTypeIndex}}" bindchange="onDiscountType"><view class="field-picker">{{discountTypeLabels[discountTypeIndex]}}</view></picker></label>
+      <label class="field"><text class="field-label">{{discountTypeIndex === 1 ? '折扣金额 元' : '折扣比例 %'}}</text><input class="field-input" type="digit" value="{{draft.discount.value}}" bindinput="onDiscountInput"></input></label>
+    </view>
+    <view class="field-row section-grid">
+      <label class="field"><text class="field-label">税费模式</text><picker range="{{taxModeLabels}}" value="{{taxModeIndex}}" bindchange="onTaxMode"><view class="field-picker">{{taxModeLabels[taxModeIndex]}}</view></picker></label>
+      <label class="field"><text class="field-label">税率 %</text><input class="field-input" type="digit" value="{{draft.tax.rate}}" bindinput="onTaxInput"></input></label>
+    </view>
+    <label class="field section-field"><text class="field-label">报价条款</text><textarea class="field-textarea terms-input" value="{{draft.terms}}" bindinput="onTermsInput"></textarea></label>
   </view>
 
   <view class="quote-summary">
+    <view class="summary-heading"><text>04</text><text>报价汇总</text></view>
     <view><text>净面积</text><text class="summary-value">{{totals.totalNetArea}} m²</text></view>
     <view><text>计价面积</text><text class="summary-value">{{totals.totalBillableArea}} m²</text></view>
+    <view wx:for="{{summaryItems}}" wx:key="key"><text>{{item.label}}</text><text class="summary-value">{{item.value}}</text></view>
     <view class="summary-total"><text>报价总额</text><text class="money summary-value">{{totalText}}</text></view>
   </view>
 
   <view class="quote-actionbar">
     <view><text>报价总额</text><text class="money action-total">{{totalText}}</text></view>
-    <button loading="{{saving}}" disabled="{{saving}}" bindtap="saveNow">保存报价</button>
+    <button loading="{{saving}}" disabled="{{saving}}" bindtap="manualSave">保存报价</button>
+  </view>
+
+  <view class="product-picker-mask" wx:if="{{productPickerOpen}}" catchtap="closeProduct">
+    <view class="product-picker" catchtap="noop">
+      <view class="picker-head"><view><text class="eyebrow">PRODUCT LIBRARY</text><text>选择产品</text></view><button aria-label="关闭" bindtap="closeProduct">×</button></view>
+      <label class="picker-search"><text>⌕</text><input value="{{productQuery}}" bindinput="onProductSearch" focus placeholder="搜索型号、木种、规格"></input></label>
+      <scroll-view class="series-filter" scroll-x enhanced show-scrollbar="{{false}}">
+        <view class="series-filter-inner"><button class="{{activeSeries === item ? 'is-active' : ''}}" wx:for="{{seriesOptions}}" wx:key="*this" data-series="{{item}}" bindtap="chooseSeries">{{item}}</button></view>
+      </scroll-view>
+      <scroll-view class="product-list" scroll-y enhanced show-scrollbar="{{false}}">
+        <view class="product-option" wx:for="{{productResults}}" wx:key="code" data-code="{{item.code}}" bindtap="chooseProduct">
+          <image wx:if="{{item.thumbUrl}}" src="{{item.thumbUrl}}" mode="aspectFill" lazy-load></image>
+          <view class="product-option-copy"><text>{{item.code}} · {{item.wood}}</text><text>{{item.seriesShort}} · {{item.spec || item.structure}}</text><text>{{item.statusText}}</text></view>
+          <text class="select-command">选择</text>
+        </view>
+        <view class="empty" wx:if="{{!productResults.length}}">没有匹配的产品</view>
+      </scroll-view>
+    </view>
   </view>
 </view>
