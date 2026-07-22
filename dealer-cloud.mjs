@@ -30,6 +30,9 @@ export class DealerCloudClient {
         response.status,
       );
     }
+    if (!payload || payload.ok !== true) {
+      throw new DealerApiError("总部数据服务尚未启用", "INVALID_RESPONSE", 502);
+    }
     return payload;
   }
 
@@ -90,4 +93,3 @@ export class DealerCloudClient {
     return this.request(`/admin/quotes/${encodeURIComponent(id)}`);
   }
 }
-
