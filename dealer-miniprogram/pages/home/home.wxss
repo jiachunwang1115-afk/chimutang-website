@@ -1,0 +1,19 @@
+.home-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 24rpx; }
+.home-head image { width: 112rpx; height: 92rpx; }
+.home-total { margin-top: 44rpx; border-block: 1rpx solid #d9cec1; padding: 34rpx 4rpx; }
+.home-total > text:first-child { display: block; color: #75685e; font-size: 21rpx; }
+.home-total > .money { display: block; margin-top: 12rpx; font-size: 58rpx; }
+.home-total > view { display: flex; gap: 36rpx; margin-top: 18rpx; color: #75685e; font-size: 20rpx; }
+.quick-actions { display: grid; grid-template-columns: 1fr 190rpx; gap: 14rpx; margin-top: 28rpx; }
+.quick-actions button { margin: 0; border-radius: 6rpx; }
+.new-quote { display: flex; min-height: 124rpx; align-items: center; gap: 22rpx; padding: 0 24rpx; background: #5b3928; color: #fff; text-align: left; }
+.new-quote > text { font-size: 42rpx; font-weight: 300; }
+.new-quote view { display: grid; gap: 9rpx; }
+.new-quote .action-title { font-size: 26rpx; font-weight: 700; }
+.new-quote .action-copy { color: #d8c9bd; font-size: 18rpx; }
+.history-link { display: flex; min-height: 124rpx; align-items: center; justify-content: space-between; border: 1rpx solid #c8b8a8; padding: 0 20rpx; background: #fffdf9; color: #5b3928; font-size: 22rpx; }
+.quote-row { display: flex; min-height: 112rpx; align-items: center; justify-content: space-between; gap: 20rpx; border-top: 1rpx solid #e2d8cd; }
+.quote-row > view { display: grid; gap: 9rpx; }
+.quote-row > view:last-child { justify-items: end; }
+.quote-row text:first-child { font-size: 25rpx; font-weight: 700; }
+.quote-row text:last-child { color: #75685e; font-size: 19rpx; }

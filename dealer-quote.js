@@ -1,6 +1,7 @@
 import { calculateQuote, createDraft, validateDraft, MAX_QUOTE_LINES, migrateDraft } from "./quote-core.mjs";
 import { DraftRepository } from "./quote-drafts.mjs";
 import { generatePdf, generatePptx } from "./quote-ppt.mjs?v=20260721-3";
+import { DealerCloudClient } from "./dealer-cloud.mjs";
 
 const refs = {
   form: document.getElementById("quoteForm"),
@@ -32,9 +33,17 @@ const refs = {
   duplicateDraft: document.getElementById("duplicateDraftButton"),
   renameDraft: document.getElementById("renameDraftButton"),
   deleteDraft: document.getElementById("deleteDraftButton"),
+  authShell: document.getElementById("authShell"),
+  loginForm: document.getElementById("loginForm"),
+  passwordForm: document.getElementById("passwordForm"),
+  authMessage: document.getElementById("authMessage"),
+  accountActions: document.getElementById("accountActions"),
+  accountName: document.getElementById("accountName"),
+  adminLink: document.getElementById("adminLink"),
+  logout: document.getElementById("logoutButton"),
 };
 
-const repository = new DraftRepository();
+const cloud = new DealerCloudClient();
 const mobileMedia = window.matchMedia("(max-width: 760px)");
 const numberFields = new Set([
   "fees.accessoryUnitPrice", "fees.installationUnitPrice", "fees.transportAmount", "fees.otherAmount",
@@ -49,6 +58,10 @@ let toastTimer = null;
 let activePicker = null;
 let pickerResults = [];
 let pickerIndex = 0;
+let repository = null;
+let currentUser = null;
+let cloudSaveTimer = null;
+let cloudReady = false;
 
 const blankLine = () => ({ room: "", productCode: "", netArea: "", wasteRate: 5, unitPrice: "", note: "" });
 const escapeHtml = (value) => String(value ?? "").replace(/[&<>'"]/g, (character) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", "'": "&#39;", '"': "&quot;" }[character]));
@@ -100,6 +113,128 @@ function setSaveState(text, saving = false) {
   refs.saveState.lastChild.textContent = text;
 }
 
+function setAuthMode(mode, message = "") {
+  refs.loginForm.hidden = mode !== "login";
+  refs.passwordForm.hidden = mode !== "password";
+  refs.authMessage.textContent = message;
+  const target = mode === "password"
+    ? refs.passwordForm.elements.currentPassword
+    : refs.loginForm.elements.username;
+  requestAnimationFrame(() => target?.focus());
+}
+
+function finishAuthentication(user) {
+  currentUser = user;
+  repository = new DraftRepository(globalThis.localStorage, user.id);
+  const migrationKey = "woodallDealerQuoteLegacyMigratedV1";
+  if (!localStorage.getItem(migrationKey) && repository.list().length === 0) {
+    const legacy = new DraftRepository(globalThis.localStorage);
+    legacy.list().forEach((item) => repository.import(item));
+    localStorage.setItem(migrationKey, user.id);
+  }
+  refs.accountName.textContent = user.displayName;
+  refs.accountActions.hidden = false;
+  refs.adminLink.hidden = user.role !== "admin";
+  refs.authShell.hidden = true;
+  document.body.classList.remove("auth-pending");
+  document.body.classList.add("auth-ready");
+}
+
+async function ensureAuthenticated() {
+  return new Promise((resolve) => {
+    let lastLoginPassword = "";
+    const complete = (user) => {
+      finishAuthentication(user);
+      resolve(user);
+    };
+
+    refs.loginForm.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      const button = refs.loginForm.querySelector("button[type='submit']");
+      const username = refs.loginForm.elements.username.value.trim();
+      const password = refs.loginForm.elements.password.value;
+      button.disabled = true;
+      refs.authMessage.textContent = "正在验证账号…";
+      try {
+        const result = await cloud.login(username, password);
+        lastLoginPassword = password;
+        refs.loginForm.elements.password.value = "";
+        if (result.user.mustChangePassword) {
+          refs.passwordForm.elements.currentPassword.value = password;
+          setAuthMode("password");
+        } else {
+          complete(result.user);
+        }
+      } catch (error) {
+        refs.authMessage.textContent = error.message;
+      } finally {
+        button.disabled = false;
+      }
+    });
+
+    refs.passwordForm.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      const button = refs.passwordForm.querySelector("button[type='submit']");
+      const currentPassword = refs.passwordForm.elements.currentPassword.value || lastLoginPassword;
+      const nextPassword = refs.passwordForm.elements.nextPassword.value;
+      const confirmPassword = refs.passwordForm.elements.confirmPassword.value;
+      if (nextPassword !== confirmPassword) {
+        refs.authMessage.textContent = "两次输入的新密码不一致";
+        return;
+      }
+      button.disabled = true;
+      refs.authMessage.textContent = "正在更新密码…";
+      try {
+        const result = await cloud.changePassword(currentPassword, nextPassword);
+        complete(result.user);
+      } catch (error) {
+        refs.authMessage.textContent = error.message;
+      } finally {
+        button.disabled = false;
+      }
+    });
+
+    cloud.session().then((result) => {
+      if (result.user.mustChangePassword) setAuthMode("password");
+      else complete(result.user);
+    }).catch((error) => {
+      setAuthMode("login", error.status === 503 ? "系统正在初始化，请稍后刷新页面" : "");
+    });
+  });
+}
+
+function queueCloudSave(snapshot = draft) {
+  if (!cloudReady || !snapshot) return;
+  clearTimeout(cloudSaveTimer);
+  const payload = structuredClone(snapshot);
+  setSaveState("本机已保存，正在同步…", true);
+  cloudSaveTimer = setTimeout(async () => {
+    try {
+      await cloud.saveQuote(payload);
+      setSaveState("已同步至总部", false);
+    } catch (error) {
+      setSaveState("已保存本机，等待同步", false);
+      console.error("Quote cloud sync failed", error);
+    }
+  }, 520);
+}
+
+async function hydrateCloudDrafts() {
+  try {
+    const result = await cloud.listQuotes();
+    for (const item of result.quotes || []) {
+      const local = repository.get(item.id);
+      if (!local || String(item.updatedAt) > String(local.updatedAt)) repository.import(item.draft);
+    }
+    cloudReady = true;
+    setSaveState("已连接总部", false);
+  } catch (error) {
+    cloudReady = true;
+    setSaveState("仅保存本机", false);
+    console.error("Quote cloud hydration failed", error);
+  }
+}
+
 function scheduleSave() {
   clearTimeout(saveTimer);
   setSaveState("正在保存…", true);
@@ -111,6 +246,7 @@ function saveDraft() {
   draft = repository.save(draft);
   setSaveState("已保存到本机", false);
   renderHistory();
+  queueCloudSave(draft);
 }
 
 function renderHistory() {
@@ -346,7 +482,7 @@ async function generate(kind = "pptx") {
     const result = kind === "pdf"
       ? await generatePdf({ draft, catalog, content })
       : await generatePptx({ draft, catalog, content });
-    refs.status.textContent = `已生成 ${result.slideCount} 页${kind === "pdf" ? "客户版 PDF" : "可编辑 PPT"}，草稿仍保存在本机。`;
+    refs.status.textContent = `已生成 ${result.slideCount} 页${kind === "pdf" ? "客户版 PDF" : "可编辑 PPT"}，报价已保存并同步。`;
     showToast(`${result.filename} 已开始下载`);
   } catch (error) {
     console.error(error);
@@ -431,11 +567,18 @@ function bindEvents() {
   });
   refs.deleteDraft.addEventListener("click", () => {
     if (!window.confirm(`删除“${draft.title || draft.project.name || "未命名报价"}”？此操作只影响当前设备。`)) return;
-    const remaining = repository.delete(draft.id);
+    const deletedId = draft.id;
+    const remaining = repository.delete(deletedId);
+    cloud.deleteQuote(deletedId).catch((error) => console.error("Cloud quote deletion failed", error));
     loadDraft(remaining[0] || repository.create({ lines: [blankLine()] }));
     showToast("报价已从本机删除");
   });
   window.addEventListener("beforeunload", saveDraft);
+  refs.logout.addEventListener("click", async () => {
+    saveDraft();
+    await cloud.logout().catch(() => null);
+    location.reload();
+  });
   mobileMedia.addEventListener("change", (event) => {
     setHistoryExpanded(!event.matches);
     updateEditingState();
@@ -444,6 +587,7 @@ function bindEvents() {
 
 async function init() {
   try {
+    await ensureAuthenticated();
     const [catalogResponse, contentResponse] = await Promise.all([
       fetch("products_clean.json", { cache: "force-cache" }),
       fetch("quote-content.json", { cache: "no-cache" }),
@@ -451,6 +595,7 @@ async function init() {
     if (!catalogResponse.ok || !contentResponse.ok) throw new Error("产品或品牌内容加载失败");
     [catalog, content] = await Promise.all([catalogResponse.json(), contentResponse.json()]);
     catalogByCode = new Map(catalog.map((product) => [product.code, product]));
+    await hydrateCloudDrafts();
     const drafts = repository.list();
     const active = repository.get(repository.active());
     loadDraft(active || drafts[0] || repository.create({ lines: [blankLine()] }));

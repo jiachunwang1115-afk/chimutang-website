@@ -1,0 +1,35 @@
+<view class="page">
+  <view class="home-head">
+    <view><text class="eyebrow">WOOD ALL · DEALER</text><text class="page-title">{{greeting}}</text><text class="page-subtitle">让报价成为一次专业的选材说明。</text></view>
+    <image src="/assets/logo.png" mode="aspectFit"></image>
+  </view>
+
+  <view class="home-total">
+    <text>累计报价金额</text>
+    <text class="money">{{totalAmount}}</text>
+    <view><text>{{quotes.length}} 份报价</text><text>{{totalArea}} m² 计价面积</text></view>
+  </view>
+
+  <view class="quick-actions">
+    <button class="new-quote" bindtap="newQuote"><text>＋</text><view><text class="action-title">新建私定报价</text><text class="action-copy">选择产品并计算项目金额</text></view></button>
+    <button class="history-link" bindtap="goHistory"><text>历史报价</text><text>→</text></button>
+  </view>
+
+  <view class="section">
+    <view class="section-head"><text>最近报价</text><text bindtap="goHistory">查看全部</text></view>
+    <view wx:if="{{quotes.length}}">
+      <view class="quote-row" wx:for="{{quotes}}" wx:key="id" data-id="{{item.id}}" bindtap="editQuote">
+        <view><text>{{item.projectName || item.title}}</text><text>{{item.dealerName || user.displayName}} · {{item.city || '城市待补充'}}</text></view>
+        <view><text class="money">{{item.amountText}}</text><text>{{item.dateText}}</text></view>
+      </view>
+    </view>
+    <view class="empty" wx:else>第一份专业报价，从一个真实项目开始。</view>
+  </view>
+
+  <view class="bottom-nav">
+    <view class="nav-item is-active"><text class="nav-symbol">⌂</text><text>首页</text></view>
+    <view class="nav-item" bindtap="newQuote"><text class="nav-symbol">＋</text><text>报价</text></view>
+    <view class="nav-item" bindtap="goHistory"><text class="nav-symbol">≡</text><text>历史</text></view>
+    <view class="nav-item" bindtap="goProfile"><text class="nav-symbol">○</text><text>我的</text></view>
+  </view>
+</view>

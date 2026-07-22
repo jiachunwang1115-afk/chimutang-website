@@ -4,13 +4,15 @@ export const DRAFT_STORAGE_KEY = "woodallDealerQuoteDraftsV1";
 export const ACTIVE_DRAFT_KEY = "woodallDealerQuoteActiveV1";
 
 export class DraftRepository {
-  constructor(storage = globalThis.localStorage) {
+  constructor(storage = globalThis.localStorage, namespace = "") {
     this.storage = storage;
+    this.draftsKey = namespace ? `${DRAFT_STORAGE_KEY}:${namespace}` : DRAFT_STORAGE_KEY;
+    this.activeKey = namespace ? `${ACTIVE_DRAFT_KEY}:${namespace}` : ACTIVE_DRAFT_KEY;
   }
 
   list() {
     try {
-      const parsed = JSON.parse(this.storage.getItem(DRAFT_STORAGE_KEY) || "[]");
+      const parsed = JSON.parse(this.storage.getItem(this.draftsKey) || "[]");
       if (!Array.isArray(parsed)) return [];
       return parsed.map(migrateDraft).sort((a, b) => String(b.updatedAt).localeCompare(String(a.updatedAt)));
     } catch {
@@ -24,24 +26,28 @@ export class DraftRepository {
 
   active() {
     try {
-      return this.storage.getItem(ACTIVE_DRAFT_KEY) || "";
+      return this.storage.getItem(this.activeKey) || "";
     } catch {
       return "";
     }
   }
 
   setActive(id) {
-    this.storage.setItem(ACTIVE_DRAFT_KEY, id || "");
+    this.storage.setItem(this.activeKey, id || "");
   }
 
-  save(draft) {
-    const now = new Date().toISOString();
+  save(draft, options = {}) {
+    const now = options.preserveUpdatedAt ? (draft.updatedAt || new Date().toISOString()) : new Date().toISOString();
     const normalized = migrateDraft({ ...draft, version: QUOTE_DRAFT_VERSION, updatedAt: now });
     const drafts = this.list().filter((item) => item.id !== normalized.id);
     drafts.unshift(normalized);
-    this.storage.setItem(DRAFT_STORAGE_KEY, JSON.stringify(drafts));
+    this.storage.setItem(this.draftsKey, JSON.stringify(drafts));
     this.setActive(normalized.id);
     return normalized;
+  }
+
+  import(draft) {
+    return this.save(draft, { preserveUpdatedAt: true });
   }
 
   create(overrides = {}) {
@@ -71,7 +77,7 @@ export class DraftRepository {
 
   delete(id) {
     const drafts = this.list().filter((draft) => draft.id !== id);
-    this.storage.setItem(DRAFT_STORAGE_KEY, JSON.stringify(drafts));
+    this.storage.setItem(this.draftsKey, JSON.stringify(drafts));
     if (this.active() === id) this.setActive(drafts[0]?.id || "");
     return drafts;
   }

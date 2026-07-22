@@ -7,15 +7,49 @@
   <meta name="theme-color" content="#f5f0e8">
   <title>痴木堂经销商私定报价</title>
   <link rel="icon" href="logo/logo.png">
-  <link rel="stylesheet" href="dealer-quote.css?v=20260722-1">
+  <link rel="stylesheet" href="dealer-quote.css?v=20260722-2">
 </head>
-<body>
+<body class="auth-pending">
+  <section class="auth-shell" id="authShell" aria-labelledby="authTitle">
+    <div class="auth-visual" aria-hidden="true"></div>
+    <div class="auth-panel">
+      <div class="auth-brand">
+        <img src="logo/logo.png" alt="">
+        <span>WOOD ALL · DEALER</span>
+      </div>
+      <div class="auth-copy">
+        <span class="eyebrow">PRIVATE QUOTATION</span>
+        <h1 id="authTitle">经销商私定报价</h1>
+        <p>登录后，项目与报价将安全同步至痴木堂总部。</p>
+      </div>
+      <form class="auth-form" id="loginForm">
+        <label><span>账号</span><input name="username" autocomplete="username" autocapitalize="none" required></label>
+        <label><span>密码</span><input name="password" type="password" autocomplete="current-password" required></label>
+        <button class="primary-action" type="submit">登录工作台</button>
+      </form>
+      <form class="auth-form" id="passwordForm" hidden>
+        <div class="auth-form-heading"><strong>设置新的登录密码</strong><span>首次登录需要完成此步骤</span></div>
+        <label><span>当前临时密码</span><input name="currentPassword" type="password" autocomplete="current-password" required></label>
+        <label><span>新密码</span><input name="nextPassword" type="password" minlength="12" autocomplete="new-password" required></label>
+        <label><span>确认新密码</span><input name="confirmPassword" type="password" minlength="12" autocomplete="new-password" required></label>
+        <button class="primary-action" type="submit">确认并进入</button>
+      </form>
+      <p class="auth-message" id="authMessage" role="alert"></p>
+      <p class="auth-support">账号由痴木堂总部统一分配</p>
+    </div>
+  </section>
+
   <header class="quote-topbar">
     <a class="quote-brand" href="/" aria-label="返回痴木堂官网">
       <img src="logo/logo.png" alt="痴木堂 WOOD ALL">
       <span><strong>私定报价</strong><small>DEALER QUOTATION</small></span>
     </a>
     <div class="save-state" id="saveState" role="status"><span></span>已保存到本机</div>
+    <div class="account-actions" id="accountActions" hidden>
+      <span id="accountName"></span>
+      <a id="adminLink" href="dealer-admin.html" hidden>总部后台</a>
+      <button id="logoutButton" type="button">退出</button>
+    </div>
     <div class="download-actions" aria-label="报价文件下载">
       <button class="primary-action" id="generateButton" type="button"><span aria-hidden="true">↓</span> 下载 PPT</button>
       <button class="secondary-action" id="generatePdfButton" type="button"><span aria-hidden="true">↓</span> 下载 PDF</button>
@@ -39,8 +73,8 @@
           <button class="danger-text" type="button" id="deleteDraftButton">删除</button>
         </div>
         <div class="privacy-note">
-          <strong>本机报价</strong>
-          <span>客户资料与价格不会上传，清除浏览器数据会同时清除历史报价。</span>
+          <strong>总部云端同步</strong>
+          <span>报价保存到当前设备并同步至痴木堂总部，便于跨设备继续编辑。</span>
         </div>
       </div>
     </aside>
@@ -136,6 +170,6 @@
   <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
   <script src="vendor/pptxgen.bundle.js?v=4.0.1-standalone-1"></script>
   <script src="vendor/pdf-lib.min.js?v=1.17.1-standalone-1"></script>
-  <script type="module" src="dealer-quote.js?v=20260722-1"></script>
+  <script type="module" src="dealer-quote.js?v=20260722-2"></script>
 </body>
 </html>

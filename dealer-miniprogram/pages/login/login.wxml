@@ -1,0 +1,25 @@
+<view class="login-page">
+  <image class="login-image" src="/assets/brand-film-poster.jpg" mode="aspectFill"></image>
+  <view class="login-panel">
+    <view class="login-brand"><image src="/assets/logo.png" mode="aspectFit"></image><text>WOOD ALL · DEALER</text></view>
+    <text class="eyebrow">PRIVATE QUOTATION</text>
+    <text class="login-title">经销商私定报价</text>
+    <text class="login-copy">从选材到成案，让每一份报价清楚、专业、可追溯。</text>
+
+    <view class="login-form" wx:if="{{mode === 'login'}}">
+      <label class="field"><text class="field-label">账号</text><input class="field-input" value="{{username}}" data-field="username" bindinput="onInput" placeholder="总部为你分配的账号"></input></label>
+      <label class="field"><text class="field-label">密码</text><input class="field-input" value="{{password}}" data-field="password" bindinput="onInput" password placeholder="请输入密码"></input></label>
+      <button class="primary-button" loading="{{submitting}}" disabled="{{submitting}}" bindtap="login">登录工作台</button>
+    </view>
+
+    <view class="login-form" wx:else>
+      <text class="change-title">首次登录，请设置新密码</text>
+      <label class="field"><text class="field-label">当前临时密码</text><input class="field-input" value="{{currentPassword}}" data-field="currentPassword" bindinput="onInput" password></input></label>
+      <label class="field"><text class="field-label">新密码</text><input class="field-input" value="{{nextPassword}}" data-field="nextPassword" bindinput="onInput" password placeholder="至少 12 位"></input></label>
+      <label class="field"><text class="field-label">确认新密码</text><input class="field-input" value="{{confirmPassword}}" data-field="confirmPassword" bindinput="onInput" password></input></label>
+      <button class="primary-button" loading="{{submitting}}" disabled="{{submitting}}" bindtap="changePassword">确认并进入</button>
+    </view>
+    <text class="login-message" wx:if="{{message}}">{{message}}</text>
+    <text class="login-support">账号由痴木堂总部统一分配</text>
+  </view>
+</view>

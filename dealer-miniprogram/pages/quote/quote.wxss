@@ -1,0 +1,40 @@
+.quote-page { min-height: 100vh; padding: 30rpx 24rpx 150rpx; background: #f5f0e8; }
+.quote-heading { position: relative; padding: 6rpx 4rpx 26rpx; }
+.quote-heading .page-title { display: block; }
+.save-state { position: absolute; right: 4rpx; bottom: 30rpx; color: #75685e; font-size: 19rpx; }
+.quote-section { margin-bottom: 22rpx; border: 1rpx solid #d9cec1; border-radius: 6rpx; background: #fffdf9; }
+.quote-section-title { display: flex; min-height: 86rpx; align-items: center; justify-content: space-between; gap: 16rpx; border-bottom: 1rpx solid #d9cec1; padding: 0 20rpx; }
+.quote-section-title > view { display: flex; align-items: center; gap: 16rpx; }
+.quote-section-title > text, .quote-section-title > view > text { color: #9a6741; font-family: Georgia, serif; font-size: 20rpx; }
+.quote-section-title .section-name { margin-left: 14rpx; color: #2e251f; font-size: 27rpx; font-weight: 700; }
+.quote-section-title button { min-height: 58rpx; margin: 0; border: 1rpx solid #c8b8a8; border-radius: 5rpx; padding: 0 18rpx; background: transparent; color: #5b3928; font-size: 20rpx; line-height: 58rpx; }
+.quote-section > .field, .quote-section > .field-row, .quote-section > .number-grid { margin-inline: 20rpx; }
+.field-row, .number-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16rpx; }
+.line-card { position: relative; border-bottom: 1rpx solid #d9cec1; padding: 0 20rpx 26rpx; }
+.line-card:last-child { border-bottom: 0; }
+.line-head { display: flex; min-height: 70rpx; align-items: center; justify-content: space-between; }
+.line-head text { color: #75685e; font-size: 20rpx; }
+.line-head button { margin: 0; border: 0; padding: 10rpx 0; background: transparent; color: #9a352d; font-size: 19rpx; line-height: 1; }
+.line-product-row { display: grid; grid-template-columns: 180rpx minmax(0, 1fr); gap: 16rpx; }
+.line-product-row .field { margin-top: 0; }
+.number-grid .field { min-width: 0; }
+.number-grid .field-input { padding-inline: 16rpx; }
+.billable { display: flex; min-height: 116rpx; align-self: end; flex-direction: column; justify-content: center; gap: 12rpx; border: 1rpx solid #d9cec1; border-radius: 6rpx; padding: 0 18rpx; background: #f5f0e8; }
+.billable text { color: #75685e; font-size: 19rpx; }
+.billable .billable-value { font-size: 24rpx; font-weight: 700; }
+.product-results { position: relative; z-index: 10; margin-top: 10rpx; border: 1rpx solid #c8b8a8; border-radius: 6rpx; background: #fff; box-shadow: 0 18rpx 44rpx rgba(51, 37, 29, .15); }
+.product-option { display: flex; min-height: 104rpx; align-items: center; justify-content: space-between; gap: 20rpx; border-bottom: 1rpx solid #e5dcd2; padding: 14rpx 18rpx; }
+.product-option:last-child { border-bottom: 0; }
+.product-option > view { display: grid; gap: 8rpx; min-width: 0; }
+.product-option .product-name { color: #2e251f; font-size: 22rpx; font-weight: 700; }
+.product-option text { color: #75685e; font-size: 18rpx; }
+.quote-summary { margin-top: 28rpx; border-block: 1rpx solid #d9cec1; padding: 20rpx 6rpx; }
+.quote-summary > view { display: flex; min-height: 62rpx; align-items: center; justify-content: space-between; color: #75685e; font-size: 21rpx; }
+.quote-summary .summary-value { color: #2e251f; font-weight: 700; }
+.quote-summary .summary-total { min-height: 88rpx; border-top: 1rpx solid #d9cec1; color: #2e251f; font-size: 25rpx; }
+.quote-summary .summary-total .summary-value { font-size: 38rpx; }
+.quote-actionbar { position: fixed; z-index: 30; right: 0; bottom: 0; left: 0; display: grid; grid-template-columns: minmax(0, 1fr) 220rpx; gap: 16rpx; min-height: calc(112rpx + env(safe-area-inset-bottom)); align-items: center; border-top: 1rpx solid #d9cec1; padding: 12rpx 24rpx calc(12rpx + env(safe-area-inset-bottom)); background: rgba(251, 248, 242, .98); }
+.quote-actionbar > view { display: grid; gap: 5rpx; }
+.quote-actionbar text { color: #75685e; font-size: 18rpx; }
+.quote-actionbar .action-total { font-size: 32rpx; font-weight: 700; }
+.quote-actionbar button { min-height: 84rpx; margin: 0; border-radius: 5rpx; background: #5b3928; color: #fff; font-size: 24rpx; font-weight: 700; line-height: 84rpx; }

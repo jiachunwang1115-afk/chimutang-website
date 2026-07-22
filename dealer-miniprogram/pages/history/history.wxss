@@ -1,0 +1,10 @@
+.history-search { display: flex; height: 84rpx; align-items: center; gap: 12rpx; margin-top: 32rpx; border: 1rpx solid #d9cec1; border-radius: 6rpx; padding: 0 20rpx; background: #fffdf9; }
+.history-search text { color: #75685e; font-size: 27rpx; }
+.history-search input { min-width: 0; flex: 1; font-size: 28rpx; }
+.history-list { margin-top: 26rpx; border-top: 1rpx solid #d9cec1; }
+.history-item { min-height: 132rpx; border-bottom: 1rpx solid #d9cec1; padding: 27rpx 4rpx; }
+.history-top { display: flex; justify-content: space-between; gap: 20rpx; }
+.history-top text:first-child { font-size: 27rpx; font-weight: 700; }
+.history-top .money { font-size: 29rpx; }
+.history-meta { display: flex; gap: 24rpx; margin-top: 16rpx; color: #75685e; font-size: 20rpx; }
+.floating-add { position: fixed; z-index: 20; right: 28rpx; bottom: calc(134rpx + env(safe-area-inset-bottom)); display: flex; width: 92rpx; height: 92rpx; align-items: center; justify-content: center; border-radius: 50%; background: #5b3928; color: #fff; font-size: 38rpx; line-height: 1; box-shadow: 0 12rpx 34rpx rgba(57, 40, 30, .22); }

@@ -1,0 +1,21 @@
+<view class="page">
+  <text class="eyebrow">DEALER ACCOUNT</text>
+  <text class="page-title">我的账号</text>
+  <view class="profile-card">
+    <image src="/assets/logo.png" mode="aspectFit"></image>
+    <view><text>{{user.displayName}}</text><text>{{user.username}}</text></view>
+    <text>{{user.role === 'admin' ? '总部管理员' : '经销商'}}</text>
+  </view>
+  <view class="profile-list">
+    <view><text>数据同步</text><text>已连接痴木堂总部</text></view>
+    <view><text>报价文件</text><text>网页版支持 PPT / PDF</text></view>
+    <view><text>总部电话</text><text>0575-85666148</text></view>
+  </view>
+  <button class="outline-button logout" bindtap="logout">退出当前账号</button>
+  <view class="bottom-nav">
+    <view class="nav-item" bindtap="goHome"><text class="nav-symbol">⌂</text><text>首页</text></view>
+    <view class="nav-item" bindtap="newQuote"><text class="nav-symbol">＋</text><text>报价</text></view>
+    <view class="nav-item" bindtap="goHistory"><text class="nav-symbol">≡</text><text>历史</text></view>
+    <view class="nav-item is-active"><text class="nav-symbol">○</text><text>我的</text></view>
+  </view>
+</view>

@@ -1,0 +1,20 @@
+<view class="page">
+  <text class="eyebrow">QUOTATION ARCHIVE</text>
+  <text class="page-title">历史报价</text>
+  <text class="page-subtitle">所有项目均已同步至痴木堂总部。</text>
+  <label class="history-search"><text>⌕</text><input value="{{query}}" bindinput="search" placeholder="搜索项目或城市"></input></label>
+  <view class="history-list" wx:if="{{visibleQuotes.length}}">
+    <view class="history-item" wx:for="{{visibleQuotes}}" wx:key="id" data-id="{{item.id}}" bindtap="open">
+      <view class="history-top"><text>{{item.projectName || item.title}}</text><text class="money">{{item.amountText}}</text></view>
+      <view class="history-meta"><text>{{item.city || '城市待补充'}}</text><text>{{item.totalBillableArea}} m²</text><text>{{item.dateText}}</text></view>
+    </view>
+  </view>
+  <view class="empty" wx:else>没有匹配的报价记录</view>
+  <button class="floating-add" bindtap="create">＋</button>
+  <view class="bottom-nav">
+    <view class="nav-item" bindtap="goHome"><text class="nav-symbol">⌂</text><text>首页</text></view>
+    <view class="nav-item" bindtap="create"><text class="nav-symbol">＋</text><text>报价</text></view>
+    <view class="nav-item is-active"><text class="nav-symbol">≡</text><text>历史</text></view>
+    <view class="nav-item" bindtap="goProfile"><text class="nav-symbol">○</text><text>我的</text></view>
+  </view>
+</view>
