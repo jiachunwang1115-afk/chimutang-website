@@ -1,4 +1,4 @@
-import { DealerCloudClient } from "./dealer-cloud.mjs";
+import { DealerCloudClient } from "./dealer-cloud.mjs?v=20260722-2";
 
 const api = new DealerCloudClient();
 const refs = {

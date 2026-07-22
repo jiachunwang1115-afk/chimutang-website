@@ -1,7 +1,7 @@
 import { calculateQuote, createDraft, validateDraft, MAX_QUOTE_LINES, migrateDraft } from "./quote-core.mjs";
 import { DraftRepository } from "./quote-drafts.mjs";
 import { generatePdf, generatePptx } from "./quote-ppt.mjs?v=20260721-3";
-import { DealerCloudClient } from "./dealer-cloud.mjs";
+import { DealerCloudClient } from "./dealer-cloud.mjs?v=20260722-2";
 
 const refs = {
   form: document.getElementById("quoteForm"),
@@ -41,6 +41,8 @@ const refs = {
   accountName: document.getElementById("accountName"),
   adminLink: document.getElementById("adminLink"),
   logout: document.getElementById("logoutButton"),
+  privacyTitle: document.getElementById("privacyTitle"),
+  privacyText: document.getElementById("privacyText"),
 };
 
 const cloud = new DealerCloudClient();
@@ -62,6 +64,7 @@ let repository = null;
 let currentUser = null;
 let cloudSaveTimer = null;
 let cloudReady = false;
+let localOnlyMode = false;
 
 const blankLine = () => ({ room: "", productCode: "", netArea: "", wasteRate: 5, unitPrice: "", note: "" });
 const escapeHtml = (value) => String(value ?? "").replace(/[&<>'"]/g, (character) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", "'": "&#39;", '"': "&quot;" }[character]));
@@ -140,6 +143,18 @@ function finishAuthentication(user) {
   document.body.classList.add("auth-ready");
 }
 
+function finishLocalMode() {
+  localOnlyMode = true;
+  currentUser = { id: "local-device", displayName: "本机模式", role: "dealer", mustChangePassword: false };
+  repository = new DraftRepository(globalThis.localStorage);
+  refs.accountActions.hidden = true;
+  refs.privacyTitle.textContent = "本机报价";
+  refs.privacyText.textContent = "报价仅保存在当前设备；总部数据服务启用后可继续同步。";
+  refs.authShell.hidden = true;
+  document.body.classList.remove("auth-pending");
+  document.body.classList.add("auth-ready");
+}
+
 async function ensureAuthenticated() {
   return new Promise((resolve) => {
     let lastLoginPassword = "";
@@ -198,7 +213,12 @@ async function ensureAuthenticated() {
       if (result.user.mustChangePassword) setAuthMode("password");
       else complete(result.user);
     }).catch((error) => {
-      setAuthMode("login", error.status === 503 ? "系统正在初始化，请稍后刷新页面" : "");
+      if (error.code === "INVALID_RESPONSE" || error.status >= 500) {
+        finishLocalMode();
+        resolve(currentUser);
+      } else {
+        setAuthMode("login");
+      }
     });
   });
 }
@@ -220,6 +240,10 @@ function queueCloudSave(snapshot = draft) {
 }
 
 async function hydrateCloudDrafts() {
+  if (localOnlyMode) {
+    setSaveState("已保存到本机", false);
+    return;
+  }
   try {
     const result = await cloud.listQuotes();
     for (const item of result.quotes || []) {
