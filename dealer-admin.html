@@ -7,7 +7,7 @@
   <meta name="theme-color" content="#f5f0e8">
   <title>痴木堂经销商经营后台</title>
   <link rel="icon" href="logo/logo.png">
-  <link rel="stylesheet" href="dealer-admin.css?v=20260722-1">
+  <link rel="stylesheet" href="dealer-admin.css?v=20260722-2">
 </head>
 <body class="auth-pending">
   <section class="admin-auth" id="authShell" aria-labelledby="authTitle">
@@ -15,18 +15,21 @@
     <div class="auth-panel">
       <img src="logo/logo.png" alt="痴木堂 WOOD ALL">
       <span class="eyebrow">WOOD ALL · ADMIN</span>
-      <h1 id="authTitle">经销商经营后台</h1>
-      <p>统一管理成员账号、客户项目与私定报价。</p>
+      <h1 id="authTitle">总部管理后台</h1>
+      <p>创建经销商账号，查看团队报价与项目数据。</p>
       <form id="loginForm" class="auth-form">
+        <div class="auth-step"><span>01</span><strong>验证管理员身份</strong></div>
         <label><span>管理员账号</span><input name="username" autocomplete="username" autocapitalize="none" required></label>
         <label><span>密码</span><input name="password" type="password" autocomplete="current-password" required></label>
-        <button type="submit">登录后台</button>
+        <p class="form-note">首次登录成功后，系统会单独引导你设置新密码。</p>
+        <button type="submit">进入管理后台</button>
       </form>
       <form id="passwordForm" class="auth-form" hidden>
-        <strong>设置新的管理员密码</strong>
+        <div class="auth-step"><span>02</span><strong>设置新的管理员密码</strong></div>
         <label><span>当前临时密码</span><input name="currentPassword" type="password" autocomplete="current-password" required></label>
         <label><span>新密码</span><input name="nextPassword" type="password" minlength="12" autocomplete="new-password" required></label>
         <label><span>确认新密码</span><input name="confirmPassword" type="password" minlength="12" autocomplete="new-password" required></label>
+        <p class="form-note">新密码至少 12 位，设置完成后临时密码立即失效。</p>
         <button type="submit">确认并进入</button>
       </form>
       <p class="auth-message" id="authMessage" role="alert"></p>
@@ -106,6 +109,6 @@
   </dialog>
 
   <div class="admin-toast" id="toast" role="status" hidden></div>
-  <script type="module" src="dealer-admin.js?v=20260722-2"></script>
+  <script type="module" src="dealer-admin.js?v=20260722-3"></script>
 </body>
 </html>
