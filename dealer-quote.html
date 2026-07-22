@@ -7,7 +7,7 @@
   <meta name="theme-color" content="#f5f0e8">
   <title>痴木堂经销商私定报价</title>
   <link rel="icon" href="logo/logo.png">
-  <link rel="stylesheet" href="dealer-quote.css?v=20260721-1">
+  <link rel="stylesheet" href="dealer-quote.css?v=20260722-1">
 </head>
 <body>
   <header class="quote-topbar">
@@ -23,20 +23,25 @@
   </header>
 
   <main class="quote-layout">
-    <aside class="history-panel" aria-label="历史报价">
+    <aside class="history-panel is-collapsed" id="historyPanel" aria-label="历史报价">
       <div class="panel-heading">
         <div><span class="eyebrow">LOCAL DRAFTS</span><h2>历史报价</h2></div>
-        <button class="icon-button" id="newDraftButton" type="button" aria-label="新建报价" title="新建报价">＋</button>
+        <div class="history-heading-actions">
+          <button class="history-toggle" id="historyToggleButton" type="button" aria-expanded="false" aria-controls="historyBody">展开</button>
+          <button class="icon-button" id="newDraftButton" type="button" aria-label="新建报价" title="新建报价">＋</button>
+        </div>
       </div>
-      <div class="history-list" id="historyList"></div>
-      <div class="history-actions">
-        <button type="button" id="duplicateDraftButton">复制</button>
-        <button type="button" id="renameDraftButton">重命名</button>
-        <button class="danger-text" type="button" id="deleteDraftButton">删除</button>
-      </div>
-      <div class="privacy-note">
-        <strong>本机报价</strong>
-        <span>客户资料与价格不会上传，清除浏览器数据会同时清除历史报价。</span>
+      <div class="history-body" id="historyBody">
+        <div class="history-list" id="historyList"></div>
+        <div class="history-actions">
+          <button type="button" id="duplicateDraftButton">复制</button>
+          <button type="button" id="renameDraftButton">重命名</button>
+          <button class="danger-text" type="button" id="deleteDraftButton">删除</button>
+        </div>
+        <div class="privacy-note">
+          <strong>本机报价</strong>
+          <span>客户资料与价格不会上传，清除浏览器数据会同时清除历史报价。</span>
+        </div>
       </div>
     </aside>
 
@@ -48,10 +53,10 @@
         </div>
         <div class="field-grid project-fields">
           <label class="field field-wide"><span>客户 / 项目名称 <b>*</b></span><input name="project.name" autocomplete="organization" placeholder="例如：镜湖府王宅" required></label>
-          <label class="field"><span>城市</span><input name="project.city" autocomplete="address-level2" placeholder="绍兴"></label>
+          <label class="field field-city"><span>城市</span><input name="project.city" autocomplete="address-level2" placeholder="绍兴"></label>
           <label class="field field-address"><span>项目地址</span><input name="project.address" autocomplete="street-address" placeholder="小区、楼栋或项目地址"></label>
-          <label class="field"><span>报价日期</span><input name="project.quoteDate" type="date"></label>
-          <label class="field"><span>有效期至</span><input name="project.validUntil" type="date"></label>
+          <label class="field field-date"><span>报价日期</span><input name="project.quoteDate" type="date"></label>
+          <label class="field field-date"><span>有效期至</span><input name="project.validUntil" type="date"></label>
           <label class="field field-half"><span>项目需求</span><textarea name="project.needs" rows="4" placeholder="空间功能、采光、风格、地暖及日常使用偏好"></textarea></label>
           <label class="field field-half"><span>选材建议</span><textarea name="project.advice" rows="4" placeholder="为什么推荐本次木种、结构、颜色与规格"></textarea></label>
         </div>
@@ -121,10 +126,16 @@
     </aside>
   </main>
 
+  <nav class="mobile-quote-actions" aria-label="手机报价操作">
+    <div class="mobile-total"><span id="mobileTotalLabel">报价总额</span><strong id="mobileGrandTotal">¥0.00</strong></div>
+    <button class="primary-action" id="mobileGenerateButton" type="button"><span aria-hidden="true">↓</span> PPT</button>
+    <button class="secondary-action" id="mobileGeneratePdfButton" type="button"><span aria-hidden="true">↓</span> PDF</button>
+  </nav>
+
   <div class="product-popover" id="productPopover" role="listbox" aria-label="产品搜索结果" hidden></div>
   <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
   <script src="vendor/pptxgen.bundle.js?v=4.0.1-standalone-1"></script>
   <script src="vendor/pdf-lib.min.js?v=1.17.1-standalone-1"></script>
-  <script type="module" src="dealer-quote.js?v=20260721-3"></script>
+  <script type="module" src="dealer-quote.js?v=20260722-1"></script>
 </body>
 </html>

@@ -6,6 +6,8 @@ const refs = {
   form: document.getElementById("quoteForm"),
   lines: document.getElementById("quoteLines"),
   history: document.getElementById("historyList"),
+  historyPanel: document.getElementById("historyPanel"),
+  historyToggle: document.getElementById("historyToggleButton"),
   popover: document.getElementById("productPopover"),
   saveState: document.getElementById("saveState"),
   totalNetArea: document.getElementById("totalNetArea"),
@@ -21,6 +23,10 @@ const refs = {
   generatePdf: document.getElementById("generatePdfButton"),
   summaryGenerate: document.getElementById("summaryGenerateButton"),
   summaryGeneratePdf: document.getElementById("summaryGeneratePdfButton"),
+  mobileGenerate: document.getElementById("mobileGenerateButton"),
+  mobileGeneratePdf: document.getElementById("mobileGeneratePdfButton"),
+  mobileGrandTotal: document.getElementById("mobileGrandTotal"),
+  mobileTotalLabel: document.getElementById("mobileTotalLabel"),
   discountSuffix: document.getElementById("discountSuffix"),
   newDraft: document.getElementById("newDraftButton"),
   duplicateDraft: document.getElementById("duplicateDraftButton"),
@@ -29,6 +35,7 @@ const refs = {
 };
 
 const repository = new DraftRepository();
+const mobileMedia = window.matchMedia("(max-width: 760px)");
 const numberFields = new Set([
   "fees.accessoryUnitPrice", "fees.installationUnitPrice", "fees.transportAmount", "fees.otherAmount",
   "discount.value", "tax.rate",
@@ -47,6 +54,25 @@ const blankLine = () => ({ room: "", productCode: "", netArea: "", wasteRate: 5,
 const escapeHtml = (value) => String(value ?? "").replace(/[&<>'"]/g, (character) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", "'": "&#39;", '"': "&quot;" }[character]));
 const money = (cents) => new Intl.NumberFormat("zh-CN", { style: "currency", currency: "CNY", minimumFractionDigits: 2 }).format(cents / 100);
 const shortSeries = (series) => String(series || "").split("（")[0];
+const downloadButtons = () => [refs.generate, refs.generatePdf, refs.summaryGenerate, refs.summaryGeneratePdf, refs.mobileGenerate, refs.mobileGeneratePdf];
+
+function setHistoryExpanded(expanded) {
+  refs.historyPanel.classList.toggle("is-collapsed", !expanded);
+  refs.historyToggle.setAttribute("aria-expanded", String(expanded));
+  refs.historyToggle.textContent = expanded ? "收起" : "展开";
+}
+
+function finishMobileNavigation() {
+  if (!mobileMedia.matches) return;
+  setHistoryExpanded(false);
+  refs.form.scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
+function updateEditingState() {
+  const control = document.activeElement;
+  const editing = mobileMedia.matches && control?.matches("input, textarea, select");
+  document.body.classList.toggle("is-editing", Boolean(editing));
+}
 
 function setPath(target, path, value) {
   const parts = path.split(".");
@@ -161,6 +187,7 @@ function renderSummary() {
   ];
   refs.breakdown.innerHTML = rows.map(([label, cents, className]) => `<dt class="${className}">${escapeHtml(label)}</dt><dd class="${className}">${cents < 0 ? "-" : ""}${money(Math.abs(cents))}</dd>`).join("");
   refs.grandTotal.textContent = money(totals.totalCents);
+  refs.mobileGrandTotal.textContent = money(totals.totalCents);
   refs.taxSummary.textContent = totals.taxMode === "included" ? `输入金额视为含税，税率 ${totals.taxRate}%` : `输入金额未税，另加 ${totals.taxRate}% 税额`;
   draft.lines.forEach((line, index) => {
     const output = refs.lines.querySelector(`[data-line-index="${index}"] [data-line-area]`);
@@ -232,12 +259,26 @@ function updateLineField(event) {
 
 function positionPopover(input) {
   const rect = input.getBoundingClientRect();
+  if (mobileMedia.matches) {
+    const viewport = window.visualViewport;
+    const viewportWidth = viewport?.width || window.innerWidth;
+    const viewportHeight = viewport?.height || window.innerHeight;
+    const offsetLeft = viewport?.offsetLeft || 0;
+    const offsetTop = viewport?.offsetTop || 0;
+    const width = Math.max(280, viewportWidth - 16);
+    const estimatedHeight = Math.min(340, Math.max(144, pickerResults.length * 68));
+    const height = Math.min(estimatedHeight, Math.max(144, viewportHeight * .52));
+    const left = offsetLeft + Math.max(8, (viewportWidth - width) / 2);
+    const top = offsetTop + Math.max(8, viewportHeight - height - 8);
+    Object.assign(refs.popover.style, { left: `${left}px`, top: `${top}px`, width: `${width}px`, maxHeight: `${height}px` });
+    return;
+  }
   const width = Math.min(420, window.innerWidth - 24);
   const left = Math.max(12, Math.min(rect.left, window.innerWidth - width - 12));
   const estimatedHeight = Math.min(310, Math.max(80, pickerResults.length * 62));
   const below = window.innerHeight - rect.bottom;
   const top = below > estimatedHeight + 12 ? rect.bottom + 4 : Math.max(12, rect.top - estimatedHeight - 4);
-  Object.assign(refs.popover.style, { left: `${left}px`, top: `${top}px`, width: `${width}px` });
+  Object.assign(refs.popover.style, { left: `${left}px`, top: `${top}px`, width: `${width}px`, maxHeight: "310px" });
 }
 
 function searchProducts(query) {
@@ -296,10 +337,11 @@ async function generate(kind = "pptx") {
     refs.status.classList.add("is-error");
     return;
   }
-  const downloadButtons = [refs.generate, refs.generatePdf, refs.summaryGenerate, refs.summaryGeneratePdf];
-  downloadButtons.forEach((button) => { button.disabled = true; });
+  const buttons = downloadButtons();
+  buttons.forEach((button) => { button.disabled = true; });
   refs.status.classList.remove("is-error");
   refs.status.textContent = `正在整理真实产品图片与${kind === "pdf" ? "客户版 PDF" : "可编辑 PPT"}…`;
+  refs.mobileTotalLabel.textContent = `正在生成 ${kind === "pdf" ? "PDF" : "PPT"}…`;
   try {
     const result = kind === "pdf"
       ? await generatePdf({ draft, catalog, content })
@@ -311,7 +353,8 @@ async function generate(kind = "pptx") {
     refs.status.textContent = `生成失败：${error?.message || "请检查网络后重试"}。草稿已保留。`;
     refs.status.classList.add("is-error");
   } finally {
-    downloadButtons.forEach((button) => { button.disabled = false; });
+    buttons.forEach((button) => { button.disabled = false; });
+    refs.mobileTotalLabel.textContent = "报价总额";
   }
 }
 
@@ -362,6 +405,10 @@ function bindEvents() {
   });
   window.addEventListener("resize", () => { if (activePicker) positionPopover(activePicker); });
   window.addEventListener("scroll", () => { if (activePicker) positionPopover(activePicker); }, true);
+  window.visualViewport?.addEventListener("resize", () => { if (activePicker) positionPopover(activePicker); });
+  window.visualViewport?.addEventListener("scroll", () => { if (activePicker) positionPopover(activePicker); });
+  document.addEventListener("focusin", updateEditingState);
+  document.addEventListener("focusout", () => requestAnimationFrame(updateEditingState));
   refs.addLine.addEventListener("click", () => {
     if (draft.lines.length >= MAX_QUOTE_LINES) return;
     draft.lines.push(blankLine()); renderLines(); renderSummary(); scheduleSave();
@@ -369,11 +416,14 @@ function bindEvents() {
   });
   [refs.generate, refs.summaryGenerate].forEach((button) => button.addEventListener("click", () => generate("pptx")));
   [refs.generatePdf, refs.summaryGeneratePdf].forEach((button) => button.addEventListener("click", () => generate("pdf")));
+  refs.mobileGenerate.addEventListener("click", () => generate("pptx"));
+  refs.mobileGeneratePdf.addEventListener("click", () => generate("pdf"));
+  refs.historyToggle.addEventListener("click", () => setHistoryExpanded(refs.historyToggle.getAttribute("aria-expanded") !== "true"));
   refs.history.addEventListener("click", (event) => {
     const item = event.target.closest("[data-draft-id]");
-    if (item) { saveDraft(); loadDraft(repository.get(item.dataset.draftId)); }
+    if (item) { saveDraft(); loadDraft(repository.get(item.dataset.draftId)); finishMobileNavigation(); }
   });
-  refs.newDraft.addEventListener("click", () => { saveDraft(); loadDraft(repository.create({ lines: [blankLine()] })); });
+  refs.newDraft.addEventListener("click", () => { saveDraft(); loadDraft(repository.create({ lines: [blankLine()] })); finishMobileNavigation(); });
   refs.duplicateDraft.addEventListener("click", () => { const copy = repository.duplicate(draft.id); if (copy) { loadDraft(copy); showToast("已复制为新报价"); } });
   refs.renameDraft.addEventListener("click", () => {
     const title = window.prompt("报价名称", draft.title || draft.project.name || "未命名报价");
@@ -386,6 +436,10 @@ function bindEvents() {
     showToast("报价已从本机删除");
   });
   window.addEventListener("beforeunload", saveDraft);
+  mobileMedia.addEventListener("change", (event) => {
+    setHistoryExpanded(!event.matches);
+    updateEditingState();
+  });
 }
 
 async function init() {
@@ -400,12 +454,13 @@ async function init() {
     const drafts = repository.list();
     const active = repository.get(repository.active());
     loadDraft(active || drafts[0] || repository.create({ lines: [blankLine()] }));
+    setHistoryExpanded(!mobileMedia.matches);
     bindEvents();
     window.woodallQuoteApp = { getDraft: () => structuredClone(draft), calculate: () => calculateQuote(draft), generatePptx: () => generate("pptx"), generatePdf: () => generate("pdf"), catalog, content };
   } catch (error) {
     refs.status.textContent = `工作台加载失败：${error.message}。请刷新页面重试。`;
     refs.status.classList.add("is-error");
-    [refs.generate, refs.generatePdf, refs.summaryGenerate, refs.summaryGeneratePdf].forEach((button) => { button.disabled = true; });
+    downloadButtons().forEach((button) => { button.disabled = true; });
   }
 }
 
