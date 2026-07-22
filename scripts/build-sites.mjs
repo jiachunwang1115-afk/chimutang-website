@@ -14,6 +14,10 @@ const rootFiles = [
   "dealer-quote.css",
   "app.min.js",
   "dealer-quote.js",
+  "dealer-cloud.mjs",
+  "dealer-admin.html",
+  "dealer-admin.css",
+  "dealer-admin.js",
   "quote-core.mjs",
   "quote-drafts.mjs",
   "quote-ppt.mjs",
@@ -51,6 +55,8 @@ const assetPattern = /(?:logo|media|partners|product-assets|product-images-thumb
 const optionalAssets = /^media\/motion-atelier-\d{2}\.mp4$/i;
 
 const workerSource = String.raw`
+import { handleDealerApi } from "./dealer-api.mjs";
+
 const MIME_TYPES = {
   ".css": "text/css; charset=utf-8",
   ".js": "text/javascript; charset=utf-8",
@@ -115,6 +121,9 @@ async function fetchAsset(request, env, pathname) {
 
 export default {
   async fetch(request, env) {
+    const apiResponse = await handleDealerApi(request, env);
+    if (apiResponse) return apiResponse;
+
     if (request.method !== "GET" && request.method !== "HEAD") {
       return new Response("Method not allowed", {
         status: 405,
@@ -143,6 +152,7 @@ export default {
 await rm(dist, { recursive: true, force: true });
 await mkdir(path.join(dist, "server"), { recursive: true });
 await mkdir(client, { recursive: true });
+await mkdir(path.join(dist, ".openai", "drizzle"), { recursive: true });
 
 for (const file of [...runtimeFiles, ...explicitAssets]) {
   const destination = path.join(client, file);
@@ -176,5 +186,8 @@ for (const asset of assetPaths) {
 }
 
 await writeFile(path.join(dist, "server", "index.js"), `${workerSource.trim()}\n`, "utf8");
+await cp(path.join(root, "worker", "dealer-api.mjs"), path.join(dist, "server", "dealer-api.mjs"));
+await cp(path.join(root, ".openai", "hosting.json"), path.join(dist, ".openai", "hosting.json"));
+await cp(path.join(root, ".openai", "drizzle", "0000_dealer_system.sql"), path.join(dist, ".openai", "drizzle", "0000_dealer_system.sql"));
 
 console.log(`Sites build ready with ${copiedAssets} referenced assets.`);

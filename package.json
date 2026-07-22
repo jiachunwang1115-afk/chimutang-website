@@ -7,7 +7,9 @@
     "build": "node scripts/build-sites.mjs",
     "preview": "node scripts/serve-static.mjs",
     "test:quote": "node scripts/test-dealer-quote.mjs",
-    "fixtures:quote": "node scripts/generate-quote-fixtures.mjs"
+    "test:dealer-system": "node scripts/test-dealer-system.mjs",
+    "fixtures:quote": "node scripts/generate-quote-fixtures.mjs",
+    "build:miniprogram": "node scripts/build-dealer-miniprogram.mjs"
   },
   "engines": {
     "node": ">=22.13.0"

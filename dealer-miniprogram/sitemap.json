@@ -1,0 +1,4 @@
+{
+  "desc": "经销商内部工具不参与微信搜索",
+  "rules": [{ "action": "disallow", "page": "*" }]
+}

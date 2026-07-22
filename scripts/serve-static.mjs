@@ -3,10 +3,13 @@ import { stat } from "node:fs/promises";
 import http from "node:http";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { handleDealerApi } from "../worker/dealer-api.mjs";
+import { createLocalD1 } from "./local-d1.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.resolve(__dirname, "..");
 const port = Number(process.env.PORT || 4173);
+const localEnv = { DB: createLocalD1() };
 
 const types = {
   ".css": "text/css; charset=utf-8",
@@ -32,6 +35,21 @@ function resolveRequest(url) {
 }
 
 const server = http.createServer(async (req, res) => {
+  const requestUrl = new URL(req.url || "/", `http://127.0.0.1:${port}`);
+  if (requestUrl.pathname.startsWith("/api/dealer")) {
+    const chunks = [];
+    for await (const chunk of req) chunks.push(chunk);
+    const body = chunks.length ? Buffer.concat(chunks) : undefined;
+    const request = new Request(requestUrl, {
+      method: req.method,
+      headers: req.headers,
+      ...(body ? { body } : {}),
+    });
+    const response = await handleDealerApi(request, localEnv);
+    res.writeHead(response.status, Object.fromEntries(response.headers));
+    res.end(Buffer.from(await response.arrayBuffer()));
+    return;
+  }
   const file = resolveRequest(req.url || "/");
   if (!file) {
     res.writeHead(400);

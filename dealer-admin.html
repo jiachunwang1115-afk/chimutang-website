@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="robots" content="noindex,nofollow,noarchive">
+  <meta name="theme-color" content="#f5f0e8">
+  <title>痴木堂经销商经营后台</title>
+  <link rel="icon" href="logo/logo.png">
+  <link rel="stylesheet" href="dealer-admin.css?v=20260722-1">
+</head>
+<body class="auth-pending">
+  <section class="admin-auth" id="authShell" aria-labelledby="authTitle">
+    <div class="auth-image" aria-hidden="true"></div>
+    <div class="auth-panel">
+      <img src="logo/logo.png" alt="痴木堂 WOOD ALL">
+      <span class="eyebrow">WOOD ALL · ADMIN</span>
+      <h1 id="authTitle">经销商经营后台</h1>
+      <p>统一管理成员账号、客户项目与私定报价。</p>
+      <form id="loginForm" class="auth-form">
+        <label><span>管理员账号</span><input name="username" autocomplete="username" autocapitalize="none" required></label>
+        <label><span>密码</span><input name="password" type="password" autocomplete="current-password" required></label>
+        <button type="submit">登录后台</button>
+      </form>
+      <form id="passwordForm" class="auth-form" hidden>
+        <strong>设置新的管理员密码</strong>
+        <label><span>当前临时密码</span><input name="currentPassword" type="password" autocomplete="current-password" required></label>
+        <label><span>新密码</span><input name="nextPassword" type="password" minlength="12" autocomplete="new-password" required></label>
+        <label><span>确认新密码</span><input name="confirmPassword" type="password" minlength="12" autocomplete="new-password" required></label>
+        <button type="submit">确认并进入</button>
+      </form>
+      <p class="auth-message" id="authMessage" role="alert"></p>
+    </div>
+  </section>
+
+  <header class="admin-topbar">
+    <a class="admin-brand" href="dealer-quote.html">
+      <img src="logo/logo.png" alt="">
+      <span><strong>经营后台</strong><small>DEALER OPERATIONS</small></span>
+    </a>
+    <nav class="admin-tabs" aria-label="后台视图">
+      <button class="is-active" type="button" data-view="quotes">报价数据</button>
+      <button type="button" data-view="users">成员账号</button>
+    </nav>
+    <div class="admin-account"><span id="accountName"></span><a href="dealer-quote.html">进入报价</a><button id="logoutButton" type="button">退出</button></div>
+  </header>
+
+  <main class="admin-main">
+    <header class="page-heading">
+      <div><span class="eyebrow">DEALER OPERATIONS</span><h1>经销商业务总览</h1></div>
+      <p>报价过程与客户信息仅用于总部经营管理。</p>
+    </header>
+
+    <section class="metrics" aria-label="经营指标">
+      <div><span>有效成员</span><strong id="activeUserMetric">0</strong></div>
+      <div><span>累计报价</span><strong id="quoteMetric">0</strong></div>
+      <div><span>报价总额</span><strong id="amountMetric">¥0</strong></div>
+      <div><span>最近同步</span><strong id="latestMetric">—</strong></div>
+    </section>
+
+    <section class="admin-view" id="quotesView">
+      <div class="view-toolbar">
+        <div><h2>报价数据</h2><p>点击任意报价查看产品、面积与金额明细</p></div>
+        <div class="toolbar-actions"><label class="search-field"><span aria-hidden="true">⌕</span><input id="quoteSearch" type="search" placeholder="搜索经销商或项目"></label><a class="outline-button" href="/api/dealer/admin/quotes.csv">导出 CSV</a></div>
+      </div>
+      <div class="data-table-wrap">
+        <table class="data-table">
+          <thead><tr><th>经销商</th><th>客户 / 项目</th><th>城市</th><th>面积</th><th>报价总额</th><th>更新时间</th></tr></thead>
+          <tbody id="quoteTableBody"></tbody>
+        </table>
+        <p class="empty-state" id="quoteEmpty" hidden>暂时还没有同步的报价</p>
+      </div>
+    </section>
+
+    <section class="admin-view" id="usersView" hidden>
+      <div class="view-toolbar">
+        <div><h2>成员账号</h2><p>临时密码只在创建或重置时显示一次</p></div>
+      </div>
+      <form class="create-user" id="createUserForm">
+        <label><span>经销商 / 成员名称</span><input name="displayName" placeholder="例如：绍兴镜湖店" required></label>
+        <label><span>登录账号</span><input name="username" placeholder="例如：shaoxing_01" autocapitalize="none" required></label>
+        <label><span>权限</span><select name="role"><option value="dealer">经销商</option><option value="admin">总部管理员</option></select></label>
+        <button type="submit">＋ 创建账号</button>
+      </form>
+      <div class="data-table-wrap">
+        <table class="data-table">
+          <thead><tr><th>成员</th><th>账号</th><th>权限</th><th>状态</th><th>最近登录</th><th></th></tr></thead>
+          <tbody id="userTableBody"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <dialog class="admin-dialog" id="credentialDialog">
+    <form method="dialog"><button class="dialog-close" aria-label="关闭">×</button></form>
+    <span class="eyebrow">ONE-TIME CREDENTIAL</span>
+    <h2>临时登录信息</h2>
+    <p>请通过安全方式交给成员，首次登录后系统会要求修改密码。</p>
+    <div class="credential-box"><span>账号</span><strong id="credentialUsername"></strong><span>临时密码</span><strong id="credentialPassword"></strong></div>
+    <button class="primary-button" id="copyCredentialButton" type="button">复制登录信息</button>
+  </dialog>
+
+  <dialog class="admin-dialog quote-dialog" id="quoteDialog">
+    <form method="dialog"><button class="dialog-close" aria-label="关闭">×</button></form>
+    <div id="quoteDetail"></div>
+  </dialog>
+
+  <div class="admin-toast" id="toast" role="status" hidden></div>
+  <script type="module" src="dealer-admin.js?v=20260722-1"></script>
+</body>
+</html>

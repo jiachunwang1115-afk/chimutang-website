@@ -1,0 +1,16 @@
+{
+  "description": "痴木堂经销商私定报价小程序",
+  "packOptions": { "ignore": [] },
+  "setting": {
+    "urlCheck": true,
+    "es6": true,
+    "enhance": true,
+    "postcss": true,
+    "minified": true,
+    "compileHotReLoad": true
+  },
+  "compileType": "miniprogram",
+  "appid": "touristappid",
+  "projectname": "woodall-dealer",
+  "miniprogramRoot": "./"
+}
