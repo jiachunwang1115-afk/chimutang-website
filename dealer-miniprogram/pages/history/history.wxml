@@ -10,8 +10,10 @@
       <view class="history-actions"><button data-id="{{item.id}}" catchtap="duplicate">复制</button><button class="is-danger" data-id="{{item.id}}" catchtap="delete">删除</button></view>
     </view>
   </view>
-  <view class="empty" wx:else>{{loading ? '正在读取报价…' : '没有匹配的报价记录'}}</view>
-  <button class="floating-add" aria-label="新建报价" bindtap="create">＋</button>
+  <view class="history-empty" wx:else>
+    <text>{{loading ? '正在读取报价…' : '还没有匹配的报价记录'}}</text>
+    <button wx:if="{{!loading && !query}}" bindtap="create">新建第一份报价</button>
+  </view>
   <view class="bottom-nav">
     <view class="nav-item" bindtap="goHome"><text class="nav-symbol">⌂</text><text>首页</text></view>
     <view class="nav-item" bindtap="create"><text class="nav-symbol">＋</text><text>报价</text></view>

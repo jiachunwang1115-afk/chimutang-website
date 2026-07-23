@@ -1,28 +1,41 @@
 <view class="page">
   <view class="home-head">
-    <view><text class="eyebrow">WOOD ALL · DEALER</text><text class="page-title">{{greeting}}</text><text class="page-subtitle">让报价成为一次专业的选材说明。</text><text class="connection-state {{localMode ? 'is-local' : ''}}">{{statusText}}</text></view>
+    <view class="home-copy">
+      <text class="eyebrow">WOOD ALL · DEALER</text>
+      <text class="page-title">{{greeting}}</text>
+      <text class="page-subtitle">从产品配置到项目金额，一步完成专业报价。</text>
+    </view>
     <image src="/assets/logo.png" mode="aspectFit"></image>
   </view>
 
-  <view class="local-notice" wx:if="{{localMode}}"><text>本机体验</text><text>报价仅保存在当前手机，正式账号启用后可切换至总部同步。</text></view>
-
-  <view class="home-total">
-    <text>累计报价金额</text>
-    <text class="money">{{totalAmount}}</text>
-    <view><text>{{quoteCount}} 份报价</text><text>{{totalArea}} m² 计价面积</text></view>
+  <view class="mode-note">
+    <text class="connection-state {{localMode ? 'is-local' : ''}}">{{statusText}}</text>
+    <text>{{localMode ? '报价仅保存在当前手机' : '报价数据已接入总部账号'}}</text>
   </view>
 
-  <view class="quick-actions">
-    <button class="new-quote" bindtap="newQuote"><text>＋</text><view><text class="action-title">新建私定报价</text><text class="action-copy">选择产品并计算项目金额</text></view></button>
-    <button class="history-link" bindtap="goHistory"><text>历史报价</text><text>→</text></button>
+  <view class="home-total">
+    <text>报价概览</text>
+    <text class="money">{{totalAmount}}</text>
+    <view class="home-metrics">
+      <view><text>{{quoteCount}}</text><text>报价项目</text></view>
+      <view><text>{{totalArea}} m²</text><text>累计计价面积</text></view>
+    </view>
+  </view>
+
+  <view class="home-actions">
+    <button class="new-quote" bindtap="newQuote">
+      <view><text class="action-title">新建私定报价</text><text class="action-copy">填写项目，选择产品，核算金额</text></view>
+      <text class="action-arrow">＋</text>
+    </button>
+    <button class="history-link" bindtap="goHistory"><view><text>历史报价</text><text>{{quoteCount}} 份项目记录</text></view><text>→</text></button>
   </view>
 
   <view class="section">
     <view class="section-head"><text>最近报价</text><text bindtap="goHistory">查看全部</text></view>
     <view wx:if="{{quotes.length}}">
       <view class="quote-row" wx:for="{{quotes}}" wx:key="id" data-id="{{item.id}}" bindtap="editQuote">
-        <view><text>{{item.projectName || item.title}}</text><text>{{item.dealerName || user.displayName}} · {{item.city || '城市待补充'}}</text></view>
-        <view><text class="money">{{item.amountText}}</text><text>{{item.dateText}}</text></view>
+        <view class="quote-main"><text>{{item.projectName || item.title}}</text><text>{{item.dealerName || user.displayName}} · {{item.city || '城市待补充'}}</text></view>
+        <view class="quote-value"><text class="money">{{item.amountText}}</text><text>{{item.dateText}}</text></view>
       </view>
     </view>
     <view class="empty" wx:else>第一份专业报价，从一个真实项目开始。</view>

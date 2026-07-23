@@ -73,6 +73,9 @@ Page({
     if (this.data.draft) wx.setStorageSync("woodallEditQuote", this.cleanDraft());
   },
   noop() {},
+  jumpToSection(event) {
+    wx.pageScrollTo({ selector: `#${event.currentTarget.dataset.target}`, duration: 240 });
+  },
   cleanDraft() {
     const draft = JSON.parse(JSON.stringify(this.data.draft));
     draft.lines = draft.lines.map(({ productName, productMeta, productThumb, productStatus, ...line }) => line);

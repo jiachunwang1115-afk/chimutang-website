@@ -123,6 +123,19 @@ assert.equal(miniApi.demoCredentials(), null, "正式版必须关闭演示账号
 const loginWxml = await readFile(path.join(miniRoot, "pages", "login", "login.wxml"), "utf8");
 assert.equal(loginWxml.includes("先体验报价功能"), false, "登录页不应提供绕过账号的体验入口");
 assert.equal(loginWxml.includes("体验版演示账号"), true, "体验版应清楚说明数据仅保存在当前设备");
+const [appWxss, homeWxml, homeWxss, quoteWxml, historyWxml] = await Promise.all([
+  readFile(path.join(miniRoot, "app.wxss"), "utf8"),
+  readFile(path.join(miniRoot, "pages", "home", "home.wxml"), "utf8"),
+  readFile(path.join(miniRoot, "pages", "home", "home.wxss"), "utf8"),
+  readFile(path.join(miniRoot, "pages", "quote", "quote.wxml"), "utf8"),
+  readFile(path.join(miniRoot, "pages", "history", "history.wxml"), "utf8"),
+]);
+assert.match(appWxss, /overflow-x:\s*hidden/, "小程序根页面必须阻止横向溢出");
+assert.match(appWxss, /repeat\(4,\s*minmax\(0,\s*1fr\)\)/, "底部导航必须使用可收缩列");
+assert.equal(homeWxml.includes('class="quick-actions"'), false, "手机首页不应继续使用并排桌面操作卡");
+assert.match(homeWxss, /\.home-actions\s*\{[^}]*display:\s*grid[^}]*\}/s, "首页主要操作应使用稳定单列");
+assert.equal(quoteWxml.match(/data-target="/g)?.length, 4, "报价页必须提供四步快速导航");
+assert.equal(historyWxml.includes("floating-add"), false, "历史页不应与底部报价入口重复");
 
 for (const [htmlFile, jsFile] of [["dealer-quote.html", "dealer-quote.js"], ["dealer-admin.html", "dealer-admin.js"]]) {
   const [html, js] = await Promise.all([readFile(path.join(root, htmlFile), "utf8"), readFile(path.join(root, jsFile), "utf8")]);

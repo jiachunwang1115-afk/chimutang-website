@@ -1,18 +1,22 @@
 page {
+  width: 100%;
   min-height: 100%;
   background: #f5f0e8;
   color: #2e251f;
   font-family: -apple-system, BlinkMacSystemFont, "PingFang SC", "Microsoft YaHei", sans-serif;
+  overflow-x: hidden;
 }
 view, text, input, textarea, button, scroll-view { box-sizing: border-box; }
+view, input, textarea, button, scroll-view { min-width: 0; }
+input, textarea, button, scroll-view { max-width: 100%; }
 button::after { border: 0; }
 button:disabled { opacity: .45; }
-.page { min-height: 100vh; padding: 32rpx 28rpx 150rpx; }
+.page { width: 100%; min-height: 100vh; padding: 28rpx 28rpx 150rpx; overflow-x: hidden; }
 .eyebrow { display: block; color: #9a6741; font-size: 18rpx; letter-spacing: 3rpx; }
-.page-title { display: block; margin-top: 12rpx; font-family: STSong, SimSun, serif; font-size: 52rpx; font-weight: 600; }
+.page-title { display: block; margin-top: 12rpx; font-family: STSong, SimSun, serif; font-size: 48rpx; font-weight: 600; line-height: 1.2; overflow-wrap: anywhere; }
 .page-subtitle { display: block; margin-top: 12rpx; color: #75685e; font-size: 22rpx; line-height: 1.7; }
 .section { margin-top: 30rpx; border-top: 1rpx solid #d9cec1; }
-.section-head { display: flex; align-items: center; justify-content: space-between; min-height: 92rpx; }
+.section-head { display: flex; min-width: 0; align-items: center; justify-content: space-between; gap: 20rpx; min-height: 92rpx; }
 .section-head text:first-child { font-size: 28rpx; font-weight: 700; }
 .section-head text:last-child { color: #75685e; font-size: 20rpx; }
 .primary-button, .outline-button { display: flex; width: 100%; min-height: 92rpx; align-items: center; justify-content: center; margin: 0; border-radius: 6rpx; padding: 0 28rpx; background: #5b3928; color: #fffdf9; font-size: 26rpx; font-weight: 700; line-height: 1; }
@@ -22,9 +26,14 @@ button:disabled { opacity: .45; }
 .field-input, .field-textarea, .field-picker { width: 100%; min-height: 92rpx; border: 1rpx solid #d9cec1; border-radius: 6rpx; padding: 0 22rpx; background: #fffdf9; color: #2e251f; font-size: 30rpx; }
 .field-textarea { min-height: 160rpx; padding-block: 20rpx; line-height: 1.6; }
 .field-picker { display: flex; align-items: center; }
-.bottom-nav { position: fixed; z-index: 30; right: 0; bottom: 0; left: 0; display: grid; grid-template-columns: repeat(4, 1fr); min-height: calc(106rpx + env(safe-area-inset-bottom)); border-top: 1rpx solid #d9cec1; padding-bottom: env(safe-area-inset-bottom); background: rgba(251, 248, 242, .98); }
-.nav-item { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8rpx; color: #75685e; font-size: 19rpx; }
+.bottom-nav { position: fixed; z-index: 30; right: 0; bottom: 0; left: 0; display: grid; width: 100%; grid-template-columns: repeat(4, minmax(0, 1fr)); min-height: calc(106rpx + env(safe-area-inset-bottom)); border-top: 1rpx solid #d9cec1; padding-bottom: env(safe-area-inset-bottom); background: rgba(251, 248, 242, .98); overflow: hidden; }
+.nav-item { display: flex; min-width: 0; flex-direction: column; align-items: center; justify-content: center; gap: 8rpx; color: #75685e; font-size: 19rpx; }
 .nav-item .nav-symbol { font-family: Georgia, serif; font-size: 28rpx; }
 .nav-item.is-active { color: #5b3928; font-weight: 700; }
 .empty { padding: 72rpx 20rpx; color: #75685e; font-size: 23rpx; text-align: center; }
 .money { color: #5b3928; font-family: Georgia, "Times New Roman", serif; }
+
+@media (max-width: 360px) {
+  .page { padding-right: 22rpx; padding-left: 22rpx; }
+  .page-title { font-size: 44rpx; }
+}

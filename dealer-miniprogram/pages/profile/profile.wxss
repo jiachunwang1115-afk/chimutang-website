@@ -1,10 +1,10 @@
-.profile-card { display: grid; grid-template-columns: 104rpx minmax(0, 1fr) auto; align-items: center; gap: 22rpx; margin-top: 42rpx; border-block: 1rpx solid #d9cec1; padding: 28rpx 0; }
-.profile-card image { width: 104rpx; height: 84rpx; }
+.profile-card { display: grid; width: 100%; grid-template-columns: 92rpx minmax(0, 1fr); align-items: center; gap: 10rpx 20rpx; margin-top: 38rpx; border-block: 1rpx solid #d9cec1; padding: 28rpx 0; }
+.profile-card image { width: 92rpx; height: 78rpx; }
 .profile-card view { display: grid; gap: 10rpx; }
 .profile-card view text:first-child { font-size: 29rpx; font-weight: 700; }
 .profile-card view text:last-child { color: #75685e; font-size: 20rpx; }
-.profile-card > text { border: 1rpx solid #c8b8a8; border-radius: 4rpx; padding: 8rpx 12rpx; color: #5b3928; font-size: 18rpx; }
+.profile-card > text { grid-column: 2; justify-self: start; border: 1rpx solid #c8b8a8; border-radius: 4rpx; padding: 8rpx 12rpx; color: #5b3928; font-size: 18rpx; }
 .profile-list { margin-top: 30rpx; border-top: 1rpx solid #d9cec1; }
-.profile-list view { display: flex; min-height: 92rpx; align-items: center; justify-content: space-between; gap: 20rpx; border-bottom: 1rpx solid #d9cec1; font-size: 23rpx; }
-.profile-list view text:last-child { color: #75685e; font-size: 20rpx; }
+.profile-list view { display: grid; width: 100%; min-height: 92rpx; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 20rpx; border-bottom: 1rpx solid #d9cec1; font-size: 23rpx; }
+.profile-list view text:last-child { max-width: 390rpx; color: #75685e; font-size: 20rpx; text-align: right; overflow-wrap: anywhere; }
 .logout { width: 100%; margin-top: 40rpx; }

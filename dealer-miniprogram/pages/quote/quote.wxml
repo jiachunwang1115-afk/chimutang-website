@@ -1,6 +1,12 @@
 <view class="quote-page" wx:if="{{draft}}">
   <view class="quote-heading"><text class="eyebrow">PRIVATE QUOTATION</text><text class="page-title">项目报价</text><text class="save-state">{{saveState}}</text></view>
   <view class="local-strip" wx:if="{{localMode}}">本机体验 · 当前报价不会同步至总部</view>
+  <view class="quote-steps">
+    <button data-target="project" bindtap="jumpToSection">项目</button>
+    <button data-target="lines" bindtap="jumpToSection">产品</button>
+    <button data-target="fees" bindtap="jumpToSection">费用</button>
+    <button data-target="summary" bindtap="jumpToSection">汇总</button>
+  </view>
 
   <view class="quote-section" id="project">
     <view class="quote-section-title"><view><text>01</text><text class="section-name">项目资料</text></view></view>
@@ -65,7 +71,7 @@
     <label class="field section-field"><text class="field-label">报价条款</text><textarea class="field-textarea terms-input" value="{{draft.terms}}" bindinput="onTermsInput"></textarea></label>
   </view>
 
-  <view class="quote-summary">
+  <view class="quote-summary" id="summary">
     <view class="summary-heading"><text>04</text><text>报价汇总</text></view>
     <view><text>净面积</text><text class="summary-value">{{totals.totalNetArea}} m²</text></view>
     <view><text>计价面积</text><text class="summary-value">{{totals.totalBillableArea}} m²</text></view>
