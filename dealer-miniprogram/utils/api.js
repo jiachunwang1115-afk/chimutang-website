@@ -5,17 +5,32 @@ const TOKEN_KEY = "woodallDealerToken";
 const MODE_KEY = "woodallDealerMode";
 const LOCAL_QUOTES_KEY = "woodallMiniQuotesV1";
 const LOCAL_MODE = "local";
+const DEMO_USERNAME = "woodall_demo";
+const DEMO_PASSWORD = "WoodallDemo2026!";
 const LOCAL_USER = {
   id: "local-preview",
   username: "local_preview",
-  displayName: "本机体验",
+  displayName: "痴木堂经销商演示",
   role: "dealer",
   mustChangePassword: false,
   localOnly: true,
 };
 
+function environmentVersion() {
+  try {
+    return wx.getAccountInfoSync()?.miniProgram?.envVersion || "release";
+  } catch {
+    return "release";
+  }
+}
+
+function demoLoginEnabled() {
+  const version = environmentVersion();
+  return version === "develop" || version === "trial";
+}
+
 let sessionToken = "";
-let currentMode = wx.getStorageSync(MODE_KEY) === LOCAL_MODE ? LOCAL_MODE : "cloud";
+let currentMode = demoLoginEnabled() && wx.getStorageSync(MODE_KEY) === LOCAL_MODE ? LOCAL_MODE : "cloud";
 
 function setToken(token) {
   sessionToken = token || "";
@@ -102,6 +117,11 @@ function leaveLocalMode() {
 }
 
 async function login(username, password) {
+  if (demoLoginEnabled() && username === DEMO_USERNAME && password === DEMO_PASSWORD) {
+    setToken("");
+    setMode(LOCAL_MODE);
+    return { user: LOCAL_USER, mode: LOCAL_MODE };
+  }
   setMode("cloud");
   const result = await cloudRequest("/auth/login", { method: "POST", data: { username, password, client: "miniprogram" } });
   if (!result.user || !result.sessionToken) {
@@ -115,7 +135,8 @@ async function login(username, password) {
 }
 
 function session() {
-  if (currentMode === LOCAL_MODE) return Promise.resolve({ user: LOCAL_USER, mode: LOCAL_MODE });
+  if (currentMode === LOCAL_MODE && demoLoginEnabled()) return Promise.resolve({ user: LOCAL_USER, mode: LOCAL_MODE });
+  if (currentMode === LOCAL_MODE) setMode("cloud");
   return cloudRequest("/auth/session");
 }
 
@@ -155,6 +176,7 @@ function deleteQuote(id) {
 module.exports = {
   BASE_URL,
   LOCAL_MODE,
+  demoCredentials: () => demoLoginEnabled() ? { username: DEMO_USERNAME, password: DEMO_PASSWORD } : null,
   deleteQuote,
   leaveLocalMode,
   listQuotes,

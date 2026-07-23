@@ -10,10 +10,21 @@ Page({
     confirmPassword: "",
     submitting: false,
     serviceUnavailable: false,
+    demoAvailable: false,
     message: "",
   },
   onLoad() {
     api.leaveLocalMode();
+    const demo = api.demoCredentials();
+    if (demo) {
+      this.setData({
+        username: demo.username,
+        password: demo.password,
+        demoAvailable: true,
+        message: "体验账号已填好，点击“登录工作台”即可开始演示。",
+      });
+      return;
+    }
     api.session().then((result) => {
       if (result.user.mustChangePassword) this.setData({ mode: "password" });
       else this.enter(result.user);

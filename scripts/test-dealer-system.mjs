@@ -76,10 +76,12 @@ assert.equal(miniQuote.validate(miniDraft, miniProducts).length, 0);
 assert(miniQuote.validate(miniQuote.createDraft(), miniProducts).length >= 5, "空报价必须被完整校验");
 
 const miniStorage = new Map();
+let miniEnvVersion = "trial";
 const miniWx = {
   getStorageSync: (key) => miniStorage.get(key),
   setStorageSync: (key, value) => miniStorage.set(key, value),
   removeStorageSync: (key) => miniStorage.delete(key),
+  getAccountInfoSync: () => ({ miniProgram: { envVersion: miniEnvVersion } }),
   request: () => { throw new Error("本机模式不应发起网络请求"); },
 };
 const miniApiSource = await readFile(path.join(miniRoot, "utils", "api.js"), "utf8");
@@ -106,8 +108,21 @@ const miniApi = miniApiModule.exports;
 miniApi.leaveLocalMode();
 assert.equal(miniApi.mode(), "cloud", "小程序必须使用总部账号模式");
 assert.equal("startLocalMode" in miniApi, false, "正式小程序不应暴露本机体验入口");
+assert.deepEqual(
+  { ...miniApi.demoCredentials() },
+  { username: "woodall_demo", password: "WoodallDemo2026!" },
+  "体验版应提供受环境限制的演示账号",
+);
+const demoLogin = await miniApi.login("woodall_demo", "WoodallDemo2026!");
+assert.equal(demoLogin.user.localOnly, true, "体验版演示账号应进入本机模式");
+assert.equal(miniApi.mode(), "local");
+assert.equal((await miniApi.listQuotes()).mode, "local", "演示报价不应发起网络请求");
+miniApi.leaveLocalMode();
+miniEnvVersion = "release";
+assert.equal(miniApi.demoCredentials(), null, "正式版必须关闭演示账号");
 const loginWxml = await readFile(path.join(miniRoot, "pages", "login", "login.wxml"), "utf8");
 assert.equal(loginWxml.includes("先体验报价功能"), false, "登录页不应提供绕过账号的体验入口");
+assert.equal(loginWxml.includes("体验版演示账号"), true, "体验版应清楚说明数据仅保存在当前设备");
 
 for (const [htmlFile, jsFile] of [["dealer-quote.html", "dealer-quote.js"], ["dealer-admin.html", "dealer-admin.js"]]) {
   const [html, js] = await Promise.all([readFile(path.join(root, htmlFile), "utf8"), readFile(path.join(root, jsFile), "utf8")]);

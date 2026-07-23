@@ -9,6 +9,8 @@
 .login-step { display: flex; align-items: baseline; gap: 18rpx; margin-bottom: 8rpx; }
 .login-step text:first-child { color: #9a6741; font-family: Georgia, serif; font-size: 21rpx; }
 .login-step text:last-child { font-size: 28rpx; font-weight: 700; }
+.demo-notice { display: flex; justify-content: space-between; gap: 20rpx; margin: 22rpx 0 8rpx; padding: 20rpx 22rpx; border-left: 4rpx solid #9a6741; background: #f1e9df; color: #75685e; font-size: 19rpx; line-height: 1.55; }
+.demo-notice text:first-child { flex: none; color: #5c3524; font-weight: 700; }
 .login-form > button { width: 100%; margin-right: 0; margin-left: 0; }
 .login-form .primary-button { margin-top: 34rpx; }
 .login-message { display: block; min-height: 40rpx; margin-top: 22rpx; color: #9a352d; font-size: 21rpx; line-height: 1.6; }
