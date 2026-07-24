@@ -2,7 +2,7 @@ const api = require("../../utils/api");
 const quoteUtil = require("../../utils/quote");
 const products = require("../../data/products");
 const quoteCopy = require("../../data/quote-copy");
-const voiceQuote = require("../../utils/voice-quote");
+const voiceField = require("../../utils/voice-field");
 
 const money = (cents) => `¥${(Number(cents || 0) / 100).toLocaleString("zh-CN", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
 const shortSeries = (value) => String(value || "").split("（")[0] || "系列待确认";
@@ -29,56 +29,20 @@ function decorateLine(line) {
   };
 }
 
-function lineHasContent(line) {
-  return Boolean(
-    String(line.room || "").trim()
-    || String(line.productCode || "").trim()
-    || Number(line.netArea) > 0
-    || Number(line.unitPrice) > 0
-    || String(line.note || "").trim(),
-  );
+function combinedLocation(project) {
+  const city = String(project?.city || "").trim();
+  const address = String(project?.address || "").trim();
+  if (!city) return address;
+  if (!address) return city;
+  return address.includes(city) ? address : `${city} ${address}`;
 }
 
-function buildVoiceReview(parsed) {
-  const projectLabels = {
-    name: "客户 / 项目",
-    city: "城市",
-    address: "项目地址",
-    needs: "项目需求",
-    advice: "选材建议",
-  };
-  const feeLabels = {
-    accessoryUnitPrice: "辅材单价",
-    installationUnitPrice: "安装单价",
-    transportAmount: "运输费",
-    otherAmount: "其他费用",
-    otherLabel: "其他费用说明",
-  };
-  const projectItems = Object.entries(parsed.project)
-    .filter(([, value]) => Boolean(value))
-    .map(([key, value]) => ({ key: `project-${key}`, label: projectLabels[key], value }));
-  const feeItems = Object.entries(parsed.fees)
-    .filter(([key, value]) => key === "otherLabel" ? Boolean(value) : value !== "")
-    .map(([key, value]) => ({
-      key: `fee-${key}`,
-      label: feeLabels[key],
-      value: key === "otherLabel" ? value : `${value} 元${key.includes("UnitPrice") ? "/m²" : ""}`,
-    }));
-  if (parsed.discount) {
-    feeItems.push({
-      key: "discount",
-      label: "折扣",
-      value: parsed.discount.type === "fixed" ? `${parsed.discount.value} 元` : `${parsed.discount.value}%`,
-    });
-  }
-  if (parsed.tax) {
-    feeItems.push({
-      key: "tax",
-      label: "税费",
-      value: `${parsed.tax.mode === "excluded" ? "未税另加" : "已含税"} ${parsed.tax.rate}%`,
-    });
-  }
-  return { projectItems, feeItems };
+function cityFromLocation(value) {
+  const text = String(value || "").trim();
+  const municipality = text.match(/^(北京市|上海市|天津市|重庆市)/);
+  if (municipality) return municipality[1];
+  const city = text.match(/^([\u4e00-\u9fa5]{2,8}(?:市|自治州|地区|盟))/);
+  return city ? city[1] : "";
 }
 
 Page({
@@ -104,16 +68,10 @@ Page({
     copyPickerTitle: "",
     copySuggestions: [],
     copyTarget: null,
-    voiceSheetOpen: false,
     voiceAvailable: true,
     voiceRecording: false,
     voiceRecognizing: false,
-    voiceTranscript: "",
-    voicePreview: null,
-    voiceProjectItems: [],
-    voiceFeeItems: [],
-    voiceLines: [],
-    voiceWarnings: [],
+    voiceTargetKey: "",
   },
   async onLoad(options) {
     let draft = wx.getStorageSync("woodallEditQuote") || quoteUtil.createDraft();
@@ -127,6 +85,7 @@ Page({
       }
     }
     draft = quoteUtil.migrateDraft(draft);
+    draft.project.address = combinedLocation(draft.project);
     draft.lines = draft.lines.map(decorateLine);
     this.setData({
       draft,
@@ -139,12 +98,17 @@ Page({
   },
   onUnload() {
     clearTimeout(this.saveTimer);
-    clearTimeout(this.voiceParseTimer);
-    if (this.data.voiceRecording && this.voiceManager) this.voiceManager.stop();
+    if (this.data.voiceRecording && this.voiceManager) {
+      this.voiceCancelled = true;
+      this.voiceManager.stop();
+    }
     if (this.data.draft) wx.setStorageSync("woodallEditQuote", this.cleanDraft());
   },
   onHide() {
-    if (this.data.voiceRecording && this.voiceManager) this.voiceManager.stop();
+    if (this.data.voiceRecording && this.voiceManager) {
+      this.voiceCancelled = true;
+      this.voiceManager.stop();
+    }
   },
   noop() {},
   jumpToSection(event) {
@@ -207,16 +171,25 @@ Page({
       };
       manager.onRecognize = (result) => {
         const text = String(result?.result || "").trim();
-        if (text) this.setData({ voiceTranscript: text });
+        if (text) this.voiceLiveText = text;
       };
       manager.onStop = (result) => {
-        const text = String(result?.result || this.data.voiceTranscript || "").trim();
-        this.setData({ voiceRecording: false, voiceRecognizing: false, voiceTranscript: text });
+        const cancelled = this.voiceCancelled;
+        const text = String(result?.result || this.voiceLiveText || "").trim();
+        this.voiceCancelled = false;
+        this.setData({ voiceRecording: false, voiceRecognizing: false });
+        if (cancelled) {
+          this.voiceTarget = null;
+          this.setData({ voiceTargetKey: "" });
+          return;
+        }
         if (!text) {
+          this.voiceTarget = null;
+          this.setData({ voiceTargetKey: "" });
           wx.showToast({ title: "没有听清，请再说一次", icon: "none" });
           return;
         }
-        this.parseVoiceTranscript(text);
+        this.applyVoiceFieldResult(text);
       };
       manager.onError = (error) => {
         const messages = {
@@ -225,7 +198,8 @@ Page({
           "-30006": "录音已超时，请分段口述",
         };
         const message = messages[String(error?.retcode)] || "语音识别失败，请稍后重试";
-        this.setData({ voiceRecording: false, voiceRecognizing: false });
+        this.voiceTarget = null;
+        this.setData({ voiceRecording: false, voiceRecognizing: false, voiceTargetKey: "" });
         wx.showToast({ title: message, icon: "none", duration: 2600 });
       };
       this.voiceManager = manager;
@@ -235,46 +209,53 @@ Page({
       return false;
     }
   },
-  openVoiceSheet() {
-    const available = this.initVoiceRecognition();
-    this.setData({ voiceSheetOpen: true, voiceAvailable: available });
-  },
-  closeVoiceSheet() {
-    if (this.data.voiceRecording && this.voiceManager) this.voiceManager.stop();
-    this.setData({ voiceSheetOpen: false, voiceRecording: false, voiceRecognizing: false });
-  },
-  toggleVoiceRecording() {
+  startFieldVoice(event) {
+    const dataset = event.currentTarget.dataset;
+    const key = dataset.key;
     if (this.data.voiceRecording) {
-      if (this.voiceManager) this.voiceManager.stop();
-      this.setData({ voiceRecording: false, voiceRecognizing: true });
+      if (key === this.data.voiceTargetKey && this.voiceManager) {
+        this.voiceManager.stop();
+        this.setData({ voiceRecording: false, voiceRecognizing: true });
+      } else {
+        wx.showToast({ title: "请先结束当前语音输入", icon: "none" });
+      }
+      return;
+    }
+    if (this.data.voiceRecognizing) {
+      wx.showToast({ title: "正在识别，请稍候", icon: "none" });
       return;
     }
     if (!this.initVoiceRecognition()) {
       wx.showModal({
         title: "语音服务未启用",
-        content: "请先在小程序后台添加“微信同声传译”插件，再重新打开体验版。",
+        content: "微信语音服务暂时不可用，请重新打开小程序后再试。",
         showCancel: false,
       });
       return;
     }
+    this.voiceTarget = {
+      key,
+      scope: dataset.scope,
+      field: dataset.field,
+      mode: dataset.mode || "short",
+      index: dataset.index === undefined ? -1 : Number(dataset.index),
+    };
+    this.voiceLiveText = "";
+    this.voiceCancelled = false;
+    this.setData({ voiceTargetKey: key });
     wx.authorize({
       scope: "scope.record",
       success: () => {
-        this.setData({
-          voiceTranscript: "",
-          voicePreview: null,
-          voiceProjectItems: [],
-          voiceFeeItems: [],
-          voiceLines: [],
-          voiceWarnings: [],
-          voiceRecognizing: true,
-        });
-        this.voiceManager.start({ duration: 60000, lang: "zh_CN" });
+        this.setData({ voiceRecognizing: true });
+        this.voiceManager.start({ duration: 30000, lang: "zh_CN" });
+        wx.showToast({ title: "正在听，再点一次结束", icon: "none", duration: 1300 });
       },
       fail: () => {
+        this.voiceTarget = null;
+        this.setData({ voiceTargetKey: "" });
         wx.showModal({
           title: "需要麦克风权限",
-          content: "语音填写只在口述期间使用麦克风，不保存录音。请在设置中允许麦克风权限。",
+          content: "语音输入只在口述期间使用麦克风，不保存录音。请在设置中允许麦克风权限。",
           confirmText: "去设置",
           success: (result) => {
             if (result.confirm) wx.openSetting();
@@ -283,72 +264,46 @@ Page({
       },
     });
   },
-  onVoiceTranscriptInput(event) {
-    const voiceTranscript = event.detail.value;
-    this.setData({ voiceTranscript });
-    clearTimeout(this.voiceParseTimer);
-    this.voiceParseTimer = setTimeout(() => this.parseVoiceTranscript(voiceTranscript), 500);
-  },
-  parseVoiceText() {
-    this.parseVoiceTranscript(this.data.voiceTranscript, true);
-  },
-  parseVoiceTranscript(transcript, notify = false) {
-    const parsed = voiceQuote.parseVoiceQuote(transcript, products);
-    const review = buildVoiceReview(parsed);
-    this.setData({
-      voicePreview: parsed,
-      voiceProjectItems: review.projectItems,
-      voiceFeeItems: review.feeItems,
-      voiceLines: parsed.lines,
-      voiceWarnings: parsed.warnings,
-    });
-    if (notify) {
+  applyVoiceFieldResult(transcript) {
+    const target = this.voiceTarget;
+    this.voiceTarget = null;
+    this.setData({ voiceTargetKey: "" });
+    if (!target) return;
+    const value = target.mode === "number"
+      ? voiceField.extractNumericValue(transcript)
+      : voiceField.cleanRecognizedText(transcript, target.mode === "long");
+    if (value === "") {
       wx.showToast({
-        title: parsed.hasData ? "已重新解析" : "暂未识别到可填写内容",
+        title: target.mode === "number" ? "没有识别到数字，请重试" : "没有识别到有效文字",
         icon: "none",
       });
-    }
-  },
-  applyVoicePreview() {
-    const parsed = this.data.voicePreview;
-    if (!parsed?.hasData) {
-      wx.showToast({ title: "请先口述或输入报价内容", icon: "none" });
       return;
     }
     const draft = this.data.draft;
-    Object.entries(parsed.project).forEach(([key, value]) => {
-      if (value) draft.project[key] = value;
-    });
-    if (parsed.lines.length) {
-      const existingLines = draft.lines.filter(lineHasContent);
-      const recognizedLines = parsed.lines.map((line) => decorateLine({
-        ...quoteUtil.blankLine(),
-        room: line.room,
-        productCode: line.productCode,
-        netArea: line.netArea,
-        wasteRate: line.wasteRate === "" ? 5 : line.wasteRate,
-        unitPrice: line.unitPrice,
-        note: line.note,
-      }));
-      draft.lines = [...existingLines, ...recognizedLines].slice(0, quoteUtil.MAX_LINES);
+    if (target.scope === "project") {
+      draft.project[target.field] = target.mode === "long"
+        ? voiceField.mergeRecognizedText(draft.project[target.field], value, true)
+        : value;
+    } else if (target.scope === "location") {
+      draft.project.address = value;
+      const city = cityFromLocation(value);
+      if (city) draft.project.city = city;
+    } else if (target.scope === "line" && draft.lines[target.index]) {
+      draft.lines[target.index][target.field] = target.mode === "long"
+        ? voiceField.mergeRecognizedText(draft.lines[target.index][target.field], value, false)
+        : value;
+    } else if (target.scope === "fees") {
+      draft.fees[target.field] = value;
+    } else if (target.scope === "discount") {
+      draft.discount.value = value;
+    } else if (target.scope === "tax") {
+      draft.tax.rate = value;
+    } else if (target.scope === "terms") {
+      draft.terms = voiceField.mergeRecognizedText(draft.terms, value, true);
     }
-    Object.entries(parsed.fees).forEach(([key, value]) => {
-      if (value !== "") draft.fees[key] = value;
-    });
-    if (parsed.discount) draft.discount = { ...draft.discount, ...parsed.discount };
-    if (parsed.tax) draft.tax = { ...draft.tax, ...parsed.tax };
-    if (!draft.lines.length) draft.lines = [decorateLine(quoteUtil.blankLine())];
-    this.setData({
-      draft,
-      discountTypeIndex: draft.discount.type === "fixed" ? 1 : 0,
-      taxModeIndex: draft.tax.mode === "excluded" ? 1 : 0,
-      voiceSheetOpen: false,
-      voiceRecording: false,
-      voiceRecognizing: false,
-    });
+    this.setData({ draft });
     this.update();
-    wx.pageScrollTo({ selector: "#project", duration: 260 });
-    wx.showToast({ title: "已填入，请核对", icon: "success" });
+    wx.showToast({ title: "已填入当前字段", icon: "success" });
   },
   cleanDraft() {
     const draft = JSON.parse(JSON.stringify(this.data.draft));
@@ -382,6 +337,15 @@ Page({
   onProjectInput(event) {
     const draft = this.data.draft;
     draft.project[event.currentTarget.dataset.field] = event.detail.value;
+    this.setData({ draft });
+    this.update();
+  },
+  onLocationInput(event) {
+    const draft = this.data.draft;
+    const location = event.detail.value;
+    draft.project.address = location;
+    const city = cityFromLocation(location);
+    if (city || !String(location || "").trim()) draft.project.city = city;
     this.setData({ draft });
     this.update();
   },

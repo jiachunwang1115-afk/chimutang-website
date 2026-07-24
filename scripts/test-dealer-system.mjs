@@ -60,46 +60,25 @@ for (const group of Object.values(quoteCopyModule.exports)) {
 
 assert.equal(miniConfig.plugins?.WechatSI?.provider, "wx069ba97219f66d99", "语音填写必须使用微信同声传译插件");
 assert.equal(miniConfig.permission?.["scope.record"]?.desc.includes("报价"), true, "录音权限必须说明报价用途");
-const voiceQuoteSource = await readFile(path.join(miniRoot, "utils", "voice-quote.js"), "utf8");
-const voiceQuoteModule = { exports: {} };
-vm.runInNewContext(voiceQuoteSource, {
-  module: voiceQuoteModule,
-  exports: voiceQuoteModule.exports,
+const voiceFieldSource = await readFile(path.join(miniRoot, "utils", "voice-field.js"), "utf8");
+const voiceFieldModule = { exports: {} };
+vm.runInNewContext(voiceFieldSource, {
+  module: voiceFieldModule,
+  exports: voiceFieldModule.exports,
   Math,
   Number,
   String,
   Boolean,
   Array,
   Object,
-  Map,
-  Set,
   RegExp,
 });
-const voiceResult = voiceQuoteModule.exports.parseVoiceQuote(
-  "项目镜湖府王宅，城市绍兴。客厅用 A9 杠 X701，面积35平方，单价980，损耗5%；主卧用 Q9-X802，20平方米，单价1080。辅材45，安装60，运输费500，含税。项目需求是采光充足并有地暖。",
-  miniProducts,
-);
-assert.equal(voiceResult.project.name, "镜湖府王宅");
-assert.equal(voiceResult.project.city, "绍兴");
-assert.equal(voiceResult.project.needs, "采光充足并有地暖");
-assert.equal(voiceResult.lines.length, 2);
-assert.deepEqual(
-  JSON.parse(JSON.stringify(voiceResult.lines.map((line) => ({
-    room: line.room,
-    code: line.productCode,
-    area: line.netArea,
-    price: line.unitPrice,
-    waste: line.wasteRate,
-  })))),
-  [
-    { room: "客厅", code: "A9-X701", area: 35, price: 980, waste: 5 },
-    { room: "主卧", code: "Q9-X802", area: 20, price: 1080, waste: "" },
-  ],
-);
-assert.equal(voiceResult.fees.accessoryUnitPrice, 45);
-assert.equal(voiceResult.fees.installationUnitPrice, 60);
-assert.equal(voiceResult.fees.transportAmount, 500);
-assert.deepEqual({ ...voiceResult.tax }, { mode: "included", rate: 13 });
+const voiceField = voiceFieldModule.exports;
+assert.equal(voiceField.extractNumericValue("单价980元"), 980);
+assert.equal(voiceField.extractNumericValue("三十五点五平方"), 35.5);
+assert.equal(voiceField.extractNumericValue("九百八十元"), 980);
+assert.equal(voiceField.cleanRecognizedText("绍兴市越城区镜湖府。"), "绍兴市越城区镜湖府");
+assert.equal(voiceField.mergeRecognizedText("需要地暖", "重视采光", true), "需要地暖\n重视采光");
 
 const miniQuoteSource = await readFile(path.join(miniRoot, "utils", "quote.js"), "utf8");
 const miniQuoteModule = { exports: {} };
@@ -188,8 +167,10 @@ assert.equal(homeWxml.includes('class="quick-actions"'), false, "手机首页不
 assert.match(homeWxss, /\.home-actions\s*\{[^}]*display:\s*grid[^}]*\}/s, "首页主要操作应使用稳定单列");
 assert.equal(quoteWxml.match(/data-target="/g)?.length, 4, "报价页必须提供四步快速导航");
 assert.equal(quoteWxml.match(/bindtap="openCopySuggestions"/g)?.length, 4, "四类可编辑文案都应提供参考入口");
-assert.equal(quoteWxml.includes('bindtap="openVoiceSheet"'), true, "项目资料必须提供可见的语音填写入口");
-assert.equal(quoteWxml.includes('bindtap="applyVoicePreview"'), true, "语音解析结果必须确认后才能填入");
+assert.equal(quoteWxml.includes("语音填写报价"), false, "报价页不应保留整单语音解析入口");
+assert.equal(quoteWxml.match(/bindtap="startFieldVoice"/g)?.length, 17, "每个可填写报价字段都应提供独立语音入口");
+assert.equal(quoteWxml.includes("项目所在地"), true, "城市和项目地址应合并为项目所在地");
+assert.equal(quoteWxml.includes(">城市<"), false, "报价页不应要求单独填写城市");
 assert.equal(historyWxml.includes("floating-add"), false, "历史页不应与底部报价入口重复");
 
 for (const [htmlFile, jsFile] of [["dealer-quote.html", "dealer-quote.js"], ["dealer-admin.html", "dealer-admin.js"]]) {
