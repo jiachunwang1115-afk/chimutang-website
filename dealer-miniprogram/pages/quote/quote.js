@@ -100,6 +100,7 @@ Page({
     clearTimeout(this.saveTimer);
     if (this.data.voiceRecording && this.voiceManager) {
       this.voiceCancelled = true;
+      this.restoreVoiceTarget();
       this.voiceManager.stop();
     }
     if (this.data.draft) wx.setStorageSync("woodallEditQuote", this.cleanDraft());
@@ -107,6 +108,7 @@ Page({
   onHide() {
     if (this.data.voiceRecording && this.voiceManager) {
       this.voiceCancelled = true;
+      this.restoreVoiceTarget();
       this.voiceManager.stop();
     }
   },
@@ -171,7 +173,10 @@ Page({
       };
       manager.onRecognize = (result) => {
         const text = String(result?.result || "").trim();
-        if (text) this.voiceLiveText = text;
+        if (text) {
+          this.voiceLiveText = text;
+          this.previewVoiceFieldResult(text);
+        }
       };
       manager.onStop = (result) => {
         const cancelled = this.voiceCancelled;
@@ -179,6 +184,7 @@ Page({
         this.voiceCancelled = false;
         this.setData({ voiceRecording: false, voiceRecognizing: false });
         if (cancelled) {
+          this.restoreVoiceTarget();
           this.voiceTarget = null;
           this.setData({ voiceTargetKey: "" });
           return;
@@ -198,6 +204,7 @@ Page({
           "-30006": "录音已超时，请分段口述",
         };
         const message = messages[String(error?.retcode)] || "语音识别失败，请稍后重试";
+        this.restoreVoiceTarget();
         this.voiceTarget = null;
         this.setData({ voiceRecording: false, voiceRecognizing: false, voiceTargetKey: "" });
         wx.showToast({ title: message, icon: "none", duration: 2600 });
@@ -233,13 +240,15 @@ Page({
       });
       return;
     }
-    this.voiceTarget = {
+    const target = {
       key,
       scope: dataset.scope,
       field: dataset.field,
       mode: dataset.mode || "short",
       index: dataset.index === undefined ? -1 : Number(dataset.index),
     };
+    target.baseValue = this.readVoiceTargetValue(target);
+    this.voiceTarget = target;
     this.voiceLiveText = "";
     this.voiceCancelled = false;
     this.setData({ voiceTargetKey: key });
@@ -264,44 +273,74 @@ Page({
       },
     });
   },
+  readVoiceTargetValue(target) {
+    const draft = this.data.draft;
+    if (target.scope === "project") return draft.project[target.field] || "";
+    if (target.scope === "location") return draft.project.address || "";
+    if (target.scope === "line" && draft.lines[target.index]) return draft.lines[target.index][target.field] || "";
+    if (target.scope === "fees") return draft.fees[target.field] || "";
+    if (target.scope === "discount") return draft.discount.value || "";
+    if (target.scope === "tax") return draft.tax.rate || "";
+    if (target.scope === "terms") return draft.terms || "";
+    return "";
+  },
+  writeVoiceTargetValue(target, value, mergeWithBase = true) {
+    if (!target) return;
+    const draft = this.data.draft;
+    const separatorIsNewline = target.scope !== "line";
+    const nextValue = target.mode === "long" && mergeWithBase
+      ? voiceField.mergeRecognizedText(target.baseValue, value, separatorIsNewline)
+      : value;
+    if (target.scope === "project") {
+      draft.project[target.field] = nextValue;
+    } else if (target.scope === "location") {
+      draft.project.address = nextValue;
+      const city = cityFromLocation(nextValue);
+      if (city || !String(nextValue || "").trim()) draft.project.city = city;
+    } else if (target.scope === "line" && draft.lines[target.index]) {
+      draft.lines[target.index][target.field] = nextValue;
+    } else if (target.scope === "fees") {
+      draft.fees[target.field] = nextValue;
+    } else if (target.scope === "discount") {
+      draft.discount.value = nextValue;
+    } else if (target.scope === "tax") {
+      draft.tax.rate = nextValue;
+    } else if (target.scope === "terms") {
+      draft.terms = nextValue;
+    }
+    this.setData({ draft });
+  },
+  previewVoiceFieldResult(transcript) {
+    const target = this.voiceTarget;
+    if (!target) return;
+    const value = target.mode === "number"
+      ? voiceField.extractNumericValue(transcript)
+      : voiceField.cleanRecognizedText(transcript, target.mode === "long");
+    if (value !== "") this.writeVoiceTargetValue(target, value);
+  },
+  restoreVoiceTarget() {
+    if (!this.voiceTarget) return;
+    this.writeVoiceTargetValue(this.voiceTarget, this.voiceTarget.baseValue, false);
+  },
   applyVoiceFieldResult(transcript) {
     const target = this.voiceTarget;
-    this.voiceTarget = null;
-    this.setData({ voiceTargetKey: "" });
     if (!target) return;
     const value = target.mode === "number"
       ? voiceField.extractNumericValue(transcript)
       : voiceField.cleanRecognizedText(transcript, target.mode === "long");
     if (value === "") {
+      this.restoreVoiceTarget();
+      this.voiceTarget = null;
+      this.setData({ voiceTargetKey: "" });
       wx.showToast({
         title: target.mode === "number" ? "没有识别到数字，请重试" : "没有识别到有效文字",
         icon: "none",
       });
       return;
     }
-    const draft = this.data.draft;
-    if (target.scope === "project") {
-      draft.project[target.field] = target.mode === "long"
-        ? voiceField.mergeRecognizedText(draft.project[target.field], value, true)
-        : value;
-    } else if (target.scope === "location") {
-      draft.project.address = value;
-      const city = cityFromLocation(value);
-      if (city) draft.project.city = city;
-    } else if (target.scope === "line" && draft.lines[target.index]) {
-      draft.lines[target.index][target.field] = target.mode === "long"
-        ? voiceField.mergeRecognizedText(draft.lines[target.index][target.field], value, false)
-        : value;
-    } else if (target.scope === "fees") {
-      draft.fees[target.field] = value;
-    } else if (target.scope === "discount") {
-      draft.discount.value = value;
-    } else if (target.scope === "tax") {
-      draft.tax.rate = value;
-    } else if (target.scope === "terms") {
-      draft.terms = voiceField.mergeRecognizedText(draft.terms, value, true);
-    }
-    this.setData({ draft });
+    this.writeVoiceTargetValue(target, value);
+    this.voiceTarget = null;
+    this.setData({ voiceTargetKey: "" });
     this.update();
     wx.showToast({ title: "已填入当前字段", icon: "success" });
   },
