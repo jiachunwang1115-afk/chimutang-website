@@ -8,6 +8,11 @@ import { ACTIVE_DRAFT_KEY, DRAFT_STORAGE_KEY, DraftRepository } from "../quote-d
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const catalog = JSON.parse(await readFile(path.join(root, "products_clean.json"), "utf8"));
 const content = JSON.parse(await readFile(path.join(root, "quote-content.json"), "utf8"));
+const quotePptSource = await readFile(path.join(root, "quote-ppt.mjs"), "utf8");
+
+assert.match(quotePptSource, /function backCoverSlide\(/, "报价 PPT 必须包含独立封底");
+assert.match(quotePptSource, /backCoverSlide\(pptx, model, assets\)/, "独立封底必须加入生成流程");
+assert.match(quotePptSource, /const TITLE_FONT = "Noto Serif SC"/, "报价标题必须使用品牌宋体");
 
 class MemoryStorage {
   constructor() { this.values = new Map(); }

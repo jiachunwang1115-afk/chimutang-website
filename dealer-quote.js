@@ -1,6 +1,6 @@
 import { calculateQuote, createDraft, validateDraft, MAX_QUOTE_LINES, migrateDraft } from "./quote-core.mjs";
 import { DraftRepository } from "./quote-drafts.mjs";
-import { generatePdf, generatePptx } from "./quote-ppt.mjs?v=20260721-3";
+import { generatePdf, generatePptx } from "./quote-ppt.mjs?v=20260724-1";
 import { DealerCloudClient } from "./dealer-cloud.mjs?v=20260722-2";
 
 const refs = {

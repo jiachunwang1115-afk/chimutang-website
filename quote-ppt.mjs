@@ -1,8 +1,8 @@
 import { buildDeckModel, centsToYuan, normalizeSeriesName } from "./quote-core.mjs";
 
 const CDN_BASE = "https://cdn.jsdelivr.net/gh/jiachunwang1115-afk/chimutang-website@ec37226/product-assets/catalog/";
-const TITLE_FONT = "Microsoft YaHei Light";
-const BODY_FONT = "Microsoft YaHei";
+const TITLE_FONT = "Noto Serif SC";
+const BODY_FONT = "Noto Sans SC";
 const LATIN_FONT = "Aptos";
 const W = 13.333;
 const H = 7.5;
@@ -203,6 +203,8 @@ async function prepareAssets(model, provider) {
     hero: await provider(heroCandidates, { maxWidth: 1600, maxHeight: 1600, aspectRatio: (W - 5.75) / H }),
     logo: await provider(brand.logo, { format: "png", maxWidth: 900, maxHeight: 700 }),
     brand: await provider(brand.image, { maxWidth: 1200, maxHeight: 1600, aspectRatio: (W - 7.88) / H }),
+    coverBrand: await provider(brand.image, { maxWidth: 1800, maxHeight: 1600, aspectRatio: (W - 4.92) / H }),
+    backBrand: await provider(brand.image, { maxWidth: 1920, maxHeight: 1000, aspectRatio: W / 5.45 }),
     series: new Map(),
     products: new Map(),
   };
@@ -234,32 +236,26 @@ function createPpt(PptxCtor) {
 
 function coverSlide(pptx, model, assets, page) {
   const slide = pptx.addSlide();
-  slide.background = { color: C.paperLight };
-  addImage(slide, assets.hero, 5.75, 0, W - 5.75, H, "cover");
-  slide.addShape("rect", { x: 0, y: 0, w: 5.78, h: H, fill: { color: C.paperLight }, line: { color: C.paperLight } });
-  slide.addShape("rect", { x: 5.72, y: 0, w: 0.06, h: H, fill: { color: C.wood }, line: { color: C.wood } });
-  if (assets.logo) addImage(slide, assets.logo, 0.72, 0.58, 1.12, 0.86, "contain");
-  else slide.addText("痴木堂\nWOOD ALL", { x: 0.72, y: 0.58, w: 1.6, h: 0.7, fontFace: BODY_FONT, fontSize: 16, color: C.brown, margin: 0 });
-  slide.addText("PRIVATE PROPOSAL", {
-    x: 0.72, y: 1.72, w: 2.8, h: 0.22, fontFace: LATIN_FONT, fontSize: 10,
-    color: C.wood, charSpacing: 2.1, margin: 0,
+  slide.background = { color: C.ink };
+  addImage(slide, assets.coverBrand, 4.9, 0, W - 4.9, H, "cover");
+  slide.addShape("rect", { x: 0, y: 0, w: 4.98, h: H, fill: { color: C.ink }, line: { color: C.ink } });
+  slide.addShape("rect", { x: 4.9, y: 0, w: 0.08, h: H, fill: { color: C.clay }, line: { color: C.clay } });
+  slide.addText("WOOD ALL", {
+    x: 0.72, y: 0.48, w: 1.8, h: 0.22, fontFace: LATIN_FONT, fontSize: 10,
+    color: "D7B89E", charSpacing: 1.6, margin: 0,
   });
-  slide.addText("原木地板\n私定提案", {
-    x: 0.68, y: 2.08, w: 4.5, h: 1.62, fontFace: TITLE_FONT, fontSize: 50,
-    bold: false, color: C.ink, breakLine: true, margin: 0, fit: "shrink",
+  slide.addText("私定报价", {
+    x: 0.68, y: 2.72, w: 3.7, h: 0.78, fontFace: TITLE_FONT, fontSize: 46,
+    bold: false, color: C.white, margin: 0, fit: "shrink", breakLine: false,
   });
-  slide.addText(`为「${model.draft.project.name || "客户项目"}」而作`, {
-    x: 0.72, y: 4.05, w: 4.35, h: 0.46, fontFace: BODY_FONT, fontSize: 22,
-    color: C.brown, margin: 0, fit: "shrink",
+  slide.addText(model.draft.project.name || "客户项目", {
+    x: 0.72, y: 4.48, w: 3.45, h: 0.38, fontFace: BODY_FONT, fontSize: 19,
+    color: "E8DDD4", margin: 0, fit: "shrink",
   });
-  slide.addShape("line", { x: 0.72, y: 4.82, w: 0.9, h: 0, line: { color: C.clay, width: 2 } });
-  slide.addText("选材  /  配置  /  报价  /  交付", {
-    x: 0.72, y: 5.08, w: 3.8, h: 0.3, fontFace: BODY_FONT, fontSize: 15,
-    color: C.muted, margin: 0,
+  slide.addText(dateText(model.draft.project.quoteDate), {
+    x: 0.72, y: 6.68, w: 1.6, h: 0.22, fontFace: LATIN_FONT, fontSize: 10,
+    color: "B9A79B", margin: 0,
   });
-  addLabelValue(slide, "报价日期", dateText(model.draft.project.quoteDate), 0.72, 6.4, 1.55, { size: 14, latin: true });
-  addLabelValue(slide, "有效期至", dateText(model.draft.project.validUntil), 2.52, 6.4, 1.55, { size: 14, latin: true });
-  slide.addText(String(page).padStart(2, "0"), { x: 4.8, y: 6.88, w: 0.3, h: 0.2, fontFace: LATIN_FONT, fontSize: 9, color: C.muted, align: "right", margin: 0 });
   return slide;
 }
 
@@ -270,11 +266,14 @@ function projectSlide(pptx, model, page) {
   addSlideTitle(slide, "PROJECT / 项目判断", "先读懂空间，再选择木材", model.draft.project.city || "项目需求");
   const needs = model.draft.project.needs || "空间的尺度、光线与日常使用，共同决定木材应有的色泽、纹理与结构。";
   const advice = model.draft.project.advice || "先建立整体木色，再以板型、表面与铺装方向，校准每个空间的气质。";
+  const city = String(model.draft.project.city || "").trim();
+  const address = String(model.draft.project.address || "").trim();
+  const projectLocation = address.includes(city) ? address : [city, address].filter(Boolean).join(" · ");
   addSectionCopy(slide, "01", "本案所求", needs, 0.72, 2.35, 5.65);
   addSectionCopy(slide, "02", "我们的判断", advice, 6.78, 2.35, 5.85);
   slide.addShape("line", { x: 0.72, y: 5.18, w: 11.9, h: 0, line: { color: C.line, width: 0.8 } });
   addLabelValue(slide, "客户 / 项目", model.draft.project.name, 0.72, 5.62, 3.3, { size: 20 });
-  addLabelValue(slide, "项目地址", [model.draft.project.city, model.draft.project.address].filter(Boolean).join(" · ") || "待补充", 4.35, 5.62, 4.2, { size: 16 });
+  addLabelValue(slide, "项目地址", projectLocation || "待补充", 4.35, 5.62, 4.2, { size: 16 });
   addLabelValue(slide, "方案有效期", `${dateText(model.draft.project.quoteDate)} — ${dateText(model.draft.project.validUntil)}`, 9.0, 5.62, 3.0, { size: 16, latin: true });
   return slide;
 }
@@ -544,6 +543,27 @@ function termsSlide(pptx, model, page) {
   return slide;
 }
 
+function backCoverSlide(pptx, model, assets) {
+  const slide = pptx.addSlide();
+  slide.background = { color: C.ink };
+  addImage(slide, assets.backBrand, 0, 0, W, 5.45, "cover");
+  slide.addShape("rect", { x: 0, y: 5.42, w: W, h: H - 5.42, fill: { color: C.ink }, line: { color: C.ink } });
+  if (assets.logo) addImage(slide, assets.logo, 11.35, 0.48, 1.18, 0.9, "contain");
+  slide.addText("痴木堂  WOOD ALL", {
+    x: 0.72, y: 6.0, w: 3.1, h: 0.28, fontFace: BODY_FONT, fontSize: 14,
+    color: C.white, margin: 0,
+  });
+  slide.addText(model.content.contact.website.replace(/^www\./, ""), {
+    x: 9.72, y: 6.02, w: 2.85, h: 0.22, fontFace: LATIN_FONT, fontSize: 10,
+    color: "CDBCB0", align: "right", margin: 0,
+  });
+  slide.addText(model.content.contact.phone, {
+    x: 9.72, y: 6.42, w: 2.85, h: 0.22, fontFace: LATIN_FONT, fontSize: 10,
+    color: "CDBCB0", align: "right", margin: 0,
+  });
+  return slide;
+}
+
 function buildDeckSlides(pptx, model, assets) {
   let page = 1;
   coverSlide(pptx, model, assets, page++);
@@ -555,6 +575,8 @@ function buildDeckSlides(pptx, model, assets) {
   model.quotePages.forEach((quotePage, index) => quoteSlide(pptx, model, quotePage, index, page++));
   serviceSlide(pptx, model, page++);
   termsSlide(pptx, model, page++);
+  backCoverSlide(pptx, model, assets);
+  page += 1;
   return page - 1;
 }
 
