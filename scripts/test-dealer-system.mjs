@@ -168,7 +168,8 @@ assert.match(homeWxss, /\.home-actions\s*\{[^}]*display:\s*grid[^}]*\}/s, "首�
 assert.equal(quoteWxml.match(/data-target="/g)?.length, 4, "报价页必须提供四步快速导航");
 assert.equal(quoteWxml.match(/bindtap="openCopySuggestions"/g)?.length, 4, "四类可编辑文案都应提供参考入口");
 assert.equal(quoteWxml.includes("语音填写报价"), false, "报价页不应保留整单语音解析入口");
-assert.equal(quoteWxml.match(/bindtap="startFieldVoice"/g)?.length, 17, "每个可填写报价字段都应提供独立语音入口");
+assert.equal(quoteWxml.match(/bindtap="startFieldVoice"/g)?.length, 8, "文字和备注字段应提供独立语音入口");
+assert.equal(quoteWxml.includes('data-mode="number"'), false, "数字字段不应显示语音输入按钮");
 assert.equal(quoteWxml.includes("项目所在地"), true, "城市和项目地址应合并为项目所在地");
 assert.equal(quoteWxml.includes(">城市<"), false, "报价页不应要求单独填写城市");
 assert.equal(historyWxml.includes("floating-add"), false, "历史页不应与底部报价入口重复");

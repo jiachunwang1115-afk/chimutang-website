@@ -14,14 +14,14 @@
       <text class="field-label">客户 / 项目名称 *</text>
       <view class="voice-field-control">
         <input class="field-input" value="{{draft.project.name}}" data-field="name" bindinput="onProjectInput" placeholder="例如：镜湖府王宅"></input>
-        <button class="field-mic {{voiceTargetKey === 'project-name' ? 'is-active' : ''}}" aria-label="语音输入客户项目名称" data-key="project-name" data-scope="project" data-field="name" data-mode="short" bindtap="startFieldVoice"><text class="field-mic-icon"></text></button>
+        <view class="field-mic {{voiceTargetKey === 'project-name' ? 'is-active' : ''}}" role="button" aria-label="语音输入客户项目名称" data-key="project-name" data-scope="project" data-field="name" data-mode="short" bindtap="startFieldVoice"><text class="field-mic-icon"></text></view>
       </view>
     </view>
     <view class="field">
       <text class="field-label">项目所在地</text>
       <view class="voice-field-control">
         <input class="field-input" value="{{draft.project.address}}" bindinput="onLocationInput" placeholder="例如：绍兴市越城区镜湖府"></input>
-        <button class="field-mic {{voiceTargetKey === 'project-location' ? 'is-active' : ''}}" aria-label="语音输入项目所在地" data-key="project-location" data-scope="location" data-field="address" data-mode="short" bindtap="startFieldVoice"><text class="field-mic-icon"></text></button>
+        <view class="field-mic {{voiceTargetKey === 'project-location' ? 'is-active' : ''}}" role="button" aria-label="语音输入项目所在地" data-key="project-location" data-scope="location" data-field="address" data-mode="short" bindtap="startFieldVoice"><text class="field-mic-icon"></text></view>
       </view>
     </view>
     <view class="number-grid project-date-grid">
@@ -32,14 +32,14 @@
       <view class="field-heading"><text class="field-label">项目需求</text><button data-type="needs" bindtap="openCopySuggestions">参考文案</button></view>
       <view class="voice-field-control voice-textarea-control">
         <textarea class="field-textarea" value="{{draft.project.needs}}" data-field="needs" bindinput="onProjectInput" placeholder="空间、采光、地暖及使用偏好"></textarea>
-        <button class="field-mic {{voiceTargetKey === 'project-needs' ? 'is-active' : ''}}" aria-label="语音输入项目需求" data-key="project-needs" data-scope="project" data-field="needs" data-mode="long" bindtap="startFieldVoice"><text class="field-mic-icon"></text></button>
+        <view class="field-mic {{voiceTargetKey === 'project-needs' ? 'is-active' : ''}}" role="button" aria-label="语音输入项目需求" data-key="project-needs" data-scope="project" data-field="needs" data-mode="long" bindtap="startFieldVoice"><text class="field-mic-icon"></text></view>
       </view>
     </view>
     <view class="field">
       <view class="field-heading"><text class="field-label">选材建议</text><button data-type="advice" bindtap="openCopySuggestions">参考文案</button></view>
       <view class="voice-field-control voice-textarea-control">
         <textarea class="field-textarea" value="{{draft.project.advice}}" data-field="advice" bindinput="onProjectInput" placeholder="本次木种、结构、颜色与规格的选择理由"></textarea>
-        <button class="field-mic {{voiceTargetKey === 'project-advice' ? 'is-active' : ''}}" aria-label="语音输入选材建议" data-key="project-advice" data-scope="project" data-field="advice" data-mode="long" bindtap="startFieldVoice"><text class="field-mic-icon"></text></button>
+        <view class="field-mic {{voiceTargetKey === 'project-advice' ? 'is-active' : ''}}" role="button" aria-label="语音输入选材建议" data-key="project-advice" data-scope="project" data-field="advice" data-mode="long" bindtap="startFieldVoice"><text class="field-mic-icon"></text></view>
       </view>
     </view>
   </view>
@@ -59,7 +59,7 @@
         <text class="field-label">空间名称 *</text>
         <view class="voice-field-control">
           <input class="field-input" value="{{item.room}}" data-index="{{index}}" data-field="room" bindinput="onLineInput" placeholder="客厅、主卧或书房"></input>
-          <button class="field-mic {{voiceTargetKey === 'line-room-' + index ? 'is-active' : ''}}" aria-label="语音输入空间名称" data-key="line-room-{{index}}" data-scope="line" data-index="{{index}}" data-field="room" data-mode="short" bindtap="startFieldVoice"><text class="field-mic-icon"></text></button>
+          <view class="field-mic {{voiceTargetKey === 'line-room-' + index ? 'is-active' : ''}}" role="button" aria-label="语音输入空间名称" data-key="line-room-{{index}}" data-scope="line" data-index="{{index}}" data-field="room" data-mode="short" bindtap="startFieldVoice"><text class="field-mic-icon"></text></view>
         </view>
       </view>
       <view class="product-select" data-index="{{index}}" bindtap="openProduct">
@@ -69,16 +69,16 @@
         <text class="select-command">选择</text>
       </view>
       <view class="number-grid">
-        <view class="field"><text class="field-label">净面积 m² *</text><view class="voice-field-control"><input class="field-input" type="digit" value="{{item.netArea}}" data-index="{{index}}" data-field="netArea" bindinput="onLineInput"></input><button class="field-mic {{voiceTargetKey === 'line-area-' + index ? 'is-active' : ''}}" aria-label="语音输入净面积" data-key="line-area-{{index}}" data-scope="line" data-index="{{index}}" data-field="netArea" data-mode="number" bindtap="startFieldVoice"><text class="field-mic-icon"></text></button></view></view>
-        <view class="field"><text class="field-label">损耗率 %</text><view class="voice-field-control"><input class="field-input" type="digit" value="{{item.wasteRate}}" data-index="{{index}}" data-field="wasteRate" bindinput="onLineInput"></input><button class="field-mic {{voiceTargetKey === 'line-waste-' + index ? 'is-active' : ''}}" aria-label="语音输入损耗率" data-key="line-waste-{{index}}" data-scope="line" data-index="{{index}}" data-field="wasteRate" data-mode="number" bindtap="startFieldVoice"><text class="field-mic-icon"></text></button></view></view>
-        <view class="field"><text class="field-label">单价 元/m² *</text><view class="voice-field-control"><input class="field-input" type="digit" value="{{item.unitPrice}}" data-index="{{index}}" data-field="unitPrice" bindinput="onLineInput"></input><button class="field-mic {{voiceTargetKey === 'line-price-' + index ? 'is-active' : ''}}" aria-label="语音输入产品单价" data-key="line-price-{{index}}" data-scope="line" data-index="{{index}}" data-field="unitPrice" data-mode="number" bindtap="startFieldVoice"><text class="field-mic-icon"></text></button></view></view>
+        <view class="field"><text class="field-label">净面积 m² *</text><input class="field-input" type="digit" value="{{item.netArea}}" data-index="{{index}}" data-field="netArea" bindinput="onLineInput"></input></view>
+        <view class="field"><text class="field-label">损耗率 %</text><input class="field-input" type="digit" value="{{item.wasteRate}}" data-index="{{index}}" data-field="wasteRate" bindinput="onLineInput"></input></view>
+        <view class="field"><text class="field-label">单价 元/m² *</text><input class="field-input" type="digit" value="{{item.unitPrice}}" data-index="{{index}}" data-field="unitPrice" bindinput="onLineInput"></input></view>
         <view class="billable"><text>计价面积</text><text class="billable-value">{{totals.lines[index].billableArea || '0.00'}} m²</text><text>{{totals.lines[index].amountText || '¥0.00'}}</text></view>
       </view>
       <view class="field">
         <view class="field-heading"><text class="field-label">选材备注</text><button data-type="lineNote" data-index="{{index}}" bindtap="openCopySuggestions">参考文案</button></view>
         <view class="voice-field-control">
           <input class="field-input" value="{{item.note}}" data-index="{{index}}" data-field="note" bindinput="onLineInput" placeholder="色泽、拼接或空间关系"></input>
-          <button class="field-mic {{voiceTargetKey === 'line-note-' + index ? 'is-active' : ''}}" aria-label="语音输入选材备注" data-key="line-note-{{index}}" data-scope="line" data-index="{{index}}" data-field="note" data-mode="long" bindtap="startFieldVoice"><text class="field-mic-icon"></text></button>
+          <view class="field-mic {{voiceTargetKey === 'line-note-' + index ? 'is-active' : ''}}" role="button" aria-label="语音输入选材备注" data-key="line-note-{{index}}" data-scope="line" data-index="{{index}}" data-field="note" data-mode="long" bindtap="startFieldVoice"><text class="field-mic-icon"></text></view>
         </view>
       </view>
     </view>
@@ -87,25 +87,25 @@
   <view class="quote-section" id="fees">
     <view class="quote-section-title"><view><text>03</text><text class="section-name">费用与结算</text></view></view>
     <view class="number-grid section-grid">
-      <view class="field"><text class="field-label">辅材 元/m²</text><view class="voice-field-control"><input class="field-input" type="digit" value="{{draft.fees.accessoryUnitPrice}}" data-field="accessoryUnitPrice" bindinput="onFeeInput"></input><button class="field-mic {{voiceTargetKey === 'fees-accessory' ? 'is-active' : ''}}" aria-label="语音输入辅材单价" data-key="fees-accessory" data-scope="fees" data-field="accessoryUnitPrice" data-mode="number" bindtap="startFieldVoice"><text class="field-mic-icon"></text></button></view></view>
-      <view class="field"><text class="field-label">安装 元/m²</text><view class="voice-field-control"><input class="field-input" type="digit" value="{{draft.fees.installationUnitPrice}}" data-field="installationUnitPrice" bindinput="onFeeInput"></input><button class="field-mic {{voiceTargetKey === 'fees-installation' ? 'is-active' : ''}}" aria-label="语音输入安装单价" data-key="fees-installation" data-scope="fees" data-field="installationUnitPrice" data-mode="number" bindtap="startFieldVoice"><text class="field-mic-icon"></text></button></view></view>
-      <view class="field"><text class="field-label">运输费 元</text><view class="voice-field-control"><input class="field-input" type="digit" value="{{draft.fees.transportAmount}}" data-field="transportAmount" bindinput="onFeeInput"></input><button class="field-mic {{voiceTargetKey === 'fees-transport' ? 'is-active' : ''}}" aria-label="语音输入运输费" data-key="fees-transport" data-scope="fees" data-field="transportAmount" data-mode="number" bindtap="startFieldVoice"><text class="field-mic-icon"></text></button></view></view>
-      <view class="field"><text class="field-label">其他费用 元</text><view class="voice-field-control"><input class="field-input" type="digit" value="{{draft.fees.otherAmount}}" data-field="otherAmount" bindinput="onFeeInput"></input><button class="field-mic {{voiceTargetKey === 'fees-other' ? 'is-active' : ''}}" aria-label="语音输入其他费用" data-key="fees-other" data-scope="fees" data-field="otherAmount" data-mode="number" bindtap="startFieldVoice"><text class="field-mic-icon"></text></button></view></view>
+      <view class="field"><text class="field-label">辅材 元/m²</text><input class="field-input" type="digit" value="{{draft.fees.accessoryUnitPrice}}" data-field="accessoryUnitPrice" bindinput="onFeeInput"></input></view>
+      <view class="field"><text class="field-label">安装 元/m²</text><input class="field-input" type="digit" value="{{draft.fees.installationUnitPrice}}" data-field="installationUnitPrice" bindinput="onFeeInput"></input></view>
+      <view class="field"><text class="field-label">运输费 元</text><input class="field-input" type="digit" value="{{draft.fees.transportAmount}}" data-field="transportAmount" bindinput="onFeeInput"></input></view>
+      <view class="field"><text class="field-label">其他费用 元</text><input class="field-input" type="digit" value="{{draft.fees.otherAmount}}" data-field="otherAmount" bindinput="onFeeInput"></input></view>
     </view>
-    <view class="field section-field" wx:if="{{draft.fees.otherAmount > 0}}"><text class="field-label">其他费用说明 *</text><view class="voice-field-control"><input class="field-input" value="{{draft.fees.otherLabel}}" data-field="otherLabel" bindinput="onFeeInput"></input><button class="field-mic {{voiceTargetKey === 'fees-label' ? 'is-active' : ''}}" aria-label="语音输入其他费用说明" data-key="fees-label" data-scope="fees" data-field="otherLabel" data-mode="short" bindtap="startFieldVoice"><text class="field-mic-icon"></text></button></view></view>
+    <view class="field section-field" wx:if="{{draft.fees.otherAmount > 0}}"><text class="field-label">其他费用说明 *</text><view class="voice-field-control"><input class="field-input" value="{{draft.fees.otherLabel}}" data-field="otherLabel" bindinput="onFeeInput"></input><view class="field-mic {{voiceTargetKey === 'fees-label' ? 'is-active' : ''}}" role="button" aria-label="语音输入其他费用说明" data-key="fees-label" data-scope="fees" data-field="otherLabel" data-mode="short" bindtap="startFieldVoice"><text class="field-mic-icon"></text></view></view></view>
     <view class="field-row section-grid">
       <label class="field"><text class="field-label">折扣方式</text><picker range="{{discountTypeLabels}}" value="{{discountTypeIndex}}" bindchange="onDiscountType"><view class="field-picker">{{discountTypeLabels[discountTypeIndex]}}</view></picker></label>
-      <view class="field"><text class="field-label">{{discountTypeIndex === 1 ? '折扣金额 元' : '折扣比例 %'}}</text><view class="voice-field-control"><input class="field-input" type="digit" value="{{draft.discount.value}}" bindinput="onDiscountInput"></input><button class="field-mic {{voiceTargetKey === 'discount-value' ? 'is-active' : ''}}" aria-label="语音输入折扣数值" data-key="discount-value" data-scope="discount" data-field="value" data-mode="number" bindtap="startFieldVoice"><text class="field-mic-icon"></text></button></view></view>
+      <view class="field"><text class="field-label">{{discountTypeIndex === 1 ? '折扣金额 元' : '折扣比例 %'}}</text><input class="field-input" type="digit" value="{{draft.discount.value}}" bindinput="onDiscountInput"></input></view>
     </view>
     <view class="field-row section-grid">
       <label class="field"><text class="field-label">税费模式</text><picker range="{{taxModeLabels}}" value="{{taxModeIndex}}" bindchange="onTaxMode"><view class="field-picker">{{taxModeLabels[taxModeIndex]}}</view></picker></label>
-      <view class="field"><text class="field-label">税率 %</text><view class="voice-field-control"><input class="field-input" type="digit" value="{{draft.tax.rate}}" bindinput="onTaxInput"></input><button class="field-mic {{voiceTargetKey === 'tax-rate' ? 'is-active' : ''}}" aria-label="语音输入税率" data-key="tax-rate" data-scope="tax" data-field="rate" data-mode="number" bindtap="startFieldVoice"><text class="field-mic-icon"></text></button></view></view>
+      <view class="field"><text class="field-label">税率 %</text><input class="field-input" type="digit" value="{{draft.tax.rate}}" bindinput="onTaxInput"></input></view>
     </view>
     <view class="field section-field">
       <view class="field-heading"><text class="field-label">报价条款</text><button data-type="terms" bindtap="openCopySuggestions">参考文案</button></view>
       <view class="voice-field-control voice-textarea-control">
         <textarea class="field-textarea terms-input" value="{{draft.terms}}" bindinput="onTermsInput"></textarea>
-        <button class="field-mic {{voiceTargetKey === 'terms' ? 'is-active' : ''}}" aria-label="语音输入报价条款" data-key="terms" data-scope="terms" data-field="terms" data-mode="long" bindtap="startFieldVoice"><text class="field-mic-icon"></text></button>
+        <view class="field-mic {{voiceTargetKey === 'terms' ? 'is-active' : ''}}" role="button" aria-label="语音输入报价条款" data-key="terms" data-scope="terms" data-field="terms" data-mode="long" bindtap="startFieldVoice"><text class="field-mic-icon"></text></view>
       </view>
     </view>
   </view>
