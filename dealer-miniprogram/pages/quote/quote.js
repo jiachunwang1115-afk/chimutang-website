@@ -1,6 +1,7 @@
 const api = require("../../utils/api");
 const quoteUtil = require("../../utils/quote");
 const products = require("../../data/products");
+const quoteCopy = require("../../data/quote-copy");
 
 const money = (cents) => `¥${(Number(cents || 0) / 100).toLocaleString("zh-CN", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
 const shortSeries = (value) => String(value || "").split("（")[0] || "系列待确认";
@@ -46,6 +47,10 @@ Page({
     saveState: "尚未保存",
     saving: false,
     localMode: false,
+    copyPickerOpen: false,
+    copyPickerTitle: "",
+    copySuggestions: [],
+    copyTarget: null,
   },
   async onLoad(options) {
     let draft = wx.getStorageSync("woodallEditQuote") || quoteUtil.createDraft();
@@ -75,6 +80,52 @@ Page({
   noop() {},
   jumpToSection(event) {
     wx.pageScrollTo({ selector: `#${event.currentTarget.dataset.target}`, duration: 240 });
+  },
+  openCopySuggestions(event) {
+    const type = event.currentTarget.dataset.type;
+    const group = quoteCopy[type];
+    if (!group) return;
+    this.setData({
+      copyPickerOpen: true,
+      copyPickerTitle: group.title,
+      copySuggestions: group.items,
+      copyTarget: {
+        type,
+        index: event.currentTarget.dataset.index === undefined
+          ? -1
+          : Number(event.currentTarget.dataset.index),
+      },
+    });
+  },
+  closeCopySuggestions() {
+    this.setData({
+      copyPickerOpen: false,
+      copyPickerTitle: "",
+      copySuggestions: [],
+      copyTarget: null,
+    });
+  },
+  applyCopySuggestion(event) {
+    const target = this.data.copyTarget;
+    const suggestion = this.data.copySuggestions.find((item) => item.id === event.currentTarget.dataset.id);
+    if (!target || !suggestion) return;
+    const draft = this.data.draft;
+    let current = "";
+    if (target.type === "needs" || target.type === "advice") current = draft.project[target.type] || "";
+    else if (target.type === "terms") current = draft.terms || "";
+    else if (target.type === "lineNote" && draft.lines[target.index]) current = draft.lines[target.index].note || "";
+    if (current.includes(suggestion.text)) {
+      wx.showToast({ title: "该文案已加入", icon: "none" });
+      return;
+    }
+    const separator = target.type === "lineNote" ? "；" : "\n";
+    const next = current.trim() ? `${current.trim()}${separator}${suggestion.text}` : suggestion.text;
+    if (target.type === "needs" || target.type === "advice") draft.project[target.type] = next;
+    else if (target.type === "terms") draft.terms = next;
+    else if (target.type === "lineNote" && draft.lines[target.index]) draft.lines[target.index].note = next;
+    this.setData({ draft });
+    this.update();
+    wx.showToast({ title: "已加入报价", icon: "success" });
   },
   cleanDraft() {
     const draft = JSON.parse(JSON.stringify(this.data.draft));

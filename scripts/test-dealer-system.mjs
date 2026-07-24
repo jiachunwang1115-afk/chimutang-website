@@ -48,6 +48,15 @@ assert.equal(miniProducts.length, 138);
 assert(miniProducts.every((product) => product.code));
 assert(miniProducts.every((product) => product.thumbUrl?.startsWith("/assets/products/")), "小程序产品应使用包内真实缩略图");
 for (const product of miniProducts) await access(path.join(miniRoot, product.thumbUrl.slice(1)));
+const quoteCopySource = await readFile(path.join(miniRoot, "data", "quote-copy.js"), "utf8");
+const quoteCopyModule = { exports: {} };
+vm.runInNewContext(quoteCopySource, { module: quoteCopyModule, exports: quoteCopyModule.exports });
+assert.deepEqual(Object.keys(quoteCopyModule.exports), ["needs", "advice", "lineNote", "terms"]);
+for (const group of Object.values(quoteCopyModule.exports)) {
+  assert(group.items.length >= 5, `${group.title}至少需要五条参考文案`);
+  assert.equal(new Set(group.items.map((item) => item.id)).size, group.items.length, `${group.title}的文案 ID 不得重复`);
+  assert(group.items.every((item) => item.title && item.text.length >= 20), `${group.title}的文案应完整可用`);
+}
 
 const miniQuoteSource = await readFile(path.join(miniRoot, "utils", "quote.js"), "utf8");
 const miniQuoteModule = { exports: {} };
@@ -135,6 +144,7 @@ assert.match(appWxss, /repeat\(4,\s*minmax\(0,\s*1fr\)\)/, "底部导航必须�
 assert.equal(homeWxml.includes('class="quick-actions"'), false, "手机首页不应继续使用并排桌面操作卡");
 assert.match(homeWxss, /\.home-actions\s*\{[^}]*display:\s*grid[^}]*\}/s, "首页主要操作应使用稳定单列");
 assert.equal(quoteWxml.match(/data-target="/g)?.length, 4, "报价页必须提供四步快速导航");
+assert.equal(quoteWxml.match(/bindtap="openCopySuggestions"/g)?.length, 4, "四类可编辑文案都应提供参考入口");
 assert.equal(historyWxml.includes("floating-add"), false, "历史页不应与底部报价入口重复");
 
 for (const [htmlFile, jsFile] of [["dealer-quote.html", "dealer-quote.js"], ["dealer-admin.html", "dealer-admin.js"]]) {

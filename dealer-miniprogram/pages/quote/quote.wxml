@@ -19,8 +19,14 @@
       <label class="field"><text class="field-label">有效期至</text><picker mode="date" value="{{draft.project.validUntil}}" data-field="validUntil" bindchange="onProjectInput"><view class="field-picker">{{draft.project.validUntil}}</view></picker></label>
       <label class="field"><text class="field-label">项目地址</text><input class="field-input" value="{{draft.project.address}}" data-field="address" bindinput="onProjectInput" placeholder="选填"></input></label>
     </view>
-    <label class="field"><text class="field-label">项目需求</text><textarea class="field-textarea" value="{{draft.project.needs}}" data-field="needs" bindinput="onProjectInput" placeholder="空间、采光、地暖及使用偏好"></textarea></label>
-    <label class="field"><text class="field-label">选材建议</text><textarea class="field-textarea" value="{{draft.project.advice}}" data-field="advice" bindinput="onProjectInput" placeholder="本次木种、结构、颜色与规格的选择理由"></textarea></label>
+    <view class="field">
+      <view class="field-heading"><text class="field-label">项目需求</text><button data-type="needs" bindtap="openCopySuggestions">参考文案</button></view>
+      <textarea class="field-textarea" value="{{draft.project.needs}}" data-field="needs" bindinput="onProjectInput" placeholder="空间、采光、地暖及使用偏好"></textarea>
+    </view>
+    <view class="field">
+      <view class="field-heading"><text class="field-label">选材建议</text><button data-type="advice" bindtap="openCopySuggestions">参考文案</button></view>
+      <textarea class="field-textarea" value="{{draft.project.advice}}" data-field="advice" bindinput="onProjectInput" placeholder="本次木种、结构、颜色与规格的选择理由"></textarea>
+    </view>
   </view>
 
   <view class="quote-section" id="lines">
@@ -47,7 +53,10 @@
         <label class="field"><text class="field-label">单价 元/m² *</text><input class="field-input" type="digit" value="{{item.unitPrice}}" data-index="{{index}}" data-field="unitPrice" bindinput="onLineInput"></input></label>
         <view class="billable"><text>计价面积</text><text class="billable-value">{{totals.lines[index].billableArea || '0.00'}} m²</text><text>{{totals.lines[index].amountText || '¥0.00'}}</text></view>
       </view>
-      <label class="field"><text class="field-label">选材备注</text><input class="field-input" value="{{item.note}}" data-index="{{index}}" data-field="note" bindinput="onLineInput" placeholder="色泽、拼接或空间关系"></input></label>
+      <view class="field">
+        <view class="field-heading"><text class="field-label">选材备注</text><button data-type="lineNote" data-index="{{index}}" bindtap="openCopySuggestions">参考文案</button></view>
+        <input class="field-input" value="{{item.note}}" data-index="{{index}}" data-field="note" bindinput="onLineInput" placeholder="色泽、拼接或空间关系"></input>
+      </view>
     </view>
   </view>
 
@@ -68,7 +77,10 @@
       <label class="field"><text class="field-label">税费模式</text><picker range="{{taxModeLabels}}" value="{{taxModeIndex}}" bindchange="onTaxMode"><view class="field-picker">{{taxModeLabels[taxModeIndex]}}</view></picker></label>
       <label class="field"><text class="field-label">税率 %</text><input class="field-input" type="digit" value="{{draft.tax.rate}}" bindinput="onTaxInput"></input></label>
     </view>
-    <label class="field section-field"><text class="field-label">报价条款</text><textarea class="field-textarea terms-input" value="{{draft.terms}}" bindinput="onTermsInput"></textarea></label>
+    <view class="field section-field">
+      <view class="field-heading"><text class="field-label">报价条款</text><button data-type="terms" bindtap="openCopySuggestions">参考文案</button></view>
+      <textarea class="field-textarea terms-input" value="{{draft.terms}}" bindinput="onTermsInput"></textarea>
+    </view>
   </view>
 
   <view class="quote-summary" id="summary">
@@ -99,6 +111,22 @@
         </view>
         <view class="empty" wx:if="{{!productResults.length}}">没有匹配的产品</view>
       </scroll-view>
+    </view>
+  </view>
+
+  <view class="copy-picker-mask" wx:if="{{copyPickerOpen}}" catchtap="closeCopySuggestions">
+    <view class="copy-picker" catchtap="noop">
+      <view class="copy-picker-head">
+        <view><text class="eyebrow">WRITING REFERENCE</text><text>{{copyPickerTitle}}</text></view>
+        <button aria-label="关闭" bindtap="closeCopySuggestions">×</button>
+      </view>
+      <scroll-view class="copy-list" scroll-y enhanced show-scrollbar="{{false}}">
+        <view class="copy-option" wx:for="{{copySuggestions}}" wx:key="id">
+          <view><text>{{item.title}}</text><text>{{item.text}}</text></view>
+          <button data-id="{{item.id}}" bindtap="applyCopySuggestion">加入</button>
+        </view>
+      </scroll-view>
+      <button class="copy-done" bindtap="closeCopySuggestions">完成</button>
     </view>
   </view>
 </view>
