@@ -9,7 +9,10 @@
   </view>
 
   <view class="quote-section" id="project">
-    <view class="quote-section-title"><view><text>01</text><text class="section-name">项目资料</text></view></view>
+    <view class="quote-section-title">
+      <view><text>01</text><text class="section-name">项目资料</text></view>
+      <button class="voice-entry" bindtap="openVoiceSheet"><text class="voice-entry-icon"></text><text>语音填写</text></button>
+    </view>
     <label class="field"><text class="field-label">客户 / 项目名称 *</text><input class="field-input" value="{{draft.project.name}}" data-field="name" bindinput="onProjectInput" placeholder="例如：镜湖府王宅"></input></label>
     <view class="field-row">
       <label class="field"><text class="field-label">城市</text><input class="field-input" value="{{draft.project.city}}" data-field="city" bindinput="onProjectInput" placeholder="绍兴"></input></label>
@@ -127,6 +130,85 @@
         </view>
       </scroll-view>
       <button class="copy-done" bindtap="closeCopySuggestions">完成</button>
+    </view>
+  </view>
+
+  <view class="voice-sheet-mask" wx:if="{{voiceSheetOpen}}" catchtap="closeVoiceSheet">
+    <view class="voice-sheet" catchtap="noop">
+      <view class="voice-sheet-head">
+        <view><text class="eyebrow">VOICE TO QUOTE</text><text>语音填写报价</text></view>
+        <button aria-label="关闭" bindtap="closeVoiceSheet">×</button>
+      </view>
+
+      <view class="voice-guide">
+        <text>按顺序说空间、型号、面积和单价</text>
+        <text>示例：客厅 A9-X701，35 平方，单价 980，损耗 5%。</text>
+      </view>
+
+      <view class="voice-control">
+        <button class="{{voiceRecording ? 'is-recording' : ''}}" bindtap="toggleVoiceRecording" disabled="{{voiceRecognizing && !voiceRecording}}">
+          <view class="microphone"><text></text></view>
+          <text>{{voiceRecording ? '结束并识别' : (voiceRecognizing ? '正在识别…' : '开始口述')}}</text>
+        </button>
+        <text wx:if="{{voiceRecording}}">正在聆听，最长 60 秒</text>
+        <text wx:elif="{{!voiceAvailable}}">语音服务尚未启用，可先在下方手动输入口述内容测试解析。</text>
+        <text wx:else>录音仅用于本次识别，不保存在报价中</text>
+      </view>
+
+      <view class="voice-transcript">
+        <view><text>识别原文</text><button bindtap="parseVoiceText">重新解析</button></view>
+        <textarea value="{{voiceTranscript}}" bindinput="onVoiceTranscriptInput" placeholder="识别结果会显示在这里，也可以手动修改"></textarea>
+      </view>
+
+      <scroll-view class="voice-review" scroll-y enhanced show-scrollbar="{{false}}">
+        <view class="voice-review-empty" wx:if="{{!voicePreview}}">
+          <text>口述完成后，这里会先展示即将写入的内容。</text>
+          <text>所有数字和型号都需确认后才会填入报价。</text>
+        </view>
+
+        <block wx:if="{{voicePreview}}">
+          <view class="voice-review-group" wx:if="{{voiceProjectItems.length}}">
+            <text class="voice-review-title">项目资料</text>
+            <view class="voice-review-row" wx:for="{{voiceProjectItems}}" wx:key="key">
+              <text>{{item.label}}</text><text>{{item.value}}</text>
+            </view>
+          </view>
+
+          <view class="voice-review-group" wx:if="{{voiceLines.length}}">
+            <text class="voice-review-title">产品明细</text>
+            <view class="voice-line-preview" wx:for="{{voiceLines}}" wx:key="index">
+              <view><text>{{item.room || '空间待补充'}}</text><text>{{item.productName}}</text></view>
+              <view>
+                <text>{{item.netArea || '—'}} m²</text>
+                <text>损耗 {{item.wasteRate === '' ? '5' : item.wasteRate}}%</text>
+                <text>{{item.unitPrice || '—'}} 元/m²</text>
+              </view>
+            </view>
+          </view>
+
+          <view class="voice-review-group" wx:if="{{voiceFeeItems.length}}">
+            <text class="voice-review-title">费用与结算</text>
+            <view class="voice-review-row" wx:for="{{voiceFeeItems}}" wx:key="key">
+              <text>{{item.label}}</text><text>{{item.value}}</text>
+            </view>
+          </view>
+
+          <view class="voice-warnings" wx:if="{{voiceWarnings.length}}">
+            <text>需要核对</text>
+            <text wx:for="{{voiceWarnings}}" wx:key="*this">{{item}}</text>
+          </view>
+
+          <view class="voice-review-empty" wx:if="{{!voicePreview.hasData}}">
+            <text>暂未识别到可填写内容。</text>
+            <text>请完整说出产品型号，例如“A9 杠 X701”。</text>
+          </view>
+        </block>
+      </scroll-view>
+
+      <view class="voice-actions">
+        <button bindtap="closeVoiceSheet">取消</button>
+        <button class="voice-apply" bindtap="applyVoicePreview" disabled="{{!voicePreview.hasData}}">确认填入</button>
+      </view>
     </view>
   </view>
 </view>

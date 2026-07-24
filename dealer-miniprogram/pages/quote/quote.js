@@ -2,6 +2,7 @@ const api = require("../../utils/api");
 const quoteUtil = require("../../utils/quote");
 const products = require("../../data/products");
 const quoteCopy = require("../../data/quote-copy");
+const voiceQuote = require("../../utils/voice-quote");
 
 const money = (cents) => `¥${(Number(cents || 0) / 100).toLocaleString("zh-CN", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
 const shortSeries = (value) => String(value || "").split("（")[0] || "系列待确认";
@@ -28,6 +29,58 @@ function decorateLine(line) {
   };
 }
 
+function lineHasContent(line) {
+  return Boolean(
+    String(line.room || "").trim()
+    || String(line.productCode || "").trim()
+    || Number(line.netArea) > 0
+    || Number(line.unitPrice) > 0
+    || String(line.note || "").trim(),
+  );
+}
+
+function buildVoiceReview(parsed) {
+  const projectLabels = {
+    name: "客户 / 项目",
+    city: "城市",
+    address: "项目地址",
+    needs: "项目需求",
+    advice: "选材建议",
+  };
+  const feeLabels = {
+    accessoryUnitPrice: "辅材单价",
+    installationUnitPrice: "安装单价",
+    transportAmount: "运输费",
+    otherAmount: "其他费用",
+    otherLabel: "其他费用说明",
+  };
+  const projectItems = Object.entries(parsed.project)
+    .filter(([, value]) => Boolean(value))
+    .map(([key, value]) => ({ key: `project-${key}`, label: projectLabels[key], value }));
+  const feeItems = Object.entries(parsed.fees)
+    .filter(([key, value]) => key === "otherLabel" ? Boolean(value) : value !== "")
+    .map(([key, value]) => ({
+      key: `fee-${key}`,
+      label: feeLabels[key],
+      value: key === "otherLabel" ? value : `${value} 元${key.includes("UnitPrice") ? "/m²" : ""}`,
+    }));
+  if (parsed.discount) {
+    feeItems.push({
+      key: "discount",
+      label: "折扣",
+      value: parsed.discount.type === "fixed" ? `${parsed.discount.value} 元` : `${parsed.discount.value}%`,
+    });
+  }
+  if (parsed.tax) {
+    feeItems.push({
+      key: "tax",
+      label: "税费",
+      value: `${parsed.tax.mode === "excluded" ? "未税另加" : "已含税"} ${parsed.tax.rate}%`,
+    });
+  }
+  return { projectItems, feeItems };
+}
+
 Page({
   data: {
     draft: null,
@@ -51,6 +104,16 @@ Page({
     copyPickerTitle: "",
     copySuggestions: [],
     copyTarget: null,
+    voiceSheetOpen: false,
+    voiceAvailable: true,
+    voiceRecording: false,
+    voiceRecognizing: false,
+    voiceTranscript: "",
+    voicePreview: null,
+    voiceProjectItems: [],
+    voiceFeeItems: [],
+    voiceLines: [],
+    voiceWarnings: [],
   },
   async onLoad(options) {
     let draft = wx.getStorageSync("woodallEditQuote") || quoteUtil.createDraft();
@@ -71,11 +134,17 @@ Page({
       discountTypeIndex: draft.discount.type === "fixed" ? 1 : 0,
       taxModeIndex: draft.tax.mode === "excluded" ? 1 : 0,
     });
+    this.initVoiceRecognition();
     this.recalculate();
   },
   onUnload() {
     clearTimeout(this.saveTimer);
+    clearTimeout(this.voiceParseTimer);
+    if (this.data.voiceRecording && this.voiceManager) this.voiceManager.stop();
     if (this.data.draft) wx.setStorageSync("woodallEditQuote", this.cleanDraft());
+  },
+  onHide() {
+    if (this.data.voiceRecording && this.voiceManager) this.voiceManager.stop();
   },
   noop() {},
   jumpToSection(event) {
@@ -126,6 +195,160 @@ Page({
     this.setData({ draft });
     this.update();
     wx.showToast({ title: "已加入报价", icon: "success" });
+  },
+  initVoiceRecognition() {
+    if (this.voiceManager) return true;
+    try {
+      if (typeof requirePlugin !== "function") throw new Error("语音插件不可用");
+      const plugin = requirePlugin("WechatSI");
+      const manager = plugin.getRecordRecognitionManager();
+      manager.onStart = () => {
+        this.setData({ voiceRecording: true, voiceRecognizing: true });
+      };
+      manager.onRecognize = (result) => {
+        const text = String(result?.result || "").trim();
+        if (text) this.setData({ voiceTranscript: text });
+      };
+      manager.onStop = (result) => {
+        const text = String(result?.result || this.data.voiceTranscript || "").trim();
+        this.setData({ voiceRecording: false, voiceRecognizing: false, voiceTranscript: text });
+        if (!text) {
+          wx.showToast({ title: "没有听清，请再说一次", icon: "none" });
+          return;
+        }
+        this.parseVoiceTranscript(text);
+      };
+      manager.onError = (error) => {
+        const messages = {
+          "-30003": "没有听清，请靠近手机再说一次",
+          "-30004": "没有识别到有效内容",
+          "-30006": "录音已超时，请分段口述",
+        };
+        const message = messages[String(error?.retcode)] || "语音识别失败，请稍后重试";
+        this.setData({ voiceRecording: false, voiceRecognizing: false });
+        wx.showToast({ title: message, icon: "none", duration: 2600 });
+      };
+      this.voiceManager = manager;
+      return true;
+    } catch (error) {
+      this.setData({ voiceAvailable: false });
+      return false;
+    }
+  },
+  openVoiceSheet() {
+    const available = this.initVoiceRecognition();
+    this.setData({ voiceSheetOpen: true, voiceAvailable: available });
+  },
+  closeVoiceSheet() {
+    if (this.data.voiceRecording && this.voiceManager) this.voiceManager.stop();
+    this.setData({ voiceSheetOpen: false, voiceRecording: false, voiceRecognizing: false });
+  },
+  toggleVoiceRecording() {
+    if (this.data.voiceRecording) {
+      if (this.voiceManager) this.voiceManager.stop();
+      this.setData({ voiceRecording: false, voiceRecognizing: true });
+      return;
+    }
+    if (!this.initVoiceRecognition()) {
+      wx.showModal({
+        title: "语音服务未启用",
+        content: "请先在小程序后台添加“微信同声传译”插件，再重新打开体验版。",
+        showCancel: false,
+      });
+      return;
+    }
+    wx.authorize({
+      scope: "scope.record",
+      success: () => {
+        this.setData({
+          voiceTranscript: "",
+          voicePreview: null,
+          voiceProjectItems: [],
+          voiceFeeItems: [],
+          voiceLines: [],
+          voiceWarnings: [],
+          voiceRecognizing: true,
+        });
+        this.voiceManager.start({ duration: 60000, lang: "zh_CN" });
+      },
+      fail: () => {
+        wx.showModal({
+          title: "需要麦克风权限",
+          content: "语音填写只在口述期间使用麦克风，不保存录音。请在设置中允许麦克风权限。",
+          confirmText: "去设置",
+          success: (result) => {
+            if (result.confirm) wx.openSetting();
+          },
+        });
+      },
+    });
+  },
+  onVoiceTranscriptInput(event) {
+    const voiceTranscript = event.detail.value;
+    this.setData({ voiceTranscript });
+    clearTimeout(this.voiceParseTimer);
+    this.voiceParseTimer = setTimeout(() => this.parseVoiceTranscript(voiceTranscript), 500);
+  },
+  parseVoiceText() {
+    this.parseVoiceTranscript(this.data.voiceTranscript, true);
+  },
+  parseVoiceTranscript(transcript, notify = false) {
+    const parsed = voiceQuote.parseVoiceQuote(transcript, products);
+    const review = buildVoiceReview(parsed);
+    this.setData({
+      voicePreview: parsed,
+      voiceProjectItems: review.projectItems,
+      voiceFeeItems: review.feeItems,
+      voiceLines: parsed.lines,
+      voiceWarnings: parsed.warnings,
+    });
+    if (notify) {
+      wx.showToast({
+        title: parsed.hasData ? "已重新解析" : "暂未识别到可填写内容",
+        icon: "none",
+      });
+    }
+  },
+  applyVoicePreview() {
+    const parsed = this.data.voicePreview;
+    if (!parsed?.hasData) {
+      wx.showToast({ title: "请先口述或输入报价内容", icon: "none" });
+      return;
+    }
+    const draft = this.data.draft;
+    Object.entries(parsed.project).forEach(([key, value]) => {
+      if (value) draft.project[key] = value;
+    });
+    if (parsed.lines.length) {
+      const existingLines = draft.lines.filter(lineHasContent);
+      const recognizedLines = parsed.lines.map((line) => decorateLine({
+        ...quoteUtil.blankLine(),
+        room: line.room,
+        productCode: line.productCode,
+        netArea: line.netArea,
+        wasteRate: line.wasteRate === "" ? 5 : line.wasteRate,
+        unitPrice: line.unitPrice,
+        note: line.note,
+      }));
+      draft.lines = [...existingLines, ...recognizedLines].slice(0, quoteUtil.MAX_LINES);
+    }
+    Object.entries(parsed.fees).forEach(([key, value]) => {
+      if (value !== "") draft.fees[key] = value;
+    });
+    if (parsed.discount) draft.discount = { ...draft.discount, ...parsed.discount };
+    if (parsed.tax) draft.tax = { ...draft.tax, ...parsed.tax };
+    if (!draft.lines.length) draft.lines = [decorateLine(quoteUtil.blankLine())];
+    this.setData({
+      draft,
+      discountTypeIndex: draft.discount.type === "fixed" ? 1 : 0,
+      taxModeIndex: draft.tax.mode === "excluded" ? 1 : 0,
+      voiceSheetOpen: false,
+      voiceRecording: false,
+      voiceRecognizing: false,
+    });
+    this.update();
+    wx.pageScrollTo({ selector: "#project", duration: 260 });
+    wx.showToast({ title: "已填入，请核对", icon: "success" });
   },
   cleanDraft() {
     const draft = JSON.parse(JSON.stringify(this.data.draft));

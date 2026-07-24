@@ -17,6 +17,17 @@
     "request": 10000,
     "downloadFile": 15000
   },
+  "permission": {
+    "scope.record": {
+      "desc": "用于将经销商口述的项目与报价信息转换为文字"
+    }
+  },
+  "plugins": {
+    "WechatSI": {
+      "version": "0.3.6",
+      "provider": "wx069ba97219f66d99"
+    }
+  },
   "style": "v2",
   "sitemapLocation": "sitemap.json"
 }
