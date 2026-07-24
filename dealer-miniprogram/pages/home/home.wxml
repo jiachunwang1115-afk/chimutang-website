@@ -10,11 +10,11 @@
 
   <view class="mode-note">
     <text class="connection-state {{localMode ? 'is-local' : ''}}">{{statusText}}</text>
-    <text>{{localMode ? '报价仅保存在当前手机' : '报价数据已接入总部账号'}}</text>
+    <text>{{localMode ? '仅保存在当前手机' : '已接入总部账号'}}</text>
   </view>
 
   <view class="home-total">
-    <text>报价概览</text>
+    <text>累计报价</text>
     <text class="money">{{totalAmount}}</text>
     <view class="home-metrics">
       <view><text>{{quoteCount}}</text><text>报价项目</text></view>
@@ -38,7 +38,7 @@
         <view class="quote-value"><text class="money">{{item.amountText}}</text><text>{{item.dateText}}</text></view>
       </view>
     </view>
-    <view class="empty" wx:else>第一份专业报价，从一个真实项目开始。</view>
+    <view class="empty" wx:else>暂无报价，从新建项目开始。</view>
   </view>
 
   <view class="bottom-nav">

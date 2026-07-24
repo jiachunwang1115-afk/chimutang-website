@@ -154,13 +154,15 @@ assert.equal(miniApi.demoCredentials(), null, "正式版必须关闭演示账号
 const loginWxml = await readFile(path.join(miniRoot, "pages", "login", "login.wxml"), "utf8");
 assert.equal(loginWxml.includes("先体验报价功能"), false, "登录页不应提供绕过账号的体验入口");
 assert.equal(loginWxml.includes("体验版演示账号"), true, "体验版应清楚说明数据仅保存在当前设备");
-const [appWxss, homeWxml, homeWxss, quoteWxml, quotePageJs, historyWxml] = await Promise.all([
+const [appWxss, homeWxml, homeWxss, quoteWxml, quoteWxss, quotePageJs, historyWxml, profileWxml] = await Promise.all([
   readFile(path.join(miniRoot, "app.wxss"), "utf8"),
   readFile(path.join(miniRoot, "pages", "home", "home.wxml"), "utf8"),
   readFile(path.join(miniRoot, "pages", "home", "home.wxss"), "utf8"),
   readFile(path.join(miniRoot, "pages", "quote", "quote.wxml"), "utf8"),
+  readFile(path.join(miniRoot, "pages", "quote", "quote.wxss"), "utf8"),
   readFile(path.join(miniRoot, "pages", "quote", "quote.js"), "utf8"),
   readFile(path.join(miniRoot, "pages", "history", "history.wxml"), "utf8"),
+  readFile(path.join(miniRoot, "pages", "profile", "profile.wxml"), "utf8"),
 ]);
 assert.match(appWxss, /overflow-x:\s*hidden/, "小程序根页面必须阻止横向溢出");
 assert.match(appWxss, /repeat\(4,\s*minmax\(0,\s*1fr\)\)/, "底部导航必须使用可收缩列");
@@ -171,10 +173,14 @@ assert.equal(quoteWxml.match(/bindtap="openCopySuggestions"/g)?.length, 4, "四�
 assert.equal(quoteWxml.includes("语音填写报价"), false, "报价页不应保留整单语音解析入口");
 assert.equal(quoteWxml.match(/bindtap="startFieldVoice"/g)?.length, 8, "文字和备注字段应提供独立语音入口");
 assert.equal(quoteWxml.includes('data-mode="number"'), false, "数字字段不应显示语音输入按钮");
+assert.equal(quoteWxml.includes('class="quote-heading"'), false, "报价页不应重复原生导航标题");
+assert.match(quoteWxss, /\.quote-section\s*\{[^}]*border-top:[^}]*background:\s*transparent/s, "报价分区应使用连续表单而非浮动卡片");
 assert.match(quotePageJs, /manager\.onRecognize[\s\S]*previewVoiceFieldResult\(text\)/, "语音识别过程应实时显示在当前字段");
 assert.match(quotePageJs, /target\.baseValue\s*=\s*this\.readVoiceTargetValue\(target\)/, "实时识别应保留录音前内容以避免重复追加");
 assert.equal(quoteWxml.includes("项目所在地"), true, "城市和项目地址应合并为项目所在地");
 assert.equal(quoteWxml.includes(">城市<"), false, "报价页不应要求单独填写城市");
+assert.equal(historyWxml.includes('class="page-title"'), false, "历史页不应重复原生导航标题");
+assert.equal(profileWxml.includes('class="page-title"'), false, "账号页不应重复原生导航标题");
 assert.equal(historyWxml.includes("floating-add"), false, "历史页不应与底部报价入口重复");
 
 for (const [htmlFile, jsFile] of [["dealer-quote.html", "dealer-quote.js"], ["dealer-admin.html", "dealer-admin.js"]]) {

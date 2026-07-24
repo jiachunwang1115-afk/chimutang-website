@@ -1,12 +1,10 @@
 <view class="page">
-  <text class="eyebrow">QUOTATION ARCHIVE</text>
-  <text class="page-title">历史报价</text>
-  <text class="page-subtitle">{{localMode ? '当前记录仅保存在本机。' : '所有项目均已同步至痴木堂总部。'}}</text>
-  <label class="history-search"><text>⌕</text><input value="{{query}}" bindinput="search" placeholder="搜索项目或城市"></input></label>
+  <text class="page-subtitle history-intro">{{localMode ? '当前记录仅保存在本机' : '项目报价已同步至总部'}}</text>
+  <label class="history-search"><text>⌕</text><input value="{{query}}" bindinput="search" placeholder="搜索项目或所在地"></input></label>
   <view class="history-list" wx:if="{{visibleQuotes.length}}">
     <view class="history-item" wx:for="{{visibleQuotes}}" wx:key="id" data-id="{{item.id}}" bindtap="open">
       <view class="history-top"><text>{{item.projectName || item.title}}</text><text class="money">{{item.amountText}}</text></view>
-      <view class="history-meta"><text>{{item.city || '城市待补充'}}</text><text>{{item.totalBillableArea}} m²</text><text>{{item.dateText}}</text></view>
+      <view class="history-meta"><text>{{item.city || '所在地待补充'}}</text><text>{{item.totalBillableArea}} m²</text><text>{{item.dateText}}</text></view>
       <view class="history-actions"><button data-id="{{item.id}}" catchtap="duplicate">复制</button><button class="is-danger" data-id="{{item.id}}" catchtap="delete">删除</button></view>
     </view>
   </view>

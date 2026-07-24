@@ -1,6 +1,6 @@
 <view class="quote-page" wx:if="{{draft}}">
-  <view class="quote-heading"><text class="eyebrow">PRIVATE QUOTATION</text><text class="page-title">项目报价</text><text class="save-state">{{saveState}}</text></view>
-  <view class="local-strip" wx:if="{{localMode}}">本机体验 · 当前报价不会同步至总部</view>
+  <view class="quote-context"><text>{{draft.project.name || '新建报价'}}</text><text class="save-state">{{saveState}}</text></view>
+  <view class="local-strip" wx:if="{{localMode}}">仅保存在当前手机，不同步总部</view>
   <view class="quote-steps">
     <button data-target="project" bindtap="jumpToSection">项目</button>
     <button data-target="lines" bindtap="jumpToSection">产品</button>

@@ -1,14 +1,15 @@
-.history-search { display: flex; height: 84rpx; align-items: center; gap: 12rpx; margin-top: 32rpx; border: 1rpx solid #d9cec1; border-radius: 6rpx; padding: 0 20rpx; background: #fffdf9; }
-.history-search text { color: #75685e; font-size: 27rpx; }
-.history-search input { min-width: 0; flex: 1; font-size: 28rpx; }
-.history-list { margin-top: 26rpx; border-top: 1rpx solid #d9cec1; }
-.history-item { width: 100%; min-height: 132rpx; border-bottom: 1rpx solid #d9cec1; padding: 27rpx 4rpx 20rpx; }
+.history-intro { margin-top: 0; padding: 4rpx 2rpx 14rpx; }
+.history-search { display: flex; height: 76rpx; align-items: center; gap: 10rpx; margin-top: 8rpx; border: 1rpx solid #d8d0c7; border-radius: 4rpx; padding: 0 18rpx; background: #fff; }
+.history-search text { color: #75685e; font-size: 24rpx; }
+.history-search input { min-width: 0; flex: 1; font-size: 25rpx; }
+.history-list { margin-top: 20rpx; border-top: 1rpx solid #d9d2cb; }
+.history-item { width: 100%; min-height: 120rpx; border-bottom: 1rpx solid #d9d2cb; padding: 22rpx 2rpx 16rpx; }
 .history-top { display: grid; width: 100%; grid-template-columns: minmax(0, 1fr) auto; gap: 20rpx; }
-.history-top text:first-child { font-size: 27rpx; font-weight: 700; }
-.history-top .money { font-size: 29rpx; }
-.history-meta { display: flex; flex-wrap: wrap; gap: 10rpx 24rpx; margin-top: 16rpx; color: #75685e; font-size: 20rpx; }
-.history-actions { display: flex; justify-content: flex-end; gap: 24rpx; margin-top: 18rpx; }
-.history-actions button { min-width: 96rpx; min-height: 56rpx; margin: 0; border: 1rpx solid #c8b8a8; border-radius: 4rpx; padding: 0 18rpx; background: #fffdf9; color: #5b3928; font-size: 20rpx; line-height: 56rpx; }
+.history-top text:first-child { font-size: 24rpx; font-weight: 700; }
+.history-top .money { font-size: 26rpx; }
+.history-meta { display: flex; flex-wrap: wrap; gap: 8rpx 20rpx; margin-top: 12rpx; color: #75685e; font-size: 18rpx; }
+.history-actions { display: flex; justify-content: flex-end; gap: 12rpx; margin-top: 10rpx; }
+.history-actions button { min-width: 72rpx; min-height: 42rpx; margin: 0; border: 0; border-radius: 2rpx; padding: 0 10rpx; background: transparent; color: #5b3928; font-size: 18rpx; line-height: 42rpx; }
 .history-actions button.is-danger { color: #9a352d; }
-.history-empty { display: grid; justify-items: center; gap: 26rpx; padding: 86rpx 20rpx; color: #75685e; font-size: 23rpx; text-align: center; }
-.history-empty button { min-height: 76rpx; margin: 0; border-radius: 5rpx; padding: 0 28rpx; background: #5b3928; color: #fff; font-size: 22rpx; line-height: 76rpx; }
+.history-empty { display: grid; justify-items: center; gap: 22rpx; padding: 72rpx 18rpx; color: #75685e; font-size: 21rpx; text-align: center; }
+.history-empty button { min-height: 68rpx; margin: 0; border-radius: 4rpx; padding: 0 24rpx; background: #5b3928; color: #fff; font-size: 21rpx; line-height: 68rpx; }
