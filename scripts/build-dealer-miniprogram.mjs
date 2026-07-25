@@ -41,26 +41,8 @@ for (const product of products) {
 
 await mkdir(path.join(target, "data"), { recursive: true });
 await mkdir(path.join(target, "assets"), { recursive: true });
-await mkdir(path.join(target, "vendor"), { recursive: true });
 await writeFile(path.join(target, "data", "products.js"), `module.exports = ${JSON.stringify(catalog)};\n`, "utf8");
 await writeFile(path.join(target, "data", "quote-content.js"), `module.exports = ${JSON.stringify(quoteContent)};\n`, "utf8");
-
-const pptxBundle = (await readFile(path.join(root, "vendor", "pptxgen.bundle.js"), "utf8"))
-  .replace(/\n?\/\/# sourceMappingURL=.*$/gm, "");
-const miniProgramPptxBundle = [
-  "var __woodallModule = module;",
-  "var __woodallExports = exports;",
-  "var global = globalThis;",
-  "var self = globalThis;",
-  "module = undefined;",
-  "exports = undefined;",
-  pptxBundle,
-  "module = __woodallModule;",
-  "exports = __woodallExports;",
-  "module.exports = PptxGenJS;",
-  "",
-].join("\n");
-await writeFile(path.join(target, "vendor", "pptxgenjs.js"), miniProgramPptxBundle, "utf8");
 
 await sharp(path.join(root, "logo", "logo.png"))
   .resize(220, 180, { fit: "inside", withoutEnlargement: true })
@@ -72,4 +54,4 @@ await sharp(path.join(root, "media", "motion-atelier-02-poster.jpg"))
   .jpeg({ quality: 78, chromaSubsampling: "4:2:0", mozjpeg: true })
   .toFile(path.join(target, "assets", "login-floor.jpg"));
 
-console.log(`Dealer mini program assets ready with ${catalog.length} products and export runtime.`);
+console.log(`Dealer mini program assets ready with ${catalog.length} products and dual PDF export.`);

@@ -522,32 +522,27 @@ Page({
   },
   async exportFile(event) {
     const kind = event.currentTarget.dataset.kind;
-    if (!["pdf", "pptx"].includes(kind) || this.data.exportKind) return;
+    if (!["mobile-pdf", "desktop-pdf"].includes(kind) || this.data.exportKind) return;
     const draft = this.validateForExport();
     if (!draft) return;
-    const isPdf = kind === "pdf";
+    const variant = kind === "mobile-pdf" ? "mobile" : "desktop";
+    const edition = variant === "mobile" ? "手机阅览版" : "电脑阅览版";
     this.setData({
       exportKind: kind,
-      exportState: isPdf ? "正在整理 PDF 页面…" : "正在生成可编辑 PPT…",
+      exportState: `正在整理${edition}…`,
     });
     wx.showLoading({ title: "正在生成", mask: true });
     try {
       await this.saveDraft(true);
       await new Promise((resolve) => setTimeout(resolve, 80));
       const totals = quoteUtil.calculate(draft);
-      let bytes;
-      if (isPdf) {
-        const { generatePdf } = require("../../utils/pdf-export");
-        bytes = await generatePdf(draft, totals, this, (current, total) => {
-          this.setData({ exportState: `正在生成 PDF（${current}/${total}）` });
-        });
-      } else {
-        const { generatePptx } = require("../../utils/pptx-export");
-        bytes = await generatePptx(draft, totals);
-      }
+      const { generatePdf } = require("../../utils/pdf-export");
+      const bytes = await generatePdf(draft, totals, this, { variant }, (current, total) => {
+        this.setData({ exportState: `正在生成${edition}（${current}/${total}）` });
+      });
       wx.hideLoading();
       this.setData({ exportState: "文件已生成，正在打开预览…" });
-      const result = await fileExport.writeAndOpen(draft.project.name, kind, bytes);
+      const result = await fileExport.writeAndOpen(draft.project.name, "pdf", bytes, edition);
       this.setData({ exportState: `${result.fileName} 已生成` });
     } catch (error) {
       wx.hideLoading();

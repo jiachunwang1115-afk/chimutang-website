@@ -146,15 +146,19 @@ function buildExportModel(draft, totals, products, content = DEFAULT_CONTENT) {
   };
 }
 
-function safeFileName(projectName, extension) {
+function safeFileName(projectName, extension, edition = "") {
   const project = String(projectName || "未命名项目")
     .replace(/[\\/:*?"<>|]/g, " ")
     .replace(/\s+/g, " ")
     .trim()
     .slice(0, 36) || "未命名项目";
+  const editionLabel = String(edition || "")
+    .replace(/[\\/:*?"<>|]/g, "")
+    .replace(/\s+/g, "")
+    .slice(0, 12);
   const now = new Date();
   const stamp = `${now.getFullYear()}${String(now.getMonth() + 1).padStart(2, "0")}${String(now.getDate()).padStart(2, "0")}`;
-  return `痴木堂-${project}-${stamp}-私定报价.${extension}`;
+  return `痴木堂-${project}-${stamp}-私定报价${editionLabel ? `-${editionLabel}` : ""}.${extension}`;
 }
 
 module.exports = {

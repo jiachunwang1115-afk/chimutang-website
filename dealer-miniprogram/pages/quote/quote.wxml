@@ -126,20 +126,20 @@
     <view class="export-actions">
       <button
         class="export-button"
-        data-kind="pdf"
-        loading="{{exportKind === 'pdf'}}"
+        data-kind="mobile-pdf"
+        loading="{{exportKind === 'mobile-pdf'}}"
         disabled="{{saving || exportKind}}"
         bindtap="exportFile"
-      ><text class="export-type">PDF</text><text>客户版</text></button>
+      ><text class="export-type">PDF</text><text>手机阅览</text></button>
       <button
         class="export-button"
-        data-kind="pptx"
-        loading="{{exportKind === 'pptx'}}"
+        data-kind="desktop-pdf"
+        loading="{{exportKind === 'desktop-pdf'}}"
         disabled="{{saving || exportKind}}"
         bindtap="exportFile"
-      ><text class="export-type">PPT</text><text>可编辑</text></button>
+      ><text class="export-type">PDF</text><text>电脑阅览</text></button>
     </view>
-    <text class="export-note">打开预览后，可通过右上角菜单转发给客户或保存文件。</text>
+    <text class="export-note">手机阅览为竖版长页，电脑阅览为横版提案；打开后可通过右上角菜单转发或保存。</text>
   </view>
 
   <view class="quote-actionbar">
@@ -147,7 +147,8 @@
     <button loading="{{saving}}" disabled="{{saving}}" bindtap="manualSave">保存报价</button>
   </view>
 
-  <canvas class="quote-export-canvas" canvas-id="quoteExportCanvas" width="1280" height="720"></canvas>
+  <canvas class="quote-export-canvas quote-export-canvas-desktop" canvas-id="quoteExportCanvasDesktop" width="1280" height="720"></canvas>
+  <canvas class="quote-export-canvas quote-export-canvas-mobile" canvas-id="quoteExportCanvasMobile" width="900" height="1600"></canvas>
 
   <view class="product-picker-mask" wx:if="{{productPickerOpen}}" catchtap="closeProduct">
     <view class="product-picker" catchtap="noop">

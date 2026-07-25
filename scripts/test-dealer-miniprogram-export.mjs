@@ -31,7 +31,7 @@ try {
   const content = require("./data/quote-content.js");
   const { buildExportModel } = require("./utils/export-model.js");
   const { buildImagePdf } = require("./utils/pdf-writer.js");
-  const { generatePptx } = require("./utils/pptx-export.js");
+  const { FORMATS, buildPages } = require("./utils/pdf-export.js");
 
   const draft = quote.createDraft({
     project: {
@@ -52,24 +52,29 @@ try {
   assert.equal(model.quotePages.length, 1);
   assert(model.pages.length >= 9);
 
-  const pptx = await generatePptx(draft, totals);
-  assert(pptx instanceof Uint8Array);
-  assert.equal(String.fromCharCode(...pptx.slice(0, 4)), "PK\u0003\u0004");
-  assert(pptx.length > 100_000);
+  const mobilePages = buildPages(model, "mobile");
+  const desktopPages = buildPages(model, "desktop");
+  assert.equal(mobilePages.at(-1).kind, "backCover");
+  assert.equal(desktopPages.at(-1).kind, "backCover");
+  assert.equal(FORMATS.mobile.width, 900);
+  assert.equal(FORMATS.mobile.height, 1600);
+  assert.equal(FORMATS.desktop.width, 1280);
+  assert.equal(FORMATS.desktop.height, 720);
 
   const jpeg = new Uint8Array(await readFile(path.join(target, "assets", "login-floor.jpg")));
   const pdf = buildImagePdf([{ bytes: jpeg, width: 960, height: 540 }]);
   assert.equal(String.fromCharCode(...pdf.slice(0, 8)), "%PDF-1.4");
   assert(pdf.length > jpeg.length);
+  const mobilePdf = buildImagePdf([{ bytes: jpeg, width: 900, height: 1600 }], 900, 1600);
+  assert(new TextDecoder("latin1").decode(mobilePdf.slice(0, 400)).includes("/MediaBox [0 0 900 1600]"));
 
   if (process.env.WOODALL_EXPORT_FIXTURE) {
     const outputDir = path.resolve(process.env.WOODALL_EXPORT_FIXTURE);
     await cp(target, path.join(outputDir, "mini-package"), { recursive: true });
-    await writeFile(path.join(outputDir, "woodall-mini-sample.pptx"), pptx);
     await writeFile(path.join(outputDir, "woodall-pdf-writer-sample.pdf"), pdf);
   }
 
-  console.log(`Mini export tests passed: ${model.pages.length} pages, PPTX ${pptx.length} bytes, PDF ${pdf.length} bytes.`);
+  console.log(`Mini export tests passed: mobile ${mobilePages.length} pages, desktop ${desktopPages.length} pages, PDF ${pdf.length} bytes.`);
 } finally {
   delete globalThis.wx;
   await rm(temp, { recursive: true, force: true });

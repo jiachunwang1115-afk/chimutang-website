@@ -73,7 +73,9 @@
 .export-button:active { background: #f2ece4; }
 .export-button .export-type { font-family: Georgia, "Times New Roman", serif; font-size: 20rpx; font-weight: 700; }
 .export-note { display: block; margin-top: 14rpx; color: #8a7f76; font-size: 16rpx; line-height: 1.5; }
-.quote-export-canvas { position: fixed; z-index: -1; top: -10000px; left: -10000px; width: 1280px; height: 720px; opacity: 0; pointer-events: none; }
+.quote-export-canvas { position: fixed; z-index: -1; top: -10000px; left: -10000px; opacity: 0; pointer-events: none; }
+.quote-export-canvas-desktop { width: 1280px; height: 720px; }
+.quote-export-canvas-mobile { width: 900px; height: 1600px; }
 .quote-actionbar { position: fixed; z-index: 30; right: 0; bottom: 0; left: 0; display: grid; width: 100%; grid-template-columns: minmax(0, 1fr) minmax(176rpx, 206rpx); gap: 14rpx; min-height: calc(98rpx + env(safe-area-inset-bottom)); align-items: center; border-top: 1rpx solid #ddd6cf; padding: 10rpx 22rpx calc(10rpx + env(safe-area-inset-bottom)); background: rgba(255, 255, 255, .98); overflow: hidden; }
 .quote-actionbar > view { display: grid; min-width: 0; gap: 5rpx; }
 .quote-actionbar text { color: #75685e; font-size: 18rpx; }

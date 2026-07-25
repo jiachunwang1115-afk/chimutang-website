@@ -28,8 +28,8 @@ function openDocument(filePath, fileType) {
   });
 }
 
-async function writeAndOpen(projectName, extension, data) {
-  const fileName = safeFileName(projectName, extension);
+async function writeAndOpen(projectName, extension, data, edition = "") {
+  const fileName = safeFileName(projectName, extension, edition);
   const filePath = await writeArrayBuffer(fileName, data);
   await openDocument(filePath, extension);
   return { fileName, filePath };
