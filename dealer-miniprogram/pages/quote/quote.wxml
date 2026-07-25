@@ -118,10 +118,36 @@
     <view class="summary-total"><text>报价总额</text><text class="money summary-value">{{totalText}}</text></view>
   </view>
 
+  <view class="export-panel">
+    <view class="export-copy">
+      <text>导出客户文件</text>
+      <text>{{exportState}}</text>
+    </view>
+    <view class="export-actions">
+      <button
+        class="export-button"
+        data-kind="pdf"
+        loading="{{exportKind === 'pdf'}}"
+        disabled="{{saving || exportKind}}"
+        bindtap="exportFile"
+      ><text class="export-type">PDF</text><text>客户版</text></button>
+      <button
+        class="export-button"
+        data-kind="pptx"
+        loading="{{exportKind === 'pptx'}}"
+        disabled="{{saving || exportKind}}"
+        bindtap="exportFile"
+      ><text class="export-type">PPT</text><text>可编辑</text></button>
+    </view>
+    <text class="export-note">打开预览后，可通过右上角菜单转发给客户或保存文件。</text>
+  </view>
+
   <view class="quote-actionbar">
     <view><text>报价总额</text><text class="money action-total">{{totalText}}</text></view>
     <button loading="{{saving}}" disabled="{{saving}}" bindtap="manualSave">保存报价</button>
   </view>
+
+  <canvas class="quote-export-canvas" canvas-id="quoteExportCanvas" width="1280" height="720"></canvas>
 
   <view class="product-picker-mask" wx:if="{{productPickerOpen}}" catchtap="closeProduct">
     <view class="product-picker" catchtap="noop">

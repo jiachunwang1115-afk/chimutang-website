@@ -36,7 +36,7 @@ assert.equal(serverTotals.totalBillableArea, clientTotals.totalBillableArea);
 
 const miniRoot = path.join(root, "dealer-miniprogram");
 const miniConfig = JSON.parse(await readFile(path.join(miniRoot, "app.json"), "utf8"));
-const miniTags = new Set(["view", "text", "image", "button", "input", "textarea", "picker", "scroll-view", "label", "block"]);
+const miniTags = new Set(["view", "text", "image", "button", "input", "textarea", "picker", "scroll-view", "label", "block", "canvas"]);
 for (const page of miniConfig.pages) {
   for (const extension of ["js", "json", "wxml", "wxss"]) await access(path.join(miniRoot, `${page}.${extension}`));
   const wxml = await readFile(path.join(miniRoot, `${page}.wxml`), "utf8");

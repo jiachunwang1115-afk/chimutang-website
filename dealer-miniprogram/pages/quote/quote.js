@@ -3,6 +3,7 @@ const quoteUtil = require("../../utils/quote");
 const products = require("../../data/products");
 const quoteCopy = require("../../data/quote-copy");
 const voiceField = require("../../utils/voice-field");
+const fileExport = require("../../utils/file-export");
 
 const money = (cents) => `¥${(Number(cents || 0) / 100).toLocaleString("zh-CN", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
 const shortSeries = (value) => String(value || "").split("（")[0] || "系列待确认";
@@ -72,6 +73,8 @@ Page({
     voiceRecording: false,
     voiceRecognizing: false,
     voiceTargetKey: "",
+    exportKind: "",
+    exportState: "生成后可直接预览、转发或保存到手机",
   },
   async onLoad(options) {
     let draft = wx.getStorageSync("woodallEditQuote") || quoteUtil.createDraft();
@@ -507,6 +510,59 @@ Page({
       return;
     }
     await this.saveDraft(false);
+  },
+  validateForExport() {
+    const draft = this.cleanDraft();
+    const errors = quoteUtil.validate(draft, products);
+    if (!errors.length) return draft;
+    const first = errors[0];
+    wx.showModal({ title: "请完善报价", content: first.message, showCancel: false });
+    wx.pageScrollTo({ selector: `#${first.path}`, duration: 260 });
+    return null;
+  },
+  async exportFile(event) {
+    const kind = event.currentTarget.dataset.kind;
+    if (!["pdf", "pptx"].includes(kind) || this.data.exportKind) return;
+    const draft = this.validateForExport();
+    if (!draft) return;
+    const isPdf = kind === "pdf";
+    this.setData({
+      exportKind: kind,
+      exportState: isPdf ? "正在整理 PDF 页面…" : "正在生成可编辑 PPT…",
+    });
+    wx.showLoading({ title: "正在生成", mask: true });
+    try {
+      await this.saveDraft(true);
+      await new Promise((resolve) => setTimeout(resolve, 80));
+      const totals = quoteUtil.calculate(draft);
+      let bytes;
+      if (isPdf) {
+        const { generatePdf } = require("../../utils/pdf-export");
+        bytes = await generatePdf(draft, totals, this, (current, total) => {
+          this.setData({ exportState: `正在生成 PDF（${current}/${total}）` });
+        });
+      } else {
+        const { generatePptx } = require("../../utils/pptx-export");
+        bytes = await generatePptx(draft, totals);
+      }
+      wx.hideLoading();
+      this.setData({ exportState: "文件已生成，正在打开预览…" });
+      const result = await fileExport.writeAndOpen(draft.project.name, kind, bytes);
+      this.setData({ exportState: `${result.fileName} 已生成` });
+    } catch (error) {
+      wx.hideLoading();
+      const message = String(error?.message || error?.errMsg || "文件生成失败")
+        .replace(/^Error:\s*/i, "")
+        .slice(0, 180);
+      this.setData({ exportState: "生成未完成，报价草稿已保留" });
+      wx.showModal({
+        title: "暂未生成文件",
+        content: `${message}\n\n报价内容已经保存，可以稍后重新生成。`,
+        showCancel: false,
+      });
+    } finally {
+      this.setData({ exportKind: "" });
+    }
   },
   async saveDraft(silent) {
     clearTimeout(this.saveTimer);

@@ -8,6 +8,7 @@
     "preview": "node scripts/serve-static.mjs",
     "test:quote": "node scripts/test-dealer-quote.mjs",
     "test:dealer-system": "node scripts/test-dealer-system.mjs",
+    "test:miniprogram-export": "node scripts/test-dealer-miniprogram-export.mjs",
     "fixtures:quote": "node scripts/generate-quote-fixtures.mjs",
     "build:miniprogram": "node scripts/build-dealer-miniprogram.mjs"
   },

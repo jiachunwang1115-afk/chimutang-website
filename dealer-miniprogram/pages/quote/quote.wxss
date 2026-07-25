@@ -64,6 +64,16 @@
 .quote-summary .summary-value { color: #2e251f; font-weight: 700; }
 .quote-summary .summary-total { min-height: 78rpx; border-top: 1rpx solid #d9d2cb; color: #2e251f; font-size: 23rpx; }
 .quote-summary .summary-total .summary-value { font-size: 34rpx; }
+.export-panel { margin-top: 24rpx; border: 1rpx solid #d9d2cb; border-radius: 4rpx; padding: 22rpx 20rpx 20rpx; background: #fffdf9; }
+.export-copy { display: grid; gap: 7rpx; }
+.export-copy > text:first-child { color: #2e251f; font-size: 23rpx; font-weight: 700; }
+.export-copy > text:last-child { color: #75685e; font-size: 18rpx; line-height: 1.5; }
+.export-actions { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12rpx; margin-top: 18rpx; }
+.export-button { display: flex; min-height: 66rpx; align-items: center; justify-content: center; gap: 10rpx; margin: 0; border: 1rpx solid #bfae9f; border-radius: 4rpx; padding: 0 16rpx; background: transparent; color: #5b3928; font-size: 19rpx; line-height: 66rpx; }
+.export-button:active { background: #f2ece4; }
+.export-button .export-type { font-family: Georgia, "Times New Roman", serif; font-size: 20rpx; font-weight: 700; }
+.export-note { display: block; margin-top: 14rpx; color: #8a7f76; font-size: 16rpx; line-height: 1.5; }
+.quote-export-canvas { position: fixed; z-index: -1; top: -10000px; left: -10000px; width: 1280px; height: 720px; opacity: 0; pointer-events: none; }
 .quote-actionbar { position: fixed; z-index: 30; right: 0; bottom: 0; left: 0; display: grid; width: 100%; grid-template-columns: minmax(0, 1fr) minmax(176rpx, 206rpx); gap: 14rpx; min-height: calc(98rpx + env(safe-area-inset-bottom)); align-items: center; border-top: 1rpx solid #ddd6cf; padding: 10rpx 22rpx calc(10rpx + env(safe-area-inset-bottom)); background: rgba(255, 255, 255, .98); overflow: hidden; }
 .quote-actionbar > view { display: grid; min-width: 0; gap: 5rpx; }
 .quote-actionbar text { color: #75685e; font-size: 18rpx; }
