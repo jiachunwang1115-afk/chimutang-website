@@ -9,7 +9,7 @@ const DEFAULT_CONTENT = {
   },
   series: {},
   service: { headline: "把选择，落到完成面", summary: "", steps: [] },
-  contact: { company: "痴木堂 WOOD ALL", phone: "0575-85666148", wechat: "deku", website: "www.woodall.design" },
+  contact: { company: "痴木堂 WOOD ALL", wechat: "deku", website: "www.woodall.design" },
   quote: {
     scopeNote: "本提案所列产品、面积与服务范围，是后续复尺、选样与合同确认的依据。",
     naturalMaterialNote: "天然木材存在合理色差、纹理与结疤差异，最终以确认样与到货实物为准。",

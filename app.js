@@ -1,7 +1,6 @@
 // ===== ROUTING =====
 var ROUTES=['#home','#products','#series','#craft','#journal','#cases','#about','#service','#contact'];
 var CONTACT_CHANNELS={
-  phone:{label:'0575-85666148',href:'tel:+8657585666148'},
   wechat:{label:'deku',type:'qr',asset:'media/contact-wechat-deku.jpg'},
   xiaohongshu:{label:'49959364923',href:'https://www.xiaohongshu.com/search_result?keyword=49959364923'},
   douyin:{label:'43639161265',href:'https://www.douyin.com/search/43639161265'}
@@ -3446,7 +3445,7 @@ function initImmersiveLuxe(){
     luxeItems.forEach(function(el){el.classList.add('is-visible')});
   }
 
-  document.querySelectorAll('.luxe-brief-strip a,.selection-command-steps a,.contact-luxe-lead a').forEach(function(link){
+  document.querySelectorAll('.luxe-brief-strip a,.selection-command-steps a,.contact-luxe-lead :is(a,button)').forEach(function(link){
     link.addEventListener('click',function(){
       document.body.classList.add('luxe-routing');
       window.setTimeout(function(){document.body.classList.remove('luxe-routing')},420);

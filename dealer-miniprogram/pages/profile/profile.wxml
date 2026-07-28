@@ -6,8 +6,7 @@
   </view>
   <view class="profile-list">
     <view><text>数据状态</text><text>{{syncText}}</text></view>
-    <view bindtap="copyWebsite"><text>网页版工具</text><text>复制访问地址 ›</text></view>
-    <view><text>总部电话</text><text>0575-85666148</text></view>
+    <view bindtap="copyWebsite"><text>网页版报价</text><text>复制访问地址 ›</text></view>
   </view>
   <button class="outline-button logout" bindtap="logout">{{localMode ? '退出体验模式' : '退出当前账号'}}</button>
   <view class="bottom-nav">

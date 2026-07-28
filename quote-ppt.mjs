@@ -533,9 +533,8 @@ function termsSlide(pptx, model, page) {
   slide.addText("WOOD ALL", { x: 9.15, y: 1.66, w: 2.4, h: 0.24, fontFace: LATIN_FONT, fontSize: 11, color: "D8C6B7", charSpacing: 2.2, margin: 0 });
   slide.addShape("line", { x: 9.15, y: 2.3, w: 2.85, h: 0, line: { color: "8A6954", width: 0.8 } });
   slide.addText("让木材的真实，\n成为空间的分寸。", { x: 9.12, y: 2.72, w: 3.2, h: 0.9, fontFace: TITLE_FONT, fontSize: 22, color: C.white, margin: 0, breakLine: true });
-  addLabelValue(slide, "电话", model.content.contact.phone, 9.15, 4.45, 2.8, { dark: true, size: 18, latin: true });
-  addLabelValue(slide, "微信", model.content.contact.wechat, 9.15, 5.27, 1.4, { dark: true, size: 17, latin: true });
-  addLabelValue(slide, "官网", model.content.contact.website.replace(/^www\./, ""), 10.72, 5.27, 1.8, { dark: true, size: 14, latin: true });
+  addLabelValue(slide, "微信", model.content.contact.wechat, 9.15, 4.45, 2.8, { dark: true, size: 18, latin: true });
+  addLabelValue(slide, "官网", model.content.contact.website.replace(/^www\./, ""), 9.15, 5.27, 2.8, { dark: true, size: 14, latin: true });
   slide.addText(model.content.quote.naturalMaterialNote, {
     x: 9.15, y: 6.35, w: 3.15, h: 0.54, fontFace: BODY_FONT, fontSize: 11,
     color: "C9B7A8", margin: 0, fit: "shrink", breakLine: true,
@@ -557,7 +556,7 @@ function backCoverSlide(pptx, model, assets) {
     x: 9.72, y: 6.02, w: 2.85, h: 0.22, fontFace: LATIN_FONT, fontSize: 10,
     color: "CDBCB0", align: "right", margin: 0,
   });
-  slide.addText(model.content.contact.phone, {
+  slide.addText(`微信 ${model.content.contact.wechat}`, {
     x: 9.72, y: 6.42, w: 2.85, h: 0.22, fontFace: LATIN_FONT, fontSize: 10,
     color: "CDBCB0", align: "right", margin: 0,
   });

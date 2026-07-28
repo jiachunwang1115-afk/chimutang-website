@@ -376,18 +376,15 @@ function drawDesktopTerms(ctx, model, pageNumber) {
   drawTextBlock(ctx, model.content.quote.naturalMaterialNote, 74, 535, 690, { size: 16, lineHeight: 26, color: C.muted, maxLines: 3 });
   drawBox(ctx, 820, 205, 390, 385);
   setText(ctx, 28, C.ink, "left", true);
-  ctx.fillText("总部联系", 852, 242);
+  ctx.fillText("联系咨询", 852, 242);
   setText(ctx, 15, C.muted);
-  ctx.fillText("电话", 852, 330);
+  ctx.fillText("微信", 852, 330);
   setText(ctx, 28, C.brown);
-  ctx.fillText(model.content.contact.phone, 852, 365);
+  ctx.fillText(model.content.contact.wechat, 852, 365);
   setText(ctx, 15, C.muted);
-  ctx.fillText("微信", 852, 450);
-  ctx.fillText("官网", 1030, 450);
-  setText(ctx, 21, C.ink, "left", true);
-  ctx.fillText(model.content.contact.wechat, 852, 485);
+  ctx.fillText("官网", 852, 450);
   setText(ctx, 17, C.ink, "left", true);
-  ctx.fillText(model.content.contact.website, 1030, 488);
+  ctx.fillText(model.content.contact.website, 852, 488);
   setText(ctx, 15, C.muted);
   ctx.fillText("痴木堂  WOOD ALL", 852, 548);
   drawDesktopFooter(ctx, pageNumber);
@@ -405,7 +402,7 @@ function drawDesktopBackCover(ctx, model) {
   ctx.fillText("痴木堂  WOOD ALL", 70, 580);
   setText(ctx, 14, C.darkMuted, "right");
   ctx.fillText(model.content.contact.website.replace(/^www\./, ""), 1210, 578);
-  ctx.fillText(model.content.contact.phone, 1210, 616);
+  ctx.fillText(`微信 ${model.content.contact.wechat}`, 1210, 616);
 }
 
 function drawDesktopPage(ctx, model, page, pageNumber) {
@@ -652,11 +649,10 @@ function drawMobileTerms(ctx, model, pageNumber) {
   drawTextBlock(ctx, model.content.quote.naturalMaterialNote, 60, 1170, 780, { size: 21, lineHeight: 34, color: C.muted, maxLines: 3 });
   drawBox(ctx, 60, 1300, 780, 180, C.brown, C.brown);
   setText(ctx, 21, "#d8c6b7");
-  ctx.fillText("总部联系", 90, 1330);
+  ctx.fillText("联系咨询", 90, 1330);
   setText(ctx, 31, C.white, "left", true);
-  ctx.fillText(model.content.contact.phone, 90, 1375);
+  ctx.fillText(`微信 ${model.content.contact.wechat}`, 90, 1375);
   setText(ctx, 21, "#d8c6b7", "right");
-  ctx.fillText(`微信 ${model.content.contact.wechat}`, 810, 1335);
   ctx.fillText(model.content.contact.website, 810, 1382);
   drawMobileFooter(ctx, pageNumber);
 }
@@ -679,7 +675,7 @@ function drawMobileBackCover(ctx, model) {
   drawRule(ctx, 60, 1290, 170, "#8a6954", 2);
   setText(ctx, 24, C.darkMuted);
   ctx.fillText(model.content.contact.website.replace(/^www\./, ""), 60, 1350);
-  ctx.fillText(model.content.contact.phone, 60, 1400);
+  ctx.fillText(`微信 ${model.content.contact.wechat}`, 60, 1400);
   setText(ctx, 18, "#9f8d81", "right");
   ctx.fillText("WOOD ALL  ·  PRIVATE WOODWORK", 840, 1510);
 }
